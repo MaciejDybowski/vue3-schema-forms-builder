@@ -7,6 +7,15 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ElementsDrawer: typeof import('./src/components/elements-drawer/ElementsDrawer.vue')['default']
     FormBuilder: typeof import('./src/components/FormBuilder.vue')['default']
+    MainCanvas: typeof import('./src/components/main-canvas/MainCanvas.vue')['default']
+    MainCanvasToolboxLeft: typeof import('./src/components/main-canvas/MainCanvasToolboxLeft.vue')['default']
+    MainCanvasToolboxRight: typeof import('./src/components/main-canvas/MainCanvasToolboxRight.vue')['default']
+    MainPlain: typeof import('./src/components/main-plain/MainPlain.vue')['default']
+    MainPlainToolbox: typeof import('./src/components/main-plain/MainPlainToolbox.vue')['default']
+    MainPlainToolboxLeft: typeof import('./src/components/main-plain/MainPlainToolboxLeft.vue')['default']
+    MainPlainToolboxRight: typeof import('./src/components/main-plain/MainPlainToolboxRight.vue')['default']
+    PropertiesDrawer: typeof import('./src/components/properties-drawer/PropertiesDrawer.vue')['default']
   }
 }
