@@ -1,0 +1,1 @@
+export type CanvasMode = "DESKTOP" | "TABLET" | "MOBILE"
