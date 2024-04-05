@@ -1,47 +1,74 @@
-// Plugins
-import Components from 'unplugin-vue-components/vite'
-import Vue from '@vitejs/plugin-vue'
-import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import ViteFonts from 'unplugin-fonts/vite'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import * as path from "path";
+import typescript2 from "rollup-plugin-typescript2";
+import dts from "vite-plugin-dts";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
+import { exec } from "node:child_process";
 
-// Utilities
-import { defineConfig } from 'vite'
-import { fileURLToPath, URL } from 'node:url'
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    Vue({
-      template: { transformAssetUrls },
+    peerDepsExternal(),
+    vue(),
+    VueI18nPlugin({}),
+    dts({
+      insertTypesEntry: true,
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
-    Vuetify(),
-    Components(),
-    ViteFonts({
-      google: {
-        families: [{
-          name: 'Roboto',
-          styles: 'wght@100;300;400;500;700;900',
-        }],
+    typescript2({
+      check: false,
+      include: ["src/components/**/*.vue"],
+      tsconfigOverride: {
+        compilerOptions: {
+          outDir: "dist",
+          sourceMap: true,
+          declaration: true,
+          declarationMap: true,
+        },
       },
+      exclude: ["vite.config.ts"],
     }),
+    {
+      name: "include-global-components-types",
+      closeBundle: async () => {
+        exec("cat src/global-components.d.ts >> dist/main.d.ts")
+        console.log("Components type added")
+      },
+    },
   ],
-  define: { 'process.env': {} },
+
+  build: {
+    cssCodeSplit: true,
+    sourcemap: true,
+    lib: {
+      // Could also be a dictionary or array of multiple entry points
+      entry: "src/main.ts",
+      name: "vue3-schema-forms-builder",
+      formats: ["es", "cjs", "umd"],
+      fileName: (format) => `main.${format}.js`,
+    },
+    rollupOptions: {
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      input: {
+        main: path.resolve(__dirname, "src/main.ts"),
+      },
+      external: ["vue"],
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === "main.css") return "style.css";
+          return assetInfo.name;
+        },
+        exports: "named",
+        globals: {
+          vue: "Vue",
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      "@": path.resolve(__dirname, "src"),
     },
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ],
-  },
-  server: {
-    port: 3000,
   },
 })
