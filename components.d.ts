@@ -7,15 +7,23 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ColBtn: typeof import('./src/components/properties-drawer/atoms/ColBtn.vue')['default']
+    ColProperty: typeof import('./src/components/properties-drawer/atoms/ColProperty.vue')['default']
+    DevelopmentTable: typeof import('./src/components/storybook-components/DevelopmentTable.vue')['default']
+    DraggableArea: typeof import('./src/components/builder/DraggableArea.vue')['default']
     ElementsDrawer: typeof import('./src/components/elements-drawer/ElementsDrawer.vue')['default']
+    FieldWrapper: typeof import('./src/components/builder/FieldWrapper.vue')['default']
+    FieldWrapperItem: typeof import('./src/components/builder/FieldWrapperItem.vue')['default']
+    FieldWrapperToolbar: typeof import('./src/components/builder/FieldWrapperToolbar.vue')['default']
+    FieldWrapperToolbarBtn: typeof import('./src/components/builder/FieldWrapperToolbarBtn.vue')['default']
+    FieldWrapperToolbarLabel: typeof import('./src/components/builder/FieldWrapperToolbarLabel.vue')['default']
     FormBuilder: typeof import('./src/components/FormBuilder.vue')['default']
+    FormNodeMock: typeof import('./src/components/builder/FormNodeMock.vue')['default']
+    LoadingView: typeof import('./src/components/storybook-components/LoadingView.vue')['default']
     MainCanvas: typeof import('./src/components/main-canvas/MainCanvas.vue')['default']
     MainCanvasToolboxLeft: typeof import('./src/components/main-canvas/MainCanvasToolboxLeft.vue')['default']
     MainCanvasToolboxRight: typeof import('./src/components/main-canvas/MainCanvasToolboxRight.vue')['default']
-    MainPlain: typeof import('./src/components/main-plain/MainPlain.vue')['default']
-    MainPlainToolbox: typeof import('./src/components/main-plain/MainPlainToolbox.vue')['default']
-    MainPlainToolboxLeft: typeof import('./src/components/main-plain/MainPlainToolboxLeft.vue')['default']
-    MainPlainToolboxRight: typeof import('./src/components/main-plain/MainPlainToolboxRight.vue')['default']
     PropertiesDrawer: typeof import('./src/components/properties-drawer/PropertiesDrawer.vue')['default']
+    PropsViewer: typeof import('./src/components/main-canvas/PropsViewer.vue')['default']
   }
 }
