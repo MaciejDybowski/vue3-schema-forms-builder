@@ -1,13 +1,30 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.1",
+  "version": "0.0.1-snapshot-1",
+  "description": "Vue Schema Form Builder",
+  "main": "dist/main.umd.js",
+  "publishConfig": {
+    "registry": "https://nexus3.tecna.pl/repository/npm-private-releases/"
+  },
+  "module": "dist/main.es.js",
+  "types": "dist/components/main.d.ts",
+  "type": "module",
+  "files": [
+    "dist/*"
+  ],
+
+
+
   "scripts": {
     "dev": "vite",
+    "only-build": "vite build",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private/"
+    "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private/",
+    "tecna-publish-snapshot": "npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases"
+
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
@@ -45,6 +62,10 @@
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.0.0",
     "vite-plugin-vuetify": "^2.0.0",
-    "vue-tsc": "^1.8.0"
+    "vue-tsc": "^1.8.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "vite-plugin-dts": "^3.7.2",
+    "@intlify/unplugin-vue-i18n": "^1.5.0"
   }
 }
