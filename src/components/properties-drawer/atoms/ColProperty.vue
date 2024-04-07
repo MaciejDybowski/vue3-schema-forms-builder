@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
+import ColBtn from "../../properties-drawer/atoms/ColBtn.vue";
 
 const modelValue = defineModel()
 </script>

@@ -26,11 +26,11 @@
 
 <script setup lang="ts">
 
-import FieldWrapperToolbarLabel from "@/components/builder/FieldWrapperToolbarLabel.vue";
-import FieldWrapperToolbarBtn from "@/components/builder/FieldWrapperToolbarBtn.vue";
-import {useDrawers} from "@/composables/useDrawers";
+import FieldWrapperToolbarLabel from "./FieldWrapperToolbarLabel.vue";
+import FieldWrapperToolbarBtn from "./FieldWrapperToolbarBtn.vue";
+import {useDrawers} from "../../composables/useDrawers";
 
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "../../pinia/stores/useBuilderState";
 
 const props = defineProps<{
   element: any

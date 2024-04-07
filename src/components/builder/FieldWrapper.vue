@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
-import FieldWrapperItem from "@/components/builder/FieldWrapperItem.vue";
+import FieldWrapperItem from "./FieldWrapperItem.vue";
 import {SchemaField} from "vue3-schema-forms/dist/vocabulary/schema/elements";
 
 const props = defineProps<{

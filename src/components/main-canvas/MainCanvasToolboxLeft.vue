@@ -51,9 +51,9 @@
 </template>
 
 <script setup lang="ts">
-import {useCanvas} from "@/composables/useCanvas";
-import {useDrawers} from "@/composables/useDrawers";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useCanvas} from "../../composables/useCanvas";
+import {useDrawers} from "../../composables/useDrawers";
+import {useBuilderState} from "../../pinia/stores/useBuilderState";
 
 
 const canvas = useCanvas()

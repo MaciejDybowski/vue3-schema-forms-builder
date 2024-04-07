@@ -5,6 +5,9 @@
     permament
     order="3"
     scrim="transparent"
+    class="element-drawer"
+    style="top: 65px; height: 100%"
+
   >
     <v-list>
       <v-list-item density="compact">
@@ -76,7 +79,7 @@
 
 <script setup lang="ts">
 import draggable from 'vuedraggable'
-import {useDrawers} from "@/composables/useDrawers";
+import {useDrawers} from "../../composables/useDrawers";
 import {ref} from "vue";
 
 const drawers = useDrawers();
@@ -185,6 +188,7 @@ const layoutElements = ref([
 function cloneControls(item: Controls) {
   const id = generateKey(item.component)
   const schemaElement = {
+    formId: '333',
     key: id,
     label: "Item-" + id,
     layout: {

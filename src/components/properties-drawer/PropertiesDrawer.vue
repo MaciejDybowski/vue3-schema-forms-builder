@@ -6,6 +6,7 @@
     order="3"
     location="right"
     scrim="transparent"
+    style="top: 65px; height: 100%"
 
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
@@ -38,15 +39,16 @@
 </template>
 
 <script setup lang="ts">
-import {useDrawers} from "@/composables/useDrawers";
+import {useDrawers} from "../../composables/useDrawers";
 import {computed} from "vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import ColProperty from "../../components/properties-drawer/atoms/ColProperty.vue";
+import {useBuilderState} from "../../pinia/stores/useBuilderState";
+import {VTextField} from "vuetify/components";
 
-const fieldProps = {
+const fieldProps: Partial<VTextField> = {
   density: "comfortable",
   variant: "outlined",
-  "hide-details": "auto",
+  hideDetails: "auto",
 }
 
 const drawers = useDrawers();

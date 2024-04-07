@@ -1,6 +1,6 @@
 <template>
   <v-card
-    height="100%"
+    style="min-height: calc(100vh - 65px)"
     elevation="2"
     class="pa-4"
   >
@@ -9,25 +9,27 @@
       class="py-8"
     />
 
-    <props-viewer
-      :draggable="controls"
-      :schema="schema"
-    />
+<!--    <props-viewer-->
+<!--      :draggable="controls"-->
+<!--      :schema="schema"-->
+<!--    />-->
   </v-card>
 </template>
 
 <script setup lang="ts">
 import {computed, getCurrentInstance, onMounted, ref, watch} from "vue";
 
-
 import {formControls} from "vue3-schema-forms"
-import DraggableArea from "@/components/builder/DraggableArea.vue";
-import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
+import {schemaFormModelStoreTest} from "vue3-schema-forms";
+
+import DraggableArea from "../builder/DraggableArea.vue";
+//import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
 
 import {cloneDeep} from "lodash";
 
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "../../pinia/stores/useBuilderState";
 
+const mockStore = schemaFormModelStoreTest.useFormModelStore("123")
 const instance = getCurrentInstance();
 for (const [name, comp] of Object.entries(formControls)) {
   //@ts-ignore
@@ -37,6 +39,8 @@ for (const [name, comp] of Object.entries(formControls)) {
     instance?.appContext.app.component(`node-${name}`, comp);
   }
 }
+
+
 const useBuilderStateStore = useBuilderState()
 
 const controls = computed({

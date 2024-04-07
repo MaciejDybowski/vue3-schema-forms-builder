@@ -1,4 +1,4 @@
-import { useAppConfig } from "@/pinia/stores/useAppConfig";
+import { useAppConfig } from "../pinia/stores/useAppConfig";
 import { computed } from "vue";
 
 export function useDrawers() {
