@@ -1,8 +1,8 @@
 import "@vue/runtime-core";
-import FormBuilder from "@/components/FormBuilder.vue";
+import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue";
 
 declare module "@vue/runtime-core" {
   export interface GlobalComponents {
-    FormBuilder: typeof FormBuilder
+    VueSchemaFormsBuilder: typeof VueSchemaFormsBuilder
   }
 }

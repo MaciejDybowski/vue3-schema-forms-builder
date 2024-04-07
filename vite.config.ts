@@ -3,13 +3,11 @@ import vue from "@vitejs/plugin-vue";
 import * as path from "path";
 import typescript2 from "rollup-plugin-typescript2";
 import dts from "vite-plugin-dts";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import { exec } from "node:child_process";
 
 export default defineConfig({
   plugins: [
-    peerDepsExternal(),
     vue(),
     VueI18nPlugin({}),
     dts({
@@ -48,20 +46,18 @@ export default defineConfig({
       fileName: (format) => `main.${format}.js`,
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
       input: {
-        main: path.resolve(__dirname, "src/main.ts"),
+        main: path.resolve(__dirname, 'src/main.ts'),
       },
-      external: ["vue"],
+      external: ['vue', 'vue-i18n', 'vuetify', 'vuedraggable', 'axios', 'pinia', "dayjs"],
       output: {
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === "main.css") return "style.css";
+          if (assetInfo.name === 'main.css') return 'style.css';
           return assetInfo.name;
         },
-        exports: "named",
+        exports: 'named',
         globals: {
-          vue: "Vue",
+          vue: 'Vue'
         },
       },
     },

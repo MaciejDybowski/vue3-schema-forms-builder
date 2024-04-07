@@ -1,5 +1,5 @@
-import FormBuilder from "./FormBuilder.vue";
+import VueSchemaFormsBuilder from "./VueSchemaFormsBuilder.vue";
 
 export default {
-  FormBuilder: FormBuilder
+  VueSchemaFormsBuilder: VueSchemaFormsBuilder
 }

@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 
-import DraggableArea from "@/components/builder/DraggableArea.vue";
+import DraggableArea from "./DraggableArea.vue";
 import {ref, watch} from "vue";
 
 const props = defineProps<{

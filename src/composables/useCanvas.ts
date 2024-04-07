@@ -1,5 +1,5 @@
-import { CanvasMode } from "@/models/CanvasMode";
-import { useAppConfig } from "@/pinia/stores/useAppConfig";
+import { CanvasMode } from "../models/CanvasMode";
+import { useAppConfig } from "../pinia/stores/useAppConfig";
 import { computed } from "vue";
 
 export function useCanvas() {
@@ -13,6 +13,6 @@ export function useCanvas() {
       appConfig.setCanvasMode(mode)
     },
   });
- 
+
   return { canvasMode };
 }

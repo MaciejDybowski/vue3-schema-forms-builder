@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDrawers } from "@/composables/useDrawers";
+import { useDrawers } from "../../composables/useDrawers";
 
 const drawers = useDrawers();
 </script>

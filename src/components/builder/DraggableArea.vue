@@ -16,7 +16,7 @@
 <script setup lang="ts">
 
 import draggable from 'vuedraggable'
-import FieldWrapper from "@/components/builder/FieldWrapper.vue";
+import FieldWrapper from "../builder/FieldWrapper.vue";
 
 const modelValue = defineModel<any[]>()
 

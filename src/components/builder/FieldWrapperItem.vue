@@ -15,10 +15,10 @@
 <script setup lang="ts">
 import {computed, useAttrs} from "vue";
 
-import {useDrawers} from "@/composables/useDrawers";
-import FieldWrapperToolbar from "@/components/builder/FieldWrapperToolbar.vue";
-import FormNodeMock from "@/components/builder/FormNodeMock.vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useDrawers} from "../../composables/useDrawers";
+import FieldWrapperToolbar from "./FieldWrapperToolbar.vue";
+import FormNodeMock from "./FormNodeMock.vue";
+import {useBuilderState} from "../../pinia/stores/useBuilderState";
 
 const props = defineProps<{
   isHovering: boolean | undefined
