@@ -9,10 +9,10 @@
       class="py-8"
     />
 
-<!--    <props-viewer-->
-<!--      :draggable="controls"-->
-<!--      :schema="schema"-->
-<!--    />-->
+    <props-viewer
+      :draggable="controls"
+      :schema="modelValue"
+    />
   </v-card>
 </template>
 
@@ -20,16 +20,16 @@
 import {computed, getCurrentInstance, onMounted, ref, watch} from "vue";
 
 import {formControls} from "vue3-schema-forms"
-import {schemaFormModelStoreTest} from "vue3-schema-forms";
+import {schemaFormModelStoreInit} from "vue3-schema-forms";
 
 import DraggableArea from "../builder/DraggableArea.vue";
-//import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
+import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
 
 import {cloneDeep} from "lodash";
 
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
 
-const mockStore = schemaFormModelStoreTest.useFormModelStore("123")
+const mockStore = schemaFormModelStoreInit.useFormModelStore("123")
 const instance = getCurrentInstance();
 for (const [name, comp] of Object.entries(formControls)) {
   //@ts-ignore
@@ -40,6 +40,10 @@ for (const [name, comp] of Object.entries(formControls)) {
   }
 }
 
+let modelValue = defineModel()
+onMounted(() => {
+  console.info("Montuję MainCanvas")
+})
 
 const useBuilderStateStore = useBuilderState()
 
@@ -52,25 +56,48 @@ const controls = computed({
   }
 })
 
-const schema = ref({
-  type: "object",
-  properties: {},
-})
+// const schema = ref({
+//   type: "object",
+//   properties: {},
+// })
 
 watch(controls, () => {
-  schema.value.properties = {}
+  //schema.value.properties = {}
   mapToSchema()
+
+  //modelValue.value = schema.value
+
+
 }, {deep: true})
 
 onMounted(() => {
-  schema.value.properties = {}
-  mapToSchema()
+  //schema.value.properties = {}
+  mapToDraggable()
+  //mapToSchema()
+  //modelValue.value = schema.value
 })
 
 function mapToSchema() {
   controls.value.forEach((control: any) => {
-    mapField(schema.value, control)
+    mapField(modelValue.value, control)
   })
+}
+
+function mapToDraggable(){
+  for (const [key, value] of Object.entries(modelValue.value.properties)) {
+    console.log(`${key}: ${value}`);
+
+    controls.value.push(
+      {
+        formId: '333',
+        key: key,
+        ...value,
+        "on": {
+          "input": (e) => { }
+        }
+      }
+    )
+  }
 }
 
 function mapField(schema: any, control: any) {
@@ -96,6 +123,7 @@ function mapField(schema: any, control: any) {
       // TODO == obsługa różnego rodzaju pól w tym sekcji powielanej
       const clone = cloneDeep(control)
       const k = clone.key
+      delete clone.formId
       delete clone.key
       delete clone.on
       schema.properties[k] = clone
