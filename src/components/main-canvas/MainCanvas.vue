@@ -9,27 +9,27 @@
       class="py-8"
     />
 
-    <props-viewer
-      :draggable="controls"
-      :schema="modelValue"
-    />
+<!--    <props-viewer-->
+<!--      :draggable="controls"-->
+<!--      :schema="modelValue"-->
+<!--    />-->
   </v-card>
 </template>
 
 <script setup lang="ts">
-import {computed, getCurrentInstance, onMounted, ref, watch} from "vue";
+import {computed, getCurrentInstance, onBeforeMount, onMounted, ref, watch} from "vue";
 
 import {formControls} from "vue3-schema-forms"
 import {schemaFormModelStoreInit} from "vue3-schema-forms";
 
 import DraggableArea from "../builder/DraggableArea.vue";
-import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
+//import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
 
 import {cloneDeep} from "lodash";
 
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
 
-const mockStore = schemaFormModelStoreInit.useFormModelStore("123")
+
 const instance = getCurrentInstance();
 for (const [name, comp] of Object.entries(formControls)) {
   //@ts-ignore
@@ -40,10 +40,12 @@ for (const [name, comp] of Object.entries(formControls)) {
   }
 }
 
-let modelValue = defineModel()
-onMounted(() => {
-  console.info("Montuję MainCanvas")
-})
+
+let modelValue = defineModel<{
+  type: "object",
+  properties: any
+}>()
+
 
 const useBuilderStateStore = useBuilderState()
 
@@ -58,26 +60,11 @@ const controls = computed({
   }
 })
 
-// const schema = ref({
-//   type: "object",
-//   properties: {},
-// })
-
 watch(controls, () => {
-  //schema.value.properties = {}
+  modelValue.value.properties = {}
   mapToSchema()
-
-  //modelValue.value = schema.value
-
-
 }, {deep: true})
 
-onMounted(() => {
-  //schema.value.properties = {}
-  mapToDraggable()
-  //mapToSchema()
-  //modelValue.value = schema.value
-})
 
 function mapToSchema() {
   controls.value.forEach((control: any) => {
@@ -133,6 +120,13 @@ function mapField(schema: any, control: any) {
     }
   }
 }
+
+onMounted(() => {
+  controls.value = []
+  console.info("Montuję MainCanvas, ustawiam draggable model = []", controls.value)
+  schemaFormModelStoreInit.useFormModelStore("333")
+  mapToDraggable()
+})
 
 </script>
 

@@ -15,7 +15,18 @@ type Story = StoryObj<typeof meta>;
 
 export const FormBuilderStory: Story = {
   args: {
-    modelValue: { "type": "object", "properties": { "text-field-359": { "label": "Item-text-field-359", "layout": { "cols": 12, "offset": 0, "fillRow": false, "component": "text-field" } } } }
+    modelValue: {"type": "object",
+      "properties": {
+        "name": {
+          "label": "Imię",
+          "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field"}
+        },
+        "surname": {
+          "label": "Nazwisko",
+          "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field"}
+        }
+      }
+    }
   },
 };
 
