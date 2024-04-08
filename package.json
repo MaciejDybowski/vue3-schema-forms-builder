@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.1-snapshot-8",
+  "version": "0.0.1-snapshot-15",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "only-build-and-snapshot": "vite build && npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases",
     "only-build": "vite build",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
@@ -26,7 +27,7 @@
     "@mdi/font": "7.0.96",
     "roboto-fontface": "*",
     "vue-json-pretty": "^2.3.0",
-    "vue3-schema-forms": "0.0.37-beta.14"
+    "vue3-schema-forms": "0.0.37-beta.15"
   },
   "peerDependencies": {
     "axios": "^1.6.2",

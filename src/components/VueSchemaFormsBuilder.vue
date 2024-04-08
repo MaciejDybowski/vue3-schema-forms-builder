@@ -1,5 +1,6 @@
 <template>
-    <ElementsDrawer/>
+    <div>
+      <ElementsDrawer/>
       <v-row dense justify="center">
         <v-col :cols="canvasColumns">
           <v-row dense >
@@ -7,7 +8,8 @@
               <MainCanvasToolboxLeft class="stretch"/>
             </v-col>
             <v-col cols="" class="main-container">
-              <MainCanvas class="stretch"/>
+              <MainCanvas v-model="modelValue"
+                          class="stretch"/>
             </v-col>
             <v-col cols="auto" class="main-container ma-2">
               <MainCanvasToolboxRight class="stretch"/>
@@ -15,7 +17,13 @@
           </v-row>
         </v-col>
       </v-row>
-    <PropertiesDrawer/>
+      <v-row>
+        <v-col>
+          {{modelValue}}
+        </v-col>
+      </v-row>
+      <PropertiesDrawer/>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -25,9 +33,15 @@ import MainCanvas from "./main-canvas/MainCanvas.vue";
 import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "../composables/useCanvas";
-import {computed} from "vue";
+import {computed, onMounted} from "vue";
 
 const canvas = useCanvas();
+
+let modelValue = defineModel()
+
+onMounted(() => {
+  console.info("Montuje FormBuilder")
+})
 
 const canvasColumns = computed(() => {
   switch (canvas.canvasMode.value) {
