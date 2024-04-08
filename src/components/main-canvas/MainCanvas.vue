@@ -5,45 +5,31 @@
     class="pa-4"
   >
     <draggable-area
-      v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
       v-model="controls"
       class="py-8"
     />
 
-    <v-row  v-if="mainCanvas.mainCanvasMode.value === 'CODE'">
-      <v-col cols="12">
-        <div class="d-flex align-center">
-          <span class="v-card-title ml-0 pl-0">Model formularza</span>
-          <div>
-            <v-btn
-              icon="mdi-content-copy"
-              variant="text"
-              density="compact"
-              @click="contextCopy()"
-            />
-          </div>
-        </div>
-        <vue-json-pretty :data="modelValue"/>
-      </v-col>
-    </v-row>
+<!--    <props-viewer-->
+<!--      :draggable="controls"-->
+<!--      :schema="modelValue"-->
+<!--    />-->
   </v-card>
 </template>
 
 <script setup lang="ts">
-import {computed, getCurrentInstance, onMounted, watch} from "vue";
+import {computed, getCurrentInstance, onBeforeMount, onMounted, ref, watch} from "vue";
 
-import {formControls, schemaFormModelStoreInit} from "vue3-schema-forms"
+import {formControls} from "vue3-schema-forms"
+import {schemaFormModelStoreInit} from "vue3-schema-forms";
 
 import DraggableArea from "../builder/DraggableArea.vue";
+//import PropsViewer from "@/components/main-canvas/PropsViewer.vue";
+
 import {cloneDeep} from "lodash";
 
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
-import {useMainCanvas} from "../../composables/useMainCanvas";
 
-import VueJsonPretty from "vue-json-pretty";
-import "vue-json-pretty/lib/styles.css";
 
-schemaFormModelStoreInit.useFormModelStore("333")
 const instance = getCurrentInstance();
 for (const [name, comp] of Object.entries(formControls)) {
   //@ts-ignore
@@ -54,6 +40,7 @@ for (const [name, comp] of Object.entries(formControls)) {
   }
 }
 
+
 let modelValue = defineModel<{
   type: "object",
   properties: any
@@ -61,7 +48,6 @@ let modelValue = defineModel<{
 
 
 const useBuilderStateStore = useBuilderState()
-const mainCanvas = useMainCanvas()
 
 const controls = computed({
   get(): any[] {
@@ -84,22 +70,21 @@ function mapToSchema() {
   })
 }
 
-function mapToDraggable(model: any): Array<any> {
-  let localControls = [] as Array<any>
-  for (const [key, value] of Object.entries(model.properties)) {
-    localControls.push(
+function mapToDraggable(){
+  for (const [key, value] of Object.entries(modelValue.value.properties)) {
+    console.log(`${key}: ${value}`);
+
+    controls.value.push(
       {
         formId: '333',
         key: key,
         ...value,
         "on": {
-          "input": (e) => {
-          }
+          "input": (e) => { }
         }
       }
     )
   }
-  return localControls;
 }
 
 function mapField(schema: any, control: any) {
@@ -134,14 +119,11 @@ function mapField(schema: any, control: any) {
   }
 }
 
-function contextCopy() {
-  navigator.clipboard.writeText(JSON.stringify(modelValue.value));
-}
-
 onMounted(() => {
-
-  controls.value = mapToDraggable(modelValue.value)
-
+  controls.value = []
+  console.info("Montuję MainCanvas, ustawiam draggable model = []", controls.value)
+  schemaFormModelStoreInit.useFormModelStore("333")
+  mapToDraggable()
 })
 
 </script>
