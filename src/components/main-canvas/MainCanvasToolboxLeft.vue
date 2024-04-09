@@ -24,10 +24,10 @@
           </v-icon>
         </v-btn>
         <v-btn size="30"
-               :disabled="!useBuilderStateStore.isRevertAvailable"
+               :disabled="!useBuilderStateStore.isUndoAvailable"
         >
           <v-icon
-            @click="useBuilderStateStore.revert()"
+            @click="useBuilderStateStore.undo()"
             size="small">mdi-arrow-u-left-top
           </v-icon>
         </v-btn>
