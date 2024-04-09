@@ -8,8 +8,16 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const draggableModel: Ref<Array<object>> = ref([])
   const getDraggableModel = computed(() => draggableModel.value)
 
-  function updateDraggableModel(value: Array<object>) {
+  function updateDraggableModel(value: Array<object>, stackInvoker: boolean = false) {
     draggableModel.value = value
+
+
+    if (!stackInvoker) {
+      history.value.push(cloneDeep(draggableModel.value))
+      historyPointer.value++
+      // console.debug("stan stosu", history.value)
+      // console.debug("wskaznik = ", historyPointer.value)
+    }
   }
 
   // TODO - refactoring na rekurencyjne
@@ -62,35 +70,36 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const configuredField: Ref<any> = ref(null)
   const getConfiguredField = computed(() => configuredField.value)
   const getConfiguredFieldKey = computed(() => configuredField.value?.key)
-  function setConfiguredField(field:any){
+  function setConfiguredField(field: any) {
     configuredField.value = field
   }
 
 
-
   // memento pattern
   const history: Ref<Array<any>> = ref([])
-  const historyPointer = ref(0);
-  const isUndoAvailable = computed(() => history.value.length > 0)
-  const isRendoAvailable = computed(() => historyPointer.value < history.value.length)
+  const historyPointer = ref(-1);
+  const isUndoAvailable = computed(() => history.value.length > 1 && historyPointer.value > 0)
+  const isRendoAvailable = computed(() => historyPointer.value + 1 < history.value.length)
 
-  function saveState() {
-    history.value.push(cloneDeep(draggableModel.value))
+  function saveState(value) {
+    history.value.push(value)
     historyPointer.value++
+    // console.debug("stan stosu", history.value)
+    // console.debug("wskaznik = ", historyPointer.value)
   }
 
   function undo() {
-    if(isUndoAvailable.value){
-      historyPointer.value--
-      draggableModel.value = history.value[historyPointer.value]
-    }
+    historyPointer.value--
+    updateDraggableModel(history.value[historyPointer.value], true)
+    // console.debug("stan stosu", history.value)
+    // console.debug("wskaznik = ", historyPointer.value)
   }
 
   function rendo() {
-    if(isRendoAvailable.value) {
-      historyPointer.value++
-      draggableModel.value = history.value[historyPointer.value]
-    }
+    historyPointer.value++
+    updateDraggableModel(history.value[historyPointer.value], true)
+    // console.debug("stan stosu", history.value)
+    // console.debug("wskaznik = ", historyPointer.value)
   }
 
 

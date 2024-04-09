@@ -17,11 +17,6 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          {{modelValue}}
-        </v-col>
-      </v-row>
       <PropertiesDrawer/>
     </div>
 </template>
@@ -38,10 +33,6 @@ import {computed, onMounted} from "vue";
 const canvas = useCanvas();
 
 let modelValue = defineModel()
-
-onMounted(() => {
-  console.info("Montuje FormBuilder")
-})
 
 const canvasColumns = computed(() => {
   switch (canvas.canvasMode.value) {
