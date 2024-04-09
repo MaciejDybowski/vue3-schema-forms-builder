@@ -70,14 +70,27 @@ export const useBuilderState = defineStore("useBuilderState", () => {
 
   // memento pattern
   const history: Ref<Array<any>> = ref([])
-  const isRevertAvailable = computed(() => history.value.length > 0)
+  const historyPointer = ref(0);
+  const isUndoAvailable = computed(() => history.value.length > 0)
+  const isRendoAvailable = computed(() => historyPointer.value < history.value.length)
 
   function saveState() {
     history.value.push(cloneDeep(draggableModel.value))
+    historyPointer.value++
   }
 
-  function revert() {
-    draggableModel.value = history.value.pop()
+  function undo() {
+    if(isUndoAvailable.value){
+      historyPointer.value--
+      draggableModel.value = history.value[historyPointer.value]
+    }
+  }
+
+  function rendo() {
+    if(isRendoAvailable.value) {
+      historyPointer.value++
+      draggableModel.value = history.value[historyPointer.value]
+    }
   }
 
 
@@ -87,8 +100,10 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     deleteItem,
     cloneItem,
     saveState,
-    revert,
-    isRevertAvailable,
+    undo,
+    rendo,
+    isRendoAvailable,
+    isUndoAvailable,
     getConfiguredField,
     getConfiguredFieldKey,
     setConfiguredField

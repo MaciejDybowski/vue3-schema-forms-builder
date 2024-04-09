@@ -53,6 +53,8 @@ const controls = computed({
   },
   set(val) {
     useBuilderStateStore.updateDraggableModel(val)
+    console.info("updateDraggableModel")
+    useBuilderStateStore.saveState()
   }
 })
 
