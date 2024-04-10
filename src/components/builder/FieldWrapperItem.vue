@@ -52,9 +52,9 @@ function getStyleForBuilderField(element: any, hover: any) {
   if (element.key === currentItemKey.value) {
     // Apply style to the clicked item
     if(vTheme.name.value === 'light'){
-      return "outline: 1px #1b243a solid; background-color:#a5a5a5;"
+      return "outline: 1px #1b243a solid; background-color:#E1F5FE;"
     } else {
-      return "outline: 1px #3e4b68 solid;"
+      return "outline: 1px #777777 solid;"
     }
 
   }
@@ -62,7 +62,7 @@ function getStyleForBuilderField(element: any, hover: any) {
     if(vTheme.name.value === 'light'){
       return "outline: 1px #1b243a solid; cursor:pointer"
     } else {
-      return  "outline: 1px #3e4b68 solid; cursor:pointer"
+      return  "outline: 1px #777777 solid; cursor:pointer"
     }
   }
   return "" // No style applied for other items

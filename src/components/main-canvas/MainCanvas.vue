@@ -10,7 +10,7 @@
       class="py-8"
     />
 
-    <v-row  v-if="mainCanvas.mainCanvasMode.value === 'CODE'">
+    <v-row v-if="mainCanvas.mainCanvasMode.value === 'CODE'">
       <v-col cols="12">
         <div class="d-flex align-center">
           <span class="v-card-title ml-0 pl-0">Model formularza</span>
@@ -57,7 +57,14 @@ for (const [name, comp] of Object.entries(formControls)) {
 let modelValue = defineModel<{
   type: "object",
   properties: any
-}>()
+}>({
+  default: () => {
+    return {
+      type: "object",
+      properties: {}
+    }
+  }
+})
 
 
 const useBuilderStateStore = useBuilderState()
@@ -86,19 +93,20 @@ function mapToSchema() {
 
 function mapToDraggable(model: any): Array<any> {
   let localControls = [] as Array<any>
-  for (const [key, value] of Object.entries(model.properties)) {
+  Object.entries(model.properties).forEach(([key, value]) => {
     localControls.push(
       {
         formId: '333',
         key: key,
-        ...value,
+        ...value as object,
         "on": {
           "input": (e) => {
           }
         }
       }
     )
-  }
+  })
+
   return localControls;
 }
 

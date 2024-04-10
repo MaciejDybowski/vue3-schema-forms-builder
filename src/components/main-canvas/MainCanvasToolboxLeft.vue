@@ -5,7 +5,7 @@
       <div class="d-flex flex-column elevation-2 rounded">
         <v-btn-toggle v-model="mainCanvas.mainCanvasMode.value" class="d-flex flex-column" style="height: 60px">
           <v-btn size="30" value="BUILDER">
-            <v-icon size="small">mdi-wrench-outline</v-icon>
+            <v-icon size="small">mdi-application-edit-outline</v-icon>
           </v-btn>
           <v-btn size="30" value="CODE">
             <v-icon size="small">mdi-code-tags</v-icon>
