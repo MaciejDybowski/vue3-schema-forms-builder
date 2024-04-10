@@ -88,6 +88,11 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     // console.debug("wskaznik = ", historyPointer.value)
   }
 
+  function resetState(){
+    history.value = []
+    historyPointer.value = -1;
+  }
+
   function undo() {
     historyPointer.value--
     updateDraggableModel(history.value[historyPointer.value], true)
@@ -112,6 +117,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     undo,
     rendo,
     isRendoAvailable,
+    resetState,
     isUndoAvailable,
     getConfiguredField,
     getConfiguredFieldKey,

@@ -4,7 +4,7 @@ import StoryWrapper from "./StoryWrapper.vue"
 import { Decorator, StoryContext } from "@storybook/vue3"
 import { i18nConfig } from "./plugins/i18n"
 
-export const DEFAULT_THEME = "light"
+export const DEFAULT_THEME = "dark"
 const themeName = ref(DEFAULT_THEME)
 const localeName = ref(i18nConfig.locale)
 
