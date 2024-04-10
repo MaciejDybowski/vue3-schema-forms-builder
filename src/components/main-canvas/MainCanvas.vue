@@ -139,9 +139,8 @@ function contextCopy() {
 }
 
 onMounted(() => {
-
+  useBuilderStateStore.resetState()
   controls.value = mapToDraggable(modelValue.value)
-
 })
 
 </script>

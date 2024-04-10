@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.1-snapshot-27",
+  "version": "0.0.1-snapshot-31",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -26,7 +26,7 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "roboto-fontface": "*",
-    "vue-json-pretty": "^2.3.0",
+
     "vue3-schema-forms": "0.0.37-beta.15"
   },
   "peerDependencies": {
@@ -39,6 +39,7 @@
     "vuetify": "^3.5.1"
   },
   "devDependencies": {
+    "vue-json-pretty": "^2.3.0",
     "@babel/types": "^7.23.0",
     "@intlify/unplugin-vue-i18n": "^1.5.0",
     "@storybook/addon-essentials": "^7.6.10",

@@ -19,12 +19,15 @@ import {useDrawers} from "../../composables/useDrawers";
 import FieldWrapperToolbar from "./FieldWrapperToolbar.vue";
 import FormNodeMock from "./FormNodeMock.vue";
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
-
+import { useTheme } from 'vuetify'
 const props = defineProps<{
   isHovering: boolean | undefined
   element: any,
 }>()
 
+
+
+const vTheme = useTheme()
 const attrs = useAttrs()
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
@@ -48,10 +51,19 @@ function fieldWrapperItemClass(element: any, isHovering: any) {
 function getStyleForBuilderField(element: any, hover: any) {
   if (element.key === currentItemKey.value) {
     // Apply style to the clicked item
-    return "outline: 1px #3a65c9 solid; background-color:#E1F5FE;"
+    if(vTheme.name.value === 'light'){
+      return "outline: 1px #1b243a solid; background-color:#a5a5a5;"
+    } else {
+      return "outline: 1px #3e4b68 solid;"
+    }
+
   }
   if (hover) {
-    return "outline: 1px #3a65c9 solid; cursor:pointer"
+    if(vTheme.name.value === 'light'){
+      return "outline: 1px #1b243a solid; cursor:pointer"
+    } else {
+      return  "outline: 1px #3e4b68 solid; cursor:pointer"
+    }
   }
   return "" // No style applied for other items
 }
