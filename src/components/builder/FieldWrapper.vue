@@ -1,6 +1,8 @@
 <template>
-
-  <div :style="calcWidth(element)">
+  <div
+    :style="calcWidth(element)"
+    class="mb-3"
+  >
     <v-hover>
       <template v-slot:default="{ isHovering, props }">
         <field-wrapper-item

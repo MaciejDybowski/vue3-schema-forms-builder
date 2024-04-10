@@ -12,7 +12,7 @@
     <draggable-area
       class="py-6"
       v-else
-      :style="element.tempItems.length === 0 ? 'min-height:50px; outline: 1px #3a65c9 solid; background-color:#E1F5FE;' : undefined"
+      :style="element.tempItems.length === 0 ? duplicatedSectionStyle : undefined"
       v-model="element.tempItems"
       :empty-insert-threshold="30"
     />
@@ -22,11 +22,22 @@
 <script setup lang="ts">
 
 import DraggableArea from "./DraggableArea.vue";
-import {ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
+import {useTheme} from "vuetify";
 
 const props = defineProps<{
   element: any
 }>()
+
+const vTheme = useTheme()
+
+const duplicatedSectionStyle = computed(() => {
+  if (vTheme.name.value === "AureaModelerLight") {
+    return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE;'
+  } else {
+    return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5;'
+  }
+})
 
 // Potrzebne do odświezania na żywo podglądu formularza gdy zmienia się propertisy w prawym modelu (szczególne te na podstawie których nic się nie dzieje)
 const renderKey = ref(0)

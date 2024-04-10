@@ -45,7 +45,7 @@ import ColProperty from "../../components/properties-drawer/atoms/ColProperty.vu
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
 import {VTextField} from "vuetify/components";
 
-const fieldProps: Partial<VTextField> = {
+const fieldProps: any/*Partial<VTextField>*/ = {
   density: "comfortable",
   variant: "outlined",
   hideDetails: "auto",

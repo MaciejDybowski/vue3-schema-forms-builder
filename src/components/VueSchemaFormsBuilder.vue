@@ -32,7 +32,10 @@ import {computed, onMounted} from "vue";
 
 const canvas = useCanvas();
 
-let modelValue = defineModel()
+let modelValue = defineModel<{
+  type: "object",
+  properties: {}
+}>()
 
 const canvasColumns = computed(() => {
   switch (canvas.canvasMode.value) {

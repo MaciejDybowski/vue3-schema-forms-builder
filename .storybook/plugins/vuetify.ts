@@ -27,7 +27,7 @@ export default createVuetify({
     messages: { en },
   },
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme: 'light',
     themes: {
       light: {
         colors: {
