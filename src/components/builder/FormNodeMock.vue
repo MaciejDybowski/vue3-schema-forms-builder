@@ -24,15 +24,16 @@
 import DraggableArea from "./DraggableArea.vue";
 import {computed, ref, watch} from "vue";
 import {useTheme} from "vuetify";
+import {useVTheme} from "@/composables/useVTheme";
 
 const props = defineProps<{
   element: any
 }>()
 
-const vTheme = useTheme()
+const theme = useVTheme()
 
 const duplicatedSectionStyle = computed(() => {
-  if (vTheme.name.value === "AureaModelerLight") {
+  if (theme.isLightTheme.value) {
     return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE;'
   } else {
     return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5;'

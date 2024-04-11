@@ -9,17 +9,16 @@
 <script setup lang="ts">
 
 import {computed} from "vue";
-import {useTheme} from "vuetify";
+import {useVTheme} from "@/composables/useVTheme";
 
-const vTheme = useTheme()
+const theme = useVTheme()
 
 const props = defineProps<{
   elementKey: string
 }>()
 
 const btnColor = computed(() => {
-  console.debug(vTheme.name.value)
-  if (vTheme.name.value === "AureaModelerLight") {
+  if (theme.isLightTheme.value) {
     return "background-color: rgb(var(--v-theme-primary))"
   } else {
     return "background-color: #777777"

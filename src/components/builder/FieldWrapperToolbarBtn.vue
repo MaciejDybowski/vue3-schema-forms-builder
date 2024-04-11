@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import {computed, useAttrs} from "vue";
-import {useTheme} from "vuetify";
+import {useVTheme} from "@/composables/useVTheme";
 
 
 const props = defineProps<{
@@ -25,14 +25,14 @@ const props = defineProps<{
 }>()
 
 const attrs = useAttrs()
-const vTheme = useTheme()
+const theme = useVTheme()
 
 const emit = defineEmits<{
   (e: "click"): void;
 }>();
 
 const btnColor = computed(() => {
-  if(vTheme.name.value === "AureaModelerLight") {
+  if (theme.isLightTheme.value) {
     return "primary"
   } else {
     return "#a5a5a5"
