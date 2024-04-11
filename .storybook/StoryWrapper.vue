@@ -10,6 +10,7 @@
 import { useTheme } from "vuetify";
 import { onMounted, watch } from "vue";
 import i18n from "./plugins/i18n";
+import {themesNames} from "../src/main";
 
 const props = defineProps<{
   themeName: any;
@@ -29,6 +30,8 @@ watch(props.themeName, (nVal) => {
 onMounted(() => {
   i18n.global.locale.value = props.localeName.value;
 });
+
+const initThemesNames = themesNames
 </script>
 
 <style>

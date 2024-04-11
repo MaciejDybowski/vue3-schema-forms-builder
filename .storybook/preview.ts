@@ -11,7 +11,6 @@ import {App} from "vue";
 const preview: Preview = {
   parameters: {
     locale: i18nConfig.locale,
-    actions: {argTypesRegex: '^on[A-Z].*'},
     controls: {
       matchers: {
         color: /(background|color)$/i,

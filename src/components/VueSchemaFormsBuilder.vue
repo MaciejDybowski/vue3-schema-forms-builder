@@ -1,24 +1,24 @@
 <template>
-    <div>
-      <ElementsDrawer/>
-      <v-row dense justify="center">
-        <v-col :cols="canvasColumns">
-          <v-row dense >
-            <v-col cols="auto" class="main-container ma-2">
-              <MainCanvasToolboxLeft class="stretch"/>
-            </v-col>
-            <v-col cols="" class="main-container">
-              <MainCanvas v-model="modelValue"
-                          class="stretch"/>
-            </v-col>
-            <v-col cols="auto" class="main-container ma-2">
-              <MainCanvasToolboxRight class="stretch"/>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-      <PropertiesDrawer/>
-    </div>
+  <div>
+    <ElementsDrawer/>
+    <v-row dense justify="center">
+      <v-col :cols="canvasColumns">
+        <v-row dense>
+          <v-col cols="auto" class="main-container ma-2">
+            <MainCanvasToolboxLeft class="stretch"/>
+          </v-col>
+          <v-col cols="" class="main-container">
+            <MainCanvas v-model="modelValue"
+                        class="stretch"/>
+          </v-col>
+          <v-col cols="auto" class="main-container ma-2">
+            <MainCanvasToolboxRight class="stretch"/>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <PropertiesDrawer/>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -28,7 +28,7 @@ import MainCanvas from "./main-canvas/MainCanvas.vue";
 import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "../composables/useCanvas";
-import {computed, onMounted} from "vue";
+import {computed} from "vue";
 
 const canvas = useCanvas();
 

@@ -1,10 +1,11 @@
 import {useTheme} from "vuetify";
-import {themesNames} from "@/main";
+
 import {computed} from "vue";
+import {themesNames} from "@/main";
+
 
 export function useVTheme() {
   const vTheme = useTheme()
-
 
   const isLightTheme = computed(() => {
     return vTheme.name.value === themesNames.light
