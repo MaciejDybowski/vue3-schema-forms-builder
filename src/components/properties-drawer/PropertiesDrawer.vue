@@ -28,6 +28,15 @@
         />
       </v-list-item>
 
+      <v-list-item>
+        <v-text-field
+          class="pt-2"
+          label="Tekst"
+          v-model="model.content"
+          v-bind="fieldProps"
+        />
+      </v-list-item>
+
 
       <v-list-item>
         <col-property v-model="model.layout.cols"/>
