@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     v-model="drawers.propertiesDrawer.value"
-    width="300"
+    width="350"
     permament
     order="3"
     location="right"
@@ -10,38 +10,9 @@
 
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
-      <v-list-item>
-        <v-text-field
-          class="pt-2"
-          label="Klucz w modelu"
-          v-model="model.key"
-          v-bind="fieldProps"
-        />
-      </v-list-item>
-
-      <v-list-item>
-        <v-text-field
-          class="pt-2"
-          label="Etykieta"
-          v-model="model.label"
-          v-bind="fieldProps"
-        />
-      </v-list-item>
-
-      <v-list-item>
-        <v-text-field
-          class="pt-2"
-          label="Tekst"
-          v-model="model.content"
-          v-bind="fieldProps"
-        />
-      </v-list-item>
-
-
-      <v-list-item>
-        <col-property v-model="model.layout.cols"/>
-      </v-list-item>
-
+      <text-field-properties v-if="model.layout.component == 'text-field'"/>
+      <static-content-properties v-if="model.layout.component == 'static-content'"/>
+      <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -50,9 +21,10 @@
 <script setup lang="ts">
 import {useDrawers} from "../../composables/useDrawers";
 import {computed} from "vue";
-import ColProperty from "../../components/properties-drawer/atoms/ColProperty.vue";
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
-import {VTextField} from "vuetify/components";
+import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
+import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
+import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
 
 const fieldProps: any/*Partial<VTextField>*/ = {
   density: "comfortable",

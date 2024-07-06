@@ -7,7 +7,6 @@
     height="20px"
     size="20px"
     @click="emit('click')"
-    v-on="attrs"
   >
     <v-icon size="17">{{ props.icon }}</v-icon>
   </v-btn>

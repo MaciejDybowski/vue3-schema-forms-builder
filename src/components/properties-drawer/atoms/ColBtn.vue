@@ -1,8 +1,8 @@
 <template>
   <v-btn
-    min-width="22.2"
-    max-width="22.2"
-    height="22.5"
+    min-width="26.2"
+    max-width="26.2"
+    height="26.5"
     class="px-0"
     :value="value"
     variant="outlined"

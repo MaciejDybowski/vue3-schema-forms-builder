@@ -1,6 +1,6 @@
 <template>
+  <!--  style="min-height: calc(100vh - 65px)"-->
   <v-card
-    style="min-height: calc(100vh - 65px)"
     elevation="2"
     class="pa-4"
   >
@@ -26,6 +26,11 @@
         <vue-json-pretty :data="modelValue"/>
       </v-col>
     </v-row>
+
+    <props-viewer
+      :model="{}"
+      :schema="modelValue"
+    />
   </v-card>
 </template>
 
@@ -42,6 +47,7 @@ import {useMainCanvas} from "../../composables/useMainCanvas";
 
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
+import PropsViewer from "@/components/storybook-components/PropsViewer.vue";
 
 schemaFormModelStoreInit.useFormModelStore("333")
 const instance = getCurrentInstance();

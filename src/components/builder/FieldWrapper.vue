@@ -31,8 +31,8 @@ function calcWidth(element: SchemaField) {
   const fillRow = !!element.layout?.fillRow && element.layout?.cols < 12
   const cols: number = element.layout?.cols as number
   if (fillRow) {
-    const t = (12 - (offset + cols)) / 12 * 100
-    return `min-width:100%; padding-right: ${t}%!important;`
+    const paddingRight = (12 - (offset + cols)) / 12 * 100
+    return `min-width:100%; padding-right: ${paddingRight}%!important;`
   }
 
   return `min-width: ${(offset + cols) / 12 * 100}%;`
