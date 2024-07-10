@@ -12,6 +12,7 @@
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
       <static-content-properties v-if="model.layout.component == 'static-content'"/>
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
+      <simple-select-properties v-if="model.layout.component == 'select'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -24,6 +25,7 @@ import {useBuilderState} from "../../pinia/stores/useBuilderState";
 import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
+import SimpleSelectProperties from "@/components/properties-drawer/controls/SimpleSelectProperties.vue";
 
 const fieldProps: any/*Partial<VTextField>*/ = {
   density: "comfortable",
