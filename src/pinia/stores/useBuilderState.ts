@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {computed, Ref, ref} from "vue";
 import {cloneDeep} from "lodash";
-
+import set from 'lodash/set';
 
 export const useBuilderState = defineStore("useBuilderState", () => {
   // draggable model for builder
@@ -73,6 +73,9 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   function setConfiguredField(field: any) {
     configuredField.value = field
   }
+  function setKeyInConfiguredField(key: string, value: string){
+    set(configuredField.value, key, value);
+  }
 
 
   // memento pattern
@@ -121,7 +124,8 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     isUndoAvailable,
     getConfiguredField,
     getConfiguredFieldKey,
-    setConfiguredField
+    setConfiguredField,
+    setKeyInConfiguredField
   }
 })
 

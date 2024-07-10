@@ -71,6 +71,7 @@ function getStyleForBuilderField(element: any, hover: any) {
 
 function configControl(element: any) {
   if (element.layout.component !== 'duplicated-section') {
+    console.log("FieldWrapperItem", element)
     useBuilderStateStore.setConfiguredField(element)
     drawers.propertiesDrawer.value = true
   }

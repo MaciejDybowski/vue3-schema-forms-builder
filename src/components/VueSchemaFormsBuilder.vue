@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  v-if="!loading">
     <ElementsDrawer/>
     <v-row dense justify="center">
       <v-col :cols="canvasColumns">
@@ -19,6 +19,7 @@
     </v-row>
     <PropertiesDrawer/>
   </div>
+  <loading-view v-else/>
 </template>
 
 <script setup lang="ts">
@@ -28,7 +29,18 @@ import MainCanvas from "./main-canvas/MainCanvas.vue";
 import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "../composables/useCanvas";
-import {computed} from "vue";
+import {computed, onBeforeMount, ref} from "vue";
+import {fetchToken} from "../../.storybook/keycloak_auth";
+import LoadingView from "@/components/storybook-components/LoadingView.vue";
+
+const props = defineProps<{
+  workspaceId: string
+}>()
+let loading = ref(true)
+onBeforeMount(async () => {
+  await fetchToken(props.workspaceId)
+  loading.value = false
+})
 
 const canvas = useCanvas();
 

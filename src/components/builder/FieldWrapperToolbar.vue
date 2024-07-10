@@ -47,6 +47,8 @@ function configControl() {
 
 function deleteControl() {
   useBuilderStateStore.deleteItem({key: props.element.key})
+  useBuilderStateStore.setConfiguredField(null)
+  console.log("delete")
 }
 
 function cloneControl() {

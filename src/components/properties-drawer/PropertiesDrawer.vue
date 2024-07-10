@@ -7,7 +7,6 @@
     location="right"
     scrim="transparent"
     style="top: 65px; height: 100%"
-
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>

@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const FormBuilderStory: Story = {
   args: {
+    workspaceId: "faktury",
     modelValue: {"type": "object",
       "properties": {
         "name": {

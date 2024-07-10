@@ -6,6 +6,7 @@
       :items="items"
       v-bind="fieldProps"
       v-model="modelValue"
+      :return-object="false"
       clearable
     />
   </v-list-item>
@@ -22,10 +23,11 @@ const {fieldProps} = useFieldStyle();
 const {t} = useI18n()
 
 const items = ref([
-  {id: "text", title: t('typeOptions.text')},
-  {id: "number", title: t('typeOptions.number')},
-  {id: "phone", title: t('typeOptions.phone')},
-  {id: "date", title: t('typeOptions.date')},
+  {value: "text", title: t('typeOptions.text')},
+  {value: "number", title: t('typeOptions.number')},
+  {value: "phone", title: t('typeOptions.phone')},
+  {value: "date", title: t('typeOptions.date')},
+  {value: "dictionary", title: t('typeOptions.dictionary')},
 ])
 </script>
 
@@ -41,7 +43,8 @@ const items = ref([
       "text": "Text",
       "number": "Number",
       "phone": "Phone",
-      "date": "Date"
+      "date": "Date",
+      "dictionary": "Dictionary"
     }
   },
   "pl": {
@@ -50,7 +53,8 @@ const items = ref([
       "text": "Tekst",
       "number": "Liczba",
       "phone": "Telefon",
-      "date": "Data"
+      "date": "Data",
+      "dictionary": "Wartość słownikowa"
     }
   }
 }

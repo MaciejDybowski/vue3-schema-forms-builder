@@ -5,8 +5,10 @@
   <value-mapping-property v-model="model.valueMapping"/>
   <col-property v-model="model.layout.cols"/>
   <source-property
-    v-model="model.source"
+    v-if="model.type=='dictionary'"
+    v-model="source"
   />
+  <calculatiuon-property v-model="model.calculations"/>
 </template>
 
 <script setup lang="ts">
@@ -19,6 +21,7 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import TypeProperty from "@/components/properties-drawer/atoms/TypeProperty.vue";
 import ValueMappingProperty from "@/components/properties-drawer/atoms/ValueMappingProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
+import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -27,6 +30,20 @@ const model = computed({
   },
   set(val) {
     useBuilderStateStore.setConfiguredField(val)
+  }
+})
+
+const source = computed({
+  get() {
+    if(!model.value.source){
+      return {}
+    } else {
+      return  model.value.source
+    }
+  },
+  set(val) {
+    console.log(val)
+    useBuilderStateStore.setKeyInConfiguredField("source", val)
   }
 })
 
