@@ -1,14 +1,14 @@
 // @ts-nocheck
 import {Meta, StoryObj} from '@storybook/vue3';
 import {ArgTypes} from '@storybook/types';
-import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue"
+import DevelopmentTable from "@/components/storybook-components/DevelopmentTable.vue"
 
 const meta = {
   title: 'Forms Builder',
-  component: VueSchemaFormsBuilder,
+  component: DevelopmentTable,
   argTypes: {} as Partial<ArgTypes<any>>,
   args: {},
-} satisfies Meta<typeof VueSchemaFormsBuilder>;
+} satisfies Meta<typeof DevelopmentTable>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderStory: Story = {
   args: {
     workspaceId: "faktury",
-    modelValue: {"type": "object",
+    model: {"type": "object",
       "properties": {
         "name": {
           "label": "Imię",

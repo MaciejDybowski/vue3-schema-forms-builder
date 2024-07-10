@@ -2,13 +2,15 @@
   <div :class="fieldWrapperItemClass(element, isHovering)"
        :style="getStyleForBuilderField(element, isHovering)"
        v-on="attrs"
-       @click="configControl(element)"
+
   >
     <field-wrapper-toolbar
       v-if="isToolbarVisible(isHovering, element)"
       :element="element"
     />
-    <form-node-mock :element="element"/>
+    <form-node-mock :element="element"
+                    @click="configControl(element)"
+    />
   </div>
 </template>
 
@@ -71,7 +73,6 @@ function getStyleForBuilderField(element: any, hover: any) {
 
 function configControl(element: any) {
   if (element.layout.component !== 'duplicated-section') {
-    console.log("FieldWrapperItem", element)
     useBuilderStateStore.setConfiguredField(element)
     drawers.propertiesDrawer.value = true
   }

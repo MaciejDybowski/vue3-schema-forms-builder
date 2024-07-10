@@ -7,7 +7,7 @@
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
       v-model="controls"
-      class="py-8"
+      class="py-2"
     />
 
     <v-row v-if="mainCanvas.mainCanvasMode.value === 'CODE'">
@@ -26,11 +26,6 @@
         <vue-json-pretty :data="modelValue"/>
       </v-col>
     </v-row>
-
-    <props-viewer
-      :model="{}"
-      :schema="modelValue"
-    />
   </v-card>
 </template>
 
