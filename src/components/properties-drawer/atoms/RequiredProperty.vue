@@ -1,8 +1,8 @@
 <template>
   <v-list-item>
-    <v-text-field
-      class="pt-2"
-      :label="t('calculationProperty')"
+    <v-checkbox
+      class="mx-2"
+      :label="t('requiredProperty')"
       v-model="modelValue"
       v-bind="fieldProps"
     />
@@ -17,19 +17,19 @@ const modelValue = defineModel()
 const {fieldProps} = useFieldStyle();
 
 const {t} = useI18n()
+
 </script>
 
 <style scoped lang="scss">
-
 </style>
 
 <i18n lang="json">
 {
   "en": {
-    "calculationProperty": "Calculation"
+    "requiredProperty": "Required"
   },
   "pl": {
-    "calculationProperty": "Obliczenia"
+    "requiredProperty": "Pole wymagane"
   }
 }
 </i18n>

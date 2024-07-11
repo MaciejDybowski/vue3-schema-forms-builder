@@ -3,6 +3,7 @@
   <v-card
     elevation="2"
     class="pa-4"
+    style="min-height: calc(100vh - 65px)"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
@@ -42,6 +43,7 @@ import {useMainCanvas} from "../../composables/useMainCanvas";
 
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
+import "vue3-schema-forms/dist/style.css"
 import {useVTheme} from "@/composables/useVTheme";
 
 schemaFormModelStoreInit.useFormModelStore("333")
@@ -109,14 +111,15 @@ function mapToDraggable(model: any): Array<any> {
   Object.entries(model.properties).forEach(([key, value]) => {
     localControls.push(
       {
-        formId: '333',
+        formId: 'builder-tecna-id',
         key: key,
         ...value as object,
         "on": {
           "input": (e) => {
           }
         },
-        options: model.options
+        options: model.options,
+        required: model.required?.includes(key),
       }
     )
   })
@@ -147,15 +150,33 @@ function mapField(schema: any, control: any) {
       // TODO == obsługa różnego rodzaju pól w tym sekcji powielanej
       const clone = cloneDeep(control)
       const k = clone.key
+      requiredMapping(schema, clone)
       delete clone.formId
       delete clone.key
       delete clone.on
-      //delete clone.options // TODO stylowanie hardcode w FormNodeMock
+      delete clone.options
+
+
       schema.properties[k] = clone
 
     }
   }
 }
+
+function requiredMapping(schema: any, item: any) {
+  if (!schema.required) {
+    schema.required = []
+  }
+  if (item.required) {
+    if (!schema.required.includes(item.key)) {
+      schema.required.push(item.key)
+    }
+  } else {
+    schema.required = schema.required.filter(k => k !== item.key)
+  }
+  delete item.required
+}
+
 
 function contextCopy() {
   navigator.clipboard.writeText(JSON.stringify(modelValue.value));

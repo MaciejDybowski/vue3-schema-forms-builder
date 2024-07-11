@@ -27,11 +27,6 @@ import StaticContentProperties from "@/components/properties-drawer/controls/Sta
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
 import SimpleSelectProperties from "@/components/properties-drawer/controls/SimpleSelectProperties.vue";
 
-const fieldProps: any/*Partial<VTextField>*/ = {
-  density: "comfortable",
-  variant: "outlined",
-  hideDetails: "auto",
-}
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
@@ -47,9 +42,3 @@ const model = computed({
 </script>
 
 <style lang="scss" scoped></style>
-<i18n lang="json">
-{
-  "en": {},
-  "pl": {}
-}
-</i18n>

@@ -46,15 +46,22 @@
 <script setup lang="ts">
 import {useFieldStyle} from "@/composables/useFieldStyle";
 import {useI18n} from "vue-i18n";
-import {VTextField} from "vuetify/components";
 
 const {fieldProps} = useFieldStyle();
 const {t} = useI18n()
-const modelValue = defineModel()
+const modelValue = defineModel<{
+  items: Array<any>
+}>({
+    default: () => {
+      return {
+        items: []
+      }
+    }
+  }
+)
 
 
 </script>
-
 
 
 <style scoped lang="scss">

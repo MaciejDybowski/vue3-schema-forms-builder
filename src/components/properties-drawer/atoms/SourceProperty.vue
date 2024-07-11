@@ -76,12 +76,9 @@
 
 import {useFieldStyle} from "@/composables/useFieldStyle";
 import {useI18n} from "vue-i18n";
-import {VTextField} from "vuetify/components";
-import {computed} from "vue";
-import {DictionarySource, SimpleSource} from "vue3-schema-forms/dist/vocabulary/schema/elements";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 
-const modelValue = defineModel<DictionarySource>({
+const modelValue = defineModel<any>({
   default: () => {}
 })
 

@@ -1,11 +1,12 @@
 <template>
-  <v-list-item>
+  <v-list-item class="pb-0">
     <div class="col-property">
       <p class="v-label">{{ t('size') }}</p>
       <v-btn-toggle
         class="mt-1"
         v-model="modelValue"
         mandatory
+        density="compact"
       >
         <col-btn :value="1"></col-btn>
         <col-btn :value="2"></col-btn>

@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import {VTextField} from "vuetify/components";
 import {useI18n} from "vue-i18n";
 import {useFieldStyle} from "@/composables/useFieldStyle";
 

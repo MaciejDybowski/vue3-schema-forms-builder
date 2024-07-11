@@ -1,4 +1,5 @@
 <template>
+  <!--    style="top: 65px; height: 100%"-->
   <v-navigation-drawer
     v-model="drawers.elementsDrawer.value"
     width="300"
@@ -81,8 +82,11 @@
 import draggable from 'vuedraggable'
 import {useDrawers} from "../../composables/useDrawers";
 import {ref} from "vue";
+import {useFieldStyle} from "@/composables/useFieldStyle";
+
 
 const drawers = useDrawers();
+const {fieldProps} = useFieldStyle()
 
 const staticContent = ref([
   {
@@ -201,6 +205,9 @@ function cloneControls(item: Controls) {
       input: (e: any) => {
       },
     },
+    options: {
+      fieldProps,
+    }
   }
 
   switch (item.component) {
@@ -241,14 +248,14 @@ function cloneControls(item: Controls) {
       }
     }
     case "dictionary": {
-        return  {
-          ...schemaElement,
-          source: {
-            url: "",
-            title: "label",
-            value: "id",
-          }
+      return {
+        ...schemaElement,
+        source: {
+          url: "",
+          title: "label",
+          value: "id",
         }
+      }
     }
   }
 }

@@ -2,6 +2,8 @@
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
   <col-property v-model="model.layout.cols"/>
+  <fill-row-property v-model="model.layout.fillRow"/>
+  <required-property v-model="model.required"/>
 </template>
 
 <script setup lang="ts">
@@ -11,6 +13,8 @@ import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
+import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

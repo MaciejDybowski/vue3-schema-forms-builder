@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import {VTextField} from "vuetify/components";
 import {useI18n} from "vue-i18n";
 import {useFieldStyle} from "@/composables/useFieldStyle";
 
@@ -18,6 +17,9 @@ const modelValue = defineModel()
 const {fieldProps} = useFieldStyle();
 
 const {t} = useI18n()
+
+console.debug(t)
+//console.debug(t('modelKey'))
 </script>
 
 <style scoped lang="scss">

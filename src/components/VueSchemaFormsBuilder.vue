@@ -34,7 +34,8 @@ const canvas = useCanvas();
 
 let modelValue = defineModel<{
   type: "object",
-  properties: {}
+  properties: {},
+  options: {},
 }>()
 
 const canvasColumns = computed(() => {
