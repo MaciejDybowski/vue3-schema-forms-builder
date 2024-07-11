@@ -42,7 +42,7 @@ import {useMainCanvas} from "../../composables/useMainCanvas";
 
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
-import PropsViewer from "@/components/storybook-components/PropsViewer.vue";
+import {useVTheme} from "@/composables/useVTheme";
 
 schemaFormModelStoreInit.useFormModelStore("333")
 const instance = getCurrentInstance();
@@ -55,14 +55,26 @@ for (const [name, comp] of Object.entries(formControls)) {
   }
 }
 
+const theme = useVTheme()
+const color = theme.isLightTheme.value ? "white" : "primary";
+
 let modelValue = defineModel<{
   type: "object",
-  properties: any
+  properties: any,
+  options: any,
 }>({
   default: () => {
     return {
       type: "object",
-      properties: {}
+      properties: {},
+      options: {
+        fieldProps: {
+          variant: "outlined",
+          density: "compact",
+          color: "primary",
+          clearIcon: "mdi-close"
+        }
+      }
     }
   }
 })
@@ -103,7 +115,8 @@ function mapToDraggable(model: any): Array<any> {
         "on": {
           "input": (e) => {
           }
-        }
+        },
+        options: model.options
       }
     )
   })
@@ -137,6 +150,7 @@ function mapField(schema: any, control: any) {
       delete clone.formId
       delete clone.key
       delete clone.on
+      //delete clone.options // TODO stylowanie hardcode w FormNodeMock
       schema.properties[k] = clone
 
     }

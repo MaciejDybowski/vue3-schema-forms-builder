@@ -16,7 +16,8 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderStory: Story = {
   args: {
     workspaceId: "faktury",
-    model: {"type": "object",
+    model: {
+      "type": "object",
       "properties": {
         "name": {
           "label": "Imię",
@@ -25,6 +26,14 @@ export const FormBuilderStory: Story = {
         "surname": {
           "label": "Nazwisko",
           "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field"}
+        }
+      },
+      options: {
+        fieldProps: {
+          variant: "outlined",
+          density: "compact",
+          color: "primary",
+          clearIcon: "mdi-close"
         }
       }
     }

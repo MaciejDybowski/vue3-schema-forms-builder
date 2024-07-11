@@ -23,7 +23,6 @@
 
 import DraggableArea from "./DraggableArea.vue";
 import {computed, ref, watch} from "vue";
-import {useTheme} from "vuetify";
 import {useVTheme} from "@/composables/useVTheme";
 
 const props = defineProps<{
