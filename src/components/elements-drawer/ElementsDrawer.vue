@@ -200,6 +200,7 @@ function cloneControls(item: Controls) {
       offset: 0,
       fillRow: false,
       component: item.component,
+      props: {}
     },
     on: {
       input: (e: any) => {

@@ -46,7 +46,7 @@ import "vue-json-pretty/lib/styles.css";
 import "vue3-schema-forms/dist/style.css"
 import {useVTheme} from "@/composables/useVTheme";
 
-schemaFormModelStoreInit.useFormModelStore("333")
+schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 const instance = getCurrentInstance();
 for (const [name, comp] of Object.entries(formControls)) {
   //@ts-ignore
@@ -109,6 +109,15 @@ function mapToSchema() {
 function mapToDraggable(model: any): Array<any> {
   let localControls = [] as Array<any>
   Object.entries(model.properties).forEach(([key, value]) => {
+
+    // TEMPORARY for all existed schema will be transformed
+    // @ts-ignore
+    if (!value.layout.props) {
+      // @ts-ignore
+      value.layout.props = {}
+    }
+
+
     localControls.push(
       {
         formId: 'builder-tecna-id',

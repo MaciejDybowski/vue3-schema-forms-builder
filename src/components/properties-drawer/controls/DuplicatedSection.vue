@@ -1,10 +1,6 @@
 <template>
   <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
   <col-property v-model="model.layout.cols"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <required-property v-model="model.required"/>
-  <read-only-property v-model="model.layout.props.readOnly"/>
 </template>
 
 <script setup lang="ts">

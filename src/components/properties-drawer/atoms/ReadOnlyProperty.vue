@@ -1,8 +1,8 @@
 <template>
   <v-list-item>
-    <v-text-field
-      class="pt-2"
-      :label="t('modelKey')"
+    <v-checkbox
+      class="mx-2"
+      :label="t('readOnlyProperty')"
       v-model="modelValue"
       v-bind="fieldProps"
     />
@@ -10,14 +10,13 @@
 </template>
 
 <script setup lang="ts">
-
-import {useFieldStyle} from "@/composables/useFieldStyle";
 import {useI18n} from "vue-i18n";
+import {useFieldStyle} from "@/composables/useFieldStyle";
 
 const modelValue = defineModel()
 const {fieldProps} = useFieldStyle();
 
-const {t} = useI18n();
+const {t} = useI18n()
 
 </script>
 
@@ -27,10 +26,10 @@ const {t} = useI18n();
 <i18n lang="json">
 {
   "en": {
-    "modelKey": "Model reference"
+    "readOnlyProperty": "Read only"
   },
   "pl": {
-    "modelKey": "Klucz w modelu"
+    "readOnlyProperty": "Pole do odczytu"
   }
 }
 </i18n>

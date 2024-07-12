@@ -13,6 +13,7 @@
       <static-content-properties v-if="model.layout.component == 'static-content'"/>
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
       <simple-select-properties v-if="model.layout.component == 'select'"/>
+      <duplicated-section v-if="model.layout.component == 'duplicated-section'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -26,6 +27,7 @@ import TextFieldProperties from "@/components/properties-drawer/controls/TextFie
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
 import SimpleSelectProperties from "@/components/properties-drawer/controls/SimpleSelectProperties.vue";
+import DuplicatedSection from "@/components/properties-drawer/controls/DuplicatedSection.vue";
 
 
 const drawers = useDrawers();

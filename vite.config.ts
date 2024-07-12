@@ -5,9 +5,11 @@ import typescript2 from "rollup-plugin-typescript2";
 import dts from "vite-plugin-dts";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import { exec } from "node:child_process";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 export default defineConfig({
   plugins: [
+    peerDepsExternal(),
     vue(),
     VueI18nPlugin({}),
     dts({
@@ -49,7 +51,7 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'src/main.ts'),
       },
-      external: ['vue', 'vuetify', 'vuedraggable', 'axios', 'pinia', "dayjs"],
+      external: ['vue'],
       output: {
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'main.css') return 'style.css';
