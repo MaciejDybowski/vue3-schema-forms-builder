@@ -21,4 +21,5 @@ npm-publish:
   script:
     - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
     - npm run install-registry
-    - npm run build-and-publish-snapshot
+    - npm run build
+    - npm run publish
