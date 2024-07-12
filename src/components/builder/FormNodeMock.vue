@@ -9,13 +9,25 @@
       :key="renderKey"
     />
 
-    <draggable-area
-      class="py-6"
-      v-else
-      :style="element.tempItems.length === 0 ? duplicatedSectionStyle : undefined"
-      v-model="element.tempItems"
-      :empty-insert-threshold="30"
-    />
+    <div v-else>
+      <draggable-area
+        class="pt-6"
+        :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
+        v-model="element.tempItems"
+        :empty-insert-threshold="30"
+      />
+      <v-btn
+        class="mx-4"
+        size="small"
+        variant="flat"
+        :rounded="true"
+        prepend-icon='mdi-plus'
+        :color="color"
+      >
+        Dodaj element
+      </v-btn>
+    </div>
+
   </div>
 </template>
 
@@ -30,12 +42,13 @@ const props = defineProps<{
 }>()
 
 const theme = useVTheme()
+const color = theme.isDarkTheme.value ? "white" : "primary";
 
 const duplicatedSectionStyle = computed(() => {
   if (theme.isLightTheme.value) {
-    return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE;'
+    return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE; border-bottom: 0px'
   } else {
-    return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5;'
+    return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5; border-bottom: 0px'
   }
 })
 

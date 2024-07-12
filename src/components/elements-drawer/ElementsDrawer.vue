@@ -7,8 +7,7 @@
     order="3"
     scrim="transparent"
     class="element-drawer"
-    style="top: 65px; height: 100%"
-
+    style="padding-top: 65px; height: 100%"
   >
     <v-list>
       <v-list-item density="compact">
@@ -245,6 +244,9 @@ function cloneControls(item: Controls) {
             type: "object",
             properties: {}
           },
+        },
+        options: {
+          fieldProps,
         }
       }
     }

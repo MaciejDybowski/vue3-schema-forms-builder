@@ -6,7 +6,7 @@
     order="3"
     location="right"
     scrim="transparent"
-    style="top: 65px; height: 100%"
+    style="padding-top: 65px; height: 100%"
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
@@ -14,6 +14,9 @@
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
       <simple-select-properties v-if="model.layout.component == 'select'"/>
       <duplicated-section v-if="model.layout.component == 'duplicated-section'"/>
+      <date-properties v-if="model.layout.component == 'date-picker'"/>
+      <dictionary-properties v-if="model.layout.component == 'dictionary'"/>
+      <text-area-properties v-if="model.layout.component == 'text-area'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -28,6 +31,9 @@ import StaticContentProperties from "@/components/properties-drawer/controls/Sta
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
 import SimpleSelectProperties from "@/components/properties-drawer/controls/SimpleSelectProperties.vue";
 import DuplicatedSection from "@/components/properties-drawer/controls/DuplicatedSection.vue";
+import DateProperties from "@/components/properties-drawer/controls/DateProperties.vue";
+import DictionaryProperties from "@/components/properties-drawer/controls/DictionaryProperties.vue";
+import TextAreaProperties from "@/components/properties-drawer/controls/TextAreaProperties.vue";
 
 
 const drawers = useDrawers();

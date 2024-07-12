@@ -117,6 +117,14 @@ function mapToDraggable(model: any): Array<any> {
       value.layout.props = {}
     }
 
+    // TODO - sprawdzenie czy zawiera schemę i jak tak to trzeba to przemapować
+    // @ts-ignore
+    if (value.layout.schema) {
+      // @ts-ignore
+      value.layout.schema.options = model.options
+      // @ts-ignore
+      value.tempItems = mapToDraggable(value.layout.schema)
+    }
 
     localControls.push(
       {
@@ -137,8 +145,20 @@ function mapToDraggable(model: any): Array<any> {
 }
 
 function mapField(schema: any, control: any) {
-  if (Array.isArray(control)) {
+
+
+  if (Array.isArray(control.tempItems)) {
     // obsługa sekcji powielanej TODO ###################################
+
+    const clone = cloneDeep(control)
+    const k = clone.key
+    clone.tempItems.forEach(element => {
+      mapField(clone.layout.schema, element)
+    })
+    removeDraggableFields(clone)
+    schema.properties[k] = clone
+
+
   } else {
     if (control.key.includes(".")) {
 
@@ -160,15 +180,23 @@ function mapField(schema: any, control: any) {
       const clone = cloneDeep(control)
       const k = clone.key
       requiredMapping(schema, clone)
-      delete clone.formId
-      delete clone.key
-      delete clone.on
-      delete clone.options
-
-
+      removeDraggableFields(clone)
       schema.properties[k] = clone
 
     }
+  }
+}
+
+function removeDraggableFields(control) {
+
+  delete control.formId
+  delete control.key
+  delete control.on
+  delete control.options
+
+  if (control.tempItems) {
+    delete control.tempItems
+    delete control.required
   }
 }
 
