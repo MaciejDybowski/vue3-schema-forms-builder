@@ -44,6 +44,9 @@ import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 import "vue3-schema-forms/dist/style.css"
 import {useVTheme} from "@/composables/useVTheme";
+import {useSchemaMapper} from "@/composables/useSchemaMapper";
+import {FormSchema} from "@/models/FormSchema";
+import {useDraggableMapper} from "@/composables/useDraggableMapper";
 
 schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 const instance = getCurrentInstance();
@@ -59,11 +62,7 @@ for (const [name, comp] of Object.entries(formControls)) {
 const theme = useVTheme()
 const color = theme.isLightTheme.value ? "white" : "primary";
 
-let modelValue = defineModel<{
-  type: "object",
-  properties: any,
-  options: any,
-}>({
+let modelValue = defineModel<FormSchema>({
   default: () => {
     return {
       type: "object",
@@ -83,6 +82,8 @@ let modelValue = defineModel<{
 
 const useBuilderStateStore = useBuilderState()
 const mainCanvas = useMainCanvas()
+const {mapDraggableToSchema, schema} = useSchemaMapper()
+const {mapSchemaToDraggable} = useDraggableMapper()
 
 const controls = computed({
   get(): any[] {
@@ -95,9 +96,9 @@ const controls = computed({
 
 watch(controls, () => {
   modelValue.value.properties = {}
-  console.debug("robię przeliczenie schemy")
+
+  console.debug(controls.value)
   mapToSchema()
-  //console.debug(modelValue.value)
 }, {deep: true})
 
 
@@ -224,7 +225,10 @@ function contextCopy() {
 
 onMounted(() => {
   useBuilderStateStore.resetState()
-  controls.value = mapToDraggable(modelValue.value)
+  //controls.value = mapToDraggable(modelValue.value)
+
+  controls.value = mapSchemaToDraggable(modelValue.value)
+  console.debug(mapSchemaToDraggable(modelValue.value))
 })
 
 </script>
