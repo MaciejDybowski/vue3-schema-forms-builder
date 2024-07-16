@@ -3,7 +3,7 @@
     <span>{{ t('simpleSource.title') }}</span>
   </v-list-item>
   <v-list-item
-    v-for="item in modelValue.items"
+    v-for="(item, key) in modelValue.items"
     density="compact"
   >
     <div class="d-flex py-2 align-center justify-center">
@@ -29,6 +29,7 @@
         density="compact"
         size="small"
         flat
+        @click="deleteOption(key)"
       >
       </v-btn>
     </div>
@@ -38,6 +39,7 @@
       prepend-icon="mdi-plus"
       color="primary"
       size="small"
+      @click="addOption"
     >Dodaj
     </v-btn>
   </v-list-item>
@@ -60,9 +62,17 @@ const modelValue = defineModel<{
   }
 )
 
+function addOption() {
+  modelValue.value.items.push({
+    value: "changeMe",
+    title: "changeMe"
+  })
+}
 
+function deleteOption(key: number) {
+  modelValue.value.items = modelValue.value.items.filter((n, t) => t !== key)
+}
 </script>
-
 
 <style scoped lang="scss">
 

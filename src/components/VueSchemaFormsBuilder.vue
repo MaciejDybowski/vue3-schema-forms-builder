@@ -1,7 +1,7 @@
 <template>
   <div>
     <ElementsDrawer/>
-    <v-row dense justify="center">
+    <v-row dense justify="center" class="my-4">
       <v-col :cols="canvasColumns">
         <v-row dense>
           <v-col cols="auto" class="main-container ma-2">

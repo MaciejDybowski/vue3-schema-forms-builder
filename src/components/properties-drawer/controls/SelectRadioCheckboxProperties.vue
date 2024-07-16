@@ -2,6 +2,9 @@
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
   <col-property v-model="model.layout.cols"/>
+  <fill-row-property v-model="model.layout.fillRow"/>
+  <required-property v-model="model.required"/>
+  <read-only-property v-model="model.layout.props.readOnly"/>
   <simple-source-property v-model="source" />
 </template>
 
@@ -15,6 +18,9 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
+import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
+import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
+import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

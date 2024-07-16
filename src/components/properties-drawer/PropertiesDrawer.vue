@@ -6,13 +6,16 @@
     order="3"
     location="right"
     scrim="transparent"
-    style="padding-top: 65px; height: 100%"
+    style="top: 65px; min-height: calc(100vh - 65px)"
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
       <static-content-properties v-if="model.layout.component == 'static-content'"/>
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
-      <simple-select-properties v-if="model.layout.component == 'select'"/>
+
+
+      <select-radio-checkbox-properties v-if="optionsComponent"/>
+
       <duplicated-section v-if="model.layout.component == 'duplicated-section'"/>
       <date-properties v-if="model.layout.component == 'date-picker'"/>
       <dictionary-properties v-if="model.layout.component == 'dictionary'"/>
@@ -29,11 +32,11 @@ import {useBuilderState} from "../../pinia/stores/useBuilderState";
 import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
-import SimpleSelectProperties from "@/components/properties-drawer/controls/SimpleSelectProperties.vue";
 import DuplicatedSection from "@/components/properties-drawer/controls/DuplicatedSection.vue";
 import DateProperties from "@/components/properties-drawer/controls/DateProperties.vue";
 import DictionaryProperties from "@/components/properties-drawer/controls/DictionaryProperties.vue";
 import TextAreaProperties from "@/components/properties-drawer/controls/TextAreaProperties.vue";
+import SelectRadioCheckboxProperties from "@/components/properties-drawer/controls/SelectRadioCheckboxProperties.vue";
 
 
 const drawers = useDrawers();
@@ -46,6 +49,12 @@ const model = computed({
   set(val) {
     useBuilderStateStore.setConfiguredField(val)
   }
+})
+
+const optionsComponent = computed(() => {
+  return model.value.layout.component == 'select' ||
+    model.value.layout.component == 'radio-button' ||
+    model.value.layout.component == 'checkbox'
 })
 </script>
 

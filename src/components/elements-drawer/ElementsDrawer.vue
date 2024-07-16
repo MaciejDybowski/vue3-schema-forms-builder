@@ -7,7 +7,7 @@
     order="3"
     scrim="transparent"
     class="element-drawer"
-    style="padding-top: 65px; height: 100%"
+    style="top: 65px; min-height: calc(100vh - 65px)"
   >
     <v-list>
       <v-list-item density="compact">

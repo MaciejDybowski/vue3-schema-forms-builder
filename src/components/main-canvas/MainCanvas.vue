@@ -3,7 +3,7 @@
   <v-card
     elevation="2"
     class="pa-4"
-    style="min-height: calc(100vh - 65px)"
+    style="min-height: calc(100vh - 130px)"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
