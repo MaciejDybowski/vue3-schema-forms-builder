@@ -1,9 +1,8 @@
 <template>
-  <!--  style="min-height: calc(100vh - 65px)"-->
+  <!--    style="min-height: calc(100vh - 130px)"-->
   <v-card
     elevation="2"
     class="pa-4"
-    style="min-height: calc(100vh - 130px)"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
@@ -96,7 +95,9 @@ const controls = computed({
 
 watch(controls, () => {
   modelValue.value.properties = {}
+  console.debug("robię przeliczenie schemy")
   mapToSchema()
+  //console.debug(modelValue.value)
 }, {deep: true})
 
 
@@ -150,8 +151,10 @@ function mapField(schema: any, control: any) {
   if (Array.isArray(control.tempItems)) {
     // obsługa sekcji powielanej TODO ###################################
 
-    const clone = cloneDeep(control)
+
+    const clone = cloneDeep(control)//JSON.parse(JSON.stringify(control))
     const k = clone.key
+    clone.layout.schema.properties = {}
     clone.tempItems.forEach(element => {
       mapField(clone.layout.schema, element)
     })
