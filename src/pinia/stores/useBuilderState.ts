@@ -2,13 +2,14 @@ import {defineStore} from "pinia";
 import {computed, Ref, ref} from "vue";
 import {cloneDeep} from "lodash";
 import set from 'lodash/set';
+import {DraggableFormElement} from "@/models/DraggableFormElement";
 
 export const useBuilderState = defineStore("useBuilderState", () => {
   // draggable model for builder
-  const draggableModel: Ref<Array<object>> = ref([])
+  const draggableModel: Ref<DraggableFormElement[]> = ref([])
   const getDraggableModel = computed(() => draggableModel.value)
 
-  function updateDraggableModel(value: Array<object>, stackInvoker: boolean = false) {
+  function updateDraggableModel(value: DraggableFormElement[], stackInvoker: boolean = false) {
     draggableModel.value = value
 
 

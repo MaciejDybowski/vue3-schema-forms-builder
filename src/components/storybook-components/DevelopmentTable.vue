@@ -1,11 +1,12 @@
 <template>
   <div v-if="!loading">
     <VueSchemaFormsBuilder
-      v-model="props.model"
+      v-model="modelValue"
+      :options="options"
     />
     <PropsViewer
       :model="{}"
-      :schema="props.model"
+      :schema="modelValue"
     />
   </div>
   <loading-view v-else/>
@@ -17,10 +18,12 @@ import {fetchToken} from "../../../.storybook/keycloak_auth";
 import LoadingView from "@/components/storybook-components/LoadingView.vue";
 import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue";
 import PropsViewer from "@/components/storybook-components/PropsViewer.vue";
+import {FormSchema} from "@/models/FormSchema";
 
+const modelValue = defineModel<FormSchema>()
 
 const props = defineProps<{
-  model: any;
+  options: object
   workspaceId: string,
 }>();
 

@@ -80,14 +80,14 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
 import {useDrawers} from "../../composables/useDrawers";
-import {ref} from "vue";
+import {Ref, ref} from "vue";
 import {useFieldStyle} from "@/composables/useFieldStyle";
-
+import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 
 const drawers = useDrawers();
 const {fieldProps} = useFieldStyle()
 
-const staticContent = ref([
+const staticContent: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-format-header-1",
     label: "Nagłowek 1",
@@ -115,18 +115,10 @@ const staticContent = ref([
   {
     icon: "mdi-read",
     label: "Pole odczytu",
-    component: "data-viewer"
+    component: "data-viewer",
   }
 ])
-
-interface Controls {
-  label: string,
-  component: "text-field" | "duplicated-section" | "static-content" | "data-viewer" | 'text-area' | 'radio-button'
-    | 'checkbox' | "select" | "location" | "date-picker" | "phone" | "address" | "dictionary",
-  tag?: string
-}
-
-const controls = ref([
+const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-format-letter-matches",
     label: "Pole tekstowe",
@@ -178,8 +170,7 @@ const controls = ref([
     component: "address"
   },
 ])
-
-const layoutElements = ref([
+const layoutElements: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-content-copy",
     label: "Sekcja powielana",
@@ -188,7 +179,7 @@ const layoutElements = ref([
 ])
 
 
-function cloneControls(item: Controls) {
+function cloneControls(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)
   const schemaElement = {
     formId: '333',
@@ -264,14 +255,14 @@ function cloneControls(item: Controls) {
 }
 
 
-function cloneStatic(item: Controls) {
+function cloneStatic(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)
 
   switch (item.component) {
     case "static-content": {
       return {
         key: id,
-        content: "Your text",
+        content: "Change it",
         layout: {
           component: item.component,
           tag: item.tag,

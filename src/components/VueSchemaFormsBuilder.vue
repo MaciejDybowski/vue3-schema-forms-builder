@@ -29,14 +29,17 @@ import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "../composables/useCanvas";
 import {computed} from "vue";
+import {FormSchema} from "@/models/FormSchema";
 
 const canvas = useCanvas();
 
-let modelValue = defineModel<{
-  type: "object",
-  properties: {},
-  options: {},
+let modelValue = defineModel<FormSchema>()
+
+// TODO
+const props = defineProps<{
+  options: object
 }>()
+
 
 const canvasColumns = computed(() => {
   switch (canvas.canvasMode.value) {

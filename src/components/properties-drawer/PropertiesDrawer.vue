@@ -12,10 +12,7 @@
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
       <static-content-properties v-if="model.layout.component == 'static-content'"/>
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
-
-
       <select-radio-checkbox-properties v-if="optionsComponent"/>
-
       <duplicated-section v-if="model.layout.component == 'duplicated-section'"/>
       <date-properties v-if="model.layout.component == 'date-picker'"/>
       <dictionary-properties v-if="model.layout.component == 'dictionary'"/>

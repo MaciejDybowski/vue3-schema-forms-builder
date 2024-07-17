@@ -22,6 +22,7 @@ export function useSchemaMapper() {
     formElements.forEach((element: DraggableFormElement) => {
       mapSingleElement(schema.value, element)
     })
+
     return schema.value
   }
 
@@ -101,5 +102,5 @@ export function useSchemaMapper() {
     delete formElement.required
   }
 
-  return {mapDraggableToSchema, schema}
+  return {mapDraggableToSchema}
 }

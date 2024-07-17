@@ -35,7 +35,6 @@ import {computed, getCurrentInstance, onMounted, watch} from "vue";
 import {formControls, schemaFormModelStoreInit} from "vue3-schema-forms"
 
 import DraggableArea from "../builder/DraggableArea.vue";
-import {cloneDeep} from "lodash";
 
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
 import {useMainCanvas} from "../../composables/useMainCanvas";
@@ -43,7 +42,7 @@ import {useMainCanvas} from "../../composables/useMainCanvas";
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 import "vue3-schema-forms/dist/style.css"
-import {useVTheme} from "@/composables/useVTheme";
+
 import {useSchemaMapper} from "@/composables/useSchemaMapper";
 import {FormSchema} from "@/models/FormSchema";
 import {useDraggableMapper} from "@/composables/useDraggableMapper";
@@ -59,8 +58,6 @@ for (const [name, comp] of Object.entries(formControls)) {
   }
 }
 
-const theme = useVTheme()
-const color = theme.isLightTheme.value ? "white" : "primary";
 
 let modelValue = defineModel<FormSchema>({
   default: () => {
@@ -74,15 +71,15 @@ let modelValue = defineModel<FormSchema>({
           color: "primary",
           clearIcon: "mdi-close"
         }
-      }
+      },
+      required: []
     }
   }
 })
 
-
 const useBuilderStateStore = useBuilderState()
 const mainCanvas = useMainCanvas()
-const {mapDraggableToSchema, schema} = useSchemaMapper()
+const {mapDraggableToSchema} = useSchemaMapper()
 const {mapSchemaToDraggable} = useDraggableMapper()
 
 const controls = computed({
@@ -94,141 +91,19 @@ const controls = computed({
   }
 })
 
-watch(controls, () => {
-  modelValue.value.properties = {}
-
-  console.debug(controls.value)
-  mapToSchema()
-}, {deep: true})
-
-
-function mapToSchema() {
-  controls.value.forEach((control: any) => {
-    mapField(modelValue.value, control)
-  })
-}
-
-function mapToDraggable(model: any): Array<any> {
-  let localControls = [] as Array<any>
-  Object.entries(model.properties).forEach(([key, value]) => {
-
-    // TEMPORARY for all existed schema will be transformed
-    // @ts-ignore
-    if (!value.layout.props) {
-      // @ts-ignore
-      value.layout.props = {}
-    }
-
-    // TODO - sprawdzenie czy zawiera schemę i jak tak to trzeba to przemapować
-    // @ts-ignore
-    if (value.layout.schema) {
-      // @ts-ignore
-      value.layout.schema.options = model.options
-      // @ts-ignore
-      value.tempItems = mapToDraggable(value.layout.schema)
-    }
-
-    localControls.push(
-      {
-        formId: 'builder-tecna-id',
-        key: key,
-        ...value as object,
-        "on": {
-          "input": (e) => {
-          }
-        },
-        options: model.options,
-        required: model.required?.includes(key),
-      }
-    )
-  })
-
-  return localControls;
-}
-
-function mapField(schema: any, control: any) {
-
-
-  if (Array.isArray(control.tempItems)) {
-    // obsługa sekcji powielanej TODO ###################################
-
-
-    const clone = cloneDeep(control)//JSON.parse(JSON.stringify(control))
-    const k = clone.key
-    clone.layout.schema.properties = {}
-    clone.tempItems.forEach(element => {
-      mapField(clone.layout.schema, element)
-    })
-    removeDraggableFields(clone)
-    schema.properties[k] = clone
-
-
-  } else {
-    if (control.key.includes(".")) {
-
-      const keys = control.key.split(".")
-      const nestedRootKey = keys[0]
-
-      // jeśli nie ma jeszcze klucza nested root [basicData] to dodaj
-      if (schema.properties[nestedRootKey] === undefined) {
-        schema.properties[nestedRootKey] = {properties: {}}
-      }
-
-      const obj = {...control}
-      keys.shift()
-      obj.key = keys.join(".") // usunięcie nested root key i wywołanie ponownie
-      mapField(schema.properties[nestedRootKey], obj)
-
-    } else {
-      // TODO == obsługa różnego rodzaju pól w tym sekcji powielanej
-      const clone = cloneDeep(control)
-      const k = clone.key
-      requiredMapping(schema, clone)
-      removeDraggableFields(clone)
-      schema.properties[k] = clone
-
-    }
-  }
-}
-
-function removeDraggableFields(control) {
-
-  delete control.formId
-  delete control.key
-  delete control.on
-  delete control.options
-
-  if (control.tempItems) {
-    delete control.tempItems
-    delete control.required
-  }
-}
-
-function requiredMapping(schema: any, item: any) {
-  if (!schema.required) {
-    schema.required = []
-  }
-  if (item.required) {
-    if (!schema.required.includes(item.key)) {
-      schema.required.push(item.key)
-    }
-  } else {
-    schema.required = schema.required.filter(k => k !== item.key)
-  }
-  delete item.required
-}
-
-
 function contextCopy() {
   navigator.clipboard.writeText(JSON.stringify(modelValue.value));
 }
 
 onMounted(() => {
   useBuilderStateStore.resetState()
-  //controls.value = mapToDraggable(modelValue.value)
 
   controls.value = mapSchemaToDraggable(modelValue.value)
-  console.debug(mapSchemaToDraggable(modelValue.value))
+
+  watch(controls, () => {
+    modelValue.value = mapDraggableToSchema(controls.value)
+  }, {deep: true})
+
 })
 
 </script>
