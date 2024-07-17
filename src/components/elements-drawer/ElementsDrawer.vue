@@ -81,11 +81,12 @@
 import draggable from 'vuedraggable'
 import {useDrawers} from "../../composables/useDrawers";
 import {ref} from "vue";
-import {useFieldStyle} from "@/composables/useFieldStyle";
+import {useStyle} from "@/composables/useStyle";
+
 
 
 const drawers = useDrawers();
-const {fieldProps} = useFieldStyle()
+const style = useStyle()
 
 const staticContent = ref([
   {
@@ -206,7 +207,8 @@ function cloneControls(item: Controls) {
       },
     },
     options: {
-      fieldProps,
+      fieldProps: style.inputStyle,
+      buttonProps: style.buttonStyle
     }
   }
 
@@ -242,11 +244,16 @@ function cloneControls(item: Controls) {
           cols: 12,
           schema: {
             type: "object",
-            properties: {}
+            properties: {},
           },
+          options: {
+            addBtnText: "Add element",
+            showDivider: false,
+          }
         },
         options: {
-          fieldProps,
+          fieldProps: style.inputStyle,
+          buttonProps: style.buttonStyle
         }
       }
     }

@@ -4,17 +4,16 @@
       class="pt-2"
       :label="t('defaultProperty')"
       v-model="modelValue"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {useFieldStyle} from "@/composables/useFieldStyle";
-
+import {useStyle} from "@/composables/useStyle";
+const style = useStyle();
 const modelValue = defineModel()
-const {fieldProps} = useFieldStyle();
 
 const {t} = useI18n()
 </script>

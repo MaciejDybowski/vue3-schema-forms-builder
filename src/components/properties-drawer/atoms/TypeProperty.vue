@@ -4,7 +4,7 @@
       class="pt-2"
       :label="t('typeProperty')"
       :items="items"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
       v-model="modelValue"
       :return-object="false"
       clearable
@@ -14,11 +14,11 @@
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {useFieldStyle} from "@/composables/useFieldStyle";
 import {ref} from "vue";
+import {useStyle} from "@/composables/useStyle";
 
 const modelValue = defineModel()
-const {fieldProps} = useFieldStyle();
+const style = useStyle()
 
 const {t} = useI18n()
 

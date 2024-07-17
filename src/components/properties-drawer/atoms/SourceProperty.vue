@@ -1,5 +1,5 @@
 <template>
-  <v-list-item density="compact">
+  <v-list-item>
     <span>Konfiguracja słownika</span>
   </v-list-item>
   <v-list-item>
@@ -9,7 +9,8 @@
       :label="t('urlKey') + '#TODO'"
       v-model="modelValue.url"
       @update:model-value="setUrl"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
+
     />
   </v-list-item>
   <v-list-item>
@@ -18,7 +19,7 @@
       :label="t('title')"
       v-model="modelValue.title"
       @update:model-value="setTitle"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
@@ -27,7 +28,7 @@
       :label="t('value')"
       v-model="modelValue['value']"
       @update:model-value="setValue"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
@@ -36,53 +37,51 @@
       :label="t('description')"
       v-model="modelValue.description"
       @update:model-value="setDescription"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
-  <v-list-item  density="compact">
+  <v-list-item>
     <v-switch
       class="mx-2"
       :label="t('returnObject')"
       v-model="modelValue.returnObject"
       @update:model-value="setReturnObject"
-      v-bind="fieldProps"
-      density="compact"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
-  <v-list-item density="compact">
+  <v-list-item>
     <v-switch
       class="mx-2"
       :label="t('lazyLoading')"
       v-model="modelValue.lazy"
       @update:model-value="setLazyLoading"
-      v-bind="fieldProps"
-      density="compact"
+      v-bind="style.inputStyle.value"
     />
 
   </v-list-item>
-  <v-list-item density="compact">
+  <v-list-item>
     <v-switch
       class="mx-2"
       :label="t('singleOptionAutoSelect')"
       v-model="modelValue.singleOptionAutoSelect"
       @update:model-value="setSingleOptionAutoSelect"
-      v-bind="fieldProps"
-      density="compact"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
 <script setup lang="ts">
 
-import {useFieldStyle} from "@/composables/useFieldStyle";
+
 import {useI18n} from "vue-i18n";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useStyle} from "@/composables/useStyle";
 
 const modelValue = defineModel<any>({
   default: () => {}
 })
 
-const {fieldProps} = useFieldStyle();
+const style = useStyle()
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 

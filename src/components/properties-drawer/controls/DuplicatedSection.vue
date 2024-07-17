@@ -1,18 +1,19 @@
 <template>
   <key-property v-model="model.key"/>
   <col-property v-model="model.layout.cols"/>
+  <duplicated-section-button-property v-model="model.layout.options.addBtnText"/>
+  <duplicated-section-divider-property v-model="model.layout.options.showDivider"/>
 </template>
 
 <script setup lang="ts">
 
 import {computed} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
-import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import DuplicatedSectionButtonProperty from "@/components/properties-drawer/atoms/DuplicatedSectionButtonProperty.vue";
+import DuplicatedSectionDividerProperty
+  from "@/components/properties-drawer/atoms/DuplicatedSectionDividerProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

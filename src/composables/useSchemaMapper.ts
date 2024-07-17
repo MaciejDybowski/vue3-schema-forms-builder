@@ -1,17 +1,18 @@
 import {DraggableFormElement} from "@/models/DraggableFormElement";
 import {Ref, ref} from "vue";
-import {useFieldStyle} from "@/composables/useFieldStyle";
+
 import {FormSchema} from "@/models/FormSchema";
 import {cloneDeep} from "lodash";
+import {useStyle} from "@/composables/useStyle";
 
 export function useSchemaMapper() {
-  const {fieldProps} = useFieldStyle()
+  const style = useStyle();
 
   const schema: Ref<FormSchema> = ref({
     type: "object",
     properties: {},
     options: {
-      fieldProps: fieldProps
+      fieldProps: style.inputStyle
     },
     required: []
   })

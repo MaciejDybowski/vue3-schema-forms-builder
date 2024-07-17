@@ -16,6 +16,10 @@
         v-model="element.tempItems"
         :empty-insert-threshold="30"
       />
+      <v-divider
+        v-if="element.layout.options.showDivider"
+        class="mb-2 mx-4"
+      />
       <v-btn
         class="mx-4"
         size="small"
@@ -24,7 +28,7 @@
         prepend-icon='mdi-plus'
         :color="color"
       >
-        Dodaj element
+        {{ element.layout.options.addBtnText }}
       </v-btn>
     </div>
 
