@@ -3,7 +3,8 @@ import {Ref, ref} from "vue";
 
 import {FormSchema} from "@/models/FormSchema";
 import {cloneDeep} from "lodash";
-import {useStyle} from "@/composables/useStyle";
+import {useStyle} from "@/main";
+
 
 export function useSchemaMapper() {
   const style = useStyle();

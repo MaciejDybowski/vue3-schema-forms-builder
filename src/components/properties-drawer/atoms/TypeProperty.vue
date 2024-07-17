@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import {ref} from "vue";
-import {useStyle} from "@/composables/useStyle";
+import {useStyle} from "@/main";
 
 const modelValue = defineModel()
 const style = useStyle()

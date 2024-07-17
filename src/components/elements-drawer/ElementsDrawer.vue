@@ -81,7 +81,7 @@
 import draggable from 'vuedraggable'
 import {useDrawers} from "../../composables/useDrawers";
 import {ref} from "vue";
-import {useStyle} from "@/composables/useStyle";
+import {useStyle} from "@/main";
 
 
 const drawers = useDrawers();

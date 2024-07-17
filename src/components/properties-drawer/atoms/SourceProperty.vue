@@ -75,7 +75,7 @@
 
 import {useI18n} from "vue-i18n";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
-import {useStyle} from "@/composables/useStyle";
+import {useStyle} from "@/main";
 
 const modelValue = defineModel<any>({
   default: () => {}
