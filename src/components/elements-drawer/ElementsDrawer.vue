@@ -84,7 +84,6 @@ import {ref} from "vue";
 import {useStyle} from "@/composables/useStyle";
 
 
-
 const drawers = useDrawers();
 const style = useStyle()
 
@@ -117,13 +116,18 @@ const staticContent = ref([
     icon: "mdi-read",
     label: "Pole odczytu",
     component: "data-viewer"
+  },
+  {
+    icon: "mdi-card-outline",
+    label: "Przycisk",
+    "component": "button"
   }
 ])
 
 interface Controls {
   label: string,
   component: "text-field" | "duplicated-section" | "static-content" | "data-viewer" | 'text-area' | 'radio-button'
-    | 'checkbox' | "select" | "location" | "date-picker" | "phone" | "address" | "dictionary",
+    | 'checkbox' | "select" | "location" | "date-picker" | "phone" | "address" | "dictionary" | "button",
   tag?: string
 }
 
@@ -293,6 +297,19 @@ function cloneStatic(item: Controls) {
         layout: {
           component: item.component,
           cols: 12,
+        }
+      }
+    }
+    case "button": {
+      return {
+        key: id,
+        label: "Click me",
+        layout: {
+          component: item.component,
+          cols: 2,
+        },
+        options: {
+          buttonProps: style.buttonStyle
         }
       }
     }

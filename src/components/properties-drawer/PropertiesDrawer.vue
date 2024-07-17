@@ -20,6 +20,7 @@
       <date-properties v-if="model.layout.component == 'date-picker'"/>
       <dictionary-properties v-if="model.layout.component == 'dictionary'"/>
       <text-area-properties v-if="model.layout.component == 'text-area'"/>
+      <button-properties v-if="model.layout.component == 'button'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -37,6 +38,7 @@ import DateProperties from "@/components/properties-drawer/controls/DateProperti
 import DictionaryProperties from "@/components/properties-drawer/controls/DictionaryProperties.vue";
 import TextAreaProperties from "@/components/properties-drawer/controls/TextAreaProperties.vue";
 import SelectRadioCheckboxProperties from "@/components/properties-drawer/controls/SelectRadioCheckboxProperties.vue";
+import ButtonProperties from "@/components/properties-drawer/controls/ButtonProperties.vue";
 
 
 const drawers = useDrawers();
