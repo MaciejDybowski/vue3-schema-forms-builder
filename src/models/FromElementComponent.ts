@@ -12,3 +12,4 @@ export type FromElementComponent =
   | "phone"
   | "address"
   | "dictionary"
+  | "button"

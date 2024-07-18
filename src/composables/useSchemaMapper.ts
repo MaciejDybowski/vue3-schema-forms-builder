@@ -56,7 +56,7 @@ export function useSchemaMapper() {
     schema.properties[tempElementKey] = tempElement
   }
 
-  function removeDraggableFields(formElement: DraggableFormElement) {
+  function removeDraggableFields(formElement: Partial<DraggableFormElement>) {
     delete formElement.formId
     delete formElement.key
     delete formElement.on
@@ -67,6 +67,8 @@ export function useSchemaMapper() {
       delete formElement.required
       delete formElement.layout.schema.options
     }
+
+    delete formElement.required
   }
 
   function mapOthersElements(schema: FormSchema, formElement: DraggableFormElement) {
@@ -103,7 +105,7 @@ export function useSchemaMapper() {
     } else {
       schema.required = schema.required.filter(k => k !== formElement.key)
     }
-    delete formElement.required
+
   }
 
   return {mapDraggableToSchema}

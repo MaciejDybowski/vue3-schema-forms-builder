@@ -23,7 +23,7 @@
             />
           </div>
         </div>
-        <vue-json-pretty :data="modelValue"/>
+        <vue-json-pretty :data="modelValue as any"/>
       </v-col>
     </v-row>
   </v-card>

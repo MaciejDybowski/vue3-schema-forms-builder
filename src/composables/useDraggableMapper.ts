@@ -48,7 +48,7 @@ export function useDraggableMapper() {
           }
         },
         options: formOptions,
-        required: formSchema.required?.includes(key),
+        required: formSchema.required?.includes(key) as boolean,
       }
     )
   }

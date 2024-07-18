@@ -121,7 +121,7 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-card-outline",
     label: "Przycisk",
-    "component": "button"
+    component: "button"
   }
 ])
 const controls: Ref<ElementDrawerFromElement[]> = ref([
@@ -298,7 +298,7 @@ function cloneStatic(item: ElementDrawerFromElement) {
         label: "Click me",
         layout: {
           component: item.component,
-          cols: 2,
+          cols: 12,
         },
         options: {
           buttonProps: style.buttonStyle
