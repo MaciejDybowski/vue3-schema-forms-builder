@@ -31,7 +31,7 @@ const config: StorybookConfig = {
             changeOrigin: true,
             secure: false,
           },
-          '/api^': {
+          '/api': {
             target: "https://aureadev.tecna.pl/",
             changeOrigin: true,
             secure: false,

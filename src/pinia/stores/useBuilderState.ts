@@ -5,6 +5,14 @@ import set from 'lodash/set';
 import {DraggableFormElement} from "@/models/DraggableFormElement";
 
 export const useBuilderState = defineStore("useBuilderState", () => {
+  // workspaceId for dictionary config
+  const workspaceId: Ref<string> = ref("")
+  const getWorkspaceId = computed(() => workspaceId.value)
+
+  function setWorkspaceId(value: string) {
+    workspaceId.value = value
+  }
+
   // draggable model for builder
   const draggableModel: Ref<DraggableFormElement[]> = ref([])
   const getDraggableModel = computed(() => draggableModel.value)
@@ -71,10 +79,12 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const configuredField: Ref<any> = ref(null)
   const getConfiguredField = computed(() => configuredField.value)
   const getConfiguredFieldKey = computed(() => configuredField.value?.key)
+
   function setConfiguredField(field: any) {
     configuredField.value = field
   }
-  function setKeyInConfiguredField(key: string, value: string){
+
+  function setKeyInConfiguredField(key: string, value: string) {
     set(configuredField.value, key, value);
   }
 
@@ -92,7 +102,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     // console.debug("wskaznik = ", historyPointer.value)
   }
 
-  function resetState(){
+  function resetState() {
     history.value = []
     historyPointer.value = -1;
   }
@@ -126,7 +136,9 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     getConfiguredField,
     getConfiguredFieldKey,
     setConfiguredField,
-    setKeyInConfiguredField
+    setKeyInConfiguredField,
+    getWorkspaceId,
+    setWorkspaceId,
   }
 })
 

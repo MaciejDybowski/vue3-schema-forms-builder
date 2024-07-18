@@ -24,9 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, getCurrentInstance, onMounted, watch} from "vue";
-
-import {formControls, schemaFormModelStoreInit} from "vue3-schema-forms"
+import {computed, onMounted, watch} from "vue";
 
 import DraggableArea from "../builder/DraggableArea.vue";
 
@@ -42,17 +40,6 @@ import {useStyle} from "@/main";
 import {FormOptions} from "@/models/FormOptions";
 import DemoForm from "@/components/main-canvas/DemoForm.vue";
 import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
-
-schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
-const instance = getCurrentInstance();
-for (const [name, comp] of Object.entries(formControls)) {
-  //@ts-ignore
-  if (!instance?.appContext.app.component(`node-${name}`)) {
-    //@ts-ignore
-    console.debug(`add component = node-${name}`)
-    instance?.appContext.app.component(`node-${name}`, comp);
-  }
-}
 
 
 let modelValue = defineModel<FormSchema>({

@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ t('titleFormDemo')}}</h2>
+  <h2>{{ t('titleFormDemo') }}</h2>
   <v-divider class="mb-4"/>
   <vue-schema-forms
     ref="myForm"
@@ -13,15 +13,22 @@
 
 <script setup lang="ts">
 
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {getCurrentInstance, onBeforeUnmount, onMounted, ref} from "vue";
 import {useStyle} from "@/main";
 import {useDrawers} from "@/composables/useDrawers";
 import {useI18n} from "vue-i18n";
+import {createVueSchemaForms} from "vue3-schema-forms";
+
+
+const vue3SchemaForms = createVueSchemaForms({
+    formUpdateLogger: true
+  }
+)
+const instance = getCurrentInstance();
+instance?.appContext.app.use(vue3SchemaForms)
 
 const {t} = useI18n()
-
 const model = ref({});
-
 const props = defineProps<{
   schema: object
 }>()

@@ -1,16 +1,23 @@
 <template>
-  <v-list-item>
-    <span>Konfiguracja słownika</span>
+  <v-list-item density="compact">
+    <span>{{ t('configLabel') }}</span>
   </v-list-item>
   <v-list-item>
     <v-text-field
       class="pt-2"
-      :disabled="true"
-      :label="t('urlKey') + '#TODO'"
-      v-model="modelValue.url"
-      @update:model-value="setUrl"
+      :label="t('workspaceId')"
+      v-model="workspaceId"
       v-bind="style.inputStyle.value"
-
+    />
+  </v-list-item>
+  <v-list-item>
+    <v-text-field
+      class="pt-2"
+      :label="t('urlKey')"
+      v-model="tempUrl"
+      @update:model-value="debounced.checkAPIUrl"
+      v-bind="style.inputStyle.value"
+      :error-messages="urlErrorMessage"
     />
   </v-list-item>
   <v-list-item>
@@ -18,7 +25,7 @@
       class="pt-2"
       :label="t('title')"
       v-model="modelValue.title"
-      @update:model-value="setTitle"
+
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
@@ -27,7 +34,7 @@
       class="pt-2"
       :label="t('value')"
       v-model="modelValue['value']"
-      @update:model-value="setValue"
+
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
@@ -36,7 +43,7 @@
       class="pt-2"
       :label="t('description')"
       v-model="modelValue.description"
-      @update:model-value="setDescription"
+
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
@@ -45,7 +52,7 @@
       class="mx-2"
       :label="t('returnObject')"
       v-model="modelValue.returnObject"
-      @update:model-value="setReturnObject"
+
       v-bind="style.inputStyle.value"
       hide-details="auto"
     />
@@ -55,7 +62,7 @@
       class="mx-2"
       :label="t('lazyLoading')"
       v-model="modelValue.lazy"
-      @update:model-value="setLazyLoading"
+
       v-bind="style.inputStyle.value"
       hide-details="auto"
     />
@@ -66,7 +73,7 @@
       class="mx-2"
       :label="t('singleOptionAutoSelect')"
       v-model="modelValue.singleOptionAutoSelect"
-      @update:model-value="setSingleOptionAutoSelect"
+
       v-bind="style.inputStyle.value"
       hide-details="auto"
     />
@@ -79,40 +86,79 @@
 import {useI18n} from "vue-i18n";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import {useStyle} from "@/main";
+import {computed, onMounted, Ref, ref, watch} from "vue";
+import axios from "axios";
+import {debounce} from "lodash";
 
 const modelValue = defineModel<any>({
-  default: () => {}
+  default: () => {
+  }
 })
 
 const style = useStyle()
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 
-function setUrl(val:string){
+function setUrl(val: string) {
   useBuilderStateStore.setKeyInConfiguredField("source.url", val)
 }
 
-function setDescription(val:string){
-  useBuilderStateStore.setKeyInConfiguredField("source.description", val)
+const workspaceId = computed({
+  get() {
+    return useBuilderStateStore.getWorkspaceId
+  },
+  set(value: string) {
+    useBuilderStateStore.setWorkspaceId(value)
+  }
+})
+
+const tempUrl = ref(null);
+const urlErrorMessage: Ref<string> = ref("")
+
+const debounced = {
+  checkAPIUrl: debounce(configureUrl, 500)
+};
+
+async function configureUrl(url: string) {
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        'Workspace-Id': workspaceId.value
+      }
+    })
+    if (response.status == 200) {
+      setUrl(url)
+      urlErrorMessage.value = ""
+    }
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      urlErrorMessage.value = t('urlErrorMessage')
+    }
+  }
 }
 
-function setTitle(val:string){
-  useBuilderStateStore.setKeyInConfiguredField("source.title", val)
+watch(workspaceId, () => {
+  if (tempUrl.value) {
+    debounced.checkAPIUrl(tempUrl.value)
+  }
+})
+
+watch(modelValue, () => {
+  isUrlExist()
+})
+
+function isUrlExist() {
+  if (modelValue.value.url) {
+    tempUrl.value = modelValue.value.url
+  } else {
+    tempUrl.value = null
+  }
 }
 
-function setValue(val:string){
-  useBuilderStateStore.setKeyInConfiguredField("source.value", val)
-}
 
-function setReturnObject(val){
-  useBuilderStateStore.setKeyInConfiguredField("source.returnObject", val)
-}
-function setLazyLoading(val){
-  useBuilderStateStore.setKeyInConfiguredField("source.lazy", val)
-}
-function setSingleOptionAutoSelect(val){
-  useBuilderStateStore.setKeyInConfiguredField("source.singleOptionAutoSelect", val)
-}
+onMounted(() => {
+  isUrlExist()
+})
 
 </script>
 
@@ -123,24 +169,30 @@ function setSingleOptionAutoSelect(val){
 <i18n lang="json">
 {
   "en": {
+    "configLabel": "Dictionary configuration",
+    "workspaceId": "Workspace Id (builder purpose)",
     "propertyDescription": "Dictionary configuration",
-    "urlKey": "URL",
+    "urlKey": "URL address dictionary",
     "value": "Value",
     "title": "Title",
     "description": "Description",
     "returnObject": "Return object",
     "lazyLoading": "Lazy loading",
-    "singleOptionAutoSelect": "Auto select when single"
+    "singleOptionAutoSelect": "Auto select when single",
+    "urlErrorMessage": "The address you entered is incorrect"
   },
   "pl": {
+    "configLabel": "Konfiguracja słownika",
+    "workspaceId": "Workspace Id (builder purpose)",
     "propertyDescription": "Konfiguracja słownika",
-    "urlKey": "URL",
+    "urlKey": "Adres URL słownika",
     "value": "Id",
     "title": "Tytuł",
     "description": "Opis dodatkowy",
     "returnObject": "Zwracaj obiekt",
     "lazyLoading": "Stronicowanie wyników",
-    "singleOptionAutoSelect": "Auto wybieranie, gdy pojedyncza wartość"
+    "singleOptionAutoSelect": "Auto wybieranie, gdy pojedyncza wartość",
+    "urlErrorMessage": "Podany adres jest nieprawidłowy"
   }
 }
 </i18n>
