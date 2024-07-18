@@ -5,8 +5,10 @@ import vuetify from './plugins/vuetify';
 import {withVuetifyTheme} from './withVuetifyTheme.decorator';
 import i18n, {i18nConfig} from './plugins/i18n';
 import {createPinia} from 'pinia';
+import {toastOptions} from "./plugins/toastify";
 import vueSchemaForms from "./plugins/vueSchemaForms";
 import {App} from "vue";
+import Vue3Toastify from "vue3-toastify";
 
 const preview: Preview = {
   parameters: {
@@ -22,10 +24,11 @@ const preview: Preview = {
 
 const pinia = createPinia();
 setup(async (app: App) => {
-  app.use(vuetify);
-  app.use(i18n);
-  app.use(pinia)
-  app.use(vueSchemaForms)
+  app.use(vuetify)
+    .use(i18n)
+    .use(pinia)
+    .use(vueSchemaForms)
+    .use(Vue3Toastify, toastOptions)
 })
 
 

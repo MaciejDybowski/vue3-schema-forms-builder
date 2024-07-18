@@ -2,7 +2,7 @@
   <!--    style="min-height: calc(100vh - 130px)"-->
   <v-card
     elevation="2"
-    class="pa-4"
+    class="pa-4 px-6"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
@@ -10,24 +10,15 @@
       class="py-2"
     />
 
-    <v-row v-if="mainCanvas.mainCanvasMode.value === 'CODE'">
-      <v-col cols="12">
-        <div class="d-flex align-center">
-          <span class="v-card-title ml-0 pl-0">Model formularza</span>
-          <div>
-            <v-btn
-              icon="mdi-content-copy"
-              variant="text"
-              density="compact"
-              @click="contextCopy()"
-            />
-          </div>
-        </div>
-        <vue-json-pretty :data="modelValue as any"/>
-      </v-col>
-    </v-row>
+    <json-schema-form-representation
+      v-if="mainCanvas.mainCanvasMode.value === 'CODE'"
+      :schema="modelValue"
+    />
 
-    <demo-form v-if="mainCanvas.mainCanvasMode.value === 'DEMO'"/>
+    <demo-form
+      v-if="mainCanvas.mainCanvasMode.value === 'DEMO'"
+      :schema="modelValue"
+    />
 
   </v-card>
 </template>
@@ -41,8 +32,6 @@ import DraggableArea from "../builder/DraggableArea.vue";
 
 import {useBuilderState} from "../../pinia/stores/useBuilderState";
 import {useMainCanvas} from "../../composables/useMainCanvas";
-
-import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 import "vue3-schema-forms/dist/style.css"
 
@@ -52,6 +41,7 @@ import {useDraggableMapper} from "@/composables/useDraggableMapper";
 import {useStyle} from "@/main";
 import {FormOptions} from "@/models/FormOptions";
 import DemoForm from "@/components/main-canvas/DemoForm.vue";
+import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
 
 schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 const instance = getCurrentInstance();
@@ -86,7 +76,6 @@ let modelValue = defineModel<FormSchema>({
 const style = useStyle()
 
 
-
 const useBuilderStateStore = useBuilderState()
 const mainCanvas = useMainCanvas()
 const {mapDraggableToSchema} = useSchemaMapper()
@@ -101,9 +90,6 @@ const controls = computed({
   }
 })
 
-function contextCopy() {
-  navigator.clipboard.writeText(JSON.stringify(modelValue.value));
-}
 
 watch(controls, () => {
   modelValue.value = mapDraggableToSchema(controls.value)
