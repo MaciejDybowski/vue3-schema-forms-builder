@@ -25,6 +25,7 @@ export function useSchemaMapper() {
       mapSingleElement(schema.value, element)
     })
 
+    delete schema.value.options
     return schema.value
   }
 
@@ -64,6 +65,7 @@ export function useSchemaMapper() {
     if (formElement.tempItems) {
       delete formElement.tempItems
       delete formElement.required
+      delete formElement.layout.schema.options
     }
   }
 

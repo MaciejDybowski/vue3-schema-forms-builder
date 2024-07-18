@@ -49,30 +49,18 @@ export const FormBuilderStory: Story = {
                 }
               },
               "required": [],
-              "options": {
-                "fieldProps": {
-                  "variant": "outlined",
-                  "density": "compact",
-                  "color": "primary",
-                  "clearIcon": "mdi-close"
-                }
-              }
+
+            },
+            "options": {
+              showDivider: false,
+              addBtnText: "Add",
             },
             "props": {}
           }
         }
       },
-      "options": {
-        "fieldProps": {
-          "variant": "outlined",
-          "density": "compact",
-          "color": "primary",
-          "clearIcon": "mdi-close"
-        }
-      },
       "required": []
-    },
-    options: {}
+    }
   },
 };
 

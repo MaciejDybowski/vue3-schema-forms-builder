@@ -46,6 +46,8 @@ import "vue3-schema-forms/dist/style.css"
 import {useSchemaMapper} from "@/composables/useSchemaMapper";
 import {FormSchema} from "@/models/FormSchema";
 import {useDraggableMapper} from "@/composables/useDraggableMapper";
+import {useStyle} from "@/main";
+import {FormOptions} from "@/models/FormOptions";
 
 schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 const instance = getCurrentInstance();
@@ -77,6 +79,10 @@ let modelValue = defineModel<FormSchema>({
   }
 })
 
+const style = useStyle()
+
+
+
 const useBuilderStateStore = useBuilderState()
 const mainCanvas = useMainCanvas()
 const {mapDraggableToSchema} = useSchemaMapper()
@@ -95,15 +101,19 @@ function contextCopy() {
   navigator.clipboard.writeText(JSON.stringify(modelValue.value));
 }
 
+watch(controls, () => {
+  modelValue.value = mapDraggableToSchema(controls.value)
+}, {deep: true})
+
 onMounted(() => {
   useBuilderStateStore.resetState()
 
-  controls.value = mapSchemaToDraggable(modelValue.value)
+  const formOptions: FormOptions = {
+    fieldProps: style.inputStyle.value,
+    buttonProps: style.buttonStyle.value
+  }
 
-  watch(controls, () => {
-    modelValue.value = mapDraggableToSchema(controls.value)
-  }, {deep: true})
-
+  controls.value = mapSchemaToDraggable(modelValue.value, formOptions)
 })
 
 </script>

@@ -35,12 +35,6 @@ const canvas = useCanvas();
 
 let modelValue = defineModel<FormSchema>()
 
-// TODO
-const props = defineProps<{
-  options: object
-}>()
-
-
 const canvasColumns = computed(() => {
   switch (canvas.canvasMode.value) {
     case "DESKTOP":

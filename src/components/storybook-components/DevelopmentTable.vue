@@ -2,7 +2,6 @@
   <div v-if="!loading">
     <VueSchemaFormsBuilder
       v-model="modelValue"
-      :options="options"
     />
     <PropsViewer
       :model="{}"
@@ -23,7 +22,6 @@ import {FormSchema} from "@/models/FormSchema";
 const modelValue = defineModel<FormSchema>()
 
 const props = defineProps<{
-  options: object
   workspaceId: string,
 }>();
 

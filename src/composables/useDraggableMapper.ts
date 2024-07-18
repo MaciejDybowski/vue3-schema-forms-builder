@@ -2,22 +2,23 @@ import {DraggableFormElement} from "@/models/DraggableFormElement";
 import {Ref, ref} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 import {SchemaFormElement} from "@/models/SchemaFormElement";
+import {FormOptions} from "@/models/FormOptions";
 
 export function useDraggableMapper() {
 
 
 
-  function mapSchemaToDraggable(formSchema: FormSchema): Array<DraggableFormElement> {
+  function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions): Array<DraggableFormElement> {
     const draggableElements: Ref<DraggableFormElement[]> = ref([])
 
     Object.entries(formSchema.properties).forEach(([key, schemaElement]: [string, SchemaFormElement]) => {
-      mapSingleElement(formSchema, draggableElements, key, schemaElement)
+      mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement)
     })
 
     return draggableElements.value
   }
 
-  function mapSingleElement(formSchema: FormSchema, draggableElements:Ref<DraggableFormElement[]>,  key: string, schemaElement: SchemaFormElement) {
+  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements:Ref<DraggableFormElement[]>,  key: string, schemaElement: SchemaFormElement) {
 
     // TEMPORARY for all existed schema will be transformed
     if (!schemaElement.layout.props) {
@@ -25,8 +26,8 @@ export function useDraggableMapper() {
     }
 
     if (schemaElement.layout.schema) {
-      schemaElement.layout.schema.options = formSchema.options
-      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema)
+      schemaElement.layout.schema.options = formOptions
+      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions)
     }
 
     draggableElements.value.push(
@@ -38,7 +39,7 @@ export function useDraggableMapper() {
           "input": (e) => {
           }
         },
-        options: formSchema.options,
+        options: formOptions,
         required: formSchema.required?.includes(key),
       }
     )
