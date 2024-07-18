@@ -9,6 +9,7 @@
     v-model="source"
   />
   <calculatiuon-property v-model="model.calculations"/>
+  <if-property v-model="model.layout.if"/>
 </template>
 
 <script setup lang="ts">
@@ -22,6 +23,7 @@ import TypeProperty from "@/components/properties-drawer/atoms/TypeProperty.vue"
 import ValueMappingProperty from "@/components/properties-drawer/atoms/ValueMappingProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

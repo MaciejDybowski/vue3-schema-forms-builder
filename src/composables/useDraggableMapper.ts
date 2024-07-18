@@ -24,10 +24,18 @@ export function useDraggableMapper() {
     if (!schemaElement.layout.props) {
       schemaElement.layout.props = {}
     }
+    if(schemaElement.layout.schema && !schemaElement.layout.options){
+      schemaElement.layout.options = {
+        showDivider: false,
+        addBtnText: "Add"
+      }
+    }
+    // END TEMPORARY MAPPINGS
 
     if (schemaElement.layout.schema) {
       schemaElement.layout.schema.options = formOptions
       schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions)
+
     }
 
     draggableElements.value.push(

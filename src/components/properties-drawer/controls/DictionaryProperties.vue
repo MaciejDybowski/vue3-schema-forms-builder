@@ -6,7 +6,7 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
   <source-property v-model="source"/>
-
+  <if-property v-model="model.layout.if"/>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +23,7 @@ import CalculatiuonProperty from "@/components/properties-drawer/atoms/Calculati
 import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

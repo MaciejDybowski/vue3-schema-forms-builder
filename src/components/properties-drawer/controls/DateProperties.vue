@@ -5,6 +5,7 @@
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
+  <if-property v-model="model.layout.if"/>
 </template>
 
 <script setup lang="ts">
@@ -17,6 +18,7 @@ import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

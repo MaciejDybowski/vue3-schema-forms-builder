@@ -11,6 +11,7 @@ import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 
 const useBuilderStateStore = useBuilderState()

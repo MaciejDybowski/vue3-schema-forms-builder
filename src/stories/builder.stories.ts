@@ -51,10 +51,10 @@ export const FormBuilderStory: Story = {
               "required": [],
 
             },
-            "options": {
+           /* "options": {
               showDivider: false,
               addBtnText: "Add",
-            },
+            },*/
             "props": {}
           }
         }
