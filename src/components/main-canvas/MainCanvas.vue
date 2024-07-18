@@ -26,6 +26,9 @@
         <vue-json-pretty :data="modelValue as any"/>
       </v-col>
     </v-row>
+
+    <demo-form v-if="mainCanvas.mainCanvasMode.value === 'DEMO'"/>
+
   </v-card>
 </template>
 
@@ -48,6 +51,7 @@ import {FormSchema} from "@/models/FormSchema";
 import {useDraggableMapper} from "@/composables/useDraggableMapper";
 import {useStyle} from "@/main";
 import {FormOptions} from "@/models/FormOptions";
+import DemoForm from "@/components/main-canvas/DemoForm.vue";
 
 schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 const instance = getCurrentInstance();

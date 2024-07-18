@@ -5,6 +5,7 @@
       :label="t('requiredProperty')"
       v-model="modelValue"
       v-bind="style.inputStyle.value"
+      hide-details="auto"
     />
   </v-list-item>
 </template>

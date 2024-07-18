@@ -10,6 +10,9 @@
           <v-btn size="30" value="CODE">
             <v-icon size="small">mdi-code-tags</v-icon>
           </v-btn>
+          <v-btn size="30" value="DEMO">
+            <v-icon size="small">mdi-play-circle-outline</v-icon>
+          </v-btn>
         </v-btn-toggle>
       </div>
 

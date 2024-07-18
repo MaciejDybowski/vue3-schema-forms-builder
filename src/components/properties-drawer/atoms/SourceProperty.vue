@@ -47,6 +47,7 @@
       v-model="modelValue.returnObject"
       @update:model-value="setReturnObject"
       v-bind="style.inputStyle.value"
+      hide-details="auto"
     />
   </v-list-item>
   <v-list-item>
@@ -56,6 +57,7 @@
       v-model="modelValue.lazy"
       @update:model-value="setLazyLoading"
       v-bind="style.inputStyle.value"
+      hide-details="auto"
     />
 
   </v-list-item>
@@ -66,6 +68,7 @@
       v-model="modelValue.singleOptionAutoSelect"
       @update:model-value="setSingleOptionAutoSelect"
       v-bind="style.inputStyle.value"
+      hide-details="auto"
     />
   </v-list-item>
 </template>
