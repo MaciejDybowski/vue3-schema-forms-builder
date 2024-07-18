@@ -4,17 +4,17 @@
       class="mx-2"
       :label="t('fillRowProperty')"
       v-model="modelValue"
-      v-bind="fieldProps"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {useFieldStyle} from "@/composables/useFieldStyle";
+import {useStyle} from "@/main";
 
 const modelValue = defineModel()
-const {fieldProps} = useFieldStyle();
+const style = useStyle()
 
 const {t} = useI18n()
 </script>

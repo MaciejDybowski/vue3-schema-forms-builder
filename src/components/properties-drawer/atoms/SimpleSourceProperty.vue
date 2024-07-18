@@ -9,7 +9,7 @@
     <div class="d-flex py-2 align-center justify-center">
       <v-text-field
         :label="t('simpleSource.value')"
-        v-bind="fieldProps"
+        v-bind="style.inputStyle.value"
         v-model="item.value"
         density="compact"
         :hide-details="true"
@@ -17,7 +17,7 @@
       />
       <v-text-field
         :label="t('simpleSource.label')"
-        v-bind="fieldProps"
+        v-bind="style.inputStyle.value"
         v-model="item.title"
         density="compact"
         :hide-details="true"
@@ -46,10 +46,10 @@
 </template>
 
 <script setup lang="ts">
-import {useFieldStyle} from "@/composables/useFieldStyle";
 import {useI18n} from "vue-i18n";
+import {useStyle} from "@/main";
 
-const {fieldProps} = useFieldStyle();
+const style = useStyle()
 const {t} = useI18n()
 const modelValue = defineModel<{
   items: Array<any>

@@ -1,8 +1,8 @@
 <template>
   <v-list-item>
-    <v-text-field
-      class="pt-2"
-      :label="t('calculationProperty')"
+    <v-switch
+      class="mx-2"
+      :label="t('duplicatedSectionShowDivider')"
       v-model="modelValue"
       v-bind="style.inputStyle.value"
     />
@@ -13,24 +13,22 @@
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 
-
 const modelValue = defineModel()
-const style = useStyle();
+const style = useStyle()
 
 const {t} = useI18n()
 </script>
 
 <style scoped lang="scss">
-
 </style>
 
 <i18n lang="json">
 {
   "en": {
-    "calculationProperty": "Calculation"
+    "duplicatedSectionShowDivider": "Show divider between section"
   },
   "pl": {
-    "calculationProperty": "Obliczenia"
+    "duplicatedSectionShowDivider": "Pokazuj rozdzielacz pomiędzy sekcjami"
   }
 }
 </i18n>

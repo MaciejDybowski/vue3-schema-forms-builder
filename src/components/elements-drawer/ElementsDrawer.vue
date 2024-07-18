@@ -80,12 +80,13 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
 import {useDrawers} from "../../composables/useDrawers";
+import {useStyle} from "@/main";
+
 import {Ref, ref} from "vue";
-import {useFieldStyle} from "@/composables/useFieldStyle";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 
 const drawers = useDrawers();
-const {fieldProps} = useFieldStyle()
+const style = useStyle()
 
 const staticContent: Ref<ElementDrawerFromElement[]> = ref([
   {
@@ -115,7 +116,12 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-read",
     label: "Pole odczytu",
-    component: "data-viewer",
+    component: "data-viewer"
+  },
+  {
+    icon: "mdi-card-outline",
+    label: "Przycisk",
+    "component": "button"
   }
 ])
 const controls: Ref<ElementDrawerFromElement[]> = ref([
@@ -197,7 +203,8 @@ function cloneControls(item: ElementDrawerFromElement) {
       },
     },
     options: {
-      fieldProps,
+      fieldProps: style.inputStyle,
+      buttonProps: style.buttonStyle
     }
   }
 
@@ -233,11 +240,16 @@ function cloneControls(item: ElementDrawerFromElement) {
           cols: 12,
           schema: {
             type: "object",
-            properties: {}
+            properties: {},
           },
+          options: {
+            addBtnText: "Add element",
+            showDivider: false,
+          }
         },
         options: {
-          fieldProps,
+          fieldProps: style.inputStyle,
+          buttonProps: style.buttonStyle
         }
       }
     }
@@ -277,6 +289,19 @@ function cloneStatic(item: ElementDrawerFromElement) {
         layout: {
           component: item.component,
           cols: 12,
+        }
+      }
+    }
+    case "button": {
+      return {
+        key: id,
+        label: "Click me",
+        layout: {
+          component: item.component,
+          cols: 2,
+        },
+        options: {
+          buttonProps: style.buttonStyle
         }
       }
     }
