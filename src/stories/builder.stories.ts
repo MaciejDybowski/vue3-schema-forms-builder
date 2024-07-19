@@ -26,37 +26,6 @@ export const FormBuilderStory: Story = {
         "surname": {
           "label": "Nazwisko",
           "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field", "props": {}}
-        },
-        "duplicated-section-151": {
-          "layout": {
-            "component": "duplicated-section",
-            "cols": 12,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "text-field-604": {
-                  "label": "Item-text-field-604",
-                  "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field", "props": {}}
-                },
-                "item2": {
-                  "label": "item2",
-                  "layout": {"cols": 6, "offset": 0, "fillRow": false, "component": "text-field", "props": {}}
-                },
-                "dictionary-414": {
-                  "label": "Item-dictionary-414",
-                  "layout": {"cols": 6, "offset": 0, "fillRow": false, "component": "dictionary", "props": {}},
-                  "source": {"url": "", "title": "label", "value": "id"}
-                }
-              },
-              "required": [],
-
-            },
-           /* "options": {
-              showDivider: false,
-              addBtnText: "Add",
-            },*/
-            "props": {}
-          }
         }
       },
       "required": []

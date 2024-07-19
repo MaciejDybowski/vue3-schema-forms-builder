@@ -7,7 +7,6 @@ import {FormOptions} from "@/models/FormOptions";
 export function useDraggableMapper() {
 
 
-
   function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions): Array<DraggableFormElement> {
     const draggableElements: Ref<DraggableFormElement[]> = ref([])
 
@@ -18,13 +17,13 @@ export function useDraggableMapper() {
     return draggableElements.value
   }
 
-  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements:Ref<DraggableFormElement[]>,  key: string, schemaElement: SchemaFormElement) {
+  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement) {
 
     // TEMPORARY for all existed schema will be transformed
     if (!schemaElement.layout.props) {
       schemaElement.layout.props = {}
     }
-    if(schemaElement.layout.schema && !schemaElement.layout.options){
+    if (schemaElement.layout.schema && !schemaElement.layout.options) {
       schemaElement.layout.options = {
         showDivider: false,
         addBtnText: "Add"
@@ -35,22 +34,32 @@ export function useDraggableMapper() {
     if (schemaElement.layout.schema) {
       schemaElement.layout.schema.options = formOptions
       schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions)
-
     }
 
-    draggableElements.value.push(
-      {
-        formId: 'builder-tecna-id',
-        key: key,
-        ...schemaElement as object,
-        "on": {
-          "input": (e) => {
-          }
-        },
-        options: formOptions,
-        required: formSchema.required?.includes(key) as boolean,
-      }
-    )
+    const draggableElement = {
+      formId: 'builder-tecna-id',
+      key: key,
+      ...schemaElement as object,
+      "on": {
+        "input": (e) => {
+        }
+      },
+      options: formOptions,
+      required: formSchema.required?.includes(key) as boolean,
+    } as DraggableFormElement
+
+    dictionaryBuilderMapping(draggableElement)
+
+
+    draggableElements.value.push(draggableElement)
+  }
+
+  function dictionaryBuilderMapping(draggableElement: DraggableFormElement) {
+    if (draggableElement.layout.component == 'dictionary') {
+      const copy = draggableElement.source.url
+      draggableElement.source.url = ""
+      draggableElement.source.builder_url = copy
+    }
   }
 
   return {mapSchemaToDraggable}

@@ -40,6 +40,7 @@ import {useStyle} from "@/main";
 import {FormOptions} from "@/models/FormOptions";
 import DemoForm from "@/components/main-canvas/DemoForm.vue";
 import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
+import {copyObject} from "@/utils/copy";
 
 
 let modelValue = defineModel<FormSchema>({
@@ -79,8 +80,11 @@ const controls = computed({
 
 
 watch(controls, () => {
-  modelValue.value = mapDraggableToSchema(controls.value)
+  modelValue.value = mapDraggableToSchema(copyObject(controls.value))
 }, {deep: true})
+
+
+console.debug(modelValue.value)
 
 onMounted(() => {
   useBuilderStateStore.resetState()
@@ -90,7 +94,8 @@ onMounted(() => {
     buttonProps: style.buttonStyle.value
   }
 
-  controls.value = mapSchemaToDraggable(modelValue.value, formOptions)
+  console.debug(modelValue.value)
+  controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions)
 })
 
 </script>

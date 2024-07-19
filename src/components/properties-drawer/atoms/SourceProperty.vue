@@ -5,19 +5,9 @@
   <v-list-item>
     <v-text-field
       class="pt-2"
-      :label="t('workspaceId')"
-      v-model="workspaceId"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-text-field
-      class="pt-2"
       :label="t('urlKey')"
-      v-model="tempUrl"
-      @update:model-value="debounced.checkAPIUrl"
+      v-model="modelValue.builder_url"
       v-bind="style.inputStyle.value"
-      :error-messages="urlErrorMessage"
     />
   </v-list-item>
   <v-list-item>
@@ -84,11 +74,7 @@
 
 
 import {useI18n} from "vue-i18n";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import {useStyle} from "@/main";
-import {computed, onMounted, Ref, ref, watch} from "vue";
-import axios from "axios";
-import {debounce} from "lodash";
 
 const modelValue = defineModel<any>({
   default: () => {
@@ -97,68 +83,6 @@ const modelValue = defineModel<any>({
 
 const style = useStyle()
 const {t} = useI18n()
-const useBuilderStateStore = useBuilderState()
-
-function setUrl(val: string) {
-  useBuilderStateStore.setKeyInConfiguredField("source.url", val)
-}
-
-const workspaceId = computed({
-  get() {
-    return useBuilderStateStore.getWorkspaceId
-  },
-  set(value: string) {
-    useBuilderStateStore.setWorkspaceId(value)
-  }
-})
-
-const tempUrl = ref(null);
-const urlErrorMessage: Ref<string> = ref("")
-
-const debounced = {
-  checkAPIUrl: debounce(configureUrl, 500)
-};
-
-async function configureUrl(url: string) {
-  try {
-    const response = await axios.get(url, {
-      headers: {
-        'Workspace-Id': workspaceId.value
-      }
-    })
-    if (response.status == 200) {
-      setUrl(url)
-      urlErrorMessage.value = ""
-    }
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      urlErrorMessage.value = t('urlErrorMessage')
-    }
-  }
-}
-
-watch(workspaceId, () => {
-  if (tempUrl.value) {
-    debounced.checkAPIUrl(tempUrl.value)
-  }
-})
-
-watch(modelValue, () => {
-  isUrlExist()
-})
-
-function isUrlExist() {
-  if (modelValue.value.url) {
-    tempUrl.value = modelValue.value.url
-  } else {
-    tempUrl.value = null
-  }
-}
-
-
-onMounted(() => {
-  isUrlExist()
-})
 
 </script>
 

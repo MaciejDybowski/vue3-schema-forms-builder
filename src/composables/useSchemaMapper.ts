@@ -2,8 +2,8 @@ import {DraggableFormElement} from "@/models/DraggableFormElement";
 import {Ref, ref} from "vue";
 
 import {FormSchema} from "@/models/FormSchema";
-import {cloneDeep} from "lodash";
 import {useStyle} from "@/main";
+import {copyObject} from "@/utils/copy";
 
 
 export function useSchemaMapper() {
@@ -46,7 +46,7 @@ export function useSchemaMapper() {
   }
 
   function mapDuplicatedSectionToSchema(schema: FormSchema, formElement: DraggableFormElement) {
-    const tempElement = cloneDeep(formElement)
+    const tempElement = copyObject(formElement)
     const tempElementKey = tempElement.key
     tempElement.layout.schema.properties = {}
     tempElement.tempItems.forEach(element => {
@@ -65,7 +65,7 @@ export function useSchemaMapper() {
     if (formElement.tempItems) {
       delete formElement.tempItems
       delete formElement.required
-      delete formElement.layout.schema.options
+      delete formElement.layout?.schema.options
     }
 
     delete formElement.required
@@ -90,6 +90,9 @@ export function useSchemaMapper() {
       const tempElementKey = tempElement.key
       mapRequiredProperty(schema, formElement)
       removeDraggableFields(tempElement)
+      mapUrlInDictionary(tempElement)
+
+
       schema.properties[tempElementKey] = tempElement
     }
   }
@@ -106,6 +109,14 @@ export function useSchemaMapper() {
       schema.required = schema.required.filter(k => k !== formElement.key)
     }
 
+  }
+
+  function mapUrlInDictionary(formElement: DraggableFormElement) {
+    if (formElement.layout.component == 'dictionary') {
+      const copied = copyObject(formElement.source.builder_url);
+      delete formElement.source.builder_url;
+      formElement.source.url = copied ? copied : ""
+    }
   }
 
   return {mapDraggableToSchema}
