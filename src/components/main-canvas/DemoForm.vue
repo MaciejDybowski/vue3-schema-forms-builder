@@ -7,7 +7,7 @@
           v-if="showForm && schemaContainDictionary"
           style="cursor: pointer;"
     >
-      {{ t('changeWorkspaceId') }}: {{ workspaceId}}
+      {{ t('changeWorkspaceId') }}: {{ workspaceId }}
     </span>
   </div>
   <v-divider class="mb-4"/>
@@ -50,21 +50,12 @@
 
 <script setup lang="ts">
 
-import {computed, getCurrentInstance, onBeforeUnmount, onMounted, ref} from "vue";
+import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {useStyle} from "@/main";
 import {useDrawers} from "@/composables/useDrawers";
 import {useI18n} from "vue-i18n";
-import {createVueSchemaForms} from "vue3-schema-forms";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import axios from "axios";
-
-
-const vue3SchemaForms = createVueSchemaForms({
-    formUpdateLogger: true
-  }
-)
-const instance = getCurrentInstance();
-instance?.appContext.app.use(vue3SchemaForms)
 
 const {t} = useI18n()
 const model = ref({});

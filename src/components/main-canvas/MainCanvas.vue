@@ -84,8 +84,6 @@ watch(controls, () => {
 }, {deep: true})
 
 
-console.debug(modelValue.value)
-
 onMounted(() => {
   useBuilderStateStore.resetState()
 

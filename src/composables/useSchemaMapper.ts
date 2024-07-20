@@ -113,9 +113,9 @@ export function useSchemaMapper() {
 
   function mapUrlInDictionary(formElement: DraggableFormElement) {
     if (formElement.layout.component == 'dictionary') {
-      const copied = copyObject(formElement.source.builder_url);
+      const copied = "builder_url" in formElement.source ? copyObject(formElement.source.builder_url) : "";
       delete formElement.source.builder_url;
-      formElement.source.url = copied ? copied : ""
+      formElement.source.url = copied
     }
   }
 

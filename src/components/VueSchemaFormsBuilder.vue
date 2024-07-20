@@ -28,20 +28,23 @@ import MainCanvas from "./main-canvas/MainCanvas.vue";
 import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "../composables/useCanvas";
-import {computed, getCurrentInstance} from "vue";
+import {computed, FunctionPlugin, getCurrentInstance} from "vue";
 import {FormSchema} from "@/models/FormSchema";
-import {createVueSchemaForms, formControls, schemaFormModelStoreInit} from "vue3-schema-forms";
 
-schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
+
+// Do usunięcia jeżeli nie będzie kłopotów ze storem :D
+// import {schemaFormModelStoreInit} from "vue3-schema-forms";
+// schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
+// import {createVueSchemaForms} from "../../../vue3-schema-forms";
+// import "../../../vue3-schema-forms/dist/style.css"
+import {createVueSchemaForms} from "vue3-schema-forms";
+import "vue3-schema-forms/dist/style.css"
+
 const instance = getCurrentInstance();
-for (const [name, comp] of Object.entries(formControls)) {
-  //@ts-ignore
-  if (!instance?.appContext.app.component(`node-${name}`)) {
-    //@ts-ignore
-    console.debug(`add component = node-${name}`)
-    instance?.appContext.app.component(`node-${name}`, comp);
-  }
-}
+const vueSchemaForms = createVueSchemaForms({
+  installFormControls: true
+}) as unknown as FunctionPlugin
+instance?.appContext.app.use(vueSchemaForms)
 
 
 const canvas = useCanvas();
