@@ -14,7 +14,7 @@
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
       <select-radio-checkbox-properties v-if="optionsComponent"/>
       <duplicated-section v-if="model.layout.component == 'duplicated-section'"/>
-      <date-properties v-if="model.layout.component == 'date-picker'"/>
+      <date-properties v-if="model.layout.component == 'date-picker' || model.layout.component == 'date-time-picker'"/>
       <dictionary-properties v-if="model.layout.component == 'dictionary'"/>
       <text-area-properties v-if="model.layout.component == 'text-area'"/>
       <button-properties v-if="model.layout.component == 'button'"/>

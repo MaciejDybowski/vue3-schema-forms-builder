@@ -3,6 +3,7 @@
     <component
       v-if="element.layout.component !== 'duplicated-section'"
       class="disabled-field"
+      v-bind="{readonly:true}"
       :is='`node-${element.layout.component}`'
       :schema='element'
       :model='{}'

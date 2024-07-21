@@ -9,6 +9,7 @@ export type FromElementComponent =
   | "select"
   | "location"
   | "date-picker"
+  | "date-time-picker"
   | "phone"
   | "address"
   | "dictionary"
