@@ -197,7 +197,14 @@ function cloneControls(item: ElementDrawerFromElement) {
     key: id,
     label: "Item-" + id,
     layout: {
-      cols: 12,
+      cols: {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12,
+        xxl: 12
+      },
       offset: 0,
       fillRow: false,
       component: item.component,
@@ -243,7 +250,14 @@ function cloneControls(item: ElementDrawerFromElement) {
         tempItems: [],
         layout: {
           component: item.component,
-          cols: 12,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
           schema: {
             type: "object",
             properties: {},
@@ -284,7 +298,14 @@ function cloneStatic(item: ElementDrawerFromElement) {
         layout: {
           component: item.component,
           tag: item.tag,
-          cols: 12,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
         }
       }
     }
@@ -294,7 +315,14 @@ function cloneStatic(item: ElementDrawerFromElement) {
         label: "Item-" + id,
         layout: {
           component: item.component,
-          cols: 12,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
         }
       }
     }
@@ -304,7 +332,14 @@ function cloneStatic(item: ElementDrawerFromElement) {
         label: "Click me",
         layout: {
           component: item.component,
-          cols: 12,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
         },
         options: {
           buttonProps: style.buttonStyle

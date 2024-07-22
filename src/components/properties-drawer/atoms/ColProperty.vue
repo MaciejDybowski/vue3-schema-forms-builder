@@ -23,7 +23,18 @@
 import {useI18n} from "vue-i18n";
 import ColBtnToggle from "@/components/properties-drawer/atoms/ColBtnToggle.vue";
 
-const modelValue = defineModel()
+const modelValue = defineModel<{
+  xxl: number,
+  xl: number,
+  lg: number,
+  md: number,
+  sm: number,
+  xs: number
+}>({
+  default: {
+
+  }
+})
 
 const {t} = useI18n()
 
