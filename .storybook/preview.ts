@@ -27,7 +27,6 @@ setup(async (app: App) => {
   app.use(vuetify)
     .use(i18n)
     .use(pinia)
-    //.use(vueSchemaForms)
     .use(Vue3Toastify, toastOptions)
 })
 
