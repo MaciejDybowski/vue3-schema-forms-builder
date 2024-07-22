@@ -4,6 +4,8 @@
   <type-property v-model="model.type"/>
   <value-mapping-property v-model="model.valueMapping"/>
   <col-property v-model="model.layout.cols"/>
+  <fill-row-property v-model="model.layout.fillRow"/>
+  <offset-property v-model="model.layout.offset"/>
   <source-property
     v-if="model.type=='dictionary'"
     v-model="source"
@@ -24,6 +26,8 @@ import ValueMappingProperty from "@/components/properties-drawer/atoms/ValueMapp
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

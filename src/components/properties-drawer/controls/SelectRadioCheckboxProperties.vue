@@ -2,6 +2,7 @@
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
   <col-property v-model="model.layout.cols"/>
+  <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
@@ -21,6 +22,7 @@ import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSou
 import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
