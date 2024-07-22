@@ -3,6 +3,7 @@ import {Ref, ref} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 import {SchemaFormElement} from "@/models/SchemaFormElement";
 import {FormOptions} from "@/models/FormOptions";
+import {isNumber} from "lodash";
 
 export function useDraggableMapper() {
 
@@ -27,6 +28,16 @@ export function useDraggableMapper() {
       schemaElement.layout.options = {
         showDivider: false,
         addBtnText: "Add"
+      }
+    }
+    if (isNumber(schemaElement.layout.cols)) {
+      schemaElement.layout.cols = {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: schemaElement.layout.cols,
+        xxl: schemaElement.layout.cols,
       }
     }
     // END TEMPORARY MAPPINGS
