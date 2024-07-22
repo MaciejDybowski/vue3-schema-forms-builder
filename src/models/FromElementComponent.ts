@@ -14,3 +14,4 @@ export type FromElementComponent =
   | "address"
   | "dictionary"
   | "button"
+  | "user-input"

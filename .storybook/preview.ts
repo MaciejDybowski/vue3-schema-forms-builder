@@ -6,7 +6,7 @@ import {withVuetifyTheme} from './withVuetifyTheme.decorator';
 import i18n, {i18nConfig} from './plugins/i18n';
 import {createPinia} from 'pinia';
 import {toastOptions} from "./plugins/toastify";
-import vueSchemaForms from "./plugins/vueSchemaForms";
+import tecnaVueShared from "./plugins/tecnaVueShared";
 import {App} from "vue";
 import Vue3Toastify from "vue3-toastify";
 
@@ -27,6 +27,7 @@ setup(async (app: App) => {
   app.use(vuetify)
     .use(i18n)
     .use(pinia)
+    .use(tecnaVueShared)
     .use(Vue3Toastify, toastOptions)
 })
 

@@ -180,6 +180,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Pole adresowe",
     component: "address"
   },
+  {
+    icon: "mdi-account",
+    label: "Użytkownik",
+    component: "user-input"
+  }
 ])
 const layoutElements: Ref<ElementDrawerFromElement[]> = ref([
   {
@@ -283,6 +288,8 @@ function cloneControls(item: ElementDrawerFromElement) {
         }
       }
     }
+    case "user-input":
+      return schemaElement
   }
 }
 

@@ -39,9 +39,18 @@ import {FormSchema} from "@/models/FormSchema";
 // import "../../../vue3-schema-forms/dist/style.css"
 import {createVueSchemaForms} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
+import {Components} from "vue3-schema-forms/dist/types/engine";
 
 const instance = getCurrentInstance();
+const userInputComponent = instance?.appContext.app.component("TcnSchemaUserInput")
+
+const customComponents = {
+  "user-input": userInputComponent
+} as Components
+
+//const instance = getCurrentInstance();
 const vueSchemaForms = createVueSchemaForms({
+  customComponents: customComponents,
   installFormControls: true
 }) as unknown as FunctionPlugin
 instance?.appContext.app.use(vueSchemaForms)
