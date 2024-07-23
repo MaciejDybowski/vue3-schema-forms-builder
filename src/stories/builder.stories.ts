@@ -21,11 +21,33 @@ export const FormBuilderStory: Story = {
       "properties": {
         "name": {
           "label": "Imię",
-          "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field", "props": {}}
+          "layout": {
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "offset": 0,
+            "fillRow": false,
+            "component": "text-field",
+            "props": {}
+          }
         },
         "surname": {
           "label": "Nazwisko",
-          "layout": {"cols": 12, "offset": 0, "fillRow": false, "component": "text-field", "props": {}}
+          "layout": {
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "offset": 0,
+            "fillRow": false,
+            "component": "text-field",
+            "props": {}
+          }
+        },
+        "user": {
+          "label": "User",
+          "layout": {
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "offset": 0,
+            "fillRow": false,
+            "component": "user-input",
+            "props": {}
+          }
         }
       },
       "required": []

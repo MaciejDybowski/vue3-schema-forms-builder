@@ -48,7 +48,6 @@ const customComponents = {
   "user-input": userInputComponent
 } as Components
 
-//const instance = getCurrentInstance();
 const vueSchemaForms = createVueSchemaForms({
   customComponents: customComponents,
   installFormControls: true

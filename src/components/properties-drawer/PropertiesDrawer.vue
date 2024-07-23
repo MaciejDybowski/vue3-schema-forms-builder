@@ -18,6 +18,7 @@
       <dictionary-properties v-if="model.layout.component == 'dictionary'"/>
       <text-area-properties v-if="model.layout.component == 'text-area'"/>
       <button-properties v-if="model.layout.component == 'button'"/>
+      <user-input-properties v-if="model.layout.component == 'user-input'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -36,6 +37,7 @@ import DictionaryProperties from "@/components/properties-drawer/controls/Dictio
 import TextAreaProperties from "@/components/properties-drawer/controls/TextAreaProperties.vue";
 import SelectRadioCheckboxProperties from "@/components/properties-drawer/controls/SelectRadioCheckboxProperties.vue";
 import ButtonProperties from "@/components/properties-drawer/controls/ButtonProperties.vue";
+import UserInputProperties from "@/components/properties-drawer/controls/UserInputProperties.vue";
 
 
 const drawers = useDrawers();
