@@ -14,7 +14,7 @@ export function useDraggableMapper() {
     Object.entries(formSchema.properties).forEach(([key, schemaElement]: [string, SchemaFormElement]) => {
 
       if (isNestedFields(schemaElement)) {
-        const mappedFields = [...mapSchemaToDraggable(schemaElement, formOptions)]
+        const mappedFields = [...mapSchemaToDraggable(schemaElement as FormSchema, formOptions)]
           .map(item => {
             item.key = `${key}.${item.key}`
             return item
