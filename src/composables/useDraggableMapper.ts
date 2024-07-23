@@ -12,7 +12,19 @@ export function useDraggableMapper() {
     const draggableElements: Ref<DraggableFormElement[]> = ref([])
 
     Object.entries(formSchema.properties).forEach(([key, schemaElement]: [string, SchemaFormElement]) => {
-      mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement)
+
+      if (isNestedFields(schemaElement)) {
+        const mappedFields = [...mapSchemaToDraggable(schemaElement, formOptions)]
+          .map(item => {
+            item.key = `${key}.${item.key}`
+            return item
+          })
+        draggableElements.value.push(...mappedFields)
+
+      } else {
+        mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement)
+      }
+
     })
 
     return draggableElements.value
@@ -71,6 +83,10 @@ export function useDraggableMapper() {
       draggableElement.source.url = ""
       draggableElement.source.builder_url = copy
     }
+  }
+
+  function isNestedFields(schemaElement: SchemaFormElement) {
+    return "properties" in schemaElement;
   }
 
   return {mapSchemaToDraggable}
