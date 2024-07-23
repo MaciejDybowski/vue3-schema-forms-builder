@@ -30,8 +30,8 @@ const {canvasMode} = useCanvas()
 function calcWidth(element: SchemaField) {
   const isOffsetExist = !!element.layout?.offset;
   const offset = isOffsetExist ? (element.layout?.offset as number) : 0;
-  const fillRow = !!element.layout?.fillRow && element.layout?.cols < 12
   const cols: number = getColSize(element);
+  const fillRow = !!element.layout?.fillRow && cols < 12
 
   if (fillRow) {
     const paddingRight = (12 - (offset + cols)) / 12 * 100
