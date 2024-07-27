@@ -2,7 +2,7 @@
   <v-list-item>
     <v-checkbox
       class="mx-2"
-      :label="t('readOnlyProperty')"
+      :label="t('isNumberTextProperty')"
       v-model="localModel"
       v-bind="style.inputStyle.value"
       hide-details="auto"
@@ -36,10 +36,10 @@ const localModel = computed({
 <i18n lang="json">
 {
   "en": {
-    "readOnlyProperty": "Number"
+    "isNumberTextProperty": "Number"
   },
   "pl": {
-    "readOnlyProperty": "Liczba"
+    "isNumberTextProperty": "Liczba"
   }
 }
 </i18n>
