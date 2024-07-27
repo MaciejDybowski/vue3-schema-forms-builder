@@ -1,7 +1,7 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
-  <type-property v-model="model.type"/>
+  <data-viewer-type-property v-model="model.type"/>
   <value-mapping-property v-model="model.valueMapping"/>
   <col-property v-model="model.layout.cols"/>
   <fill-row-property v-model="model.layout.fillRow"/>
@@ -21,13 +21,13 @@ import {computed} from "vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import TypeProperty from "@/components/properties-drawer/atoms/TypeProperty.vue";
 import ValueMappingProperty from "@/components/properties-drawer/atoms/ValueMappingProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
+import DataViewerTypeProperty from "@/components/properties-drawer/atoms/DataViewerTypeProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -41,10 +41,10 @@ const model = computed({
 
 const source = computed({
   get() {
-    if(!model.value.source){
+    if (!model.value.source) {
       return {}
     } else {
-      return  model.value.source
+      return model.value.source
     }
   },
   set(val) {
