@@ -20,6 +20,7 @@ export function useSchemaMapper() {
 
   function mapDraggableToSchema(formElements: DraggableFormElement[]): FormSchema {
     schema.value.properties = {}
+    schema.value.required = []
 
     formElements.forEach((element: DraggableFormElement) => {
       mapSingleElement(schema.value, element)
@@ -108,7 +109,6 @@ export function useSchemaMapper() {
     } else {
       schema.required = schema.required.filter(k => k !== formElement.key)
     }
-
   }
 
   function mapUrlInDictionary(formElement: DraggableFormElement) {
