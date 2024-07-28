@@ -30,8 +30,8 @@ import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
 const props = defineProps<{
   label: string
 }>()
-const larger = defineModel('breakpointLarger')
-const smaller = defineModel("breakpointSmaller")
+const larger = defineModel<number>('breakpointLarger')
+const smaller = defineModel<number>("breakpointSmaller")
 
 function updateSmaller(val: number){
   smaller.value = val

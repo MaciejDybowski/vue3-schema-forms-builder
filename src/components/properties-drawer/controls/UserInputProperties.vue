@@ -2,6 +2,7 @@
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
   <col-property v-model="model.layout.cols"/>
+  <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
@@ -30,6 +31,7 @@ import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyPrope
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import GroupFilterProperty from "@/components/properties-drawer/atoms/GroupFilterProperty.vue";
 import {useI18n} from "vue-i18n";
+import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()

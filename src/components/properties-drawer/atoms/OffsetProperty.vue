@@ -1,24 +1,60 @@
 <template>
   <v-list-item>
-    <!-- TODO poprawic mapowanie w vue3-schema-forms oraz tutaj w fieldwrapper potrzebna inna funkcja kalkulacji -->
-    <v-text-field
-      disabled
-      class="pt-2"
-      :label="t('label') + '- #TODO on formProject'"
-      v-model.number="modelValue"
-      v-bind="style.inputStyle.value"
-    />
+    <div class="col-property">
+      <p class="v-label">{{ t('label') }}</p>
+      <v-btn-toggle
+        class="mt-1"
+        v-model="modelValue"
+        @update:model-value="calcCols"
+        mandatory
+        density="compact"
+      >
+        <col-btn :value="0"></col-btn>
+        <col-btn :value="1"></col-btn>
+        <col-btn :value="2"></col-btn>
+        <col-btn :value="3"></col-btn>
+        <col-btn :value="4"></col-btn>
+        <col-btn :value="5"></col-btn>
+        <col-btn :value="6"></col-btn>
+        <col-btn :value="7"></col-btn>
+        <col-btn :value="8"></col-btn>
+        <col-btn :value="9"></col-btn>
+        <col-btn :value="10"></col-btn>
+        <col-btn :value="11"></col-btn>
+      </v-btn-toggle>
+    </div>
   </v-list-item>
 </template>
 
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
+import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
+import {useCanvas} from "@/composables/useCanvas";
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
 
-const modelValue = defineModel()
-const style = useStyle()
-
+const modelValue = defineModel<number>()
 const {t} = useI18n()
+const {canvasMode} = useCanvas()
+const useBuilderStateStore = useBuilderState()
+
+function calcCols(val: number) {
+  const configuredField = useBuilderStateStore.getConfiguredField
+
+  const mobileScreenCol = configuredField.layout.cols.sm
+  if (mobileScreenCol + (val + 1) >= 12) {
+    const newColsSize = 12 - val
+    const newCols = {
+      xs: newColsSize,
+      sm: newColsSize,
+      md: newColsSize,
+      lg: newColsSize,
+      xl: newColsSize,
+      xxl: newColsSize
+    }
+    useBuilderStateStore.setKeyInConfiguredField("layout.cols", newCols)
+  }
+}
+
 </script>
 
 <style scoped lang="scss">

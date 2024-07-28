@@ -4,6 +4,7 @@
   <data-viewer-type-property v-model="model.type"/>
   <value-mapping-property v-model="model.valueMapping"/>
   <col-property v-model="model.layout.cols"/>
+  <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <offset-property v-model="model.layout.offset"/>
   <source-property

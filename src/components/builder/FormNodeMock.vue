@@ -41,6 +41,7 @@
 import DraggableArea from "./DraggableArea.vue";
 import {computed, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
+import {useColSizeMapper} from "@/composables/useColSizeMapper";
 
 const props = defineProps<{
   element: any
@@ -63,10 +64,12 @@ watch(props.element, () => {
   renderKey.value += 1
 }, {deep: true})
 
+const {colSize} = useColSizeMapper()
+
 function calcOffset(element: any) {
   const isOffsetExist = !!element.layout?.offset;
   const offset = isOffsetExist ? (element.layout?.offset as number) : 0;
-  const cols = element.layout?.cols as number
+  const cols = colSize(element) as number
   return `margin-left: ${offset / (offset + cols) * 100}%`
 }
 

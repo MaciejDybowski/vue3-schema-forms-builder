@@ -84,7 +84,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     configuredField.value = field
   }
 
-  function setKeyInConfiguredField(key: string, value: string) {
+  function setKeyInConfiguredField(key: string, value: string|number|object) {
     set(configuredField.value, key, value);
   }
 

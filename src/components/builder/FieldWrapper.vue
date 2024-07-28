@@ -18,19 +18,19 @@
 <script setup lang="ts">
 // @ts-nocheck
 import FieldWrapperItem from "./FieldWrapperItem.vue";
-import {SchemaField} from "vue3-schema-forms/dist/vocabulary/schema/elements";
-import {useCanvas} from "@/composables/useCanvas";
+import {useColSizeMapper} from "@/composables/useColSizeMapper";
+import {SchemaField} from "vue3-schema-forms";
 
 const props = defineProps<{
   element: any,
 }>()
 
-const {canvasMode} = useCanvas()
+const {colSize} = useColSizeMapper()
 
 function calcWidth(element: SchemaField) {
   const isOffsetExist = !!element.layout?.offset;
   const offset = isOffsetExist ? (element.layout?.offset as number) : 0;
-  const cols: number = getColSize(element);
+  const cols: number = colSize(element);
   const fillRow = !!element.layout?.fillRow && cols < 12
 
   if (fillRow) {
@@ -39,19 +39,6 @@ function calcWidth(element: SchemaField) {
   }
 
   return `min-width: ${(offset + cols) / 12 * 100}%;`
-}
-
-function getColSize(element: SchemaField): number {
-  switch (canvasMode.value) {
-    case "DESKTOP":
-      return element.layout.cols.xxl
-    case "MOBILE":
-      return element.layout.cols.xs
-    case "TABLET":
-      return element.layout.cols.md
-    default:
-      return 12
-  }
 }
 </script>
 
