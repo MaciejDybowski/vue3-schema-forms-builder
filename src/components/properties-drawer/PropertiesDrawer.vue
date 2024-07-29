@@ -19,6 +19,8 @@
       <text-area-properties v-if="model.layout.component == 'text-area'"/>
       <button-properties v-if="model.layout.component == 'button'"/>
       <user-input-properties v-if="model.layout.component == 'user-input'"/>
+      <address-field-properties v-if="model.layout.component == 'address'"/>
+      <phone-field-properties v-if="model.layout.component == 'phone'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -38,6 +40,8 @@ import TextAreaProperties from "@/components/properties-drawer/controls/TextArea
 import SelectRadioCheckboxProperties from "@/components/properties-drawer/controls/SelectRadioCheckboxProperties.vue";
 import ButtonProperties from "@/components/properties-drawer/controls/ButtonProperties.vue";
 import UserInputProperties from "@/components/properties-drawer/controls/UserInputProperties.vue";
+import AddressFieldProperties from "@/components/properties-drawer/controls/AddressFieldProperties.vue";
+import PhoneFieldProperties from "@/components/properties-drawer/controls/PhoneFieldProperties.vue";
 
 
 const drawers = useDrawers();
