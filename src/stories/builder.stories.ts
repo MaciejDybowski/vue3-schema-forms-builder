@@ -19,39 +19,29 @@ export const FormBuilderStory: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "name": {
-          "label": "Imię",
+        "daneOsoboweKlientow": {
           "layout": {
+            "component": "duplicated-section",
             "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-            "offset": 2,
-            "fillRow": false,
-            "component": "text-field",
-            "props": {}
+            "schema": {
+              "type": "object",
+              "properties": {
+                "imie": {
+                  "label": "Imię",
+                  "layout": {
+                    "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+                    "offset": 0,
+                    "fillRow": false,
+                    "component": "text-field",
+                    "props": {}
+                  }
+                }
+              },
+              "required": []
+            },
+            "options": {"addBtnText": "Add element", "showDivider": false}
           }
-        },
-        // "surname": {
-        //   "label": "Nazwisko",
-        //   "layout": {
-        //     "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-        //     "offset": 0,
-        //     "fillRow": false,
-        //     "component": "text-field",
-        //     "props": {}
-        //   }
-        // },
-        // "user": {
-        //   "label": "User",
-        //   "layout": {
-        //     "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-        //     "offset": 0,
-        //     "fillRow": false,
-        //     "component": "user-input",
-        //     "props": {}
-        //   },
-        //   filter: {
-        //     group: ""
-        //   }
-        // }
+        }
       },
       "required": []
     }
