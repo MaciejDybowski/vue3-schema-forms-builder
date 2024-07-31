@@ -11,7 +11,7 @@
   <loading-view v-else/>
 </template>
 
-<script setup lang='ts'>
+<script lang='ts' setup>
 import {onBeforeMount, ref} from 'vue';
 import {fetchToken} from "../../../.storybook/keycloak_auth";
 import LoadingView from "@/components/storybook-components/LoadingView.vue";
@@ -35,7 +35,7 @@ onBeforeMount(async () => {
 
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss' scoped>
 
 </style>
 

@@ -3,11 +3,11 @@
     <div class="col-property">
       <p class="v-label">{{ t('label') }}</p>
       <v-btn-toggle
-        class="mt-1"
         v-model="modelValue"
-        @update:model-value="calcCols"
-        mandatory
+        class="mt-1"
         density="compact"
+        mandatory
+        @update:model-value="calcCols"
       >
         <col-btn :value="0"></col-btn>
         <col-btn :value="1"></col-btn>
@@ -26,7 +26,7 @@
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
 import {useCanvas} from "@/composables/useCanvas";
@@ -57,7 +57,7 @@ function calcCols(val: number) {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

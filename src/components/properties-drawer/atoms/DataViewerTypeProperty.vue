@@ -1,18 +1,18 @@
 <template>
   <v-list-item>
     <v-select
-      class="pt-2"
-      :label="t('typeProperty')"
-      :items="items"
-      v-bind="style.inputStyle.value"
       v-model="modelValue"
+      :items="items"
+      :label="t('typeProperty')"
       :return-object="false"
+      class="pt-2"
       clearable
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {ref} from "vue";
 import {useStyle} from "@/main";
@@ -31,7 +31,7 @@ const items = ref([
 ])
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

@@ -6,12 +6,11 @@
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
-  <simple-source-property v-model="source" />
+  <simple-source-property v-model="source"/>
 </template>
 
 
-
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
@@ -36,10 +35,10 @@ const model = computed({
 
 const source = computed({
   get() {
-    if(!model.value.source){
+    if (!model.value.source) {
       return {}
     } else {
-      return  model.value.source
+      return model.value.source
     }
   },
   set(val) {
@@ -50,6 +49,6 @@ const source = computed({
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

@@ -1,11 +1,11 @@
 <template>
   <draggable
     v-model="modelValue"
-    :sort="true"
     :emptyInsertThreshold="emptyInsertThreshold"
+    :sort="true"
+    class="d-flex flex-wrap"
     item-key="key"
     v-bind="dragOptions"
-    class="d-flex flex-wrap"
   >
     <template #item="{element}">
       <field-wrapper :element="element"/>
@@ -13,7 +13,7 @@
   </draggable>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import draggable from 'vuedraggable'
 import FieldWrapper from "../builder/FieldWrapper.vue";
@@ -35,7 +35,7 @@ const dragOptions = {
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .ghost {
   opacity: 0.5;
   background: #c8ebfb;

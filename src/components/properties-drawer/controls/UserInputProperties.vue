@@ -18,7 +18,7 @@
   <group-filter-property v-model="filter.group"/>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
@@ -64,7 +64,7 @@ const filter = computed({
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

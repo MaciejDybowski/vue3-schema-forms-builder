@@ -5,9 +5,9 @@
         <span class="v-card-title ml-0 pl-0">{{ t('jsonRepresentationTitle') }}</span>
         <div>
           <v-btn
+            density="compact"
             icon="mdi-content-copy"
             variant="text"
-            density="compact"
             @click="contextCopy"
           />
         </div>
@@ -17,7 +17,7 @@
   </v-row>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import VueJsonPretty from "vue-json-pretty";
 import {useI18n} from "vue-i18n";
 import {toast} from "vue3-toastify";
@@ -34,7 +34,7 @@ function contextCopy() {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

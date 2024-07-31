@@ -1,10 +1,10 @@
-import { defineConfig } from "vite";
+import {defineConfig} from "vite";
 import vue from "@vitejs/plugin-vue";
 import * as path from "path";
 import typescript2 from "rollup-plugin-typescript2";
 import dts from "vite-plugin-dts";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
-import { exec } from "node:child_process";
+import {exec} from "node:child_process";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 export default defineConfig({

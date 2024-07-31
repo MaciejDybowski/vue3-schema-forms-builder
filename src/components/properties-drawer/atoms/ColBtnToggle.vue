@@ -1,12 +1,12 @@
 <template>
   <div class="col-property">
-    <p class="v-label">{{label}}</p>
+    <p class="v-label">{{ label }}</p>
     <v-btn-toggle
-      class="mt-1"
       v-model="larger"
-      @update:model-value="updateSmaller"
-      mandatory
+      class="mt-1"
       density="compact"
+      mandatory
+      @update:model-value="updateSmaller"
     >
       <col-btn :value="1"></col-btn>
       <col-btn :value="2"></col-btn>
@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
 
 const props = defineProps<{
@@ -33,13 +33,12 @@ const props = defineProps<{
 const larger = defineModel<number>('breakpointLarger')
 const smaller = defineModel<number>("breakpointSmaller")
 
-function updateSmaller(val: number){
+function updateSmaller(val: number) {
   smaller.value = val
 }
 </script>
 
 
-
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

@@ -5,26 +5,26 @@
 
   <field-wrapper-toolbar-btn
     v-if="element.layout.component === 'duplicated-section'"
-    icon="mdi-cog"
     class="config-field-btn"
+    icon="mdi-cog"
     @click="configControl"
   />
 
   <field-wrapper-toolbar-btn
     v-if="element.layout.component !== 'duplicated-section'"
-    icon="mdi-content-copy"
     class="clone-field-btn"
+    icon="mdi-content-copy"
     @click="cloneControl"
   />
 
   <field-wrapper-toolbar-btn
-    icon="mdi-trash-can-outline"
     class="delete-field-btn"
+    icon="mdi-trash-can-outline"
     @click="deleteControl"
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import FieldWrapperToolbarLabel from "./FieldWrapperToolbarLabel.vue";
 import FieldWrapperToolbarBtn from "./FieldWrapperToolbarBtn.vue";
@@ -58,7 +58,7 @@ function cloneControl() {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .delete-field-btn {
   position: absolute;
   top: -1.25rem;

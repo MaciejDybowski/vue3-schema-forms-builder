@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useTheme } from "vuetify";
-import { onMounted, watch } from "vue";
+import {useTheme} from "vuetify";
+import {onMounted, watch} from "vue";
 import i18n from "./plugins/i18n";
 import {themesNames} from "../src/main";
 

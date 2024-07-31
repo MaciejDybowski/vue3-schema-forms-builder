@@ -1,9 +1,13 @@
 <template>
-  <v-row no-gutters class="flex-column">
-    <v-col cols="auto" class="pa-0">
+  <v-row class="flex-column" no-gutters>
+    <v-col class="pa-0" cols="auto">
 
       <div class="d-flex flex-column elevation-2 rounded">
-        <v-btn-toggle v-model="mainCanvas.mainCanvasMode.value" class="d-flex flex-column" mandatory style="height: 90px">
+        <v-btn-toggle
+          v-model="mainCanvas.mainCanvasMode.value"
+          class="d-flex flex-column"
+          mandatory
+          style="height: 90px">
           <v-btn size="30" value="BUILDER">
             <v-icon size="small">mdi-application-edit-outline</v-icon>
           </v-btn>
@@ -15,31 +19,11 @@
           </v-btn>
         </v-btn-toggle>
       </div>
-
-      <!--      <div class="d-flex flex-column elevation-2 rounded my-4">-->
-      <!--                <v-btn size="30"-->
-      <!--                       :disabled="!useBuilderStateStore.isUndoAvailable"-->
-      <!--                       @click="useBuilderStateStore.undo()"-->
-      <!--                >-->
-      <!--                  <v-icon-->
-
-      <!--                    size="small">mdi-arrow-u-left-top-->
-      <!--                  </v-icon>-->
-      <!--                </v-btn>-->
-      <!--                <v-btn size="30"-->
-      <!--                       :disabled="!useBuilderStateStore.isRendoAvailable"-->
-      <!--                       @click="useBuilderStateStore.rendo()"-->
-      <!--                >-->
-      <!--                  <v-icon-->
-
-      <!--                    size="small">mdi-arrow-u-right-top-->
-      <!--                  </v-icon>-->
-      <!--                </v-btn>-->
-      <!--      </div>-->
-
-      <!-- TODO Rfactor -->
       <div class="d-flex flex-column elevation-2 rounded my-4">
-        <v-btn-toggle v-model="canvas.canvasMode.value" class="d-flex flex-column" style="height: 90px">
+        <v-btn-toggle
+          v-model="canvas.canvasMode.value"
+          class="d-flex flex-column"
+          style="height: 90px">
           <v-btn size="30" value="MOBILE">
             <v-icon size="small">mdi-cellphone</v-icon>
           </v-btn>
@@ -71,10 +55,10 @@
   </v-row>
 </template>
 
-<script setup lang="ts">
-import {useCanvas} from "../../composables/useCanvas";
-import {useDrawers} from "../../composables/useDrawers";
-import {useMainCanvas} from "../../composables/useMainCanvas";
+<script lang="ts" setup>
+import {useCanvas} from "@/composables/useCanvas";
+import {useDrawers} from "@/composables/useDrawers";
+import {useMainCanvas} from "@/composables/useMainCanvas";
 
 const mainCanvas = useMainCanvas()
 const canvas = useCanvas()

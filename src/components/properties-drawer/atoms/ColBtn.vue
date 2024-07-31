@@ -1,17 +1,17 @@
 <template>
   <v-btn
-    min-width="26.2"
-    max-width="26.2"
-    height="26.5"
-    class="px-0"
     :value="value"
+    class="px-0"
+    height="26.5"
+    max-width="26.2"
+    min-width="26.2"
     variant="outlined"
   >
     <span class="col-val-btn">{{ value }}</span>
   </v-btn>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 const props = defineProps<{
   value: any
 }>()
@@ -19,7 +19,7 @@ const props = defineProps<{
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .col-val-btn {
   font-size: 0.75rem;
 }

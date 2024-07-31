@@ -6,34 +6,34 @@
           <span class="v-card-title ml-0 pl-0">JSON Schema</span>
           <div>
             <v-btn
+              density="compact"
               icon="mdi-content-copy"
               variant="text"
-              density="compact"
               @click="copy(schema)"
             />
           </div>
         </div>
-        <vue-json-pretty :data="schema" />
+        <vue-json-pretty :data="schema"/>
       </v-col>
       <v-col cols="6">
         <div class="d-flex align-center">
           <span class="v-card-title ml-0 pl-0">Model formularza</span>
           <div>
             <v-btn
+              density="compact"
               icon="mdi-content-copy"
               variant="text"
-              density="compact"
               @click="copy(model)"
             />
           </div>
         </div>
-        <vue-json-pretty :data="model" />
+        <vue-json-pretty :data="model"/>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 
@@ -53,4 +53,4 @@ function copy(val: any) {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style lang="scss" scoped></style>

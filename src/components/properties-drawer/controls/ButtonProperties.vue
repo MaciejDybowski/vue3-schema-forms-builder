@@ -5,7 +5,7 @@
   <fill-row-property v-model="model.layout.fillRow"/>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
@@ -13,8 +13,6 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -29,6 +27,6 @@ const model = computed({
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

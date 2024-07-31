@@ -84,7 +84,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     configuredField.value = field
   }
 
-  function setKeyInConfiguredField(key: string, value: string|number|object) {
+  function setKeyInConfiguredField(key: string, value: string | number | object) {
     set(configuredField.value, key, value);
   }
 
@@ -117,8 +117,6 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   function rendo() {
     historyPointer.value++
     updateDraggableModel(history.value[historyPointer.value], true)
-    // console.debug("stan stosu", history.value)
-    // console.debug("wskaznik = ", historyPointer.value)
   }
 
 

@@ -15,7 +15,7 @@
   <if-property v-model="model.layout.if"/>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import {computed} from "vue";
@@ -55,7 +55,7 @@ const source = computed({
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

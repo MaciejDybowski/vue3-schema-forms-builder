@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/vue3-vite"
+import type {StorybookConfig} from "@storybook/vue3-vite"
 import {mergeConfig} from "vite";
 
 const config: StorybookConfig = {

@@ -6,8 +6,8 @@
     <v-hover>
       <template v-slot:default="{ isHovering, props }">
         <field-wrapper-item
-          :is-hovering="isHovering"
           :element="element"
+          :is-hovering="isHovering"
           v-bind="props"
         />
       </template>
@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 // @ts-nocheck
 import FieldWrapperItem from "./FieldWrapperItem.vue";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
@@ -42,6 +42,6 @@ function calcWidth(element: SchemaField) {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

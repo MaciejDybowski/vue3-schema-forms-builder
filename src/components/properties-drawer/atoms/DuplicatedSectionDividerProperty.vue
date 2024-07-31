@@ -1,15 +1,15 @@
 <template>
   <v-list-item>
     <v-switch
-      class="mx-2"
-      :label="t('duplicatedSectionShowDivider')"
       v-model="modelValue"
+      :label="t('duplicatedSectionShowDivider')"
+      class="mx-2"
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 
@@ -19,7 +19,7 @@ const style = useStyle()
 const {t} = useI18n()
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 </style>
 
 <i18n lang="json">

@@ -1,17 +1,17 @@
 <template>
   <v-list-item>
     <v-text-field
-      class="pt-2"
-      :label="t('groupFilterProperty')"
-      persistent-hint
-      :hint='t("filterHint")'
       v-model="modelValue"
+      :hint='t("filterHint")'
+      :label="t('groupFilterProperty')"
+      class="pt-2"
+      persistent-hint
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 
@@ -23,7 +23,7 @@ const {t} = useI18n()
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

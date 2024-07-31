@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed, useAttrs} from "vue";
 
 import {useDrawers} from "../../composables/useDrawers";
@@ -81,7 +81,7 @@ function configControl(element: any) {
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .field-wrapper {
   position: relative;
 }

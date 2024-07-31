@@ -1,12 +1,12 @@
 <template>
   <v-navigation-drawer
     v-model="drawers.propertiesDrawer.value"
-    width="350"
-    permament
-    order="3"
     location="right"
+    order="3"
+    permament
     scrim="transparent"
     style="top: 65px; min-height: calc(100vh - 65px)"
+    width="350"
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
@@ -26,7 +26,7 @@
   </v-navigation-drawer>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useDrawers} from "../../composables/useDrawers";
 import {computed} from "vue";
 import {useBuilderState} from "../../pinia/stores/useBuilderState";

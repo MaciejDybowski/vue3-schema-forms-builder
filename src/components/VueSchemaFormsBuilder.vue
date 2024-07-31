@@ -1,17 +1,17 @@
 <template>
   <div>
     <ElementsDrawer/>
-    <v-row dense justify="center" class="my-4">
+    <v-row class="my-4" dense justify="center">
       <v-col :cols="canvasColumns">
         <v-row dense>
-          <v-col cols="auto" class="main-container ma-2">
+          <v-col class="main-container ma-2" cols="auto">
             <MainCanvasToolboxLeft class="stretch"/>
           </v-col>
-          <v-col cols="" class="main-container">
+          <v-col class="main-container" cols="">
             <MainCanvas v-model="modelValue"
                         class="stretch"/>
           </v-col>
-          <v-col cols="auto" class="main-container ma-2">
+          <v-col class="main-container ma-2" cols="auto">
             <MainCanvasToolboxRight class="stretch"/>
           </v-col>
         </v-row>
@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import ElementsDrawer from "./elements-drawer/ElementsDrawer.vue";
 import PropertiesDrawer from "./properties-drawer/PropertiesDrawer.vue";
 import MainCanvas from "./main-canvas/MainCanvas.vue";
@@ -69,7 +69,7 @@ const canvasColumns = computed(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .main-container {
   display: flex;
   flex-direction: column;

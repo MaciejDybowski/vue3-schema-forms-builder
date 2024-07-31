@@ -1,6 +1,6 @@
-import {CanvasMode, MainCanvasMode} from "../models/CanvasMode";
-import { useAppConfig } from "../pinia/stores/useAppConfig";
-import { computed } from "vue";
+import {MainCanvasMode} from "../models/CanvasMode";
+import {useAppConfig} from "../pinia/stores/useAppConfig";
+import {computed} from "vue";
 
 export function useMainCanvas() {
   const appConfig = useAppConfig();
@@ -14,5 +14,5 @@ export function useMainCanvas() {
     },
   });
 
-  return { mainCanvasMode };
+  return {mainCanvasMode};
 }

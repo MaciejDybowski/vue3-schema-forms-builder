@@ -5,14 +5,13 @@
   <offset-property v-model="model.layout.offset"/>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 
 
@@ -29,6 +28,6 @@ const model = computed({
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

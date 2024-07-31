@@ -1,5 +1,5 @@
-import { useAppConfig } from "../pinia/stores/useAppConfig";
-import { computed } from "vue";
+import {useAppConfig} from "../pinia/stores/useAppConfig";
+import {computed} from "vue";
 
 export function useDrawers() {
   const appConfig = useAppConfig();
@@ -20,5 +20,5 @@ export function useDrawers() {
       appConfig.setPropertiesDrawer(state);
     },
   });
-  return { elementsDrawer, propertiesDrawer };
+  return {elementsDrawer, propertiesDrawer};
 }

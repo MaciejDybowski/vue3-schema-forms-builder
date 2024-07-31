@@ -1,12 +1,12 @@
 import 'vuetify/styles';
 import '@mdi/font/css/materialdesignicons.css';
 
-import { aliases, mdi } from 'vuetify/iconsets/mdi';
-import { createVuetify } from 'vuetify';
+import {aliases, mdi} from 'vuetify/iconsets/mdi';
+import {createVuetify} from 'vuetify';
 
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
-import { en } from 'vuetify/locale';
+import {en} from 'vuetify/locale';
 
 // @ts-ignore
 import colors from 'vuetify/lib/util/colors';
@@ -24,7 +24,7 @@ export default createVuetify({
   locale: {
     locale: 'en',
     fallback: 'en',
-    messages: { en },
+    messages: {en},
   },
   theme: {
     defaultTheme: 'light',
@@ -40,4 +40,4 @@ export default createVuetify({
 });
 
 // Export for test.
-export { components, directives };
+export {components, directives};

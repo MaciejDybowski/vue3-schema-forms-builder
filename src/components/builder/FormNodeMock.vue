@@ -1,33 +1,33 @@
 <template>
   <div :style="calcOffset(element)">
     <component
+      :is='`node-${element.layout.component}`'
       v-if="element.layout.component !== 'duplicated-section'"
+      :key="renderKey"
+      :model='{}'
+      :schema='element'
       class="disabled-field"
       v-bind="{readonly:true}"
-      :is='`node-${element.layout.component}`'
-      :schema='element'
-      :model='{}'
-      :key="renderKey"
     />
 
     <div v-else>
       <draggable-area
-        class="pt-6"
-        :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         v-model="element.tempItems"
         :empty-insert-threshold="30"
+        :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
+        class="pt-6"
       />
       <v-divider
         v-if="element.layout.options.showDivider"
         class="mb-2 mx-4"
       />
       <v-btn
+        :color="color"
+        :rounded="true"
         class="mx-4"
+        prepend-icon='mdi-plus'
         size="small"
         variant="flat"
-        :rounded="true"
-        prepend-icon='mdi-plus'
-        :color="color"
       >
         {{ element.layout.options.addBtnText }}
       </v-btn>
@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import DraggableArea from "./DraggableArea.vue";
 import {computed, ref, watch} from "vue";
@@ -75,7 +75,7 @@ function calcOffset(element: any) {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .disabled-field {
   pointer-events: none; /* Disable all pointer events */
 }

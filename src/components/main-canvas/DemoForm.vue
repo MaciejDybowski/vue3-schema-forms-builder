@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex align-center">
     <h2>{{ t('titleFormDemo') }}</h2>
-    <span v-bind="style.buttonStyle"
-          @click="showForm=false"
+    <span v-if="showForm && schemaContainDictionary"
           class="mx-4 v-list-item-subtitle text-decoration-underline"
-          v-if="showForm && schemaContainDictionary"
           style="cursor: pointer;"
+          v-bind="style.buttonStyle"
+          @click="showForm=false"
     >
       {{ t('changeWorkspaceId') }}: {{ workspaceId }}
     </span>
@@ -18,18 +18,18 @@
     </v-col>
     <v-col cols="4">
       <v-text-field
-        class="pt-2"
-        :label="t('workspaceId')"
         v-model="workspaceId"
+        :label="t('workspaceId')"
+        class="pt-2"
         v-bind="style.inputStyle.value"
       />
     </v-col>
     <v-col cols="12">
       <v-btn
-        v-bind="style.buttonStyle"
         color="primary"
         rounded
         size="small"
+        v-bind="style.buttonStyle"
         @click="setWorkspaceIdHeader"
       >
         {{ t('save') }}
@@ -41,14 +41,14 @@
     v-else
     ref="myForm"
     v-model="model"
-    :schema="schema"
-    :options="options"
     :default-form-actions="true"
+    :options="options"
+    :schema="schema"
     :validation-behaviour="'messages'"
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {useStyle} from "@/main";
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

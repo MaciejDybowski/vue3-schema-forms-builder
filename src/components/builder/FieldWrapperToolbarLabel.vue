@@ -1,12 +1,12 @@
 <template>
-  <div class="key-field px-2"
-       :style="btnColor"
+  <div :style="btnColor"
+       class="key-field px-2"
   >
     {{ elementKey }}
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {computed} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
@@ -28,7 +28,7 @@ const btnColor = computed(() => {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .key-field {
   position: absolute;
   top: -1.25rem;

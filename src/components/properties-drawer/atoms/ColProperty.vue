@@ -2,24 +2,24 @@
   <v-list-item class="pb-0">
 
     <col-btn-toggle
-      :label="t('size.desktop')"
       v-model:breakpoint-larger="modelValue.xxl"
       v-model:breakpoint-smaller="modelValue.xl"
+      :label="t('size.desktop')"
     />
     <col-btn-toggle
-      :label="t('size.tablet')"
       v-model:breakpoint-larger="modelValue.lg"
       v-model:breakpoint-smaller="modelValue.md"
+      :label="t('size.tablet')"
     />
     <col-btn-toggle
-      :label="t('size.mobile')"
       v-model:breakpoint-larger="modelValue.sm"
       v-model:breakpoint-smaller="modelValue.xs"
+      :label="t('size.mobile')"
     />
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import ColBtnToggle from "@/components/properties-drawer/atoms/ColBtnToggle.vue";
 
@@ -31,16 +31,14 @@ const modelValue = defineModel<{
   sm: number,
   xs: number
 }>({
-  default: {
-
-  }
+  default: {}
 })
 
 const {t} = useI18n()
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 

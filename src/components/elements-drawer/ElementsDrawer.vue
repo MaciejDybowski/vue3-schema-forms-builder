@@ -2,22 +2,22 @@
   <!--    style="top: 65px; height: 100%"-->
   <v-navigation-drawer
     v-model="drawers.elementsDrawer.value"
-    width="300"
-    permament
-    order="3"
-    scrim="transparent"
     class="element-drawer"
+    order="3"
+    permament
+    scrim="transparent"
     style="top: 65px; min-height: calc(100vh - 65px)"
+    width="300"
   >
     <v-list>
       <v-list-item density="compact">
         <v-list-item-title>Elementy statyczne</v-list-item-title>
       </v-list-item>
       <draggable
-        :list="staticContent"
-        :group="{ name: 'controls', pull: 'clone', put: false }"
-        item-key="label"
         :clone="cloneStatic"
+        :group="{ name: 'controls', pull: 'clone', put: false }"
+        :list="staticContent"
+        item-key="label"
       >
         <template #item="{element}">
 
@@ -37,10 +37,10 @@
         <v-list-item-title>Pola formularza</v-list-item-title>
       </v-list-item>
       <draggable
-        :list="controls"
-        :group="{ name: 'controls', pull: 'clone', put: false }"
-        item-key="label"
         :clone="cloneControls"
+        :group="{ name: 'controls', pull: 'clone', put: false }"
+        :list="controls"
+        item-key="label"
       >
         <template #item="{element}">
           <v-list-item link>
@@ -59,10 +59,10 @@
         <v-list-item-title>Elementy układu</v-list-item-title>
       </v-list-item>
       <draggable
-        :list="layoutElements"
-        :group="{ name: 'controls', pull: 'clone', put: false }"
-        item-key="label"
         :clone="cloneControls"
+        :group="{ name: 'controls', pull: 'clone', put: false }"
+        :list="layoutElements"
+        item-key="label"
       >
         <template #item="{element}">
           <v-list-item link>
@@ -77,7 +77,7 @@
   </v-navigation-drawer>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import draggable from 'vuedraggable'
 import {useDrawers} from "../../composables/useDrawers";
 import {useStyle} from "@/main";

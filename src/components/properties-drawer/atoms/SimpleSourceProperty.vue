@@ -8,27 +8,27 @@
   >
     <div class="d-flex py-2 align-center justify-center">
       <v-text-field
-        :label="t('simpleSource.value')"
-        v-bind="style.inputStyle.value"
         v-model="item.value"
-        density="compact"
         :hide-details="true"
+        :label="t('simpleSource.value')"
         class="pr-2"
+        density="compact"
+        v-bind="style.inputStyle.value"
       />
       <v-text-field
-        :label="t('simpleSource.label')"
-        v-bind="style.inputStyle.value"
         v-model="item.title"
-        density="compact"
         :hide-details="true"
+        :label="t('simpleSource.label')"
         class="pl-2"
+        density="compact"
+        v-bind="style.inputStyle.value"
       />
       <v-btn
         class="mx-2"
-        icon="mdi-delete"
         density="compact"
-        size="small"
         flat
+        icon="mdi-delete"
+        size="small"
         @click="deleteOption(key)"
       >
       </v-btn>
@@ -36,8 +36,8 @@
   </v-list-item>
   <v-list-item density="compact">
     <v-btn
-      prepend-icon="mdi-plus"
       color="primary"
+      prepend-icon="mdi-plus"
       size="small"
       @click="addOption"
     >Dodaj
@@ -45,7 +45,7 @@
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 
@@ -74,7 +74,7 @@ function deleteOption(key: number) {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 <i18n lang="json">

@@ -1,8 +1,8 @@
 <template>
   <!--    style="min-height: calc(100vh - 130px)"-->
   <v-card
-    elevation="2"
     class="pa-4 px-6"
+    elevation="2"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
@@ -23,7 +23,7 @@
   </v-card>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed, onMounted, watch} from "vue";
 
 import DraggableArea from "../builder/DraggableArea.vue";

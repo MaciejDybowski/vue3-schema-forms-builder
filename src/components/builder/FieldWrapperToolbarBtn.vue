@@ -1,11 +1,11 @@
 <template>
   <v-btn
-    rounded="0"
     :color="btnColor"
-    variant="outlined"
     density="compact"
     height="20px"
+    rounded="0"
     size="20px"
+    variant="outlined"
     @click="emit('click')"
   >
     <v-icon size="17">{{ props.icon }}</v-icon>
@@ -14,7 +14,7 @@
 </template>
 
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed, useAttrs} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
 
@@ -41,6 +41,6 @@ const btnColor = computed(() => {
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

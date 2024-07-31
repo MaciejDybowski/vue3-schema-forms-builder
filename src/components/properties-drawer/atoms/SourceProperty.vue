@@ -4,73 +4,73 @@
   </v-list-item>
   <v-list-item>
     <v-text-field
-      class="pt-2"
-      :label="t('urlKey')"
       v-model="modelValue.builder_url"
+      :label="t('urlKey')"
+      class="pt-2"
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
     <v-text-field
-      class="pt-2"
-      :label="t('title')"
       v-model="modelValue.title"
+      :label="t('title')"
+      class="pt-2"
 
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
     <v-text-field
-      class="pt-2"
-      :label="t('value')"
       v-model="modelValue['value']"
+      :label="t('value')"
+      class="pt-2"
 
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
     <v-text-field
-      class="pt-2"
-      :label="t('description')"
       v-model="modelValue.description"
+      :label="t('description')"
+      class="pt-2"
 
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
     <v-switch
-      class="mx-2"
-      :label="t('returnObject')"
       v-model="modelValue.returnObject"
+      :label="t('returnObject')"
+      class="mx-2"
 
-      v-bind="style.inputStyle.value"
       hide-details="auto"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
     <v-switch
-      class="mx-2"
-      :label="t('lazyLoading')"
       v-model="modelValue.lazy"
+      :label="t('lazyLoading')"
+      class="mx-2"
 
-      v-bind="style.inputStyle.value"
       hide-details="auto"
+      v-bind="style.inputStyle.value"
     />
 
   </v-list-item>
   <v-list-item>
     <v-switch
-      class="mx-2"
-      :label="t('singleOptionAutoSelect')"
       v-model="modelValue.singleOptionAutoSelect"
+      :label="t('singleOptionAutoSelect')"
+      class="mx-2"
 
-      v-bind="style.inputStyle.value"
       hide-details="auto"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 
 import {useI18n} from "vue-i18n";
@@ -86,7 +86,7 @@ const {t} = useI18n()
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
 
