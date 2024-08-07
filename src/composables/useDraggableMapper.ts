@@ -71,14 +71,14 @@ export function useDraggableMapper() {
       required: formSchema.required?.includes(key) as boolean,
     } as DraggableFormElement
 
-    dictionaryBuilderMapping(draggableElement)
+    dictionarySourceBuilderMapping(draggableElement)
 
 
     draggableElements.value.push(draggableElement)
   }
 
-  function dictionaryBuilderMapping(draggableElement: DraggableFormElement) {
-    if (draggableElement.layout.component == 'dictionary') {
+  function dictionarySourceBuilderMapping(draggableElement: DraggableFormElement) {
+    if (draggableElement.layout.component == 'dictionary' || (draggableElement.layout.component == 'user-input' && draggableElement.source)) {
       const copy = draggableElement.source.url
       draggableElement.source.url = ""
       draggableElement.source.builder_url = copy

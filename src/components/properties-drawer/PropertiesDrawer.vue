@@ -5,9 +5,9 @@
     order="3"
     permament
     scrim="transparent"
-    style="top: 65px; min-height: calc(100vh - 65px)"
     width="350"
   >
+<!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
       <static-content-properties v-if="model.layout.component == 'static-content'"/>

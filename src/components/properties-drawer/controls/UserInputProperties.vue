@@ -6,6 +6,7 @@
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
+  <multiple-property v-model="model.layout.props.multiple"/>
   <if-property v-model="model.layout.if"/>
 
 
@@ -13,9 +14,12 @@
     <v-divider/>
   </v-list-item>
   <v-list-item density="compact">
-    <span class="text-subtitle-1">{{ t("filterTitle") }}</span>
+    <span class="text-subtitle-1">{{ t("customsTitle") }}</span>
   </v-list-item>
   <group-filter-property v-model="filter.group"/>
+  <user-url-source v-model="source"/>
+
+
 </template>
 
 <script lang="ts" setup>
@@ -32,6 +36,8 @@ import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import GroupFilterProperty from "@/components/properties-drawer/atoms/GroupFilterProperty.vue";
 import {useI18n} from "vue-i18n";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import MultipleProperty from "@/components/properties-drawer/atoms/MultipleProperty.vue";
+import UserUrlSource from "@/components/properties-drawer/atoms/UserUrlSource.vue";
 
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
@@ -47,17 +53,25 @@ const model = computed({
 
 const filter = computed({
   get() {
-    if (!model.value.filter) {
-      return {
-        group: null
-      }
-    } else {
-      return model.value.filter
+    if (!("filter" in model.value)) {
+      filter.value = {group: null}
     }
+    return model.value.filter
   },
   set(val) {
-    console.debug(val)
     useBuilderStateStore.setKeyInConfiguredField("filter", val)
+  }
+})
+
+const source = computed({
+  get() {
+    if (!model.value.source) {
+      source.value = {}
+    }
+    return model.value.source
+  },
+  set(val) {
+    useBuilderStateStore.setKeyInConfiguredField("source", val)
   }
 })
 
@@ -71,10 +85,12 @@ const filter = computed({
 <i18n lang="json">
 {
   "en": {
-    "filterTitle": "Filters"
+    "customsTitle": "Specials",
+    "customEndpoint": "Not default endpoint"
   },
   "pl": {
-    "filterTitle": "Filtry"
+    "customsTitle": "Filtry",
+    "customEndpoint": "Endpoint danych"
   }
 }
 </i18n>
