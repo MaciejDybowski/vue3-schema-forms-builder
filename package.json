@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.22",
+  "version": "0.0.27",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -20,7 +20,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "publish:nexus": "npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases",
-    "bump-internal-libs": "npm cache clear --force && npm install tecna-vue-shared@next --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force"
+    "bump-internal-libs": "npm cache clear --force && npm install tecna-vue-shared@next --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force",
+    "bump-version": "npm version patch --force"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
