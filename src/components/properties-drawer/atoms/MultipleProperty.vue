@@ -1,11 +1,10 @@
 <template>
   <v-list-item>
-    <v-text-field
+    <v-checkbox
       v-model="modelValue"
-      :hint='t("filterHint")'
-      :label="t('groupFilterProperty')"
-      class="pt-2"
-      persistent-hint
+      :label="t('multipleProperty')"
+      class="mx-2"
+      hide-details="auto"
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
@@ -14,28 +13,31 @@
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
+import {onMounted} from "vue";
 
 const modelValue = defineModel()
 const style = useStyle()
 
 const {t} = useI18n()
 
+onMounted(() => {
+  if (!modelValue.value) {
+    modelValue.value = false
+  }
+})
 
 </script>
 
 <style lang="scss" scoped>
-
 </style>
 
 <i18n lang="json">
 {
   "en": {
-    "groupFilterProperty": "Group filter",
-    "filterHint": "Group names separated by coma"
+    "multipleProperty": "Multiple values"
   },
   "pl": {
-    "groupFilterProperty": "Filtry grup",
-    "filterHint": "Nazwa grupy oddzielana przecinkami"
+    "multipleProperty": "Dozwolone wiele wartości"
   }
 }
 </i18n>

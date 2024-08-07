@@ -37,18 +37,15 @@ import {FormSchema} from "@/models/FormSchema";
 // schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 // import {createVueSchemaForms} from "../../../vue3-schema-forms";
 // import "../../../vue3-schema-forms/dist/style.css"
-import {Components, createVueSchemaForms} from "vue3-schema-forms";
+import {createVueSchemaForms} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
+import {customSchemaComponents} from "tecna-vue-shared"
 
 const instance = getCurrentInstance();
-const userInputComponent = instance?.appContext.app.component("TcnSchemaUserInput")
 
-const customComponents = {
-  "user-input": userInputComponent
-} as Components
 
 const vueSchemaForms = createVueSchemaForms({
-  customComponents: customComponents,
+  customComponents: {...customSchemaComponents},
   installFormControls: true
 }) as unknown as FunctionPlugin
 instance?.appContext.app.use(vueSchemaForms)
