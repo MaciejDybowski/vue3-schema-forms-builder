@@ -13,13 +13,14 @@
     "dist/*"
   ],
   "scripts": {
-    "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private/ --force",
+    "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force",
     "dev": "echo ' to link lib run  \"npm link vue3-schema-forms-builder\" in your destination project' && npm link && vite build --watch",
     "build": "vue-tsc --noEmit && vite build",
     "build:publish": "npm run build && npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "publish:nexus": "npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases"
+    "publish:nexus": "npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases",
+    "bump-internal-libs": "npm cache clear --force && npm install tecna-vue-shared@next --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
@@ -31,13 +32,13 @@
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
+    "tecna-vue-shared": "^3.0.62",
     "vue": "^3.4.27",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.3",
     "vue3-toastify": "^0.2.1",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^3.6.9",
-    "tecna-vue-shared": "^3.0.60"
+    "vuetify": "^3.6.9"
   },
   "devDependencies": {
     "@babel/types": "^7.24.7",
