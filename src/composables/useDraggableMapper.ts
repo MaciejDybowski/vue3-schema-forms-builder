@@ -78,7 +78,7 @@ export function useDraggableMapper() {
   }
 
   function dictionarySourceBuilderMapping(draggableElement: DraggableFormElement) {
-    if (draggableElement.layout.component == 'dictionary' || draggableElement.layout.component == 'user-input') {
+    if (draggableElement.layout.component == 'dictionary' || (draggableElement.layout.component == 'user-input' && draggableElement.source)) {
       const copy = draggableElement.source.url
       draggableElement.source.url = ""
       draggableElement.source.builder_url = copy
