@@ -92,7 +92,6 @@ onMounted(() => {
     buttonProps: style.buttonStyle.value
   }
 
-  console.debug(modelValue.value)
   controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions)
 })
 

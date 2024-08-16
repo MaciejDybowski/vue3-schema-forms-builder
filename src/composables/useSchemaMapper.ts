@@ -4,6 +4,7 @@ import {Ref, ref} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 import {useStyle} from "@/main";
 import {copyObject} from "@/utils/copy";
+import {isEmpty} from "lodash";
 
 
 export function useSchemaMapper() {
@@ -94,6 +95,7 @@ export function useSchemaMapper() {
       mapUrlInDictionary(tempElement)
 
 
+      cleanJson(tempElement)
       schema.properties[tempElementKey] = tempElement
     }
   }
@@ -117,6 +119,36 @@ export function useSchemaMapper() {
       delete formElement.source.builder_url;
       formElement.source.url = copied
     }
+  }
+
+  // funkcje i if'y czyszczące JSON do minimum dla silnika i przejrzystości
+  function cleanJson(formElement: DraggableFormElement) {
+    const cols = {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+      xxl: 12,
+    }
+    if (JSON.stringify(formElement.layout.cols) === JSON.stringify(cols)) {
+      delete formElement.layout.cols
+    }
+
+    if (isEmpty(formElement.layout.props)) {
+      delete formElement.layout.props
+    } else if (Object.keys(formElement.layout.props).length == 1 && formElement.layout.props.readOnly == false) {
+      delete formElement.layout.props
+    }
+
+    if (formElement.layout.offset === 0) {
+      delete formElement.layout.offset
+    }
+
+    if (!formElement.layout.fillRow) {
+      delete formElement.layout.fillRow
+    }
+
   }
 
   return {mapDraggableToSchema}

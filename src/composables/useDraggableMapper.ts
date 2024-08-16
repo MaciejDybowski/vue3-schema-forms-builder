@@ -32,27 +32,7 @@ export function useDraggableMapper() {
 
   function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement) {
 
-    // TEMPORARY for all existed schema will be transformed
-    if (!schemaElement.layout.props) {
-      schemaElement.layout.props = {}
-    }
-    if (schemaElement.layout.schema && !schemaElement.layout.options) {
-      schemaElement.layout.options = {
-        showDivider: false,
-        addBtnText: "Add"
-      }
-    }
-    if (isNumber(schemaElement.layout.cols)) {
-      schemaElement.layout.cols = {
-        xs: 12,
-        sm: 12,
-        md: 12,
-        lg: 12,
-        xl: schemaElement.layout.cols,
-        xxl: schemaElement.layout.cols,
-      }
-    }
-    // END TEMPORARY MAPPINGS
+    fillSchemaForBuilderPurpose(schemaElement)
 
     if (schemaElement.layout.schema) {
       schemaElement.layout.schema.options = formOptions
@@ -73,7 +53,6 @@ export function useDraggableMapper() {
 
     dictionarySourceBuilderMapping(draggableElement)
 
-
     draggableElements.value.push(draggableElement)
   }
 
@@ -87,6 +66,39 @@ export function useDraggableMapper() {
 
   function isNestedFields(schemaElement: SchemaFormElement) {
     return "properties" in schemaElement;
+  }
+
+  // funkcja uzupełnia wszystkie mapowania potrzebne do działania prawego panelu mapowania kontrolek na JSON Scheme
+  function fillSchemaForBuilderPurpose(schemaElement: SchemaFormElement) {
+    if (!schemaElement.layout.props) {
+      schemaElement.layout.props = {}
+    }
+    if (schemaElement.layout.schema && !schemaElement.layout.options) {
+      schemaElement.layout.options = {
+        showDivider: false,
+        addBtnText: "Add"
+      }
+    }
+    if (isNumber(schemaElement.layout.cols)) {
+      schemaElement.layout.cols = {
+        xs: schemaElement.layout.cols,
+        sm: schemaElement.layout.cols,
+        md: schemaElement.layout.cols,
+        lg: schemaElement.layout.cols,
+        xl: schemaElement.layout.cols,
+        xxl: schemaElement.layout.cols,
+      }
+    }
+    if (schemaElement.layout.cols === undefined) {
+      schemaElement.layout.cols = {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12,
+        xxl: 12,
+      }
+    }
   }
 
   return {mapSchemaToDraggable}
