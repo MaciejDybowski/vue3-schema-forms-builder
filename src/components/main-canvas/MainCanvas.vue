@@ -20,6 +20,10 @@
       :schema="modelValue"
     />
 
+    <json-wizzard-cleaner
+      v-if="mainCanvas.mainCanvasMode.value === 'JSON_WIZARD'"
+    />
+
   </v-card>
 </template>
 
@@ -41,6 +45,8 @@ import {FormOptions} from "@/models/FormOptions";
 import DemoForm from "@/components/main-canvas/DemoForm.vue";
 import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
 import {copyObject} from "@/utils/copy";
+import JsonWizzardCleaner from "@/components/main-canvas/JsonWizardCleaner.vue";
+import {useDrawers} from "@/composables/useDrawers";
 
 
 let modelValue = defineModel<FormSchema>({

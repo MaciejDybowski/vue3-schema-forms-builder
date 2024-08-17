@@ -7,7 +7,7 @@
           v-model="mainCanvas.mainCanvasMode.value"
           class="d-flex flex-column"
           mandatory
-          style="height: 90px">
+          style="height: 120px">
           <v-btn size="30" value="BUILDER">
             <v-icon size="small">mdi-application-edit-outline</v-icon>
           </v-btn>
@@ -16,6 +16,9 @@
           </v-btn>
           <v-btn size="30" value="DEMO">
             <v-icon size="small">mdi-play-circle-outline</v-icon>
+          </v-btn>
+          <v-btn size="30" value="JSON_WIZARD">
+            <v-icon size="small">mdi-auto-fix</v-icon>
           </v-btn>
         </v-btn-toggle>
       </div>

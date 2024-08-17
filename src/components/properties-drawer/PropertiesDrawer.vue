@@ -6,6 +6,7 @@
     permament
     scrim="transparent"
     width="350"
+    style="top: 65px; min-height: calc(100vh - 65px)"
   >
 <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
