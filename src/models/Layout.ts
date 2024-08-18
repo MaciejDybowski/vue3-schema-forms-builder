@@ -7,5 +7,5 @@ export interface Layout {
   cols: object
   fillRow: boolean
   offset: number
-  props: object
+  props: any
 }

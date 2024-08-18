@@ -5,6 +5,7 @@ import {FormSchema} from "@/models/FormSchema";
 import {useStyle} from "@/main";
 import {copyObject} from "@/utils/copy";
 import {isEmpty} from "lodash";
+import {Layout} from "@/models/Layout";
 
 
 export function useSchemaMapper() {
@@ -122,7 +123,8 @@ export function useSchemaMapper() {
   }
 
   // funkcje i if'y czyszczące JSON do minimum dla silnika i przejrzystości
-  function cleanJson(formElement: DraggableFormElement) {
+  function cleanJson(formElement: Partial<DraggableFormElement>) {
+    const layout: Partial<Layout> = formElement.layout as Partial<Layout>
     const cols = {
       xs: 12,
       sm: 12,
@@ -131,22 +133,22 @@ export function useSchemaMapper() {
       xl: 12,
       xxl: 12,
     }
-    if (JSON.stringify(formElement.layout.cols) === JSON.stringify(cols)) {
-      delete formElement.layout.cols
+    if (formElement.layout && JSON.stringify(formElement.layout.cols) === JSON.stringify(cols)) {
+      delete layout.cols
     }
 
-    if (isEmpty(formElement.layout.props)) {
-      delete formElement.layout.props
-    } else if (Object.keys(formElement.layout.props).length == 1 && formElement.layout.props.readOnly == false) {
-      delete formElement.layout.props
+    if (formElement.layout && isEmpty(formElement.layout.props)) {
+      delete layout.props
+    } else if (formElement.layout && Object.keys(formElement.layout.props).length == 1 && formElement.layout.props.readOnly == false) {
+      delete layout.props
     }
 
-    if (formElement.layout.offset === 0) {
-      delete formElement.layout.offset
+    if (formElement.layout && formElement.layout.offset === 0) {
+      delete layout.offset
     }
 
-    if (!formElement.layout.fillRow) {
-      delete formElement.layout.fillRow
+    if (formElement.layout && !formElement.layout.fillRow) {
+      delete layout.fillRow
     }
 
   }
