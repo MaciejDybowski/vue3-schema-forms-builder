@@ -7,6 +7,7 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readOnly"/>
   <if-property v-model="model.layout.if"/>
+  <format-in-model-property v-model="model.formatInModel"/>
 </template>
 
 <script lang="ts" setup>
@@ -21,6 +22,7 @@ import RequiredProperty from "@/components/properties-drawer/atoms/RequiredPrope
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import FormatInModelProperty from "@/components/properties-drawer/atoms/FormatInModelProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
