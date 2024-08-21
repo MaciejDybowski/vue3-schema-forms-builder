@@ -27,12 +27,12 @@ const config: StorybookConfig = {
       server: {
         proxy: {
           '/auth': {
-            target: "https://aureadev.tecna.pl/",
+            target: "https://dev-bm.int.tecna.pl/",
             changeOrigin: true,
             secure: false,
           },
           '/api': {
-            target: "https://aureadev.tecna.pl/",
+            target: "https://dev-bm.int.tecna.pl/",
             changeOrigin: true,
             secure: false,
           },

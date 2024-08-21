@@ -15,33 +15,16 @@ type Story = StoryObj<typeof meta>;
 
 export const FormBuilderStory: Story = {
   args: {
-    workspaceId: "faktury",
+    workspaceId: "bm",
     modelValue: {
       "type": "object",
       "properties": {
-        "daneOsoboweKlientow": {
-          "layout": {
-            "component": "duplicated-section",
-            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-            "schema": {
-              "type": "object",
-              "properties": {
-                "imie": {
-                  "label": "Imię",
-                  "layout": {
-                    "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-                    "offset": 0,
-                    "fillRow": false,
-                    "component": "text-field",
-                    "props": {}
-                  }
-                }
-              },
-              "required": []
-            },
-            "options": {"addBtnText": "Add element", "showDivider": false}
-          }
-        }
+        "user": {
+          "label": "Użytkownik",
+          "layout": {"component": "user-input", "props": {"multiple": false}},
+          "filter": {"group": null},
+          "source": {"url": "/api/dictionaries?feature-id=supplier-users&vm=uzytkownikId&customAttributes=username%2C%7BuzytkownikNazwa%7D%2CfirstName%2C%7BuzytkownikImie%7D%2ClastName%2C%7BuzytkownikNazwisko%7D%2Cemail%2C%7BuzytkownikEmail%7D%2Clabels%2C%7Betykiety%7D"}
+        },
       },
       "required": []
     }

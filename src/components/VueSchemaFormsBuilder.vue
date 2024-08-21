@@ -39,7 +39,7 @@ import {FormSchema} from "@/models/FormSchema";
 // import "../../../vue3-schema-forms/dist/style.css"
 import {createVueSchemaForms} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
-import {customSchemaComponents} from "tecna-vue-shared"
+import {customSchemaComponents} from "../../../vue3-shared"
 
 const instance = getCurrentInstance();
 
