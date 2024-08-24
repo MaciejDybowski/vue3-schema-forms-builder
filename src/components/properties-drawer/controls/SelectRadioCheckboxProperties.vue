@@ -5,14 +5,20 @@
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
+  <horizontal-radio-or-checkbox-property
+    v-if="component == 'checkbox' || component == 'radio-button'"
+    v-model="model.layout.props.inline"
+  />
   <read-only-property v-model="model.layout.props.readonly"/>
   <simple-source-property v-model="source"/>
+
+
 </template>
 
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -22,6 +28,9 @@ import RequiredProperty from "@/components/properties-drawer/atoms/RequiredPrope
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import {FromElementComponent} from "@/models/FromElementComponent";
+import HorizontalRadioOrCheckboxProperty
+  from "@/components/properties-drawer/atoms/HorizontalRadioOrCheckboxProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -44,6 +53,10 @@ const source = computed({
   set(val) {
     useBuilderStateStore.setKeyInConfiguredField("source", val)
   }
+})
+
+const component: ComputedRef<FromElementComponent> = computed(() => {
+  return model.value.layout.component
 })
 
 </script>
