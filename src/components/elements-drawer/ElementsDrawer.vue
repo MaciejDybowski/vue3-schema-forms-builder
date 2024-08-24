@@ -156,6 +156,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "dictionary"
   },
   {
+    icon: "mdi-toggle-switch-off-outline",
+    label: "Przełącznik",
+    component: "switch"
+  },
+  {
     icon: "mdi-calendar-blank",
     label: "Data",
     component: "date-picker"
@@ -232,6 +237,7 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "date-picker":
     case "date-time-picker":
     case "address":
+    case "switch":
     case "phone": {
       return schemaElement
     }

@@ -13,6 +13,7 @@
     <json-schema-form-representation
       v-if="mainCanvas.mainCanvasMode.value === 'CODE'"
       :schema="modelValue"
+      @manual-update-schema="updateSchema"
     />
 
     <demo-form
@@ -46,7 +47,6 @@ import DemoForm from "@/components/main-canvas/DemoForm.vue";
 import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
 import {copyObject} from "@/utils/copy";
 import JsonWizzardCleaner from "@/components/main-canvas/JsonWizardCleaner.vue";
-import {useDrawers} from "@/composables/useDrawers";
 
 
 let modelValue = defineModel<FormSchema>({
@@ -68,7 +68,10 @@ let modelValue = defineModel<FormSchema>({
 })
 
 const style = useStyle()
-
+const formOptions: FormOptions = {
+  fieldProps: style.inputStyle.value,
+  buttonProps: style.buttonStyle.value
+}
 
 const useBuilderStateStore = useBuilderState()
 const mainCanvas = useMainCanvas()
@@ -92,14 +95,13 @@ watch(controls, () => {
 
 onMounted(() => {
   useBuilderStateStore.resetState()
-
-  const formOptions: FormOptions = {
-    fieldProps: style.inputStyle.value,
-    buttonProps: style.buttonStyle.value
-  }
-
   controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions)
 })
+
+function updateSchema(schema: string) {
+  useBuilderStateStore.resetState()
+  controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions)
+}
 
 </script>
 

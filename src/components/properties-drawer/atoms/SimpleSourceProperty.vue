@@ -8,7 +8,8 @@
   >
     <div class="d-flex py-2 align-center justify-center">
       <v-text-field
-        v-model="item.value"
+        :model-value="item.value"
+        @update:model-value="(val) => parseValue(item, val)"
         :hide-details="true"
         :label="t('simpleSource.value')"
         class="pr-2"
@@ -67,6 +68,14 @@ function addOption() {
     value: "changeMe",
     title: "changeMe"
   })
+}
+
+function parseValue(item, val: any) {
+  if (val === "true" || val === "false") {
+    item.value = val === "true"
+  } else {
+    item.value = val
+  }
 }
 
 function deleteOption(key: number) {

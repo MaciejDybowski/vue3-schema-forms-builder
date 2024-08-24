@@ -1,5 +1,5 @@
 import {DraggableFormElement} from "@/models/DraggableFormElement";
-import {Ref, ref} from "vue";
+import {readonly, Ref, ref} from "vue";
 
 import {FormSchema} from "@/models/FormSchema";
 import {useStyle} from "@/main";
@@ -137,12 +137,6 @@ export function useSchemaMapper() {
       delete layout.cols
     }
 
-    if (formElement.layout && isEmpty(formElement.layout.props)) {
-      delete layout.props
-    } else if (formElement.layout && Object.keys(formElement.layout.props).length == 1 && formElement.layout.props.readOnly == false) {
-      delete layout.props
-    }
-
     if (formElement.layout && formElement.layout.offset === 0) {
       delete layout.offset
     }
@@ -151,6 +145,27 @@ export function useSchemaMapper() {
       delete layout.fillRow
     }
 
+    // jeżeli są propsy to czyścimy z jakiś zbędnych defaultów dla buildera
+    if (formElement.layout && formElement.layout.props) {
+      let props = formElement.layout.props
+      if ('false-value' in props && props['false-value'] == null) {
+        delete props["false-value"]
+      }
+
+      if ('true-value' in props && props['true-value'] == null) {
+        delete props["true-value"]
+      }
+      if ("readOnly" in props && props.readOnly == false){
+        delete props.readOnly
+      }
+      if("readonly" in props && props.readonly == false){
+        delete props.readonly
+      }
+    }
+
+    if (formElement.layout && isEmpty(formElement.layout.props)) {
+      delete layout.props
+    }
   }
 
   return {mapDraggableToSchema}

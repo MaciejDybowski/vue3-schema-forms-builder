@@ -15,3 +15,4 @@ export type FromElementComponent =
   | "dictionary"
   | "button"
   | "user-input"
+  | "switch"

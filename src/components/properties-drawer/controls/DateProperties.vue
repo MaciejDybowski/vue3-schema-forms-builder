@@ -5,7 +5,7 @@
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
-  <read-only-property v-model="model.layout.props.readOnly"/>
+  <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
   <format-in-model-property v-model="model.formatInModel"/>
 </template>

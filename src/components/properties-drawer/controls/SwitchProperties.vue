@@ -4,9 +4,15 @@
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
-  <required-property v-model="model.required"/>
+
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
+
+  <v-list-item>
+    <v-list-item-title>{{t('valueMapping')}}</v-list-item-title>
+  </v-list-item>
+  <false-value-mapping v-model="model.layout.props['false-value']"/>
+  <true-value-mapping v-model="model.layout.props['true-value']"/>
 </template>
 
 <script lang="ts" setup>
@@ -17,12 +23,15 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import {useI18n} from "vue-i18n";
+import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMapping.vue";
+import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
 
 const useBuilderStateStore = useBuilderState()
+const {t} = useI18n()
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -38,3 +47,14 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "valueMapping": "Value mapping"
+  },
+  "pl": {
+    "valueMapping": "Mapowanie wartości"
+  }
+}
+</i18n>
