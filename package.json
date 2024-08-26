@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.37",
+  "version": "0.0.39",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -25,14 +25,14 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "roboto-fontface": "*",
-    "vue3-schema-forms": "0.0.41-snapshot-1"
+    "vue3-schema-forms": "0.0.41-snapshot-4"
   },
   "peerDependencies": {
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
-    "tecna-vue-shared": "^3.0.65",
+    "tecna-vue-shared": "^3.0.66",
     "vue": "^3.4.27",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.3",
