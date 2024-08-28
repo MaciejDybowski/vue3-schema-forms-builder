@@ -10,10 +10,14 @@
   <if-property v-model="model.layout.if"/>
 
 
-
   <textfield-general
     :label="t('hint')"
     v-model="model.layout.props['hint']"
+  />
+  <textfield-general
+    :label="t('persistentHintIfExpression')"
+    :model-value="model.layout.props['persistent-hint']"
+    @update:model-value="updateExpressionPersistentHint"
   />
   <checkbox-general
     :label="t('persistentHint')"
@@ -51,6 +55,14 @@ const model = computed({
 
 const {t} = useI18n()
 
+function updateExpressionPersistentHint(val: string) {
+  const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
+  const matches = val.match(regex)
+  if (matches) {
+    model.value.layout.props['persistent-hint'] = val
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -60,11 +72,13 @@ const {t} = useI18n()
 {
   "en": {
     "hint": "Hint",
-    "persistentHint": "Is the hint always visible?"
+    "persistentHint": "Is the hint always visible?",
+    "persistentHintIfExpression": "Hint expression"
   },
   "pl": {
     "hint": "Podpowiedź",
-    "persistentHint": "Czy hint zawsze widoczny?"
+    "persistentHint": "Czy hint zawsze widoczny?",
+    "persistentHintIfExpression": "Podpowiedź warunek"
   }
 }
 </i18n>
