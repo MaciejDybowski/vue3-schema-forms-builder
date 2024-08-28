@@ -8,6 +8,18 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
+
+
+
+  <textfield-general
+    :label="t('hint')"
+    v-model="model.layout.props['hint']"
+  />
+  <checkbox-general
+    :label="t('persistentHint')"
+    v-model="model.layout.props['persistent-hint']"
+  />
+
 </template>
 
 <script lang="ts" setup>
@@ -23,6 +35,9 @@ import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyPrope
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import IsNumberProperty from "@/components/properties-drawer/atoms/isNumberProperty.vue";
+import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
+import {useI18n} from "vue-i18n";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -34,9 +49,22 @@ const model = computed({
   }
 })
 
+const {t} = useI18n()
+
 </script>
 
-
 <style lang="scss" scoped>
-
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "hint": "Hint",
+    "persistentHint": "Is the hint always visible?"
+  },
+  "pl": {
+    "hint": "Podpowiedź",
+    "persistentHint": "Czy hint zawsze widoczny?"
+  }
+}
+</i18n>

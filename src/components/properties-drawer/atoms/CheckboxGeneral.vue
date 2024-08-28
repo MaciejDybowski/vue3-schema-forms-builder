@@ -2,7 +2,7 @@
   <v-list-item>
     <v-checkbox
       v-model="modelValue"
-      :label="t('horizontalLayout')"
+      :label="label"
       class="mx-2"
       hide-details="auto"
       v-bind="style.inputStyle.value"
@@ -11,26 +11,15 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
-import {computed} from "vue";
 
 const modelValue = defineModel()
+const props = defineProps<{
+  label: string
+}>()
 const style = useStyle()
-const {t} = useI18n()
 
 </script>
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "horizontalLayout": "Set horizontal"
-  },
-  "pl": {
-    "horizontalLayout": "Ułóż horyzontalnie"
-  }
-}
-</i18n>
