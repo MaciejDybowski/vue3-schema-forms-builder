@@ -8,8 +8,10 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
-
-
+  <textfield-general
+    :label="t('calculation')"
+    v-model="model.calculation"
+  />
   <textfield-general
     :label="t('hint')"
     v-model="model.layout.props['hint']"
@@ -71,11 +73,13 @@ function updateExpressionPersistentHint(val: string) {
 <i18n lang="json">
 {
   "en": {
+    "calculation": "Calculation",
     "hint": "Hint",
     "persistentHint": "Is the hint always visible?",
     "persistentHintIfExpression": "Hint expression"
   },
   "pl": {
+    "calculation": "Obliczenia",
     "hint": "Podpowiedź",
     "persistentHint": "Czy hint zawsze widoczny?",
     "persistentHintIfExpression": "Podpowiedź warunek"
