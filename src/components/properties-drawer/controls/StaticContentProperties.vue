@@ -3,6 +3,7 @@
   <content-propery v-model="model.content"/>
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
+  <if-property v-model="model.layout.if"/>
 </template>
 
 <script lang="ts" setup>
@@ -13,6 +14,7 @@ import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 
 const useBuilderStateStore = useBuilderState()
