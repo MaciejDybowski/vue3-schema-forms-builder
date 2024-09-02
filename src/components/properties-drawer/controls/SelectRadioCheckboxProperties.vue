@@ -5,6 +5,7 @@
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
+  <if-property v-model="model.layout.if"/>
   <horizontal-radio-or-checkbox-property
     v-if="component == 'checkbox' || component == 'radio-button'"
     v-model="model.layout.props.inline"
@@ -31,6 +32,7 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import {FromElementComponent} from "@/models/FromElementComponent";
 import HorizontalRadioOrCheckboxProperty
   from "@/components/properties-drawer/atoms/HorizontalRadioOrCheckboxProperty.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -58,7 +60,6 @@ const source = computed({
 const component: ComputedRef<FromElementComponent> = computed(() => {
   return model.value.layout.component
 })
-
 </script>
 
 
