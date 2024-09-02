@@ -8,13 +8,13 @@
     width="350"
     style="top: 65px; min-height: calc(100vh - 65px)"
   >
-<!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
+    <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
       <static-content-properties v-if="model.layout.component == 'static-content'"/>
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
       <select-radio-checkbox-properties v-if="optionsComponent"/>
-      <duplicated-section v-if="model.layout.component == 'duplicated-section'"/>
+      <duplicated-section-properties v-if="model.layout.component == 'duplicated-section'"/>
       <date-properties v-if="model.layout.component == 'date-picker' || model.layout.component == 'date-time-picker'"/>
       <dictionary-properties v-if="model.layout.component == 'dictionary'"/>
       <text-area-properties v-if="model.layout.component == 'text-area'"/>
@@ -35,7 +35,6 @@ import {useBuilderState} from "../../pinia/stores/useBuilderState";
 import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
-import DuplicatedSection from "@/components/properties-drawer/controls/DuplicatedSection.vue";
 import DateProperties from "@/components/properties-drawer/controls/DateProperties.vue";
 import DictionaryProperties from "@/components/properties-drawer/controls/DictionaryProperties.vue";
 import TextAreaProperties from "@/components/properties-drawer/controls/TextAreaProperties.vue";
@@ -45,6 +44,7 @@ import UserInputProperties from "@/components/properties-drawer/controls/UserInp
 import AddressFieldProperties from "@/components/properties-drawer/controls/AddressFieldProperties.vue";
 import PhoneFieldProperties from "@/components/properties-drawer/controls/PhoneFieldProperties.vue";
 import SwitchProperties from "@/components/properties-drawer/controls/SwitchProperties.vue";
+import DuplicatedSectionProperties from "@/components/properties-drawer/controls/DuplicatedSectionProperties.vue";
 
 
 const drawers = useDrawers();

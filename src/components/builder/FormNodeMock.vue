@@ -28,6 +28,7 @@
         prepend-icon='mdi-plus'
         size="small"
         variant="flat"
+        v-if="element.editable && element.showElements"
       >
         {{ element.layout.options.addBtnText }}
       </v-btn>

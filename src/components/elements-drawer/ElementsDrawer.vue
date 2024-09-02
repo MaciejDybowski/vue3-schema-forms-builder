@@ -276,7 +276,9 @@ function cloneControls(item: ElementDrawerFromElement) {
           options: {
             addBtnText: "Add element",
             showDivider: false,
-          }
+          },
+          editable: true,
+          showElements: true,
         },
         options: {
           fieldProps: style.inputStyle,
