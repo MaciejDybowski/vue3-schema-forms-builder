@@ -2,6 +2,16 @@
   <v-list-item density="compact">
     <span>{{ t('simpleSource.title') }}</span>
   </v-list-item>
+  <v-list-item>
+    <v-switch
+      v-model="modelValue.returnObject"
+      :label="t('simpleSource.returnObject')"
+      class="mx-2"
+
+      hide-details="auto"
+      v-bind="style.inputStyle.value"
+    />
+  </v-list-item>
   <v-list-item
     v-for="(item, key) in modelValue.items"
     density="compact"
@@ -53,11 +63,13 @@ import {useStyle} from "@/main";
 const style = useStyle()
 const {t} = useI18n()
 const modelValue = defineModel<{
-  items: Array<any>
+  items: Array<any>,
+  returnObject: boolean
 }>({
     default: () => {
       return {
-        items: []
+        items: [],
+        returnObject: false,
       }
     }
   }
@@ -93,7 +105,8 @@ function deleteOption(key: number) {
       "title": "Options config",
       "value": "Value",
       "label": "Title",
-      "addButton": "Add option"
+      "addButton": "Add option",
+      "returnObject": "Return object"
     }
   },
   "pl": {
@@ -101,7 +114,8 @@ function deleteOption(key: number) {
       "title": "Konfiguracja opcji",
       "value": "ID",
       "label": "Etykieta",
-      "addButton": "Dodaj opcję"
+      "addButton": "Dodaj opcję",
+      "returnObject": "Zwracaj obiekt"
     }
   }
 }

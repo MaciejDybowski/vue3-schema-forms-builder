@@ -10,6 +10,11 @@
     v-if="component == 'checkbox' || component == 'radio-button'"
     v-model="model.layout.props.inline"
   />
+  <checkbox-general
+    v-if="component == 'checkbox'"
+    :label="t('multipleProps')"
+    v-model="model.layout.props.multiple"
+  />
   <read-only-property v-model="model.layout.props.readonly"/>
   <simple-source-property v-model="source"/>
 
@@ -33,8 +38,11 @@ import {FromElementComponent} from "@/models/FromElementComponent";
 import HorizontalRadioOrCheckboxProperty
   from "@/components/properties-drawer/atoms/HorizontalRadioOrCheckboxProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
+import {useI18n} from "vue-i18n";
 
 const useBuilderStateStore = useBuilderState()
+const {t} = useI18n()
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -66,3 +74,16 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
 <style lang="scss" scoped>
 
 </style>
+
+
+<i18n lang="json">
+{
+  "en": {
+    "multipleProps": "Multiple values"
+  },
+  "pl": {
+    "multipleProps": "Dozwolone wiele wartości"
+
+  }
+}
+</i18n>

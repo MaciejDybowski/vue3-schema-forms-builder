@@ -242,6 +242,18 @@ function cloneControls(item: ElementDrawerFromElement) {
       return schemaElement
     }
     case "checkbox":
+      const temp = {...schemaElement}
+      temp.layout.props["multiple"] = true
+      return {
+        ...temp,
+        source: {
+          items: [
+            {value: 1, title: "Option 1"},
+            {value: 2, title: "Option 2"},
+            {value: 3, title: "Option 3"},
+          ],
+        },
+      }
     case "select":
     case "radio-button": {
       return {
