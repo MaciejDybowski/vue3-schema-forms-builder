@@ -15,4 +15,5 @@ export interface DraggableFormElement {
 
   // duplicated-section
   tempItems?: any
+  formatInModel?: string
 }

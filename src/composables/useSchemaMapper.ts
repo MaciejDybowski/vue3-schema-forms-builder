@@ -166,6 +166,10 @@ export function useSchemaMapper() {
     if (formElement.layout && isEmpty(formElement.layout.props)) {
       delete layout.props
     }
+
+    if(!formElement.formatInModel){
+      delete formElement.formatInModel
+    }
   }
 
   return {mapDraggableToSchema}
