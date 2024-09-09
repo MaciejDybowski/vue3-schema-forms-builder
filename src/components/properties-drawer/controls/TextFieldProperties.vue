@@ -8,6 +8,7 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
+
   <textfield-general
     :label="t('calculation')"
     v-model="model.calculation"

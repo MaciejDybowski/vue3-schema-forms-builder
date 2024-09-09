@@ -25,6 +25,23 @@
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
 
+  <textfield-general
+    :label="t('calculation')"
+    v-model="model.calculation"
+  />
+  <textfield-general
+    :label="t('hint')"
+    v-model="model.layout.props['hint']"
+  />
+  <textfield-general
+    :label="t('persistentHintIfExpression')"
+    :model-value="model.layout.props['persistent-hint']"
+    @update:model-value="updateExpressionPersistentHint"
+  />
+  <checkbox-general
+    :label="t('persistentHint')"
+    v-model="model.layout.props['persistent-hint']"
+  />
 
 </template>
 
@@ -42,6 +59,7 @@ import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import {useI18n} from "vue-i18n";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -55,6 +73,13 @@ const model = computed({
 
 const {t} = useI18n()
 
+function updateExpressionPersistentHint(val: string) {
+  const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
+  const matches = val.match(regex)
+  if (matches) {
+    model.value.layout.props['persistent-hint'] = val
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -65,12 +90,20 @@ const {t} = useI18n()
   "en": {
     "int": "Integer",
     "float": "Float",
-    "precision": "Precision"
+    "precision": "Precision",
+    "calculation": "Calculation",
+    "hint": "Hint",
+    "persistentHint": "Is the hint always visible?",
+    "persistentHintIfExpression": "Hint expression"
   },
   "pl": {
     "int": "Całkowita",
     "float": "Zmiennoprzecinkowa",
-    "precision": "Precyzja zaokrągleń"
+    "precision": "Precyzja zaokrągleń",
+    "calculation": "Obliczenia",
+    "hint": "Podpowiedź",
+    "persistentHint": "Czy hint zawsze widoczny?",
+    "persistentHintIfExpression": "Podpowiedź warunek"
   }
 }
 </i18n>
