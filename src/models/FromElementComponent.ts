@@ -16,3 +16,4 @@ export type FromElementComponent =
   | "button"
   | "user-input"
   | "switch"
+| "number-field"

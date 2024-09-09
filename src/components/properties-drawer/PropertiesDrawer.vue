@@ -11,6 +11,7 @@
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
+      <number-field-properties v-if="model.layout.component == 'number-field'"/>
       <static-content-properties v-if="model.layout.component == 'static-content'"/>
       <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
       <select-radio-checkbox-properties v-if="optionsComponent"/>
@@ -45,6 +46,7 @@ import AddressFieldProperties from "@/components/properties-drawer/controls/Addr
 import PhoneFieldProperties from "@/components/properties-drawer/controls/PhoneFieldProperties.vue";
 import SwitchProperties from "@/components/properties-drawer/controls/SwitchProperties.vue";
 import DuplicatedSectionProperties from "@/components/properties-drawer/controls/DuplicatedSectionProperties.vue";
+import NumberFieldProperties from "@/components/properties-drawer/controls/NumberFieldProperties.vue";
 
 
 const drawers = useDrawers();

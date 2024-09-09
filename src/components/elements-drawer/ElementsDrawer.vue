@@ -131,6 +131,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "text-field"
   },
   {
+    icon: "mdi-numeric-1-box-outline",
+    label: "Pole liczbowe",
+    component: "number-field"
+  },
+  {
     icon: "mdi-format-letter-ends-with",
     label: "Obszar tekstowy",
     component: "text-area"
@@ -310,6 +315,11 @@ function cloneControls(item: ElementDrawerFromElement) {
     }
     case "user-input":
       return schemaElement
+    case "number-field":
+      return  {
+        ...schemaElement,
+        type: "int"
+      }
   }
 }
 

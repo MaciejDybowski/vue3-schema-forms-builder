@@ -19,12 +19,11 @@ export const FormBuilderStory: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "user": {
-          "label": "Użytkownik",
-          "layout": {"component": "user-input", "props": {"multiple": false}},
-          "filter": {"group": null},
-          "source": {"url": "/api/dictionaries?feature-id=supplier-users&vm=uzytkownikId&customAttributes=username%2C%7BuzytkownikNazwa%7D%2CfirstName%2C%7BuzytkownikImie%7D%2ClastName%2C%7BuzytkownikNazwisko%7D%2Cemail%2C%7BuzytkownikEmail%7D%2Clabels%2C%7Betykiety%7D"}
-        },
+        "number-field-573": {
+          "label": "Item-number-field-573",
+          "layout": {"component": "number-field"},
+          "type": "int"
+        }
       },
       "required": []
     }
