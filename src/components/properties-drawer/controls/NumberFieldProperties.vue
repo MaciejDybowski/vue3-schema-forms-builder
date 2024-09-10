@@ -11,6 +11,7 @@
       hide-details="auto"
     />
   </v-list-item>
+
   <textfield-general
     v-if="model.type=='float'"
     :label="t('precision')"
@@ -36,6 +37,11 @@
       color="primary"
     />
   </v-list-item>
+
+  <textfield-general
+    :label="t('expression')"
+    v-model="model.expression"
+  />
 
   <textfield-general
     :label="t('calculation')"
@@ -108,7 +114,8 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHint": "Is the hint always visible?",
     "persistentHintIfExpression": "Hint expression",
     "hide": "Hide",
-    "visible": "Visible"
+    "visible": "Visible",
+    "expression": "Expression"
   },
   "pl": {
     "int": "Całkowita",
@@ -119,7 +126,8 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHint": "Czy hint zawsze widoczny?",
     "persistentHintIfExpression": "Podpowiedź warunek",
     "hide": "Ukryte",
-    "visible": "Widoczne"
+    "visible": "Widoczne",
+    "expression": "Wyrażenie"
   }
 }
 </i18n>
