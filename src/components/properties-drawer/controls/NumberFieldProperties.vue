@@ -25,6 +25,18 @@
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
 
+  <v-list-item>
+    <v-switch
+      class="mx-2"
+      v-model="model.layout.hide"
+      :label="model.layout.hide ? t('hide') : t('visible')"
+      :false-value="false"
+      :true-value="true"
+      hide-details="auto"
+      color="primary"
+    />
+  </v-list-item>
+
   <textfield-general
     :label="t('calculation')"
     v-model="model.calculation"
@@ -94,7 +106,9 @@ function updateExpressionPersistentHint(val: string) {
     "calculation": "Calculation",
     "hint": "Hint",
     "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression"
+    "persistentHintIfExpression": "Hint expression",
+    "hide": "Hide",
+    "visible": "Visible"
   },
   "pl": {
     "int": "Całkowita",
@@ -103,7 +117,9 @@ function updateExpressionPersistentHint(val: string) {
     "calculation": "Obliczenia",
     "hint": "Podpowiedź",
     "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek"
+    "persistentHintIfExpression": "Podpowiedź warunek",
+    "hide": "Ukryte",
+    "visible": "Widoczne"
   }
 }
 </i18n>
