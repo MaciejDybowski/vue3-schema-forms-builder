@@ -26,17 +26,10 @@
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
 
-  <v-list-item>
-    <v-switch
-      class="mx-2"
-      v-model="model.layout.hide"
-      :label="model.layout.hide ? t('hide') : t('visible')"
-      :false-value="false"
-      :true-value="true"
-      hide-details="auto"
-      color="primary"
-    />
-  </v-list-item>
+  <switch-general
+    v-model="model.layout.hide"
+    :label="model.layout.hide ? t('hide') : t('visible')"
+  />
 
   <textfield-general
     :label="t('expression')"
@@ -78,6 +71,7 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import {useI18n} from "vue-i18n";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

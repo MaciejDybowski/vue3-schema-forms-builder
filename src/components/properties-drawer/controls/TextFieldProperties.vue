@@ -8,6 +8,17 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
+  <switch-general
+    v-model="model.layout.hide"
+    :label="model.layout.hide ? t('hide') : t('visible')"
+  />
+
+
+  <textfield-general
+    :label="t('expression')"
+    v-model="model.expression"
+  />
+
 
   <textfield-general
     :label="t('calculation')"
@@ -45,6 +56,7 @@ import IsNumberProperty from "@/components/properties-drawer/atoms/isNumberPrope
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import {useI18n} from "vue-i18n";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -77,13 +89,19 @@ function updateExpressionPersistentHint(val: string) {
     "calculation": "Calculation",
     "hint": "Hint",
     "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression"
+    "persistentHintIfExpression": "Hint expression",
+    "hide": "Hide",
+    "visible": "Visible",
+    "expression": "Expression"
   },
   "pl": {
     "calculation": "Obliczenia",
     "hint": "Podpowiedź",
     "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek"
+    "persistentHintIfExpression": "Podpowiedź warunek",
+    "hide": "Ukryte",
+    "visible": "Widoczne",
+    "expression": "Wyrażenie"
   }
 }
 </i18n>
