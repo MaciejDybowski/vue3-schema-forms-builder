@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.64",
+  "version": "0.0.65",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private --force",
+    "update-tecna-vue-shared": "npm install tecna-vue-shared@next --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force",
     "dev": "echo ' to link lib run  \"npm link vue3-schema-forms-builder\" in your destination project' && npm link && vite build --watch",
     "build": "vue-tsc --noEmit && vite build",
     "build:publish": "npm run build && npm publish --registry=https://nexus3.tecna.pl/repository/npm-private-releases",
@@ -32,7 +33,7 @@
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
-    "tecna-vue-shared": "^3.0.68",
+    "tecna-vue-shared": "^3.0.71",
     "vue": "^3.4.27",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.3",
