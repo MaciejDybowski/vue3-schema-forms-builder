@@ -58,11 +58,7 @@ import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import axios from "axios";
 
 const {t} = useI18n()
-const model = ref({
-  dostawca: {
-    id: "00039fce-648a-4e97-9556-87169963596e"
-  }
-});
+const model = ref({});
 const props = defineProps<{
   schema: object
 }>()
