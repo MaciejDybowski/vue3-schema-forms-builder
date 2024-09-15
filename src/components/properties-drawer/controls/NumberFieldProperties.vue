@@ -1,11 +1,6 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
-  <textfield-general
-    :label="t('defaultValue')"
-    :model-value="model.default"
-    @update:model-value="updateNumberDefaultValue"
-  />
   <v-list-item>
     <v-switch
       class="mx-2"
@@ -29,9 +24,10 @@
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
+
   <textfield-general
     :label="t('readonlyIfExpression')"
-    :model-value="model.layout.props.readoonly"
+    :model-value="model.layout.props.readonly"
     @update:model-value="updateExpressionReadonly"
   />
 
@@ -109,10 +105,6 @@ function updateExpressionReadonly(val: string) {
   if (matches) {
     model.value.layout.props['readonly'] = val
   }
-}
-
-function updateNumberDefaultValue(val: string) {
-  model.value.default = Number(val)
 }
 </script>
 
