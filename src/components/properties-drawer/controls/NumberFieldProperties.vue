@@ -24,6 +24,12 @@
   <fill-row-property v-model="model.layout.fillRow"/>
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
+  <textfield-general
+    :label="t('readonlyIfExpression')"
+    :model-value="model.layout.props.readoonly"
+    @update:model-value="updateExpressionReadonly"
+  />
+
   <if-property v-model="model.layout.if"/>
 
   <switch-general
@@ -84,12 +90,19 @@ const model = computed({
 })
 
 const {t} = useI18n()
+const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
 
 function updateExpressionPersistentHint(val: string) {
-  const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
   const matches = val.match(regex)
   if (matches) {
     model.value.layout.props['persistent-hint'] = val
+  }
+}
+
+function updateExpressionReadonly(val: string) {
+  const matches = val.match(regex)
+  if (matches) {
+    model.value.layout.props['readonly'] = val
   }
 }
 </script>
@@ -109,7 +122,8 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHintIfExpression": "Hint expression",
     "hide": "Hide",
     "visible": "Visible",
-    "expression": "Expression"
+    "expression": "Expression",
+    "readonlyIfExpression": "Readonly expression"
   },
   "pl": {
     "int": "Całkowita",
@@ -121,7 +135,8 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHintIfExpression": "Podpowiedź warunek",
     "hide": "Ukryte",
     "visible": "Widoczne",
-    "expression": "Wyrażenie"
+    "expression": "Wyrażenie",
+    "readonlyIfExpression": "Readonly wyrażenie"
   }
 }
 </i18n>
