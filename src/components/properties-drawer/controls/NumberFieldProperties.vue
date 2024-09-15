@@ -1,6 +1,11 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
+  <textfield-general
+    :label="t('defaultValue')"
+    :model-value="model.default"
+    @update:model-value="updateNumberDefaultValue"
+  />
   <v-list-item>
     <v-switch
       class="mx-2"
@@ -105,6 +110,10 @@ function updateExpressionReadonly(val: string) {
     model.value.layout.props['readonly'] = val
   }
 }
+
+function updateNumberDefaultValue(val: string) {
+  model.value.default = Number(val)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -123,7 +132,8 @@ function updateExpressionReadonly(val: string) {
     "hide": "Hide",
     "visible": "Visible",
     "expression": "Expression",
-    "readonlyIfExpression": "Readonly expression"
+    "readonlyIfExpression": "Readonly expression",
+    "defaultValue": "Default value"
   },
   "pl": {
     "int": "Całkowita",
@@ -136,7 +146,8 @@ function updateExpressionReadonly(val: string) {
     "hide": "Ukryte",
     "visible": "Widoczne",
     "expression": "Wyrażenie",
-    "readonlyIfExpression": "Readonly wyrażenie"
+    "readonlyIfExpression": "Readonly wyrażenie",
+    "defaultValue": "Wartość domyślna"
   }
 }
 </i18n>
