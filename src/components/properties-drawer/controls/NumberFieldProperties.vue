@@ -98,12 +98,18 @@ function updateExpressionPersistentHint(val: string) {
   if (matches) {
     model.value.layout.props['persistent-hint'] = val
   }
+  if(!val){
+    model.value.layout.props['persistent-hint'] = false
+  }
 }
 
 function updateExpressionReadonly(val: string) {
   const matches = val.match(regex)
   if (matches) {
     model.value.layout.props['readonly'] = val
+  }
+  if(!val){
+    model.value.layout.props['readonly'] = false
   }
 }
 </script>
