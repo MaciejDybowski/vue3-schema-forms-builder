@@ -1,5 +1,5 @@
 import {DraggableFormElement} from "@/models/DraggableFormElement";
-import {readonly, Ref, ref} from "vue";
+import {Ref, ref} from "vue";
 
 import {FormSchema} from "@/models/FormSchema";
 import {useStyle} from "@/main";
@@ -115,7 +115,10 @@ export function useSchemaMapper() {
   }
 
   function mapUrlInDictionary(formElement: DraggableFormElement) {
-    if (formElement.layout.component == 'dictionary' || (formElement.layout.component == "user-input" && formElement.source)) {
+    if (formElement.layout.component == 'dictionary'
+      || (formElement.layout.component == "user-input" && formElement.source)
+      || formElement.layout.component == 'combobox'
+    ) {
       const copied = "builder_url" in formElement.source ? copyObject(formElement.source.builder_url) : "";
       delete formElement.source.builder_url;
       formElement.source.url = copied
@@ -155,10 +158,10 @@ export function useSchemaMapper() {
       if ('true-value' in props && props['true-value'] == null) {
         delete props["true-value"]
       }
-      if ("readOnly" in props && props.readOnly == false){
+      if ("readOnly" in props && props.readOnly == false) {
         delete props.readOnly
       }
-      if("readonly" in props && props.readonly == false){
+      if ("readonly" in props && props.readonly == false) {
         delete props.readonly
       }
     }
@@ -167,7 +170,7 @@ export function useSchemaMapper() {
       delete layout.props
     }
 
-    if(!formElement.formatInModel){
+    if (!formElement.formatInModel) {
       delete formElement.formatInModel
     }
   }
