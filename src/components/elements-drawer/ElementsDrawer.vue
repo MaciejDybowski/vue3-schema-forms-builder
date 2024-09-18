@@ -157,8 +157,13 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   },
   {
     icon: "mdi-order-alphabetical-ascending",
-    label: "Pole wyboru (słownik API)",
+    label: "Pole słownikowe (autocomplete)",
     component: "dictionary"
+  },
+  {
+    icon: "mdi-order-alphabetical-ascending",
+    label: "Pole słownikowe (combobox)",
+    component: "combobox"
   },
   {
     icon: "mdi-toggle-switch-off-outline",
@@ -303,7 +308,8 @@ function cloneControls(item: ElementDrawerFromElement) {
         }
       }
     }
-    case "dictionary": {
+    case "dictionary":
+    case "combobox": {
       return {
         ...schemaElement,
         source: {
@@ -316,7 +322,7 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "user-input":
       return schemaElement
     case "number-field":
-      return  {
+      return {
         ...schemaElement,
         type: "int"
       }
