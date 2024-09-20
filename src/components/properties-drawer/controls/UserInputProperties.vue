@@ -7,6 +7,12 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <multiple-property v-model="model.layout.props.multiple"/>
+  <number-general
+    v-if="model.layout.props.multiple == true"
+    :label="t('maxSelection')"
+    v-model="model.layout.props.maxSelection"
+  />
+
   <if-property v-model="model.layout.if"/>
 
 
@@ -38,6 +44,7 @@ import {useI18n} from "vue-i18n";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import MultipleProperty from "@/components/properties-drawer/atoms/MultipleProperty.vue";
 import UserUrlSource from "@/components/properties-drawer/atoms/UserUrlSource.vue";
+import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
@@ -86,11 +93,13 @@ const source = computed({
 {
   "en": {
     "customsTitle": "Specials",
-    "customEndpoint": "Not default endpoint"
+    "customEndpoint": "Not default endpoint",
+    "maxSelection": "Max selections"
   },
   "pl": {
     "customsTitle": "Filtry",
-    "customEndpoint": "Endpoint danych"
+    "customEndpoint": "Endpoint danych",
+    "maxSelection": "Dozwolonych wartości"
   }
 }
 </i18n>

@@ -320,7 +320,12 @@ function cloneControls(item: ElementDrawerFromElement) {
       }
     }
     case "user-input":
-      return schemaElement
+      return {
+        ...schemaElement,
+        source: {
+          url: "" // TODO - przerobić kontrolkę po stronie vueShared
+        }
+      }
     case "number-field":
       return {
         ...schemaElement,
