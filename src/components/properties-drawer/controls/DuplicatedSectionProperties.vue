@@ -13,6 +13,10 @@
     :label="t('showElements')"
     v-model="model.showElements"
   />
+  <switch-general
+    :label="t('ordinalNumberInModel')"
+    v-model="model.layout.options.ordinalNumberInModel"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -26,6 +30,7 @@ import DuplicatedSectionDividerProperty
   from "@/components/properties-drawer/atoms/DuplicatedSectionDividerProperty.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import {useI18n} from "vue-i18n";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -50,11 +55,13 @@ const {t} = useI18n()
 {
   "en": {
     "editable": "Section is editable?",
-    "showElements": "Show context elements?"
+    "showElements": "Show context elements?",
+    "ordinalNumberInModel": "Add ordinal number in model"
   },
   "pl": {
     "editable": "Edycja sekcji dozwolona",
-    "showElements": "Pokazuj elementy kontekstowe?"
+    "showElements": "Pokazuj elementy kontekstowe?",
+    "ordinalNumberInModel": "Dodaj liczbę porządkową do modelu"
   }
 }
 </i18n>

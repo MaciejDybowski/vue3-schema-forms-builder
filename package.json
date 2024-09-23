@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.0.73",
+  "version": "0.0.74",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -26,7 +26,7 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "roboto-fontface": "*",
-    "vue3-schema-forms": "0.0.43-snapshot-26"
+    "vue3-schema-forms": "0.0.43-snapshot-28"
   },
   "peerDependencies": {
     "axios": "^1.7.2",

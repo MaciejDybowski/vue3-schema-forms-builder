@@ -6,7 +6,7 @@
     order="3"
     permament
     scrim="transparent"
-    style="top: 65px; min-height: calc(100vh - 65px)"
+
     width="300"
   >
     <v-list>
@@ -298,6 +298,7 @@ function cloneControls(item: ElementDrawerFromElement) {
           options: {
             addBtnText: "Add element",
             showDivider: false,
+            ordinalNumberInModel: false,
           },
           editable: true,
           showElements: true,
