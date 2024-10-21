@@ -19,7 +19,7 @@ const props = defineProps<{
   label: string
 }>()
 const emit = defineEmits<{
-  (e: "update:modelValue", val: number): number;
+  (e: "update:modelValue", val: number|null): number;
 }>();
 
 function parseValue(val: string) {
