@@ -18,3 +18,4 @@ export type FromElementComponent =
   | "user-input"
   | "switch"
   | "number-field"
+  | "divider"

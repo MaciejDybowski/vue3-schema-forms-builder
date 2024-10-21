@@ -114,6 +114,11 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
     tag: "p",
   },
   {
+    icon: "mdi-minus",
+    label: "Rozdzielacz",
+    component: "divider"
+  },
+  {
     icon: "mdi-read",
     label: "Pole odczytu",
     component: "data-viewer"
@@ -395,6 +400,23 @@ function cloneStatic(item: ElementDrawerFromElement) {
         }
       }
     }
+    case "divider": {
+      return  {
+        key: id,
+        layout: {
+          component: "divider",
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
+        }
+      }
+    }
+
   }
 }
 
