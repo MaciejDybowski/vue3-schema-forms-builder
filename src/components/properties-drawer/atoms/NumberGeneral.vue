@@ -23,7 +23,7 @@ const emit = defineEmits<{
 }>();
 
 function parseValue(val: string) {
-  emit("update:modelValue", parseInt(val))
+  emit("update:modelValue", isNaN(parseInt(val)) ? null : parseInt(val))
 }
 
 </script>

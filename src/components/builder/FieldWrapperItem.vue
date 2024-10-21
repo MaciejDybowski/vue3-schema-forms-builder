@@ -2,32 +2,37 @@
   <div :class="fieldWrapperItemClass(element, isHovering)"
        :style="getStyleForBuilderField(element, isHovering)"
        v-on="attrs"
-
+       @click="configControl(element)"
+      ref="wrapperField"
   >
     <field-wrapper-toolbar
       v-if="isToolbarVisible(isHovering, element)"
       :element="element"
     />
-    <form-node-mock :element="element"
-                    @click="configControl(element)"
-    />
+    <form-node-mock :element="element"/>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {computed, useAttrs} from "vue";
+import {computed, ref, useAttrs} from "vue";
 
-import {useDrawers} from "../../composables/useDrawers";
+import {useDrawers} from "@/composables/useDrawers";
 import FieldWrapperToolbar from "./FieldWrapperToolbar.vue";
 import FormNodeMock from "./FormNodeMock.vue";
-import {useBuilderState} from "../../pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import {useVTheme} from "@/composables/useVTheme";
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
   isHovering: boolean | undefined
   element: any,
 }>()
 
+const wrapperField = ref(null)
+onClickOutside(wrapperField, () => {
+  drawers.propertiesDrawer.value = false
+  useBuilderStateStore.setConfiguredField(null)
+})
 
 const theme = useVTheme()
 const attrs = useAttrs()

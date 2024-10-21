@@ -6,7 +6,7 @@
     permament
     scrim="transparent"
     width="350"
-    style="top: 65px; min-height: calc(100vh - 65px)"
+
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
@@ -24,15 +24,16 @@
       <address-field-properties v-if="model.layout.component == 'address'"/>
       <phone-field-properties v-if="model.layout.component == 'phone'"/>
       <switch-properties v-if="model.layout.component == 'switch'"/>
+      <divider-properties v-if="model.layout.component == 'divider'"/>
     </v-list>
 
   </v-navigation-drawer>
 </template>
 
 <script lang="ts" setup>
-import {useDrawers} from "../../composables/useDrawers";
+import {useDrawers} from "@/composables/useDrawers";
 import {computed} from "vue";
-import {useBuilderState} from "../../pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";
@@ -47,7 +48,7 @@ import PhoneFieldProperties from "@/components/properties-drawer/controls/PhoneF
 import SwitchProperties from "@/components/properties-drawer/controls/SwitchProperties.vue";
 import DuplicatedSectionProperties from "@/components/properties-drawer/controls/DuplicatedSectionProperties.vue";
 import NumberFieldProperties from "@/components/properties-drawer/controls/NumberFieldProperties.vue";
-
+import DividerProperties from "@/components/properties-drawer/controls/DividerProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

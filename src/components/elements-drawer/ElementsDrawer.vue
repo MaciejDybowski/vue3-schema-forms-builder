@@ -6,9 +6,9 @@
     order="3"
     permament
     scrim="transparent"
-    style="top: 65px; min-height: calc(100vh - 65px)"
     width="300"
   >
+    <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list>
       <v-list-item density="compact">
         <v-list-item-title>Elementy statyczne</v-list-item-title>
@@ -79,7 +79,7 @@
 
 <script lang="ts" setup>
 import draggable from 'vuedraggable'
-import {useDrawers} from "../../composables/useDrawers";
+import {useDrawers} from "@/composables/useDrawers";
 import {useStyle} from "@/main";
 
 import {Ref, ref} from "vue";
@@ -413,7 +413,7 @@ function cloneStatic(item: ElementDrawerFromElement) {
             xl: 12,
             xxl: 12
           },
-        }
+        },
       }
     }
 
