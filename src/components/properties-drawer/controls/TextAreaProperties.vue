@@ -7,6 +7,17 @@
   <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <if-property v-model="model.layout.if"/>
+
+  <v-list-item>
+    <v-list-item-title>{{t('validations')}}</v-list-item-title>
+    <v-list-item-subtitle>
+      <v-divider/>
+    </v-list-item-subtitle>
+  </v-list-item>
+  <number-general
+    :label="t('counter')"
+    v-model="model.layout.props['counter']"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +32,9 @@ import RequiredProperty from "@/components/properties-drawer/atoms/RequiredPrope
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
-
+import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import {useI18n} from "vue-i18n";
+const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -38,3 +51,17 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "validations": "Validations",
+    "counter": "Counter of letters"
+  },
+  "pl": {
+    "validations": "Walidacje",
+    "counter": "Licznik liter"
+  }
+}
+</i18n>
+

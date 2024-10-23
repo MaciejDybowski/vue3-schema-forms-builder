@@ -13,12 +13,10 @@
     :label="model.layout.hide ? t('hide') : t('visible')"
   />
 
-
   <textfield-general
     :label="t('expression')"
     v-model="model.expression"
   />
-
 
   <textfield-general
     :label="t('calculation')"
@@ -36,6 +34,17 @@
   <checkbox-general
     :label="t('persistentHint')"
     v-model="model.layout.props['persistent-hint']"
+  />
+
+  <v-list-item>
+    <v-list-item-title>{{t('validations')}}</v-list-item-title>
+    <v-list-item-subtitle>
+      <v-divider/>
+    </v-list-item-subtitle>
+  </v-list-item>
+  <number-general
+    :label="t('counter')"
+    v-model="model.layout.props['counter']"
   />
 
 </template>
@@ -57,6 +66,7 @@ import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGenera
 import {useI18n} from "vue-i18n";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -92,7 +102,9 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHintIfExpression": "Hint expression",
     "hide": "Hide",
     "visible": "Visible",
-    "expression": "Expression"
+    "expression": "Expression",
+    "validations": "Validations",
+    "counter": "Counter of letters"
   },
   "pl": {
     "calculation": "Obliczenia",
@@ -101,7 +113,9 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHintIfExpression": "Podpowiedź warunek",
     "hide": "Ukryte",
     "visible": "Widoczne",
-    "expression": "Wyrażenie"
+    "expression": "Wyrażenie",
+    "validations": "Walidacje",
+    "counter": "Licznik liter"
   }
 }
 </i18n>
