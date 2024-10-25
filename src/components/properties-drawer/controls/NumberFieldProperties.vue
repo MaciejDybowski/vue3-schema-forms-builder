@@ -19,6 +19,16 @@
     type="number"
   />
 
+  <select-general
+    v-if="model.type=='float'"
+    v-model="model.roundOption"
+    :items="[{value: 'ceil', title: t('ceilOptionLabel')}, {value:'floor', title: t('floorOptionLabel')}, {value:'round', title: t('roundOptionLabel')}]"
+    :label="t('roundLabel')"
+    :return-object="false"
+    clearable
+  />
+
+
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
@@ -79,6 +89,7 @@ import {useI18n} from "vue-i18n";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -131,7 +142,11 @@ function updateExpressionReadonly(val: string) {
     "visible": "Visible",
     "expression": "Expression",
     "readonlyIfExpression": "Readonly expression",
-    "defaultValue": "Default value"
+    "defaultValue": "Default value",
+    "roundLabel": "Round option",
+    "ceilOptionLabel": "Ceil option",
+    "floorOptionLabel": "Float option",
+    "roundOptionLabel": "Round option"
   },
   "pl": {
     "int": "Całkowita",
@@ -145,7 +160,11 @@ function updateExpressionReadonly(val: string) {
     "visible": "Widoczne",
     "expression": "Wyrażenie",
     "readonlyIfExpression": "Readonly wyrażenie",
-    "defaultValue": "Wartość domyślna"
+    "defaultValue": "Wartość domyślna",
+    "roundLabel": "Opcje zaokrąglania",
+    "ceilOptionLabel": "Ceil",
+    "floorOptionLabel": "Floor",
+    "roundOptionLabel": "Round"
   }
 }
 </i18n>
