@@ -211,6 +211,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     icon: "mdi-account",
     label: "Użytkownik",
     component: "user-input"
+  },
+  {
+    icon: "mdi-image",
+    label: "Zdjęcie (miniaturka)",
+    component: "avatar"
   }
 ])
 const layoutElements: Ref<ElementDrawerFromElement[]> = ref([
@@ -343,6 +348,25 @@ function cloneControls(item: ElementDrawerFromElement) {
       return {
         ...schemaElement,
         type: "int"
+      }
+    case "avatar":
+      return {
+        ...schemaElement,
+        layout: {
+          ...schemaElement.layout,
+          cols: {
+            xs: 1,
+            sm: 1,
+            md: 1,
+            lg: 1,
+            xl: 1,
+            xxl: 1
+          },
+        },
+        source: {
+          thumbnailUrl: "",
+          previewUrl: "",
+        }
       }
   }
 }

@@ -19,3 +19,4 @@ export type FromElementComponent =
   | "switch"
   | "number-field"
   | "divider"
+  | "avatar"
