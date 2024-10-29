@@ -2,17 +2,17 @@
   <v-list-item class="pb-0">
 
     <col-btn-toggle
-      v-model:breakpoint-larger="modelValue.xxl"
-      v-model:breakpoint-smaller="modelValue.xl"
+      v-model:breakpoint-larger="modelValue.lg"
+      v-model:breakpoint-smaller="modelValue.lg"
       :label="t('size.desktop')"
     />
     <col-btn-toggle
-      v-model:breakpoint-larger="modelValue.lg"
-      v-model:breakpoint-smaller="modelValue.md"
+      v-model:breakpoint-larger="modelValue.sm"
+      v-model:breakpoint-smaller="modelValue.sm"
       :label="t('size.tablet')"
     />
     <col-btn-toggle
-      v-model:breakpoint-larger="modelValue.sm"
+      v-model:breakpoint-larger="modelValue.xs"
       v-model:breakpoint-smaller="modelValue.xs"
       :label="t('size.mobile')"
     />

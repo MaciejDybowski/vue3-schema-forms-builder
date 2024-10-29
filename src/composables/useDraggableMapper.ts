@@ -86,20 +86,21 @@ export function useDraggableMapper() {
       schemaElement.layout.cols = {
         xs: schemaElement.layout.cols,
         sm: schemaElement.layout.cols,
-        md: schemaElement.layout.cols,
-        lg: schemaElement.layout.cols,
-        xl: schemaElement.layout.cols,
-        xxl: schemaElement.layout.cols,
+        lg: schemaElement.layout.cols
       }
     }
     if (schemaElement.layout.cols === undefined) {
       schemaElement.layout.cols = {
         xs: 12,
         sm: 12,
-        md: 12,
         lg: 12,
-        xl: 12,
-        xxl: 12,
+      }
+    }
+    if('xxl' in schemaElement.layout.cols ) {
+      schemaElement.layout.cols = {
+        xs: schemaElement.layout.cols.xs,
+        sm: schemaElement.layout.cols.lg,
+        lg: schemaElement.layout.cols.xxl,
       }
     }
   }
