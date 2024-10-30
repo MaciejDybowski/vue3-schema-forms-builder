@@ -46,13 +46,13 @@ function configControl() {
 
 
 function deleteControl() {
-  useBuilderStateStore.deleteItem({key: props.element.key})
+  useBuilderStateStore.deleteItem({key: props.element.key, sectionKey: props.element.sectionKey})
   useBuilderStateStore.setConfiguredField(null)
   drawers.propertiesDrawer.value = false
 }
 
 function cloneControl() {
-  useBuilderStateStore.cloneItem({key: props.element.key})
+  useBuilderStateStore.cloneItem({key: props.element.key, sectionKey: props.element.sectionKey})
 }
 
 

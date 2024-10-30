@@ -19,10 +19,33 @@ export const FormBuilderStory: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "number-field-573": {
-          "label": "Item-number-field-573",
-          "layout": {"component": "number-field"},
-          "type": "int"
+        "sekcjaA": {
+          "layout": {
+            "component": "duplicated-section",
+            "cols": {"xs": 12, "sm": 12, "lg": 12},
+            "schema": {
+              "type": "object",
+              "properties": {"poleA": {"label": "Pole A", "layout": {"component": "text-area"}}},
+              "required": []
+            },
+            "options": {"addBtnText": "Add element", "showDivider": false, "ordinalNumberInModel": false},
+            "editable": true,
+            "showElements": true
+          }
+        },
+        "sekcjaB": {
+          "layout": {
+            "component": "duplicated-section",
+            "cols": {"xs": 12, "sm": 12, "lg": 12},
+            "schema": {
+              "type": "object",
+              "properties": {"poleA": {"label": "Pole A", "layout": {"component": "text-area"}}},
+              "required": []
+            },
+            "options": {"addBtnText": "Add element", "showDivider": false, "ordinalNumberInModel": false},
+            "editable": true,
+            "showElements": true
+          }
         }
       },
       "required": []

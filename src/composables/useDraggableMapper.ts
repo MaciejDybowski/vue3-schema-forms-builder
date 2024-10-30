@@ -36,7 +36,10 @@ export function useDraggableMapper() {
 
     if (schemaElement.layout.schema) {
       schemaElement.layout.schema.options = formOptions
-      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions)
+      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions).map((item) => {
+        item["sectionKey"] = key
+        return item
+      })
     }
 
     const draggableElement = {

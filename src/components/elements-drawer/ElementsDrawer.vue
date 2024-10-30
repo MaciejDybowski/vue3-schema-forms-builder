@@ -7,7 +7,6 @@
     permament
     scrim="transparent"
     width="300"
-    style="top: 65px; min-height: calc(100vh - 65px)"
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list>

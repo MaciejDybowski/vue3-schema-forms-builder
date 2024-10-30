@@ -32,7 +32,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   // TODO - refactoring na rekurencyjne
   function deleteItem(event: ToolbarEvent) {
     draggableModel.value = draggableModel.value.filter((c: any) => {
-      if ("tempItems" in c) {
+      if ("tempItems" in c && c.key == event.sectionKey) {
         c.tempItems = c.tempItems.filter((nc: any) => nc.key !== event.key)
       }
       return c.key !== event.key
@@ -45,7 +45,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     let clonedControl: any = {}
     let clonedParent = ""
     draggableModel.value.forEach((c: any, index: number) => {
-      if ("tempItems" in c) {
+      if ("tempItems" in c && c.key == event.sectionKey) {
         c.tempItems.forEach((nc: any, index: number) => {
           if (nc.key === event.key) {
             clonedIndex = index
@@ -142,4 +142,5 @@ export const useBuilderState = defineStore("useBuilderState", () => {
 
 export interface ToolbarEvent {
   key: string
+  sectionKey?: string
 }

@@ -35,9 +35,20 @@ const useBuilderStateStore = useBuilderState()
 const currentItemKey = computed(() => {
   return useBuilderStateStore.getConfiguredFieldKey
 })
+const currentItemSectionKey = computed(() => {
+  return useBuilderStateStore.getConfiguredField.sectionKey
+})
+
+const fieldIsCurrentConfigured = computed(() => (element: any) => {
+  if("sectionKey" in element) {
+    return element.key === currentItemKey.value && element.sectionKey === currentItemSectionKey.value
+  } else {
+    return element.key === currentItemKey.value
+  }
+})
 
 const isToolbarVisible = computed(() => (isHovering: any, element: any) => {
-  return isHovering || element.key === currentItemKey.value
+  return isHovering || fieldIsCurrentConfigured.value(element)
 })
 
 function fieldWrapperItemClass(element: any, isHovering: any) {
@@ -49,7 +60,7 @@ function fieldWrapperItemClass(element: any, isHovering: any) {
 }
 
 function getStyleForBuilderField(element: any, hover: any) {
-  if (element.key === currentItemKey.value) {
+  if (fieldIsCurrentConfigured.value(element)) {
     // Apply style to the clicked item
     if (theme.isLightTheme.value) {
       return "outline: 1px #1b243a solid; background-color:#E1F5FE;"
