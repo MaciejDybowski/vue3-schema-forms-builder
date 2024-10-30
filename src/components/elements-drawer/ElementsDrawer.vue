@@ -236,7 +236,10 @@ function cloneControls(item: ElementDrawerFromElement) {
       cols: {
         xs: 12,
         sm: 12,
+        md: 12,
         lg: 12,
+        xl: 12,
+        xxl: 12
       },
       offset: 0,
       fillRow: false,
@@ -299,7 +302,10 @@ function cloneControls(item: ElementDrawerFromElement) {
           cols: {
             xs: 12,
             sm: 12,
-            lg: 12
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
           },
           schema: {
             type: "object",
@@ -350,7 +356,10 @@ function cloneControls(item: ElementDrawerFromElement) {
           cols: {
             xs: 1,
             sm: 1,
+            md: 1,
             lg: 1,
+            xl: 1,
+            xxl: 1
           },
         },
         source: {
@@ -376,7 +385,10 @@ function cloneStatic(item: ElementDrawerFromElement) {
           cols: {
             xs: 12,
             sm: 12,
-            lg: 12
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
           },
           props: {},
         }
@@ -391,7 +403,10 @@ function cloneStatic(item: ElementDrawerFromElement) {
           cols: {
             xs: 12,
             sm: 12,
+            md: 12,
             lg: 12,
+            xl: 12,
+            xxl: 12
           },
         }
       }
@@ -405,7 +420,10 @@ function cloneStatic(item: ElementDrawerFromElement) {
           cols: {
             xs: 12,
             sm: 12,
+            md: 12,
             lg: 12,
+            xl: 12,
+            xxl: 12
           },
         },
         options: {
@@ -421,7 +439,10 @@ function cloneStatic(item: ElementDrawerFromElement) {
           cols: {
             xs: 12,
             sm: 12,
+            md: 12,
             lg: 12,
+            xl: 12,
+            xxl: 12
           },
         },
       }
