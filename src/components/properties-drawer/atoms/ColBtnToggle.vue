@@ -32,9 +32,11 @@ const props = defineProps<{
 }>()
 const larger = defineModel<number>('breakpointLarger')
 const smaller = defineModel<number>("breakpointSmaller")
+const smallest = defineModel<number>("breakpointSmallest")
 
 function updateSmaller(val: number) {
   smaller.value = val
+  smallest.value = val
 }
 </script>
 
