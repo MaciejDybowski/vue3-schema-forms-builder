@@ -7,6 +7,7 @@
     permament
     scrim="transparent"
     width="300"
+    style="top: 65px; min-height: calc(100vh - 65px)"
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list>
@@ -214,7 +215,7 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-image",
     label: "Zdjęcie (miniaturka)",
-    component: "avatar"
+    component: "image-preview"
   }
 ])
 const layoutElements: Ref<ElementDrawerFromElement[]> = ref([
@@ -348,7 +349,7 @@ function cloneControls(item: ElementDrawerFromElement) {
         ...schemaElement,
         type: "int"
       }
-    case "avatar":
+    case "image-preview":
       return {
         ...schemaElement,
         layout: {
@@ -363,8 +364,8 @@ function cloneControls(item: ElementDrawerFromElement) {
           },
         },
         source: {
-          thumbnailUrl: "",
-          previewUrl: "",
+          thumbnail: "",
+          preview: "",
         }
       }
   }

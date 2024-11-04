@@ -8,12 +8,12 @@
 
   <textfield-general
     :label="t('thumbnailUrl')"
-    v-model="model.source.thumbnailUrl"
+    v-model="model.source.thumbnail"
   />
 
   <textfield-general
     :label="t('previewUrl')"
-    v-model="model.source.previewUrl"
+    v-model="model.source.preview"
   />
 
   <number-general
