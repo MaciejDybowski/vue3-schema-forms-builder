@@ -3,11 +3,13 @@
     <span>{{ t('configLabel') }}</span>
   </v-list-item>
   <v-list-item>
-    <v-text-field
+    <v-textarea
       v-model="modelValue.builder_url"
       :label="t('urlKey')"
       class="pt-2"
       v-bind="style.inputStyle.value"
+      rows="1"
+      :auto-grow="true"
     />
   </v-list-item>
   <v-list-item>

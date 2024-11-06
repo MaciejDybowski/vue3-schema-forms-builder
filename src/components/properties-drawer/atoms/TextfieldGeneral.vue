@@ -1,10 +1,12 @@
 <template>
   <v-list-item>
-    <v-text-field
+    <v-textarea
       v-model="modelValue"
       :label="label"
       class="pt-2"
       v-bind="style.inputStyle.value"
+      rows="1"
+      :auto-grow="true"
     />
   </v-list-item>
 </template>
