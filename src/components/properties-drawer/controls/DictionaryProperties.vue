@@ -8,6 +8,7 @@
   <read-only-property v-model="model.layout.props.readonly"/>
   <source-property v-model="source"/>
   <if-property v-model="model.layout.if"/>
+  <event-configuration/>
 </template>
 
 <script lang="ts" setup>
@@ -23,6 +24,7 @@ import FillRowProperty from "@/components/properties-drawer/atoms/FillRowPropert
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

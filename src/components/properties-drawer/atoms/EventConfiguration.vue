@@ -1,0 +1,277 @@
+<template>
+  <v-list-item class="px-0">
+
+    <v-expansion-panels>
+      <v-expansion-panel>
+        <v-expansion-panel-title>
+          <div>{{ t('events') }}</div>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text class="px-0 pa-0">
+          <select-general
+            v-model="eventType"
+            :items="[{value: 'onChange', title: t('onChangeLabel')}]"
+            :label="t('eventType')"
+            :return-object="false"
+            clearable
+            @update:model-value="setEventTypeOnSchema"
+          />
+          <select-general
+            v-model="eventMode"
+            :items="[{value: 'action', title: t('actionLabel')}]"
+            :label="t('mode')"
+            :return-object="false"
+            clearable
+            @update:model-value="setModeOnSchema"
+          />
+
+          <textfield-general
+            v-model="actionCode"
+            :label="t('actionCode')"
+            @update:model-value="setActionCOde"
+          />
+
+          <textfield-general
+            v-model="scriptCode"
+            :label="t('scriptCode')"
+            @update:model-value="setScriptCode"
+          />
+
+          <v-list-item>
+            <v-list-item-title class="py-2">
+              {{ t('paramsLabel') }}
+            </v-list-item-title>
+            <div v-for="(item, key) in params"
+                 :key="key"
+                 class="d-flex py-2 align-center justify-center"
+            >
+              <v-text-field
+                v-model="item.title"
+                :hide-details="true"
+                :label="t('params.title')"
+                class="pr-2"
+                density="compact"
+                v-bind="style.inputStyle.value"
+
+              />
+              <v-text-field
+                v-model="item.value"
+                :hide-details="true"
+                :label="t('params.value')"
+                class="pl-2"
+                density="compact"
+                v-bind="style.inputStyle.value"
+              />
+              <v-btn
+                class="mx-2"
+                density="compact"
+                flat
+                icon="mdi-delete"
+                size="small"
+                @click="params = params.filter((v, i) => i !== key)"
+              >
+              </v-btn>
+            </div>
+
+            <v-btn
+              color="primary"
+              prepend-icon="mdi-plus"
+              size="small"
+              @click="params.push({title: null, value: null})"
+            >Dodaj
+            </v-btn>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title class="py-2">
+              {{ t('bodyAttributesLabel') }}
+            </v-list-item-title>
+            <div v-for="(item, key) in bodyAttributes"
+                 :key="key"
+                 class="d-flex py-2 align-center justify-center"
+            >
+              <v-text-field
+                v-model="item.title"
+                :hide-details="true"
+                :label="t('bodyAttributes.title')"
+                class="pr-2"
+                density="compact"
+                v-bind="style.inputStyle.value"
+
+              />
+              <v-text-field
+                v-model="item.value"
+                :hide-details="true"
+                :label="t('bodyAttributes.value')"
+                class="pl-2"
+                density="compact"
+                v-bind="style.inputStyle.value"
+              />
+              <v-btn
+                class="mx-2"
+                density="compact"
+                flat
+                icon="mdi-delete"
+                size="small"
+                @click="bodyAttributes = bodyAttributes.filter((v, i) => i !== key)"
+              >
+              </v-btn>
+            </div>
+
+            <v-btn
+              color="primary"
+              prepend-icon="mdi-plus"
+              size="small"
+              @click="bodyAttributes.push({title: null, value: null})"
+            >Dodaj
+            </v-btn>
+          </v-list-item>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </v-list-item>
+
+</template>
+
+
+<script lang="ts" setup>
+
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import {useI18n} from "vue-i18n";
+import {computed, ref, watch} from "vue";
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import {merge} from "lodash";
+import {useStyle} from "@/main";
+
+const {t} = useI18n()
+const style = useStyle()
+
+const useBuilderStateStore = useBuilderState()
+const model = computed({
+  get() {
+    return useBuilderStateStore.getConfiguredField
+  },
+  set(val) {
+    useBuilderStateStore.setConfiguredField(val)
+  }
+})
+
+const eventType = ref(null)
+
+function setEventTypeOnSchema(value: string) {
+  model.value[value] = {}
+}
+
+const eventMode = ref(null)
+
+function setModeOnSchema(value: string) {
+  if (eventType.value) {
+    model.value[eventType.value]['mode'] = value
+  }
+}
+
+const actionCode = ref(null)
+
+function setActionCOde(value: string) {
+  if (eventType.value) {
+    model.value[eventType.value]['code'] = value
+  }
+}
+
+const scriptCode = ref(null)
+
+function setScriptCode(value: string) {
+  if (eventType.value) {
+    model.value[eventType.value]['params'] = merge(model.value[eventType.value]['params'], {script: value})
+  }
+}
+
+const params = ref([
+  {
+    title: null,
+    value: null
+  }
+])
+watch(params.value, () => {
+  let paramsToMerge: Record<string, string | number | boolean> = {}
+  params.value.forEach((item) => {
+    if (item.title && item.value) {
+      paramsToMerge[item.title] = item.value
+    }
+  })
+
+  if (paramsToMerge && eventType.value) {
+    model.value[eventType.value]['params'] = merge(model.value[eventType.value]['params'], paramsToMerge)
+  }
+}, {deep: true})
+
+
+const bodyAttributes = ref([
+  {
+    title: null,
+    value: null
+  }
+])
+watch(bodyAttributes.value, () => {
+  let body = {}
+  bodyAttributes.value.forEach((item) => {
+    if (item.title && item.value) {
+      body[item.title] = item.value
+    }
+  })
+
+  if (body && eventType.value) {
+    model.value[eventType.value]['body'] = body
+  }
+}, {deep: true})
+</script>
+
+
+<style lang="scss" scoped>
+:deep(.v-expansion-panel-text__wrapper) {
+  padding: 8px 2px;
+}
+</style>
+
+<i18n lang="json">
+{
+  "en": {
+    "eventType": "Event type",
+    "events": "Events",
+    "onChangeLabel": "On value change",
+    "mode": "Mode",
+    "actionLabel": "Action",
+    "actionCode": "Action code",
+    "scriptCode": "Script code",
+    "paramsLabel": "Action/Request params",
+    "params": {
+      "title": "Name",
+      "value": "Value"
+    },
+    "bodyAttributesLabel": "Action/Request body",
+    "bodyAttributes": {
+      "title": "Name",
+      "value": "Value"
+    }
+  },
+  "pl": {
+    "eventType": "Rodzaj zdarzenia",
+    "events": "Zdarzenia",
+    "onChangeLabel": "Zmiana wartości",
+    "mode": "Tryb pracy",
+    "actionLabel": "Akcja",
+    "actionCode": "Kod akcji",
+    "scriptCode": "Kod skryptu (db => code)",
+    "paramsLabel": "Parametry akcji/żądania HTTP",
+    "params": {
+      "title": "Nazwa",
+      "value": "Wartość"
+    },
+    "bodyAttributesLabel": "Body akcji/żądania HTTP",
+    "bodyAttributes": {
+      "title": "Name",
+      "value": "Value"
+    }
+  }
+}
+</i18n>

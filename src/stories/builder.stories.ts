@@ -18,36 +18,7 @@ export const FormBuilderStory: Story = {
     workspaceId: "bm",
     modelValue: {
       "type": "object",
-      "properties": {
-        "sekcjaA": {
-          "layout": {
-            "component": "duplicated-section",
-            "cols": {"xs": 12, "sm": 12, "lg": 12},
-            "schema": {
-              "type": "object",
-              "properties": {"poleA": {"label": "Pole A", "layout": {"component": "text-area"}}},
-              "required": []
-            },
-            "options": {"addBtnText": "Add element", "showDivider": false, "ordinalNumberInModel": false},
-            "editable": true,
-            "showElements": true
-          }
-        },
-        "sekcjaB": {
-          "layout": {
-            "component": "duplicated-section",
-            "cols": {"xs": 12, "sm": 12, "lg": 12},
-            "schema": {
-              "type": "object",
-              "properties": {"poleA": {"label": "Pole A", "layout": {"component": "text-area"}}},
-              "required": []
-            },
-            "options": {"addBtnText": "Add element", "showDivider": false, "ordinalNumberInModel": false},
-            "editable": true,
-            "showElements": true
-          }
-        }
-      },
+      "properties": {"fieldA": {"label": "Pole - onChange", "layout": {"component": "text-field"}}},
       "required": []
     }
   },
