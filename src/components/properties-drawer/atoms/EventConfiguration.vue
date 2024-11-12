@@ -1,11 +1,11 @@
 <template>
-  <v-list-item class="px-0">
-
+  <v-list-item class="px-0 pa-0">
     <v-expansion-panels>
       <v-expansion-panel>
         <v-expansion-panel-title>
           <div>{{ t('events') }}</div>
         </v-expansion-panel-title>
+        <v-divider class="pa-0 ma-0"/>
         <v-expansion-panel-text class="px-0 pa-0">
           <select-general
             v-model="eventType"

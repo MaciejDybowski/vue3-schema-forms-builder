@@ -19,7 +19,7 @@ export const FormBuilderStory: Story = {
     modelValue: {
       "type": "object",
       "properties": {"fieldA": {"label": "Pole - onChange", "layout": {"component": "text-field"}}},
-      "required": []
+      "required": ["fieldA"]
     }
   },
 };

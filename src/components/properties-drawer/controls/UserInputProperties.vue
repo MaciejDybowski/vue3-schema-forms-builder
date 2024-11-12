@@ -4,7 +4,6 @@
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
-  <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <multiple-property v-model="model.layout.props.multiple"/>
   <number-general
@@ -24,7 +23,7 @@
   </v-list-item>
   <group-filter-property v-model="filter.group"/>
   <user-url-source v-model="source"/>
-
+  <validation-configuration/>
 
 </template>
 
@@ -36,7 +35,6 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import GroupFilterProperty from "@/components/properties-drawer/atoms/GroupFilterProperty.vue";
@@ -45,6 +43,7 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import MultipleProperty from "@/components/properties-drawer/atoms/MultipleProperty.vue";
 import UserUrlSource from "@/components/properties-drawer/atoms/UserUrlSource.vue";
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()

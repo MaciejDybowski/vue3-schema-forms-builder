@@ -4,10 +4,10 @@
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
-  <required-property v-model="model.required"/>
   <read-only-property v-model="model.layout.props.readonly"/>
   <source-property v-model="source"/>
   <if-property v-model="model.layout.if"/>
+  <validation-configuration/>
   <event-configuration/>
 </template>
 
@@ -19,12 +19,12 @@ import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
-import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
+import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

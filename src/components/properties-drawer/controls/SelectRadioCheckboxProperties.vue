@@ -4,7 +4,6 @@
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
-  <required-property v-model="model.required"/>
   <if-property v-model="model.layout.if"/>
   <horizontal-radio-or-checkbox-property
     v-if="component == 'checkbox' || component == 'radio-button'"
@@ -17,7 +16,7 @@
   />
   <read-only-property v-model="model.layout.props.readonly"/>
   <simple-source-property v-model="source"/>
-
+  <validation-configuration/>
 
 </template>
 
@@ -30,7 +29,6 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
-import RequiredProperty from "@/components/properties-drawer/atoms/RequiredProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
@@ -40,6 +38,7 @@ import HorizontalRadioOrCheckboxProperty
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import {useI18n} from "vue-i18n";
+import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()
