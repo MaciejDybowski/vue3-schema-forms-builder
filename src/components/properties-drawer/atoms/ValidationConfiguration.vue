@@ -90,8 +90,8 @@ function mapRequiredCustomFunction(value: string){
 }
 
 onMounted(() => {
-  if(model.value.validataions){
-    model.value.validataions.forEach((item: any) => {
+  if(model.value.validations){
+    model.value.validations.forEach((item: any) => {
       if(item.name === "conditional-required"){
         requiredType.value = true
         requiredCondition.value = item.rule
