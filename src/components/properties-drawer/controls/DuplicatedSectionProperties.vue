@@ -5,11 +5,19 @@
 
   <select-general
     v-model="model.layout.options.addBtnMode"
-    :items="[{value: 'add', title: t('addClearNode')}, {value:'copy', title: t('copyNode')}]"
+    :items="[{value: 'add', title: t('addClearNode')}, {value:'copy', title: t('copyNode')}, {value:'action', title: t('actionCall')}]"
     :label="t('addBtnMode')"
     :return-object="false"
     clearable
   />
+
+  <textfield-general
+    v-if="model.layout.options.addBtnMode === 'action'"
+    v-model="actionCode"
+    label="Kod akcji"
+    @update:model-value="updateActionCode"
+  />
+
 
   <duplicated-section-divider-property v-model="model.layout.options.showDivider"/>
 
@@ -30,7 +38,7 @@
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
@@ -41,6 +49,7 @@ import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGenera
 import {useI18n} from "vue-i18n";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -49,6 +58,22 @@ const model = computed({
   },
   set(val) {
     useBuilderStateStore.setConfiguredField(val)
+  }
+})
+
+const actionCode = ref(null)
+
+function updateActionCode(val: String) {
+  if (model.value.layout.options.action) {
+    model.value.layout.options.action.code = val
+  } else {
+    model.value.layout.options.action = {}
+  }
+}
+
+onMounted(() => {
+  if(model.value.layout.options.addBtnMode === 'action') {
+    actionCode.value = model.value.layout.options.action.code
   }
 })
 
@@ -69,7 +94,8 @@ const {t} = useI18n()
     "ordinalNumberInModel": "Add ordinal number in model",
     "addBtnMode": "Button mode",
     "addClearNode": "Add clear",
-    "copyNode": "Copy above"
+    "copyNode": "Copy above",
+    "actionCall": "Call action"
   },
   "pl": {
     "editable": "Edycja sekcji dozwolona",
@@ -77,7 +103,8 @@ const {t} = useI18n()
     "ordinalNumberInModel": "Dodaj liczbę porządkową do modelu",
     "addBtnMode": "Tryb przycisku",
     "addClearNode": "Dodawanie",
-    "copyNode": "Kopiowanie powyższego"
+    "copyNode": "Kopiowanie powyższego",
+    "actionCall": "Wywołaj akcję"
   }
 }
 </i18n>
