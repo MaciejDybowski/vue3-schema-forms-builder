@@ -21,11 +21,60 @@
           />
           <textfield-general
             v-if="requiredType"
-            :label="t('requiredProperty')"
             v-model="requiredCondition"
+            :label="t('requiredProperty')"
             @update:model-value="mapRequiredCustomFunction"
           />
 
+          <v-divider
+            :thickness="2"
+            class="mx-4 my-2"
+            color="primary"
+            opacity="50"
+          ></v-divider>
+          <span class="v-card-subtitle">Funkcje walidacyjne (nie łączyć z dynamicznym required)</span>
+          <div v-for="(rule, key) in validations">
+
+            <textfield-general
+              v-model="rule.name"
+              label="Nazwa"
+            />
+            <textfield-general
+              v-model="rule.rule"
+              label="Funkcja JSONata"
+            />
+
+            <textfield-general
+              v-model="rule.message"
+              label="Komunikat"
+            />
+
+            <v-btn
+              class="mx-4 mb-2"
+              color="error"
+              density="compact"
+              text="Usuń"
+              @click="validations = validations.filter((v, i) => i !== key)"
+            >
+            </v-btn>
+          </div>
+
+          <v-btn
+            class="mx-4"
+            color="primary"
+            density="compact"
+            text="Dodaj"
+            @click="validations.push({name: null, rule: null, message:null})"
+          >
+          </v-btn>
+
+          <v-divider
+            :thickness="2"
+            class="mx-4 my-2"
+            color="primary"
+            opacity="50"
+          ></v-divider>
+          <span class="v-card-subtitle">Licznik znaków</span>
           <number-general
             v-model="model.layout.props['counter']"
             :label="t('counter')"
@@ -41,7 +90,7 @@
 <script lang="ts" setup>
 
 import {useI18n} from "vue-i18n";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {useStyle} from "@/main";
@@ -66,22 +115,24 @@ const model = computed({
 const requiredType = ref(false)
 const requiredCondition = ref(null)
 
-function mapSimpleRequired(value: boolean){
-  if(value){
+function mapSimpleRequired(value: boolean) {
+  if (value) {
     // condition mode
     requiredCondition.value = null
     model.value.required = false;
   } else {
-    model.value.validations = model.value.validations?.filter((item:any) => item.name !== "conditional-required")
+    model.value.validations = model.value.validations?.filter((item: any) => item.name !== "conditional-required")
   }
 }
 
-function mapRequiredCustomFunction(value: string){
-  if(model.value.validations && model.value.validations.length > 0){
+function mapRequiredCustomFunction(value: string) {
+  if (model.value.validations && model.value.validations.length > 0 && model.value.validations.find((item: any) => item.name == "conditional-required")) {
     const ruleDefinition = model.value.validations.find((item: any) => item.name == "conditional-required")
     ruleDefinition.rule = value
   } else {
-    model.value.validations = []
+    if (model.value.validations.length == 0) {
+      model.value.validations = []
+    }
     model.value.validations.push({
       name: "conditional-required",
       rule: value
@@ -89,12 +140,28 @@ function mapRequiredCustomFunction(value: string){
   }
 }
 
+interface SchemaSimpleValidation {
+  name: string | null,
+  rule?: string | null
+  regexp?: RegExp;
+  message?: string | null;
+  nullable?: boolean;
+}
+
+const validations = ref<Array<SchemaSimpleValidation>>([])
+
+watch(validations, (newVal, oldValue) => {
+  model.value.validations = validations.value
+}, {deep: true})
+
 onMounted(() => {
-  if(model.value.validations){
+  if (model.value.validations) {
     model.value.validations.forEach((item: any) => {
-      if(item.name === "conditional-required"){
+      if (item.name === "conditional-required") {
         requiredType.value = true
         requiredCondition.value = item.rule
+      } else {
+        validations.value.push(item)
       }
     })
   }
