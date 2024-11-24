@@ -164,6 +164,9 @@ export function useSchemaMapper() {
       if ("readonly" in props && props.readonly == false) {
         delete props.readonly
       }
+      if('counter' in props && props.counter == null) {
+        delete props.counter
+      }
     }
 
     if (formElement.layout && isEmpty(formElement.layout.props)) {
