@@ -157,7 +157,7 @@
                 color="primary"
                 prepend-icon="mdi-plus"
                 size="small"
-                @click="variables.push({})"
+                @click="variables.push({title: null, value: null})"
               >Dodaj
               </v-btn>
             </v-list-item>
@@ -259,7 +259,7 @@ watch(bodyAttributes, () => {
 
 
 // onChange - model change
-const variables = ref([])
+const variables = ref<Array<any>>([])
 watch(variables, () => {
   model.value.onChange.variables = cloneDeep(variables.value).map((item: any) => {
     if (item['value'] === "null") {
