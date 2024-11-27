@@ -265,8 +265,6 @@ function generateKey(name: string): string {
   return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5)
 }
 
-
-
 </script>
 
 

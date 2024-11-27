@@ -24,22 +24,26 @@
       class="mx-2"
       slider-color="primary"
     >
-      <template v-slot:tab="{ item }">
-        <v-tab
-          :text="item.text"
-          :value="item.value"
-          class="text-none"
-          width="50%"
-        ></v-tab>
-      </template>
 
-      <template v-slot:item="{ item }">
-        <v-tabs-window-item :value="item.value" class="pa-4">
-          <form-elements v-if="item.value === 'fields'"/>
-          <page-elements v-if="item.value === 'page'"/>
-        </v-tabs-window-item>
-      </template>
+      <v-tab
+        v-for="tab in tabs"
+        :text="tab.text"
+        :value="tab.value"
+        class="text-none"
+        width="50%"
+      ></v-tab>
     </v-tabs>
+
+    <v-card-text>
+      <v-tabs-window v-model="tab">
+        <v-tabs-window-item class="pa-4" value="fields">
+          <form-elements/>
+        </v-tabs-window-item>
+        <v-tabs-window-item value="page">
+          <page-elements/>
+        </v-tabs-window-item>
+      </v-tabs-window>
+    </v-card-text>
 
 
   </v-navigation-drawer>
