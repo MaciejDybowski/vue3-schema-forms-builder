@@ -275,7 +275,7 @@ watch(variables, () => {
 
 onMounted(() => {
   eventType.value = "onChange" in model.value ? "onChange" : null
-  eventMode.value = model.value['onChange'].mode
+  eventMode.value = model.value['onChange']?.mode
 
   if(eventMode.value == "action"){
 

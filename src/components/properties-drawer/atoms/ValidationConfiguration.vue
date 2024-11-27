@@ -8,22 +8,10 @@
         </v-expansion-panel-title>
         <v-divider class="pa-0 ma-0"/>
         <v-expansion-panel-text class="px-0 pa-0">
-          <switch-general
-            v-model="requiredType"
-            :label="requiredType ? t('requiredTypeCondition') : t('requiredTypeSimple')"
-            @update:model-value="mapSimpleRequired"
-          />
 
           <checkbox-general
-            v-if="!requiredType"
             v-model="model.required"
             :label="t('requiredProperty')"
-          />
-          <textfield-general
-            v-if="requiredType"
-            v-model="requiredCondition"
-            :label="t('requiredProperty')"
-            @update:model-value="mapRequiredCustomFunction"
           />
 
           <v-divider
@@ -32,13 +20,18 @@
             color="primary"
             opacity="50"
           ></v-divider>
-          <span class="v-card-subtitle">Funkcje walidacyjne (nie łączyć z dynamicznym required)</span>
+          <span class="v-card-subtitle">Funkcje walidacyjne</span>
           <div v-for="(rule, key) in validations">
 
-            <textfield-general
-              v-model="rule.name"
-              label="Nazwa"
-            />
+            <v-list-item>
+              <v-combobox
+                v-model="rule.name"
+                :items="['conditional-required']"
+                class="pt-2"
+                label="Nazwa"
+                v-bind="style.inputStyle.value"
+              />
+            </v-list-item>
             <textfield-general
               v-model="rule.rule"
               label="Funkcja JSONata"
@@ -94,8 +87,6 @@ import {computed, onMounted, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {useStyle} from "@/main";
-
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 
@@ -112,33 +103,6 @@ const model = computed({
   }
 })
 
-const requiredType = ref(false)
-const requiredCondition = ref(null)
-
-function mapSimpleRequired(value: boolean) {
-  if (value) {
-    // condition mode
-    requiredCondition.value = null
-    model.value.required = false;
-  } else {
-    model.value.validations = model.value.validations?.filter((item: any) => item.name !== "conditional-required")
-  }
-}
-
-function mapRequiredCustomFunction(value: string) {
-  if (model.value.validations && model.value.validations.length > 0 && model.value.validations.find((item: any) => item.name == "conditional-required")) {
-    const ruleDefinition = model.value.validations.find((item: any) => item.name == "conditional-required")
-    ruleDefinition.rule = value
-  } else {
-    if (model.value.validations.length == 0) {
-      model.value.validations = []
-    }
-    model.value.validations.push({
-      name: "conditional-required",
-      rule: value
-    })
-  }
-}
 
 interface SchemaSimpleValidation {
   name: string | null,
@@ -157,12 +121,7 @@ watch(validations, (newVal, oldValue) => {
 onMounted(() => {
   if (model.value.validations) {
     model.value.validations.forEach((item: any) => {
-      if (item.name === "conditional-required") {
-        requiredType.value = true
-        requiredCondition.value = item.rule
-      } else {
-        validations.value.push(item)
-      }
+      validations.value.push(item)
     })
   }
 })
