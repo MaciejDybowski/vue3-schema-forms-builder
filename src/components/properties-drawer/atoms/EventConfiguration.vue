@@ -157,7 +157,7 @@
                 color="primary"
                 prepend-icon="mdi-plus"
                 size="small"
-                @click="variables.push({title: null, value: null})"
+                @click="variables.push({path: null, value: null})"
               >Dodaj
               </v-btn>
             </v-list-item>

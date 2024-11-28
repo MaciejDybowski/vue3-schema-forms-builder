@@ -11,7 +11,7 @@
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-text-field
-      class="mx-2"
+      class="mx-2 pt-2"
       density="compact"
       label="Search"
       prepend-inner-icon="mdi-magnify"
