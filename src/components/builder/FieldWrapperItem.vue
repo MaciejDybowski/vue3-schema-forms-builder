@@ -52,7 +52,7 @@ const isToolbarVisible = computed(() => (isHovering: any, element: any) => {
 })
 
 function fieldWrapperItemClass(element: any, isHovering: any) {
-  if (element.layout.component !== "duplicated-section") {
+  if (element.layout.component !== "duplicated-section" || element.layout.component !== "fields-group" ) {
     return isToolbarVisible.value(isHovering, element) ? 'field-wrapper pa-3' : 'pa-3'
   } else {
     return "field-wrapper"
@@ -81,7 +81,7 @@ function getStyleForBuilderField(element: any, hover: any) {
 
 
 function configControl(element: any) {
-  if (element.layout.component !== 'duplicated-section') {
+  if (element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
     useBuilderStateStore.setConfiguredField(element)
     drawers.propertiesDrawer.value = true
   }

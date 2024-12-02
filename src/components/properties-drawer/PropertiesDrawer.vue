@@ -25,7 +25,8 @@
       <phone-field-properties v-if="model.layout.component == 'phone'"/>
       <switch-properties v-if="model.layout.component == 'switch'"/>
       <divider-properties v-if="model.layout.component == 'divider'"/>
-      <image-preview-properties v-if="model.layout.component == 'image-preview'"/>
+      <image-properties v-if="model.layout.component == 'image'"/>
+      <fields-group v-if="model.layout.component == 'fields-group'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -50,7 +51,9 @@ import SwitchProperties from "@/components/properties-drawer/controls/SwitchProp
 import DuplicatedSectionProperties from "@/components/properties-drawer/controls/DuplicatedSectionProperties.vue";
 import NumberFieldProperties from "@/components/properties-drawer/controls/NumberFieldProperties.vue";
 import DividerProperties from "@/components/properties-drawer/controls/DividerProperties.vue";
-import ImagePreviewProperties from "@/components/properties-drawer/controls/ImgAvatarProperties.vue";
+import ImagePreviewProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
+import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
+import ImageProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

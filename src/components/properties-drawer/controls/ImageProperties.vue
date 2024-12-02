@@ -6,20 +6,29 @@
   <fill-row-property v-model="model.layout.fillRow"/>
   <if-property v-model="model.layout.if"/>
 
+
   <textfield-general
-    :label="t('thumbnailUrl')"
-    v-model="model.source.thumbnail"
+    v-model="model.src"
+    label="Scieżka"
   />
 
   <textfield-general
-    :label="t('previewUrl')"
-    v-model="model.source.preview"
+    v-model="model.layout.props['aspect-ratio']"
+    label="Aspect ratio"
+  />
+  <textfield-general
+    v-model="model.layout.props['width']"
+    label="Width"
+  />
+  <textfield-general
+    v-model="model.layout.props['height']"
+    label="Height"
+  />
+  <switch-general
+    v-model="model.layout.props['cover']"
+    label="Cover"
   />
 
-  <number-general
-    :label="t('rounded')"
-    v-model="model.layout.props.rounded"
-  />
 
 </template>
 
@@ -39,6 +48,7 @@ import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMa
 import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()

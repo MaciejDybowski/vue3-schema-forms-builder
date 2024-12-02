@@ -1,5 +1,5 @@
 <template>
-<!--  <key-property v-model="model.key"/>
+  <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
   <is-number-property v-model="model.type"/>
   <col-property v-model="model.layout.cols"/>
@@ -33,7 +33,7 @@
   <checkbox-general
     v-model="model.layout.props['persistent-hint']"
     :label="t('persistentHint')"
-  />-->
+  />
 
   <validation-configuration/>
   <event-configuration/>

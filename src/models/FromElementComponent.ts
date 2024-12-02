@@ -19,4 +19,5 @@ export type FromElementComponent =
   | "switch"
   | "number-field"
   | "divider"
-  | "image-preview"
+  | "image"
+  | "fields-group"

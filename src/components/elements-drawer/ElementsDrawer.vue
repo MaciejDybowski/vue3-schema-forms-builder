@@ -6,7 +6,7 @@
     order="3"
     permament
     scrim="transparent"
-    style="top: 65px; min-height: calc(100vh - 65px)"
+
     width="300"
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->

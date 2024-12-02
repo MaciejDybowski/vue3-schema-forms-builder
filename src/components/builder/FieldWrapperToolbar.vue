@@ -3,15 +3,16 @@
     :elementKey="element.key"
   />
 
+
   <field-wrapper-toolbar-btn
-    v-if="element.layout.component === 'duplicated-section'"
+    v-if="element.layout.component === 'duplicated-section' || element.layout.component === 'fields-group'"
     class="config-field-btn"
     icon="mdi-cog"
     @click="configControl"
   />
 
   <field-wrapper-toolbar-btn
-    v-if="element.layout.component !== 'duplicated-section'"
+    v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
     class="clone-field-btn"
     icon="mdi-content-copy"
     @click="cloneControl"

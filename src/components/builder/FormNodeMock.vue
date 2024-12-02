@@ -2,7 +2,7 @@
   <div :style="calcOffset(element)">
     <component
       :is='`node-${element.layout.component}`'
-      v-if="element.layout.component !== 'duplicated-section'"
+      v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
       :key="renderKey"
       :model='{}'
       :schema='element'
@@ -10,7 +10,7 @@
       v-bind="{readonly:true}"
     />
 
-    <div v-else>
+    <div v-if="element.layout.component == 'duplicated-section'">
       <draggable-area
         v-model="element.tempItems"
         :empty-insert-threshold="30"
@@ -32,6 +32,15 @@
       >
         {{ element.layout.options.addBtnText }}
       </v-btn>
+    </div>
+
+    <div v-if="element.layout.component == 'fields-group'">
+      <draggable-area
+        v-model="element.tempItems"
+        :empty-insert-threshold="30"
+        :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
+        class="pt-6"
+      />
     </div>
 
   </div>

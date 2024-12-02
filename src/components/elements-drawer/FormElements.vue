@@ -107,13 +107,19 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   },
   {
     icon: "mdi-image",
-    label: "Zdjęcie (miniaturka)",
-    component: "image-preview"
+    label: "Zdjęcie",
+    component: "image"
   },
   {
     icon: "mdi-content-copy",
     label: "Sekcja powielana",
     component: "duplicated-section"
+  },
+  {
+    icon: "mdi-format-list-group",
+    label: "Grupa pól",
+    subtitle: "Wizualne grupowanie pól",
+    component: "fields-group"
   }
 ])
 
@@ -216,6 +222,31 @@ function cloneControls(item: ElementDrawerFromElement) {
         }
       }
     }
+    case "fields-group": {
+      return {
+        key: id,
+        tempItems: [],
+        layout: {
+          component: item.component,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
+          schema: {
+            type: "object",
+            properties: {},
+          },
+        },
+        options: {
+          fieldProps: style.inputStyle,
+          buttonProps: style.buttonStyle
+        }
+      }
+    }
     case "dictionary":
     case "combobox": {
       return {
@@ -239,24 +270,19 @@ function cloneControls(item: ElementDrawerFromElement) {
         ...schemaElement,
         type: "int"
       }
-    case "image-preview":
+    case "image":
       return {
         ...schemaElement,
         layout: {
           ...schemaElement.layout,
-          cols: {
-            xs: 1,
-            sm: 1,
-            md: 1,
-            lg: 1,
-            xl: 1,
-            xxl: 1
+          props: {
+            "aspect-ratio": 1,
+            width: "300",
+            height: "295",
+            cover: true,
           },
         },
-        source: {
-          thumbnail: "",
-          preview: "",
-        }
+        src: "/api/v1/features/{context.menuFeatureId}/images/{id}?Workspace-Id={context.workspaceId}&dataId={dataId}&width={width}&height={height}&lastModifiedAt="
       }
   }
 }
