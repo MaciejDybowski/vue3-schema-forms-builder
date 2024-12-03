@@ -1,10 +1,12 @@
 <template>
   <v-list-item>
-    <v-text-field
+    <v-textarea
       v-model="modelValue.builder_url"
       :label="t('urlKey')"
       v-bind="style.inputStyle.value"
       class="pt-2"
+      auto-grow
+      rows="3"
     />
   </v-list-item>
 </template>
