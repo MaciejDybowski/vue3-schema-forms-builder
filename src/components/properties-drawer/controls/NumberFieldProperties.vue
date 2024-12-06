@@ -70,6 +70,7 @@
     v-model="model.layout.props['persistent-hint']"
   />
   <validation-configuration/>
+  <event-configuration/>
 
 </template>
 
@@ -90,6 +91,7 @@ import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGenera
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
