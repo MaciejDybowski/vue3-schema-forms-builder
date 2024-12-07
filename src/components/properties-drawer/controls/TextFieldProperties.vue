@@ -1,7 +1,7 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
-  <is-number-property v-model="model.type"/>
+  <default-value-property/>
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -60,6 +60,7 @@ import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vu
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

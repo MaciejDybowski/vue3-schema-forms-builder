@@ -1,6 +1,7 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
+  <default-value-property/>
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
@@ -39,6 +40,7 @@ import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()

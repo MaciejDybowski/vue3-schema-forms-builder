@@ -1,6 +1,7 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
+  <default-value-property/>
   <col-property v-model="model.layout.cols"/>
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
@@ -34,6 +35,7 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 const model = computed({

@@ -1,6 +1,7 @@
 <template>
   <key-property v-model="model.key"/>
   <label-property v-model="model.label"/>
+  <default-value-property/>
   <v-list-item>
     <v-switch
       class="mx-2"
@@ -92,6 +93,7 @@ import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vu
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
+import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -144,7 +146,6 @@ function updateExpressionReadonly(val: string) {
     "visible": "Visible",
     "expression": "Expression",
     "readonlyIfExpression": "Readonly expression",
-    "defaultValue": "Default value",
     "roundLabel": "Round option",
     "ceilOptionLabel": "Ceil option",
     "floorOptionLabel": "Float option",
@@ -162,7 +163,6 @@ function updateExpressionReadonly(val: string) {
     "visible": "Widoczne",
     "expression": "Wyrażenie",
     "readonlyIfExpression": "Readonly wyrażenie",
-    "defaultValue": "Wartość domyślna",
     "roundLabel": "Opcje zaokrąglania",
     "ceilOptionLabel": "Ceil",
     "floorOptionLabel": "Floor",

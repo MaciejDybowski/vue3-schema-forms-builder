@@ -22,7 +22,7 @@ export const FormBuilderStory: Story = {
         "text-field-139": {
           "label": "Item-text-field-139",
           "layout": {"component": "text-field"},
-          "validations": [{"name": "conditional-required", "rule": "dodajDostawce=false", "message": null}]
+          "defaultValue": "Maciek",
         }
       },
       "required": []

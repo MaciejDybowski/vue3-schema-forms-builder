@@ -5,7 +5,7 @@
       v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
       :key="renderKey"
       :model='{}'
-      :schema='element'
+      :schema='preparedElement'
       class="disabled-field"
       v-bind="{readonly:true}"
     />
@@ -22,13 +22,13 @@
         class="mb-2 mx-4"
       />
       <v-btn
+        v-if="element.editable && element.showElements"
         :color="color"
         :rounded="true"
         class="mx-4"
         prepend-icon='mdi-plus'
         size="small"
         variant="flat"
-        v-if="element.editable && element.showElements"
       >
         {{ element.layout.options.addBtnText }}
       </v-btn>
@@ -52,10 +52,18 @@ import DraggableArea from "./DraggableArea.vue";
 import {computed, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
+import {cloneDeep} from "lodash";
 
 const props = defineProps<{
   element: any
 }>()
+
+const preparedElement = computed(() => {
+  const temp = cloneDeep(props.element)
+  // remove props for mock because engine modify this to null after set to model
+  delete temp.defaultValue
+  return temp
+})
 
 const theme = useVTheme()
 const color = theme.isDarkTheme.value ? "white" : "primary";
