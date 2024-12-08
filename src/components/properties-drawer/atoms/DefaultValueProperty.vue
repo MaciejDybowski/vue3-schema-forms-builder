@@ -37,18 +37,22 @@ onMounted(() => {
 function mapDefaultValue(val: string) {
   if(val == ""){
     model.value['defaultValue'] = null
+    defaultValueModel.value = val
     return
   }
   try {
     model.value['defaultValue'] = JSON.parse(val);
+    defaultValueModel.value = val
   } catch (e) {
     try {
       // @ts-ignore
       const number = Number(val)
       model.value['defaultValue'] = number
+      defaultValueModel.value = val
 
     } catch (e) {
       model.value['defaultValue'] = val
+      defaultValueModel.value = val
     }
   }
 }
