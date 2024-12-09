@@ -106,7 +106,6 @@ const model = computed({
 })
 
 const {t} = useI18n()
-const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
 
 function updateExpressionPersistentHint(val: string) {
   const matches = val.match(regex)
@@ -119,12 +118,10 @@ function updateExpressionPersistentHint(val: string) {
 }
 
 function updateExpressionReadonly(val: string) {
-  const matches = val.match(regex)
-  if (matches) {
-    model.value.layout.props['readonly'] = val
-  }
   if(!val){
     model.value.layout.props['readonly'] = false
+  } else {
+    model.value.layout.props['readonly'] = val
   }
 }
 </script>
