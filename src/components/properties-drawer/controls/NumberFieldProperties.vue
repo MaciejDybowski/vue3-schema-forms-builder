@@ -108,12 +108,10 @@ const model = computed({
 const {t} = useI18n()
 
 function updateExpressionPersistentHint(val: string) {
-  const matches = val.match(regex)
-  if (matches) {
-    model.value.layout.props['persistent-hint'] = val
-  }
   if(!val){
     model.value.layout.props['persistent-hint'] = false
+  } else {
+    model.value.layout.props['persistent-hint'] = val
   }
 }
 
