@@ -5,11 +5,11 @@
   <v-list-item>
     <v-textarea
       v-model="modelValue.builder_url"
+      :auto-grow="true"
       :label="t('urlKey')"
       class="pt-2"
-      v-bind="style.inputStyle.value"
       rows="1"
-      :auto-grow="true"
+      v-bind="style.inputStyle.value"
     />
   </v-list-item>
   <v-list-item>
@@ -77,6 +77,7 @@
 
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const modelValue = defineModel<any>({
   default: () => {

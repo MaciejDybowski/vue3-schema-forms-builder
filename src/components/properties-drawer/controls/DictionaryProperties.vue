@@ -6,6 +6,10 @@
   <offset-property v-model="model.layout.offset"/>
   <fill-row-property v-model="model.layout.fillRow"/>
   <read-only-property v-model="model.layout.props.readonly"/>
+  <switch-general
+    v-model="model.layout.props.clearable"
+    label="Dodać ikonę kasowania?"
+  />
   <source-property v-model="source"/>
   <if-property v-model="model.layout.if"/>
   <validation-configuration/>
@@ -27,6 +31,7 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
