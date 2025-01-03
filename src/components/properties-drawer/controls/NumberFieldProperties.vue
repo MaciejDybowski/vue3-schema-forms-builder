@@ -19,6 +19,12 @@
     v-model="model.precision"
     type="number"
   />
+  <textfield-general
+    v-if="model.type=='float'"
+    :label="t('precisionMin')"
+    v-model="model.precisionMin"
+    type="number"
+  />
 
   <select-general
     v-if="model.type=='float'"
@@ -133,6 +139,7 @@ function updateExpressionReadonly(val: string) {
     "int": "Integer",
     "float": "Float",
     "precision": "Precision",
+    "precisionMin": "Precision (min)",
     "calculation": "Calculation",
     "hint": "Hint",
     "persistentHint": "Is the hint always visible?",
@@ -150,6 +157,7 @@ function updateExpressionReadonly(val: string) {
     "int": "Całkowita",
     "float": "Zmiennoprzecinkowa",
     "precision": "Precyzja zaokrągleń",
+    "precisionMin": "Precyzja zaokrągleń (min)",
     "calculation": "Obliczenia",
     "hint": "Podpowiedź",
     "persistentHint": "Czy hint zawsze widoczny?",
