@@ -2,7 +2,7 @@
   <draggable
     :clone="cloneControls"
     :group="{ name: 'controls', pull: 'clone', put: false }"
-    :list="controls"
+    :list="filteredControls"
     item-key="label"
   >
     <template #item="{element}">
@@ -11,18 +11,23 @@
           <v-icon>{{ element.icon }}</v-icon>
         </template>
         <v-list-item-title>{{ element.label }}</v-list-item-title>
-        <v-list-item-subtitle v-if="element.subtitle">{{element.subtitle}}</v-list-item-subtitle>
+        <v-list-item-subtitle v-if="element.subtitle">{{ element.subtitle }}</v-list-item-subtitle>
       </v-list-item>
     </template>
   </draggable>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import draggable from 'vuedraggable'
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
-import {ref, Ref} from "vue";
+import {computed, ComputedRef, ref, Ref, watch} from "vue";
+
 const style = useStyle()
+
+const props = defineProps<{
+  query: string
+}>()
 
 const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
@@ -42,31 +47,31 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   },
   {
     icon: "mdi-order-bool-descending",
-    label: "Pole wyboru",
+    label: "Pole wyboru (R)",
     subtitle: "Radio",
     component: "radio-button"
   },
   {
     icon: "mdi-order-bool-descending-variant",
-    label: "Pole wyboru",
+    label: "Pole wyboru (C)",
     subtitle: "Checkbox",
     component: "checkbox"
   },
   {
     icon: "mdi-order-alphabetical-ascending",
-    label: "Pole wyboru",
+    label: "Pole wyboru (S)",
     subtitle: "Select",
     component: "select"
   },
   {
     icon: "mdi-order-alphabetical-ascending",
-    label: "Pole słownikowe",
+    label: "Pole słownikowe (A)",
     subtitle: "Autocomplete",
     component: "dictionary"
   },
   {
     icon: "mdi-order-alphabetical-ascending",
-    label: "Pole słownikowe",
+    label: "Pole słownikowe (C)",
     subtitle: "Combobox",
     component: "combobox"
   },
@@ -122,6 +127,16 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "fields-group"
   }
 ])
+
+const filteredControls: ComputedRef<ElementDrawerFromElement[]> = computed(() => {
+  return controls.value.filter((item: ElementDrawerFromElement) => {
+    if (props.query) {
+      return item.label.toLowerCase().includes(props.query.toLowerCase())
+    } else {
+      return item
+    }
+  })
+})
 
 function cloneControls(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)
@@ -294,7 +309,6 @@ function generateKey(name: string): string {
 </script>
 
 
-
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

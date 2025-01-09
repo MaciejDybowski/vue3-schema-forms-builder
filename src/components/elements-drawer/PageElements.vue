@@ -2,7 +2,7 @@
   <draggable
     :clone="cloneStatic"
     :group="{ name: 'controls', pull: 'clone', put: false }"
-    :list="staticContent"
+    :list="filteredStaticContent"
     item-key="label"
   >
     <template #item="{element}">
@@ -20,8 +20,12 @@
 import draggable from 'vuedraggable'
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
-import {ref, Ref} from "vue";
+import {computed, ComputedRef, ref, Ref} from "vue";
 const style = useStyle()
+
+const props = defineProps<{
+  query: string
+}>()
 
 const staticContent: Ref<ElementDrawerFromElement[]> = ref([
   {
@@ -70,6 +74,17 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
     component: "button"
   }
 ])
+
+const filteredStaticContent: ComputedRef<ElementDrawerFromElement[]> = computed(() => {
+  return staticContent.value.filter((item: ElementDrawerFromElement) => {
+    if (props.query) {
+      return item.label.toLowerCase().includes(props.query.toLowerCase())
+    } else {
+      return item
+    }
+  })
+})
+
 
 function cloneStatic(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)

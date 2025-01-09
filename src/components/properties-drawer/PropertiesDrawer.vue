@@ -6,7 +6,7 @@
     permament
     scrim="transparent"
     width="350"
-    style="top: 65px; min-height: calc(100vh - 65px)"
+    :style="!storybook ? `top: 65px; min-height: calc(100vh - 65px)` : ``"
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
@@ -71,6 +71,12 @@ const optionsComponent = computed(() => {
   return model.value.layout.component == 'select' ||
     model.value.layout.component == 'radio-button' ||
     model.value.layout.component == 'checkbox'
+})
+
+const host = window.location.hostname
+const port = window.location.port
+const storybook = computed(() => {
+  return host === 'localhost' && port === "6006"
 })
 </script>
 

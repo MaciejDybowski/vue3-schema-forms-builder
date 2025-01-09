@@ -2,15 +2,16 @@
   <!--    style="top: 65px; height: 100%"-->
   <v-navigation-drawer
     v-model="drawers.elementsDrawer.value"
+    :style="!storybook ? `top: 65px; min-height: calc(100vh - 65px)` : ``"
     class="element-drawer"
     order="3"
     permament
     scrim="transparent"
-    style="top: 65px; min-height: calc(100vh - 65px)"
     width="300"
   >
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-text-field
+      v-model="query"
       class="mx-2 pt-2"
       density="compact"
       label="Search"
@@ -37,10 +38,10 @@
     <v-card-text>
       <v-tabs-window v-model="tab">
         <v-tabs-window-item class="pa-4" value="fields">
-          <form-elements/>
+          <form-elements :query="query"/>
         </v-tabs-window-item>
         <v-tabs-window-item value="page">
-          <page-elements/>
+          <page-elements :query="query"/>
         </v-tabs-window-item>
       </v-tabs-window>
     </v-card-text>
@@ -53,7 +54,7 @@
 
 import {useDrawers} from "@/composables/useDrawers";
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import FormElements from "@/components/elements-drawer/FormElements.vue";
 import PageElements from "@/components/elements-drawer/PageElements.vue";
 
@@ -72,6 +73,13 @@ const tabs = ref([
   },
 ])
 
+const query = ref("")
+
+const host = window.location.hostname
+const port = window.location.port
+const storybook = computed(() => {
+  return host === 'localhost' && port === "6006"
+})
 
 </script>
 
