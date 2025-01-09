@@ -1,13 +1,32 @@
 <template>
   <v-navigation-drawer
     v-model="drawers.propertiesDrawer.value"
+    :style="!storybook ? `top: 65px; min-height: calc(100vh - 65px)` : ``"
     location="right"
     order="3"
     permament
     scrim="transparent"
     width="350"
-    :style="!storybook ? `top: 65px; min-height: calc(100vh - 65px)` : ``"
   >
+
+    <v-expansion-panels flat>
+      <v-expansion-panel
+        style="border-bottom: #777777 1px solid; border-bottom: #777777 1px solid;"
+      >
+        <v-expansion-panel-title
+          
+          collapse-icon="mdi-minus"
+          expand-icon="mdi-plus">
+          Properties
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <text-field-properties v-if="model.layout.component == 'text-field'"/>
@@ -51,9 +70,8 @@ import SwitchProperties from "@/components/properties-drawer/controls/SwitchProp
 import DuplicatedSectionProperties from "@/components/properties-drawer/controls/DuplicatedSectionProperties.vue";
 import NumberFieldProperties from "@/components/properties-drawer/controls/NumberFieldProperties.vue";
 import DividerProperties from "@/components/properties-drawer/controls/DividerProperties.vue";
-import ImagePreviewProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
-import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
 import ImageProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
+import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
