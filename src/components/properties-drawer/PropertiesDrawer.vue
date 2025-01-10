@@ -9,22 +9,25 @@
     width="350"
   >
 
-    <v-expansion-panels flat>
-      <v-expansion-panel
-        style="border-bottom: #777777 1px solid; border-bottom: #777777 1px solid;"
+    <v-expansion-panels
+      v-model="panels"
+      elevation="0"
+      multiple
+    >
+      <expansion-panel
+        :active="panels.includes('properties')"
+        title="Properties"
+        value="properties"
       >
-        <v-expansion-panel-title
-          
-          collapse-icon="mdi-minus"
-          expand-icon="mdi-plus">
-          Properties
-        </v-expansion-panel-title>
-        <v-expansion-panel-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </v-expansion-panel-text>
-      </v-expansion-panel>
+        <key-property v-model="model.key"/>
+        <label-property v-model="model.label"/>
+      </expansion-panel>
+      <expansion-panel
+        :active="panels.includes('layout')"
+        title="Layout"
+        value="layout"
+      >
+      </expansion-panel>
     </v-expansion-panels>
 
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
@@ -53,7 +56,7 @@
 
 <script lang="ts" setup>
 import {useDrawers} from "@/composables/useDrawers";
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
@@ -72,9 +75,13 @@ import NumberFieldProperties from "@/components/properties-drawer/controls/Numbe
 import DividerProperties from "@/components/properties-drawer/controls/DividerProperties.vue";
 import ImageProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
 import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
+import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
+const panels = ref<string[]>([])
 
 const model = computed({
   get() {
@@ -98,4 +105,19 @@ const storybook = computed(() => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+.v-expansion-panel--active:not(:first-child), .v-expansion-panel--active + .v-expansion-panel {
+  margin-top: 0;
+}
+
+.v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
+  min-height: 48px;
+}
+
+.v-expansion-panel {
+  border-radius: 0;
+}
+
+
+</style>
