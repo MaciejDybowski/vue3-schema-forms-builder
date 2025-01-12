@@ -9,7 +9,7 @@
     width="350"
   >
 
-    <v-expansion-panels
+<!--    <v-expansion-panels
       v-model="panels"
       elevation="0"
       multiple
@@ -19,8 +19,7 @@
         title="Properties"
         value="properties"
       >
-        <key-property v-model="model.key"/>
-        <label-property v-model="model.label"/>
+
       </expansion-panel>
       <expansion-panel
         :active="panels.includes('layout')"
@@ -28,7 +27,7 @@
         value="layout"
       >
       </expansion-panel>
-    </v-expansion-panels>
+    </v-expansion-panels>-->
 
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">

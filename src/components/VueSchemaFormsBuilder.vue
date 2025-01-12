@@ -37,8 +37,8 @@ import {FormSchema} from "@/models/FormSchema";
 // schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
 // import {createVueSchemaForms} from "../../../vue3-schema-forms";
 // import "../../../vue3-schema-forms/dist/style.css"
-import {createVueSchemaForms} from "../../../aurea-forms";
-import "../../../aurea-forms/dist/style.css"
+import {createVueSchemaForms} from "vue3-schema-forms";
+import "vue3-schema-forms/dist/style.css"
 
 const instance = getCurrentInstance();
 

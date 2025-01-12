@@ -1,172 +1,164 @@
 <template>
-  <v-list-item class="px-0 pa-0">
-    <v-expansion-panels>
-      <v-expansion-panel>
-        <v-expansion-panel-title>
-          <div>{{ t('events') }}</div>
-        </v-expansion-panel-title>
-        <v-divider class="pa-0 ma-0"/>
-        <v-expansion-panel-text class="px-0 pa-0">
-          <select-general
-            v-model="eventType"
-            :items="[{value: 'onChange', title: t('onChangeLabel')}]"
-            :label="t('eventType')"
-            :return-object="false"
-            clearable
-            @update:model-value="setEventTypeOnSchema"
+  <expansion-panel
+    :active="active"
+    :title="t('events')"
+    value="events"
+  >
+    <select-general
+      v-model="eventType"
+      :items="[{value: 'onChange', title: t('onChangeLabel')}]"
+      :label="t('eventType')"
+      :return-object="false"
+      clearable
+      @update:model-value="setEventTypeOnSchema"
+    />
+    <select-general
+      v-if="eventType"
+      v-model="eventMode"
+      :items="[{value: 'action', title: t('actionLabel')}, {value: 'change-model', title: t('changeModelLabel')}]"
+      :label="t('mode')"
+      :return-object="false"
+      clearable
+      @update:model-value="setModeOnSchema"
+    />
+
+    <div v-if="eventMode=='action'">
+      <textfield-general
+        v-model="actionCode"
+        :label="t('actionCode')"
+        @update:model-value="setActionCOde"
+      />
+
+      <v-list-item>
+        <v-list-item-title class="py-2">
+          {{ t('paramsLabel') }}
+        </v-list-item-title>
+        <div v-for="(item, key) in params"
+             :key="key"
+             class="d-flex py-2 align-center justify-center"
+        >
+          <v-text-field
+            v-model="item.title"
+            :hide-details="true"
+            :label="t('params.title')"
+            class="pr-2"
+            density="compact"
+            v-bind="style.inputStyle.value"
+
           />
-          <select-general
-            v-if="eventType"
-            v-model="eventMode"
-            :items="[{value: 'action', title: t('actionLabel')}, {value: 'change-model', title: t('changeModelLabel')}]"
-            :label="t('mode')"
-            :return-object="false"
-            clearable
-            @update:model-value="setModeOnSchema"
+          <v-text-field
+            v-model="item.value"
+            :hide-details="true"
+            :label="t('params.value')"
+            class="pl-2"
+            density="compact"
+            v-bind="style.inputStyle.value"
           />
+          <v-btn
+            class="mx-2"
+            density="compact"
+            flat
+            icon="mdi-delete"
+            size="small"
+            @click="params = params.filter((v, i) => i !== key)"
+          >
+          </v-btn>
+        </div>
 
-          <div v-if="eventMode=='action'">
-            <textfield-general
-              v-model="actionCode"
-              :label="t('actionCode')"
-              @update:model-value="setActionCOde"
-            />
+        <v-btn
+          color="primary"
+          prepend-icon="mdi-plus"
+          size="small"
+          @click="params.push({title: null, value: null})"
+        >Dodaj
+        </v-btn>
+      </v-list-item>
 
-            <v-list-item>
-              <v-list-item-title class="py-2">
-                {{ t('paramsLabel') }}
-              </v-list-item-title>
-              <div v-for="(item, key) in params"
-                   :key="key"
-                   class="d-flex py-2 align-center justify-center"
-              >
-                <v-text-field
-                  v-model="item.title"
-                  :hide-details="true"
-                  :label="t('params.title')"
-                  class="pr-2"
-                  density="compact"
-                  v-bind="style.inputStyle.value"
+      <v-list-item>
+        <v-list-item-title class="py-2">
+          {{ t('bodyAttributesLabel') }}
+        </v-list-item-title>
+        <div v-for="(item, key) in bodyAttributes"
+             :key="key"
+             class="d-flex py-2 align-center justify-center"
+        >
+          <v-text-field
+            v-model="item.title"
+            :hide-details="true"
+            :label="t('bodyAttributes.title')"
+            class="pr-2"
+            density="compact"
+            v-bind="style.inputStyle.value"
 
-                />
-                <v-text-field
-                  v-model="item.value"
-                  :hide-details="true"
-                  :label="t('params.value')"
-                  class="pl-2"
-                  density="compact"
-                  v-bind="style.inputStyle.value"
-                />
-                <v-btn
-                  class="mx-2"
-                  density="compact"
-                  flat
-                  icon="mdi-delete"
-                  size="small"
-                  @click="params = params.filter((v, i) => i !== key)"
-                >
-                </v-btn>
-              </div>
+          />
+          <v-text-field
+            v-model="item.value"
+            :hide-details="true"
+            :label="t('bodyAttributes.value')"
+            class="pl-2"
+            density="compact"
+            v-bind="style.inputStyle.value"
+          />
+          <v-btn
+            class="mx-2"
+            density="compact"
+            flat
+            icon="mdi-delete"
+            size="small"
+            @click="bodyAttributes = bodyAttributes.filter((v, i) => i !== key)"
+          >
+          </v-btn>
+        </div>
 
-              <v-btn
-                color="primary"
-                prepend-icon="mdi-plus"
-                size="small"
-                @click="params.push({title: null, value: null})"
-              >Dodaj
-              </v-btn>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-title class="py-2">
-                {{ t('bodyAttributesLabel') }}
-              </v-list-item-title>
-              <div v-for="(item, key) in bodyAttributes"
-                   :key="key"
-                   class="d-flex py-2 align-center justify-center"
-              >
-                <v-text-field
-                  v-model="item.title"
-                  :hide-details="true"
-                  :label="t('bodyAttributes.title')"
-                  class="pr-2"
-                  density="compact"
-                  v-bind="style.inputStyle.value"
-
-                />
-                <v-text-field
-                  v-model="item.value"
-                  :hide-details="true"
-                  :label="t('bodyAttributes.value')"
-                  class="pl-2"
-                  density="compact"
-                  v-bind="style.inputStyle.value"
-                />
-                <v-btn
-                  class="mx-2"
-                  density="compact"
-                  flat
-                  icon="mdi-delete"
-                  size="small"
-                  @click="bodyAttributes = bodyAttributes.filter((v, i) => i !== key)"
-                >
-                </v-btn>
-              </div>
-
-              <v-btn
-                color="primary"
-                prepend-icon="mdi-plus"
-                size="small"
-                @click="bodyAttributes.push({title: null, value: null})"
-              >Dodaj
-              </v-btn>
-            </v-list-item>
-          </div>
-
-          <div v-if="eventMode=='change-model'">
-            <v-list-item
-              v-for="(item, key) in variables"
-              density="compact"
-            >
-              <div class="d-flex py-2 align-center justify-center">
-                <v-text-field
-                  v-model="item['path']"
-                  class="pr-2"
-                  label="Ścieżka"
-                  v-bind="style.inputStyle.value"
-                />
-                <v-text-field
-                  v-model="item['value']"
-                  class="pl-2"
-                  label="Nowa wartość"
-                  v-bind="style.inputStyle.value"
-                />
-                <v-btn
-                  class="mx-2"
-                  density="compact"
-                  flat
-                  icon="mdi-delete"
-                  size="small"
-                  @click="variables = variables.filter((n, t) => t !== key)"
-                >
-                </v-btn>
-              </div>
-            </v-list-item>
-            <v-list-item density="compact">
-              <v-btn
-                color="primary"
-                prepend-icon="mdi-plus"
-                size="small"
-                @click="variables.push({path: null, value: null})"
-              >Dodaj
-              </v-btn>
-            </v-list-item>
-          </div>
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-list-item>
-
+        <v-btn
+          color="primary"
+          prepend-icon="mdi-plus"
+          size="small"
+          @click="bodyAttributes.push({title: null, value: null})"
+        >Dodaj
+        </v-btn>
+      </v-list-item>
+    </div>
+    <div v-if="eventMode=='change-model'">
+      <v-list-item
+        v-for="(item, key) in variables"
+        density="compact"
+      >
+        <div class="d-flex py-2 align-center justify-center">
+          <v-text-field
+            v-model="item['path']"
+            class="pr-2"
+            label="Ścieżka"
+            v-bind="style.inputStyle.value"
+          />
+          <v-text-field
+            v-model="item['value']"
+            class="pl-2"
+            label="Nowa wartość"
+            v-bind="style.inputStyle.value"
+          />
+          <v-btn
+            class="mx-2"
+            density="compact"
+            flat
+            icon="mdi-delete"
+            size="small"
+            @click="variables = variables.filter((n, t) => t !== key)"
+          >
+          </v-btn>
+        </div>
+      </v-list-item>
+      <v-list-item density="compact">
+        <v-btn
+          color="primary"
+          prepend-icon="mdi-plus"
+          size="small"
+          @click="variables.push({path: null, value: null})"
+        >Dodaj
+        </v-btn>
+      </v-list-item>
+    </div>
+  </expansion-panel>
 </template>
 
 
@@ -180,9 +172,15 @@ import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGene
 import {cloneDeep, merge} from "lodash";
 import {useStyle} from "@/main";
 import set from "lodash/set";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
 const {t} = useI18n()
 const style = useStyle()
+
+const props = defineProps<{
+  active: boolean
+}>()
+
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -215,7 +213,6 @@ function setActionCOde(value: string) {
     model.value[eventType.value]['code'] = value
   }
 }
-
 
 
 const params = ref<Array<any>>([
@@ -277,16 +274,16 @@ onMounted(() => {
   eventType.value = "onChange" in model.value ? "onChange" : null
   eventMode.value = model.value['onChange']?.mode
 
-  if(eventMode.value == "action"){
+  if (eventMode.value == "action") {
 
-    params.value = Object.entries(model.value['onChange'].params).map(([k,v]) => {
+    params.value = Object.entries(model.value['onChange'].params).map(([k, v]) => {
       return {
         title: k,
         value: v,
       }
     })
     actionCode.value = model.value['onChange'].code
-    bodyAttributes.value = Object.entries(model.value['onChange'].body).map(([k,v]) => {
+    bodyAttributes.value = Object.entries(model.value['onChange'].body).map(([k, v]) => {
       return {
         title: k,
         value: v,

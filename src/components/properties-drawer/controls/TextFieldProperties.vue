@@ -1,58 +1,87 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <default-value-property/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <if-property v-model="model.layout.if"/>
-  <switch-general
-    v-model="model.layout.hide"
-    :label="model.layout.hide ? t('hide') : t('visible')"
-  />
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+      <default-value-property/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+      <read-only-property v-model="model.layout.props.readonly"/>
+      <switch-general
+        v-model="model.layout.hide"
+        :label="model.layout.hide ? t('hide') : t('visible')"
+      />
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('expressions')"
+      title="Expressions"
+      value="expressions"
+    >
+      <textfield-general
+        v-model="model.expression"
+        :label="t('expression')"
+      />
 
-  <textfield-general
-    v-model="model.expression"
-    :label="t('expression')"
-  />
-
-  <textfield-general
-    v-model="model.calculation"
-    :label="t('calculation')"
-  />
-  <textfield-general
-    v-model="model.layout.props['hint']"
-    :label="t('hint')"
-  />
-  <textfield-general
-    :label="t('persistentHintIfExpression')"
-    :model-value="model.layout.props['persistent-hint']"
-    @update:model-value="updateExpressionPersistentHint"
-  />
-  <checkbox-general
-    v-model="model.layout.props['persistent-hint']"
-    :label="t('persistentHint')"
-  />
-
-  <validation-configuration/>
-  <event-configuration/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('fieldProps')"
+      title="Field properties"
+      value="fieldProps"
+    >
+      <textfield-general
+        v-model="model.layout.props['hint']"
+        :label="t('hint')"
+      />
+      <textfield-general
+        :label="t('persistentHintIfExpression')"
+        :model-value="model.layout.props['persistent-hint']"
+        @update:model-value="updateExpressionPersistentHint"
+      />
+      <checkbox-general
+        v-model="model.layout.props['persistent-hint']"
+        :label="t('persistentHint')"
+      />
+    </expansion-panel>
+    <validation-configuration :active="panels.includes('validations')"
+    />
+    <event-configuration :active="panels.includes('events')"/>
+  </v-expansion-panels>
 
 
 </template>
 
 <script lang="ts" setup>
 
-import {computed, onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
-import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import IsNumberProperty from "@/components/properties-drawer/atoms/isNumberProperty.vue";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
@@ -61,6 +90,9 @@ import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGene
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+
+const panels = ref<string[]>(["general", "logic", "validations"])
 
 const useBuilderStateStore = useBuilderState()
 const model = computed({

@@ -1,82 +1,73 @@
 <template>
-  <v-list-item class="px-0 pa-0">
-    <v-expansion-panels>
-      <v-expansion-panel>
-        <v-divider class="pa-0 ma-0"/>
-        <v-expansion-panel-title>
-          <div>{{ t('validations') }}</div>
-        </v-expansion-panel-title>
-        <v-divider class="pa-0 ma-0"/>
-        <v-expansion-panel-text class="px-0 pa-0">
+  <expansion-panel
+    :active="active"
+    :title="t('validations')"
+    value="validations"
+  >
+    <checkbox-general
+      v-model="model.required"
+      :label="t('requiredProperty')"
+    />
 
-          <checkbox-general
-            v-model="model.required"
-            :label="t('requiredProperty')"
-          />
+    <v-divider
+      :thickness="2"
+      class="mx-4 my-2"
+      color="primary"
+      opacity="50"
+    ></v-divider>
+    <span class="v-card-subtitle">Funkcje walidacyjne</span>
+    <div v-for="(rule, key) in validations">
 
-          <v-divider
-            :thickness="2"
-            class="mx-4 my-2"
-            color="primary"
-            opacity="50"
-          ></v-divider>
-          <span class="v-card-subtitle">Funkcje walidacyjne</span>
-          <div v-for="(rule, key) in validations">
+      <v-list-item>
+        <v-combobox
+          v-model="rule.name"
+          :items="['conditional-required']"
+          class="pt-2"
+          label="Nazwa"
+          v-bind="style.inputStyle.value"
+        />
+      </v-list-item>
+      <textfield-general
+        v-model="rule.rule"
+        label="Funkcja JSONata"
+      />
 
-            <v-list-item>
-              <v-combobox
-                v-model="rule.name"
-                :items="['conditional-required']"
-                class="pt-2"
-                label="Nazwa"
-                v-bind="style.inputStyle.value"
-              />
-            </v-list-item>
-            <textfield-general
-              v-model="rule.rule"
-              label="Funkcja JSONata"
-            />
+      <textfield-general
+        v-model="rule.message"
+        label="Komunikat"
+      />
 
-            <textfield-general
-              v-model="rule.message"
-              label="Komunikat"
-            />
+      <v-btn
+        class="mx-4 mb-2"
+        color="error"
+        density="compact"
+        text="Usuń"
+        @click="validations = validations.filter((v, i) => i !== key)"
+      >
+      </v-btn>
+    </div>
 
-            <v-btn
-              class="mx-4 mb-2"
-              color="error"
-              density="compact"
-              text="Usuń"
-              @click="validations = validations.filter((v, i) => i !== key)"
-            >
-            </v-btn>
-          </div>
+    <v-btn
+      class="mx-4"
+      color="primary"
+      density="compact"
+      text="Dodaj"
+      @click="validations.push({name: null, rule: null, message:null})"
+    >
+    </v-btn>
 
-          <v-btn
-            class="mx-4"
-            color="primary"
-            density="compact"
-            text="Dodaj"
-            @click="validations.push({name: null, rule: null, message:null})"
-          >
-          </v-btn>
-
-          <v-divider
-            :thickness="2"
-            class="mx-4 my-2"
-            color="primary"
-            opacity="50"
-          ></v-divider>
-          <span class="v-card-subtitle">Licznik znaków</span>
-          <number-general
-            v-model="model.layout.props['counter']"
-            :label="t('counter')"
-          />
-        </v-expansion-panel-text>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-list-item>
-
+    <v-divider
+      :thickness="2"
+      class="mx-4 my-2"
+      color="primary"
+      opacity="50"
+    ></v-divider>
+    <span class="v-card-subtitle">Licznik znaków</span>
+    <number-general
+      v-model="model.layout.props['counter']"
+      :label="t('counter')"
+    />
+  </expansion-panel>
 </template>
 
 
@@ -89,6 +80,7 @@ import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGene
 import {useStyle} from "@/main";
 import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
 const {t} = useI18n()
 const style = useStyle()
@@ -102,7 +94,9 @@ const model = computed({
     useBuilderStateStore.setConfiguredField(val)
   }
 })
-
+const props = defineProps<{
+  active: boolean
+}>()
 
 interface SchemaSimpleValidation {
   name: string | null,
