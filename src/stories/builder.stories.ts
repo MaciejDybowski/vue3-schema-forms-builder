@@ -19,14 +19,21 @@ export const FormBuilderStory: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "text-field-139": {
-          "label": "Item-text-field-139",
-          "layout": {"component": "text-field"},
-          "defaultValue": "Maciek",
+        "tableOfRelationships": {
+          "layout": {"component": "table-view"},
+          "source": {
+            "data": "/api/v1/customers/{dataId}/relationships",
+            "headers": [{"title": "Identyfikator", "key": "id", "type": "TEXT"}, {
+              "title": "Nazwa",
+              "key": "name",
+              "type": "TEXT"
+            }]
+          },
+          "actions": {}
         }
       },
       "required": []
-    }
-  },
-};
+    },
+  }
+}
 

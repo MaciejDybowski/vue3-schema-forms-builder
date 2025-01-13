@@ -48,7 +48,7 @@
       <divider-properties v-if="model.layout.component == 'divider'"/>
       <image-properties v-if="model.layout.component == 'image'"/>
       <fields-group v-if="model.layout.component == 'fields-group'"/>
-      <table-view-properties v-if="model.layout.component == 'table'"/>
+      <table-view-properties v-if="model.layout.component == 'table-view'"/>
     </v-list>
 
   </v-navigation-drawer>

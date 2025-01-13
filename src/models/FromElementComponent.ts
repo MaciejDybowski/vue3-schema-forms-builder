@@ -21,4 +21,4 @@ export type FromElementComponent =
   | "divider"
   | "image"
   | "fields-group"
-  | "table"
+  | "table-view"
