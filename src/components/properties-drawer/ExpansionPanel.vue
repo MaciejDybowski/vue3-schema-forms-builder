@@ -1,7 +1,9 @@
 <template>
   <v-expansion-panel
+    class="tcn-expansion-panel"
     :value="value"
   >
+    <v-divider v-if="active"/>
     <v-expansion-panel-title
       collapse-icon="mdi-minus"
       expand-icon="mdi-plus">
@@ -28,6 +30,10 @@ const props = defineProps<{
 <style lang="scss" scoped>
 :deep(.v-expansion-panel-text__wrapper) {
   padding: 0 0;
+}
+
+:deep(.tcn-expansion-panel hr){
+  display: none;
 }
 
 .v-expansion-panel--active:not(:first-child), .v-expansion-panel--active + .v-expansion-panel {

@@ -1,35 +1,71 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <multiple-property v-model="model.layout.props.multiple"/>
-  <number-general
-    v-if="model.layout.props.multiple == true"
-    :label="t('maxSelection')"
-    v-model="model.layout.props.maxSelection"
-  />
 
-  <if-property v-model="model.layout.if"/>
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
 
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic">
+      <read-only-property v-model="model.layout.props.readonly"/>
 
-  <v-list-item density="compact">
-    <v-divider/>
-  </v-list-item>
-  <v-list-item density="compact">
-    <span class="text-subtitle-1">{{ t("customsTitle") }}</span>
-  </v-list-item>
-  <group-filter-property v-model="filter.group"/>
-  <user-url-source v-model="source"/>
-  <validation-configuration/>
+      <if-property v-model="model.layout.if"/>
+      <switch-general
+        v-model="model.layout.hide"
+        :label="model.layout.hide ? t('hide') : t('visible')"
+      />
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('fieldProps')"
+      title="Properties"
+      value="fieldProps"
+    >
+      <multiple-property v-model="model.layout.props.multiple"/>
+      <number-general
+        v-if="model.layout.props.multiple == true"
+        v-model="model.layout.props.maxSelection"
+        :label="t('maxSelection')"
+      />
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('source')"
+      title="Source"
+      value="source"
+    >
+      <user-url-source v-model="source"/>
+    </expansion-panel>
+
+    <validation-configuration :active="panels.includes('validations')"/>
+  </v-expansion-panels>
+
 
 </template>
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -37,14 +73,16 @@ import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import GroupFilterProperty from "@/components/properties-drawer/atoms/GroupFilterProperty.vue";
 import {useI18n} from "vue-i18n";
 import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
 import MultipleProperty from "@/components/properties-drawer/atoms/MultipleProperty.vue";
 import UserUrlSource from "@/components/properties-drawer/atoms/UserUrlSource.vue";
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
+const panels = ref<string[]>(["general", "logic", "source", "validations"]);
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 const model = computed({

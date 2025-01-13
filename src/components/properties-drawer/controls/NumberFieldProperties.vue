@@ -1,89 +1,127 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <default-value-property/>
-  <v-list-item>
-    <v-switch
-      class="mx-2"
-      v-model="model.type"
-      :label="model.type=='int' ? t('int') : t('float')"
-      false-value="float"
-      true-value="int"
-      hide-details="auto"
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+      <default-value-property/>
+      <v-list-item>
+        <v-switch
+          v-model="model.type"
+          :label="model.type=='int' ? t('int') : t('float')"
+          class="mx-2"
+          false-value="float"
+          hide-details="auto"
+          true-value="int"
+        />
+      </v-list-item>
+
+      <textfield-general
+        v-if="model.type=='float'"
+        v-model="model.precision"
+        :label="t('precision')"
+        type="number"
+      />
+      <textfield-general
+        v-if="model.type=='float'"
+        v-model="model.precisionMin"
+        :label="t('precisionMin')"
+        type="number"
+      />
+
+      <select-general
+        v-if="model.type=='float'"
+        v-model="model.roundOption"
+        :items="[{value: 'ceil', title: t('ceilOptionLabel')}, {value:'floor', title: t('floorOptionLabel')}, {value:'round', title: t('roundOptionLabel')}]"
+        :label="t('roundLabel')"
+        :return-object="false"
+        clearable
+      />
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic">
+      <read-only-property v-model="model.layout.props.readonly"/>
+
+      <textfield-general
+        :label="t('readonlyIfExpression')"
+        :model-value="model.layout.props.readonly"
+        @update:model-value="updateExpressionReadonly"
+      />
+      <if-property v-model="model.layout.if"/>
+
+      <switch-general
+        v-model="model.layout.hide"
+        :label="model.layout.hide ? t('hide') : t('visible')"
+      />
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('expressions')"
+      title="Expressions"
+      value="expressions"
+    >
+      <textfield-general
+        v-model="model.expression"
+        :label="t('expression')"
+      />
+
+      <textfield-general
+        v-model="model.calculation"
+        :label="t('calculation')"
+      />
+
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('fieldProps')"
+      title="Field properties"
+      value="fieldProps"
+    >
+      <textfield-general
+        v-model="model.layout.props['hint']"
+        :label="t('hint')"
+      />
+      <textfield-general
+        :label="t('persistentHintIfExpression')"
+        :model-value="model.layout.props['persistent-hint']"
+        @update:model-value="updateExpressionPersistentHint"
+      />
+      <checkbox-general
+        v-model="model.layout.props['persistent-hint']"
+        :label="t('persistentHint')"
+      />
+    </expansion-panel>
+
+    <validation-configuration :active="panels.includes('validations')"
     />
-  </v-list-item>
 
-  <textfield-general
-    v-if="model.type=='float'"
-    :label="t('precision')"
-    v-model="model.precision"
-    type="number"
-  />
-  <textfield-general
-    v-if="model.type=='float'"
-    :label="t('precisionMin')"
-    v-model="model.precisionMin"
-    type="number"
-  />
-
-  <select-general
-    v-if="model.type=='float'"
-    v-model="model.roundOption"
-    :items="[{value: 'ceil', title: t('ceilOptionLabel')}, {value:'floor', title: t('floorOptionLabel')}, {value:'round', title: t('roundOptionLabel')}]"
-    :label="t('roundLabel')"
-    :return-object="false"
-    clearable
-  />
-
-
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-    <read-only-property v-model="model.layout.props.readonly"/>
-
-  <textfield-general
-    :label="t('readonlyIfExpression')"
-    :model-value="model.layout.props.readonly"
-    @update:model-value="updateExpressionReadonly"
-  />
-
-  <if-property v-model="model.layout.if"/>
-
-  <switch-general
-    v-model="model.layout.hide"
-    :label="model.layout.hide ? t('hide') : t('visible')"
-  />
-
-  <textfield-general
-    :label="t('expression')"
-    v-model="model.expression"
-  />
-
-  <textfield-general
-    :label="t('calculation')"
-    v-model="model.calculation"
-  />
-  <textfield-general
-    :label="t('hint')"
-    v-model="model.layout.props['hint']"
-  />
-  <textfield-general
-    :label="t('persistentHintIfExpression')"
-    :model-value="model.layout.props['persistent-hint']"
-    @update:model-value="updateExpressionPersistentHint"
-  />
-  <checkbox-general
-    :label="t('persistentHint')"
-    v-model="model.layout.props['persistent-hint']"
-  />
-  <validation-configuration/>
-  <event-configuration/>
-
+    <event-configuration :active="panels.includes('events')"/>
+  </v-expansion-panels>
 </template>
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -100,7 +138,9 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
+const panels = ref<string[]>(["general", "logic", "expressions"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -114,7 +154,7 @@ const model = computed({
 const {t} = useI18n()
 
 function updateExpressionPersistentHint(val: string) {
-  if(!val){
+  if (!val) {
     model.value.layout.props['persistent-hint'] = false
   } else {
     model.value.layout.props['persistent-hint'] = val
@@ -122,7 +162,7 @@ function updateExpressionPersistentHint(val: string) {
 }
 
 function updateExpressionReadonly(val: string) {
-  if(!val){
+  if (!val) {
     model.value.layout.props['readonly'] = false
   } else {
     model.value.layout.props['readonly'] = val

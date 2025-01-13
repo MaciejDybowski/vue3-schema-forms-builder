@@ -1,14 +1,34 @@
 <template>
-  <key-property v-model="model.key"/>
-  <col-property v-model="model.layout.cols"/>
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+    </expansion-panel>
+  </v-expansion-panels>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
-import {computed} from "vue";
+import {computed, ref} from "vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
+const panels = ref<string[]>(["general", "layout"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -21,6 +41,6 @@ const model = computed({
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

@@ -1,57 +1,84 @@
 <template>
-  <key-property v-model="model.key"/>
-  <content-propery v-model="model.content"/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <if-property v-model="model.layout.if"/>
 
-  <select-general
-    v-if="model.layout.tag=='v-alert'"
-    v-model="model.layout.props.variant"
-    :items="[
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <content-propery v-model="model.content"/>
+      <select-general
+        v-if="model.layout.tag=='v-alert'"
+        v-model="model.layout.props.variant"
+        :items="[
        {value: 'flat', title: t('flat')},
        {value:'elevated', title: t('elevated')},
        {value:'plain', title: t('plain')},
        {value:'outlined', title: t('outlined')},
        {value:'text', title: t('text')},
        {value:'tonal', title: t('tonal')}]"
-    :label="t('variantLabel')"
-    :return-object="false"
-    clearable
-  />
+        :label="t('variantLabel')"
+        :return-object="false"
+        clearable
+      />
 
-  <select-general
-    v-if="model.layout.tag=='v-alert'"
-    v-model="model.layout.props.type"
-    :items="[
+      <select-general
+        v-if="model.layout.tag=='v-alert'"
+        v-model="model.layout.props.type"
+        :items="[
        {value: 'success', title: t('success')},
        {value:'info', title: t('info')},
        {value:'warning', title: t('warning')},
        {value:'error', title: t('error')}]
     "
-    :label="t('typeLabel')"
-    :return-object="false"
-    clearable
-  />
+        :label="t('typeLabel')"
+        :return-object="false"
+        clearable
+      />
 
-  <select-general
-    v-if="model.layout.tag=='v-alert'"
-    v-model="model.layout.props.density"
-    :items="[
+      <select-general
+        v-if="model.layout.tag=='v-alert'"
+        v-model="model.layout.props.density"
+        :items="[
        {value: 'default', title: t('default')},
        {value:'comfortable', title: t('comfortable')},
        {value:'compact', title: t('compact')}]
     "
-    :label="t('densityLabel')"
-    :return-object="false"
-    clearable
-  />
+        :label="t('densityLabel')"
+        :return-object="false"
+        clearable
+      />
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
+  </v-expansion-panels>
+
 
 </template>
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
@@ -60,7 +87,9 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import {useI18n} from "vue-i18n";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
+const panels = ref<string[]>(["general", "logic"])
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 const model = computed({

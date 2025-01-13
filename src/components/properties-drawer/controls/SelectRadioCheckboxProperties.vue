@@ -1,30 +1,73 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <default-value-property/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <if-property v-model="model.layout.if"/>
-  <horizontal-radio-or-checkbox-property
-    v-if="component == 'checkbox' || component == 'radio-button'"
-    v-model="model.layout.props.inline"
-  />
-  <checkbox-general
-    v-if="component == 'checkbox'"
-    :label="t('multipleProps')"
-    v-model="model.layout.props.multiple"
-  />
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <simple-source-property v-model="source"/>
-  <validation-configuration/>
+
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+      <default-value-property/>
+
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('fieldProps')"
+      title="Field properties"
+      value="fieldProps"
+    >
+      <horizontal-radio-or-checkbox-property
+        v-if="component == 'checkbox' || component == 'radio-button'"
+        v-model="model.layout.props.inline"
+      />
+      <checkbox-general
+        v-if="component == 'checkbox'"
+        v-model="model.layout.props.multiple"
+        :label="t('multipleProps')"
+      />
+    </expansion-panel>
+
+
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+
+      <read-only-property v-model="model.layout.props.readonly"/>
+    </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('source')"
+      title="Source"
+      value="source"
+    >
+      <simple-source-property v-model="source"/>
+    </expansion-panel>
+    <validation-configuration :active="panels.includes('validations')"/>
+  </v-expansion-panels>
 
 </template>
 
-
 <script lang="ts" setup>
 
-import {computed, ComputedRef} from "vue";
+import {computed, ComputedRef, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -41,7 +84,9 @@ import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGenera
 import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
+const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()
 const model = computed({
@@ -84,7 +129,6 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
   },
   "pl": {
     "multipleProps": "Dozwolone wiele wartości"
-
   }
 }
 </i18n>

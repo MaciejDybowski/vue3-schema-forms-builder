@@ -1,19 +1,50 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <default-value-property/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <if-property v-model="model.layout.if"/>
-  <format-in-model-property v-model="model.formatInModel"/>
-  <validation-configuration/>
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+      <default-value-property/>
+      <format-in-model-property v-model="model.formatInModel"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <read-only-property v-model="model.layout.props.readonly"/>
+      <if-property v-model="model.layout.if"/>
+      <switch-general
+        v-model="model.layout.hide"
+        :label="model.layout.hide ? t('hide') : t('visible')"
+      />
+    </expansion-panel>
+    <validation-configuration :active="panels.includes('validations')"
+    />
+  </v-expansion-panels>
+
+
 </template>
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -25,7 +56,12 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import FormatInModelProperty from "@/components/properties-drawer/atoms/FormatInModelProperty.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
+const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

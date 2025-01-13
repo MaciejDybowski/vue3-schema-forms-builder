@@ -1,25 +1,61 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <default-value-property/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <switch-general
-    v-model="model.layout.props.clearable"
-    label="Dodać ikonę kasowania?"
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+      <default-value-property/>
+      <switch-general
+        v-model="model.layout.props.clearable"
+        label="Dodać ikonę kasowania?"
+      />
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+
+  <expansion-panel
+    :active="panels.includes('logic')"
+    title="Logic"
+    value="logic"
+  >
+    <read-only-property v-model="model.layout.props.readonly"/>
+    <if-property v-model="model.layout.if"/>
+  </expansion-panel>
+
+  <expansion-panel
+    :active="panels.includes('source')"
+    title="Source"
+    value="source"
+  >
+    <source-property v-model="source"/>
+  </expansion-panel>
+
+  <validation-configuration :active="panels.includes('validations')"
   />
-  <source-property v-model="source"/>
-  <if-property v-model="model.layout.if"/>
-  <validation-configuration/>
-  <event-configuration/>
+  <event-configuration :active="panels.includes('events')"/>
+
+
+  </v-expansion-panels>
 </template>
 
 <script lang="ts" setup>
 
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
@@ -32,7 +68,9 @@ import EventConfiguration from "@/components/properties-drawer/atoms/EventConfig
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
+const panels = ref<string[]>(["general", "logic", "source"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

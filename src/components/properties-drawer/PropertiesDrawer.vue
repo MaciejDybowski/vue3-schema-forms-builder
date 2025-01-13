@@ -9,25 +9,25 @@
     width="350"
   >
 
-<!--    <v-expansion-panels
-      v-model="panels"
-      elevation="0"
-      multiple
-    >
-      <expansion-panel
-        :active="panels.includes('properties')"
-        title="Properties"
-        value="properties"
-      >
+    <!--    <v-expansion-panels
+          v-model="panels"
+          elevation="0"
+          multiple
+        >
+          <expansion-panel
+            :active="panels.includes('general')"
+            title="General"
+            value="general"
+          >
 
-      </expansion-panel>
-      <expansion-panel
-        :active="panels.includes('layout')"
-        title="Layout"
-        value="layout"
-      >
-      </expansion-panel>
-    </v-expansion-panels>-->
+          </expansion-panel>
+          <expansion-panel
+            :active="panels.includes('layout')"
+            title="Layout"
+            value="layout"
+          >
+          </expansion-panel>
+        </v-expansion-panels>-->
 
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
@@ -47,6 +47,7 @@
       <switch-properties v-if="model.layout.component == 'switch'"/>
       <divider-properties v-if="model.layout.component == 'divider'"/>
       <image-properties v-if="model.layout.component == 'image'"/>
+
       <fields-group v-if="model.layout.component == 'fields-group'"/>
     </v-list>
 
@@ -74,9 +75,6 @@ import NumberFieldProperties from "@/components/properties-drawer/controls/Numbe
 import DividerProperties from "@/components/properties-drawer/controls/DividerProperties.vue";
 import ImageProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
 import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

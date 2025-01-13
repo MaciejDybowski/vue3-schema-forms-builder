@@ -9,6 +9,10 @@
       :label="t('requiredProperty')"
     />
 
+    <slot name="afterRequired">
+
+    </slot>
+
     <v-divider
       :thickness="2"
       class="mx-4 my-2"
@@ -55,18 +59,6 @@
       @click="validations.push({name: null, rule: null, message:null})"
     >
     </v-btn>
-
-    <v-divider
-      :thickness="2"
-      class="mx-4 my-2"
-      color="primary"
-      opacity="50"
-    ></v-divider>
-    <span class="v-card-subtitle">Licznik znaków</span>
-    <number-general
-      v-model="model.layout.props['counter']"
-      :label="t('counter')"
-    />
   </expansion-panel>
 </template>
 

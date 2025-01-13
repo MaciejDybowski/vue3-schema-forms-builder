@@ -1,29 +1,52 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <default-value-property/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <if-property v-model="model.layout.if"/>
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+      <default-value-property/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <read-only-property v-model="model.layout.props.readonly"/>
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
 
-  <v-list-item>
-    <v-list-item-title>{{t('validations')}}</v-list-item-title>
-    <v-list-item-subtitle>
-      <v-divider/>
-    </v-list-item-subtitle>
-  </v-list-item>
-  <number-general
-    :label="t('counter')"
-    v-model="model.layout.props['counter']"
-  />
-  <validation-configuration/>
+
+    <validation-configuration :active="panels.includes('validations')">
+      <template #afterRequired>
+        <number-general
+          v-model="model.layout.props['counter']"
+          :label="t('counter')"
+        />
+      </template>
+    </validation-configuration>
+
+  </v-expansion-panels>
 </template>
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -36,6 +59,9 @@ import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vu
 import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+
+const panels = ref<string[]>(["general", "logic", "validations"])
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 const model = computed({

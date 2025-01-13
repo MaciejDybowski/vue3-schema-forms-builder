@@ -1,23 +1,51 @@
 <template>
-  <key-property v-model="model.key"/>
-  <label-property v-model="model.label"/>
-  <col-property v-model="model.layout.cols"/>
-  <offset-property v-model="model.layout.offset"/>
-  <fill-row-property v-model="model.layout.fillRow"/>
 
-  <read-only-property v-model="model.layout.props.readonly"/>
-  <if-property v-model="model.layout.if"/>
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+    <expansion-panel
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
+    >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model.label"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('layout')"
+      title="Layout"
+      value="layout"
+    >
+      <col-property v-model="model.layout.cols"/>
+      <offset-property v-model="model.layout.offset"/>
+      <fill-row-property v-model="model.layout.fillRow"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+      <read-only-property v-model="model.layout.props.readonly"/>
+    </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('fieldProps')"
+      title="Properties"
+      value="fieldProps"
+    >
+      <false-value-mapping v-model="model.layout.props['false-value']"/>
+      <true-value-mapping v-model="model.layout.props['true-value']"/>
+    </expansion-panel>
 
-  <v-list-item>
-    <v-list-item-title>{{t('valueMapping')}}</v-list-item-title>
-  </v-list-item>
-  <false-value-mapping v-model="model.layout.props['false-value']"/>
-  <true-value-mapping v-model="model.layout.props['true-value']"/>
+  </v-expansion-panels>
+
 </template>
 
 <script lang="ts" setup>
 
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
@@ -29,9 +57,11 @@ import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.
 import {useI18n} from "vue-i18n";
 import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMapping.vue";
 import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()
+const panels = ref<string[]>(["general", "logic", "fieldProps"])
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
