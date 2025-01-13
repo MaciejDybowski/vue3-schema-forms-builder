@@ -125,6 +125,12 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Grupa pól",
     subtitle: "Wizualne grupowanie pól",
     component: "fields-group"
+  },
+  {
+    icon: "mdi-table",
+    label: "Tabela",
+    subtitle: "Dane zew. z edycją poj. wiersza",
+    component: "table"
   }
 ])
 
@@ -298,6 +304,19 @@ function cloneControls(item: ElementDrawerFromElement) {
           },
         },
         src: "/api/v1/features/{context.menuFeatureId}/images/{id}?Workspace-Id={context.workspaceId}&dataId={dataId}&width={width}&height={height}&lastModifiedAt="
+      }
+    case "table":
+      return {
+        formId: '333',
+        key: id,
+        layout: {
+          ...schemaElement.layout,
+        },
+        source: {
+          data: "",
+          headers: []
+        },
+        actions: {}
       }
   }
 }

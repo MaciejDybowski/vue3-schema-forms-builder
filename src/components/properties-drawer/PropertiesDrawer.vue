@@ -47,8 +47,8 @@
       <switch-properties v-if="model.layout.component == 'switch'"/>
       <divider-properties v-if="model.layout.component == 'divider'"/>
       <image-properties v-if="model.layout.component == 'image'"/>
-
       <fields-group v-if="model.layout.component == 'fields-group'"/>
+      <table-view-properties v-if="model.layout.component == 'table'"/>
     </v-list>
 
   </v-navigation-drawer>
@@ -75,6 +75,7 @@ import NumberFieldProperties from "@/components/properties-drawer/controls/Numbe
 import DividerProperties from "@/components/properties-drawer/controls/DividerProperties.vue";
 import ImageProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
 import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
+import TableViewProperties from "@/components/properties-drawer/controls/TableViewProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
