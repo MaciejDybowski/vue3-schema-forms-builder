@@ -2,7 +2,10 @@
   <div>
     <ElementsDrawer/>
     <v-row class="my-4" dense justify="center">
-      <v-col :cols="canvasColumns">
+      <v-col
+        :cols="canvasColumns"
+        :style="`max-width: ${canvasColumnsMaxWidth}`"
+      >
         <v-row dense>
           <v-col class="main-container ma-2" cols="auto">
             <MainCanvasToolboxLeft class="stretch"/>
@@ -57,9 +60,19 @@ const canvasColumns = computed(() => {
     case "DESKTOP":
       return 12;
     case "TABLET":
-      return 8;
-    case "MOBILE":
       return 6;
+    case "MOBILE":
+      return 4;
+  }
+});
+const canvasColumnsMaxWidth = computed(() => {
+  switch (canvas.canvasMode.value) {
+    case "DESKTOP":
+      return "1920px";
+    case "TABLET":
+      return "800px";
+    case "MOBILE":
+      return "400px";
   }
 });
 </script>
