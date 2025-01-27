@@ -18,6 +18,13 @@
     >
       <col-property v-model="model.layout.cols"/>
     </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
   </v-expansion-panels>
 </template>
 
@@ -27,6 +34,9 @@ import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import {computed, ref} from "vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const panels = ref<string[]>(["general", "layout"])
 const useBuilderStateStore = useBuilderState()
