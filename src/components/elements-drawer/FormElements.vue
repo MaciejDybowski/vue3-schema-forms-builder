@@ -314,7 +314,8 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         source: {
           data: "",
-          headers: []
+          headers: [],
+          buttons: []
         },
         actions: {}
       }

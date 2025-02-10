@@ -23,13 +23,78 @@ export const FormBuilderStory: Story = {
           "layout": {"component": "table-view"},
           "source": {
             "data": "/api/v1/customers/{dataId}/relationships",
-            "headers": [{"title": "Identyfikator", "key": "id", "type": "TEXT"}, {
-              "title": "Nazwa",
-              "key": "name",
-              "type": "TEXT"
-            }]
+            "buttons": [
+              {
+                label: "Add products",
+                btnProps: {
+                  color: "primary",
+                  rounded: false,
+                },
+                mode: "action",
+                config: {
+                  code: "batchAdd", // na froncie jest sprawdzanie jak batchAdd to i tak woła skrypt bo w obsłudze zadanie jest tylko jedna uniwersalna akcja
+                  featureId: "products",
+                  viewId: "94578-tabela",
+                  batchAddAttributePath: "dataId",
+                  scriptName: "add_products_to_offer",
+                },
+              },
+            ],
+            "headers": [
+              {
+                "title": "Identyfikator",
+                valueMapping: "Test",
+                "key": "id",
+                "type": "TEXT"
+              },
+              {
+                "title": "Nazwa",
+                "key": "name",
+                "type": "TEXT"
+              },
+              {
+                title: "",
+                key: "actions",
+                actions: [
+                  {
+                    icon: "mdi-delete-outline",
+                    mode: "action",
+                    code: "callScript",
+                    config: {
+                      params: {
+                        script: "delete_product_from_offer",
+                      },
+                      body: {
+                        dataId: "{product.id}",
+                      },
+                    },
+                    props: {
+                      color: "error",
+                    },
+                  },
+                  {
+                    condition: "",
+                    icon: "mdi-shipping-pallet",
+                    mode: "action",
+                    code: "callScript",
+                    config: {
+                      params: {
+                        script: "add_pallet_price",
+                      },
+                      body: {
+                        dataId: "{product.id}",
+                      },
+                    },
+                    props: {
+                      color: "primary",
+                    },
+                  },
+                ],
+              },]
           },
-          "actions": {}
+          "actions": {
+            "name": "nameAndCosTam"
+          }
         }
       },
       "required": []

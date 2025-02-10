@@ -20,6 +20,10 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     // Merge custom configuration into the default config
     return mergeConfig(config, {
+      define: {
+        "process.env": {},
+        //'process.env.NODE_DEBUG': false,
+      },
       // Add dependencies to pre-optimization
       optimizeDeps: {
         include: ['storybook-dark-mode'],

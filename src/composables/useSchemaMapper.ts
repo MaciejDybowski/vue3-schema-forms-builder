@@ -127,6 +127,8 @@ export function useSchemaMapper() {
 
   // funkcje i if'y czyszczące JSON do minimum dla silnika i przejrzystości
   function cleanJson(formElement: Partial<DraggableFormElement>) {
+    delete formElement.sectionKey
+
     const layout: Partial<Layout> = formElement.layout as Partial<Layout>
     const cols = {
       xs: 12,

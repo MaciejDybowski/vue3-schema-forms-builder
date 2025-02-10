@@ -20,6 +20,8 @@ const preview: Preview = {
       },
     },
   },
+
+  tags: ['autodocs', 'autodocs']
 };
 
 const pinia = createPinia();
