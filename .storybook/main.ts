@@ -22,7 +22,6 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       define: {
         "process.env": {},
-        //'process.env.NODE_DEBUG': false,
       },
       // Add dependencies to pre-optimization
       optimizeDeps: {

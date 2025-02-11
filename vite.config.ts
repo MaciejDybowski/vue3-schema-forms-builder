@@ -36,7 +36,9 @@ export default defineConfig({
       },
     },
   ],
-
+  define: {
+    'process.env': {}
+  },
   build: {
     cssCodeSplit: true,
     sourcemap: true,
