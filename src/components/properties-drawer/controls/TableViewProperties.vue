@@ -98,15 +98,29 @@
             label="Editable"
           />
 
-          <div v-if="currentConfiguredHeader.key == 'actions'">
-            <div
-              v-for="(headerAction,index) in currentConfiguredHeader.actions">
+          <v-card v-if="currentConfiguredHeader.key != 'actions'"
+                  class="mx-4 my-2"
+                  height="200px"
+          >
+            <v-card-title>Header properties</v-card-title>
+            <v-card-text>
+              <tcn-code-editor
+                :model-value="JSON.stringify(currentConfiguredHeader.properties, null, 2)"
+                height="200px"
+                language="json"
+                @update:model-value="value => tryParseAsJsonHeaderProperties(value, currentConfiguredHeader)"
+              />
+            </v-card-text>
+          </v-card>
 
+
+          <div v-if="currentConfiguredHeader.key == 'actions'">
+            <div v-for="(headerAction,index) in currentConfiguredHeader.actions">
               <v-card class="mx-4 my-2">
                 <v-card-text>
                   <tcn-code-editor
                     :model-value="JSON.stringify(headerAction, null, 2)"
-                    height="300px"
+                    height="150px"
                     language="json"
                     @update:model-value="value => tryParseAsJson(value, currentConfiguredHeader, index)"
                   />
@@ -293,6 +307,15 @@ function configHeader(header: any) {
 function configButton(button: any) {
   currentConfiguredButton.value = button
   configButtonDialog.value = true
+}
+
+function tryParseAsJsonHeaderProperties(value: string, currentConfiguredHeader) {
+  try {
+    const temp = JSON.parse(value)
+    currentConfiguredHeader.properties = temp
+  } catch (e) {
+    console.warn("Parsing error")
+  }
 }
 
 function tryParseAsJsonActions(value: string) {
