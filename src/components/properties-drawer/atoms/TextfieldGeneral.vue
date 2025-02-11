@@ -2,24 +2,29 @@
   <v-list-item>
     <v-textarea
       v-model="modelValue"
-      :label="label"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
-      rows="1"
       :auto-grow="true"
+      :label="label"
+      :rows="rows"
+      class="pt-2"
+      v-bind="{...style.inputStyle.value, ...attrs}"
     />
   </v-list-item>
 </template>
 
 <script lang="ts" setup>
 import {useStyle} from "@/main";
+import {useAttrs} from "vue";
 
 const modelValue = defineModel()
 const style = useStyle()
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   label: string
-}>()
+  rows?: number
+}>(), {
+  rows: 1
+})
 
+const attrs = useAttrs()
 </script>
 
 <style lang="scss" scoped>

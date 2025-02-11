@@ -6,7 +6,7 @@ import {withVuetifyTheme} from './withVuetifyTheme.decorator';
 import i18n, {i18nConfig} from './plugins/i18n';
 import {createPinia} from 'pinia';
 import {toastOptions} from "./plugins/toastify";
-import tecnaVueShared from "./plugins/tecnaVueShared";
+import tecnaVueShared, {tecnaCodeEditor} from "./plugins/tecnaVueShared";
 import {App} from "vue";
 import Vue3Toastify from "vue3-toastify";
 
@@ -30,6 +30,7 @@ setup(async (app: App) => {
     .use(i18n)
     .use(pinia)
     .use(tecnaVueShared)
+    .use(tecnaCodeEditor)
     .use(Vue3Toastify, toastOptions)
 })
 

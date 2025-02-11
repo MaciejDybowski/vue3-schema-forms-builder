@@ -33,65 +33,26 @@
       value="headers"
     >
 
-      <div v-for="(header, index) in headers">
+      <div v-for="(header, index) in headers"
+           class="d-flex align-center my-1"
+      >
         <textfield-general
-          v-if="header.key !== 'actions'"
           v-model="header.title"
           label="Title"/>
-        <textfield-general
-          v-model="header.key"
-          label="Key"/>
-        <textfield-general
-          v-if="header.key !== 'actions'"
-          v-model="header.valueMapping"
-          label="Value mapping"/>
-        <select-general
-          v-if="header.key !== 'actions'"
-          v-model="header.type"
-          :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}]"
-          :return-object="false"
-          clearable
-          label="Typ pola"
-        />
-        <switch-general
-          v-if="header.type=='TEXT' || header.type=='NUMBER'"
-          v-model="header.editable"
-          label="Editable"
-        />
+
         <v-btn
-          class="mx-4"
-          color="error"
-          density="compact"
-          text="Usuń"
+          class="mx-1"
+          icon="mdi-cog"
+          size="x-small"
+          @click="configHeader(header)"
+        />
+
+        <v-btn
+          class="mx-1"
+          icon="mdi-delete"
+          size="x-small"
           @click="removeHeader(index)"
         />
-
-
-        <!-- actions config -->
-        <div v-for="(headerAction,index) in header.actions">
-          <textfield-general
-            :model-value="JSON.stringify(headerAction, undefined,4)"
-            label=""
-            @update:model-value="value => header.actions[index] = JSON.parse(value)"
-          />
-          <v-btn
-            class="mx-4"
-            color="error"
-            density="compact"
-            text="Delete action"
-            @click="header.actions = header.actions.filter((item, i) => i !== index)"
-          />
-          <v-btn
-            class="mx-4 my-2"
-            color="primary"
-            density="compact"
-            text="Add action"
-            @click="header.actions.push({})"
-          />
-        </div>
-
-
-        <v-divider class="mt-2 mx-4"/>
       </div>
       <v-btn
         class="mx-4 my-2"
@@ -101,6 +62,78 @@
         @click="headers.push({})"
       />
 
+      <tcn-au-dialog
+        v-if="configHeaderDialog"
+        v-model="configHeaderDialog"
+        :acceptColor="style.primaryWhite.value"
+        acceptText="Save"
+        scrollable
+        width="800px"
+        @acceptButton="configHeaderDialog = false"
+        @closeButton="configHeaderDialog = false"
+      >
+        <template #title>
+          <v-card-title>
+            Table header to configure: {{ currentConfiguredHeader.title }}
+          </v-card-title>
+        </template>
+
+        <v-card-text>
+          <textfield-general
+            v-model="currentConfiguredHeader.key"
+            label="Key"/>
+          <textfield-general
+            v-model="currentConfiguredHeader.valueMapping"
+            label="Value mapping"/>
+          <select-general
+            v-model="currentConfiguredHeader.type"
+            :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}]"
+            :return-object="false"
+            clearable
+            label="Typ pola"
+          />
+          <switch-general
+            v-if="currentConfiguredHeader.type=='TEXT' || currentConfiguredHeader.type=='NUMBER'"
+            v-model="currentConfiguredHeader.editable"
+            label="Editable"
+          />
+
+          <div
+            v-for="(headerAction,index) in currentConfiguredHeader.actions"
+            v-if="currentConfiguredHeader.key == 'actions'">
+            <v-card class="mx-4 my-2">
+              <v-card-text>
+                <tcn-code-editor
+                  :model-value="JSON.stringify(headerAction, null, 2)"
+                  height="300px"
+                  language="json"
+                  @update:model-value="value => tryParseAsJson(value, currentConfiguredHeader, index)"
+                />
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  color="error"
+                  density="compact"
+                  text="Delete action"
+                  variant="elevated"
+                  @click="currentConfiguredHeader.actions = currentConfiguredHeader.actions.filter((item, i) => i !== index)"
+                />
+              </v-card-actions>
+            </v-card>
+
+
+          </div>
+          <v-btn
+            class="mx-4"
+            color="primary"
+            density="compact"
+            text="Add action"
+            variant="elevated"
+            @click="currentConfiguredHeader.actions.push({})"
+          />
+        </v-card-text>
+      </tcn-au-dialog>
+
     </expansion-panel>
 
     <expansion-panel
@@ -108,42 +141,85 @@
       title="Buttons"
       value="buttons"
     >
-      <div v-for="(button, index) in buttons">
+      <div v-for="(button, index) in buttons"
+           class="d-flex align-center my-1">
         <textfield-general
           v-model="button.label"
           label="Label"/>
+        <v-btn
+          class="mx-1"
+          icon="mdi-cog"
+          size="x-small"
+          @click="configButton(button)"
+        />
+
+        <v-btn
+          class="mx-1"
+          icon="mdi-delete"
+          size="x-small"
+          @click="buttons = buttons.filter((item, i) => i !== index)"
+        />
+
+        <v-divider class="mt-2 mx-4"/>
+      </div>
+
+      <tcn-au-dialog
+        v-if="configButtonDialog"
+        v-model="configButtonDialog"
+        :acceptColor="style.primaryWhite.value"
+        acceptText="Save"
+        scrollable
+        width="800px"
+        @acceptButton="configButtonDialog = false"
+        @closeButton="configButtonDialog = false"
+      >
+
+        <template #title>
+          <v-card-title>
+            Table action to configure: {{ currentConfiguredButton.label }}
+          </v-card-title>
+        </template>
+
         <select-general
-          v-model="button.mode"
+          v-model="currentConfiguredButton.mode"
           :items="[{value: 'action', title: 'Action'}]"
           :return-object="false"
           clearable
           label="Mode"
         />
-        <textfield-general
-          :model-value="JSON.stringify(button.btnProps, undefined, 4)"
-          label="Props"
-          @update:model-value="value => button.btnProps = JSON.parse(value)"
-        />
-        <textfield-general
-          :model-value="JSON.stringify(button.config, undefined, 4)"
-          label="Config"
-          @update:model-value="value => button.config = JSON.parse(value)"
-        />
 
-        <v-btn
-          class="mx-4"
-          color="error"
-          density="compact"
-          text="Delete"
-          @click="buttons = buttons.filter((item, i) => i !== index)"
-        />
-        <v-divider class="mt-2 mx-4"/>
-      </div>
+        <v-card class="mx-4 my-2">
+          <v-card-title>Button configuration</v-card-title>
+          <v-card-text>
+            <tcn-code-editor
+              :model-value="JSON.stringify(currentConfiguredButton.config, null, 2)"
+              height="300px"
+              label="Config"
+              language="json"
+              @update:model-value="value => tryParseAsJsonButtonConfig(value, currentConfiguredButton,)"
+            />
+          </v-card-text>
+        </v-card>
+
+        <v-card class="mx-4 my-2">
+          <v-card-title>Button properties (Vuetify)</v-card-title>
+          <v-card-text>
+            <tcn-code-editor
+              :model-value="JSON.stringify(currentConfiguredButton.btnProps, null, 2)"
+              height="300px"
+              label="Props"
+              language="json"
+              @update:model-value="value => tryParseAsJsonButtonProps(value, currentConfiguredButton,)"
+            />
+          </v-card-text>
+        </v-card>
+      </tcn-au-dialog>
+
       <v-btn
         class="mx-4 my-2"
         color="primary"
         density="compact"
-        text="Dodaj"
+        text="Add"
         @click="buttons.push({label: null, mode: null})"
       />
     </expansion-panel>
@@ -152,11 +228,14 @@
       title="Actions"
       value="actions"
     >
-      <textfield-general
-        :model-value="JSON.stringify(model.actions, undefined, 4)"
+      <tcn-code-editor
+        :model-value="JSON.stringify(model.actions, null, 2)"
+        height="200px"
         label="JSON Object with actions"
-        @update:model-value="value => mapDefaultValue(value, model.actions)"
+        language="json"
+        @update:model-value="value => tryParseAsJsonActions(value)"
       />
+
 
     </expansion-panel>
 
@@ -168,21 +247,14 @@
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import {computed, onMounted, Ref, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import {useStyle} from "@/main";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
-function mapDefaultValue(val: any, refValue: Ref<any>) {
-
-  try {
-    refValue.value = JSON.parse(val);
-  } catch (e) {
-    refValue.value = null
-  }
-}
-
+const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'headers'])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -204,6 +276,58 @@ function removeHeader(index: number) {
   model.value.source.headers = headers.value
 }
 
+const configHeaderDialog = ref(false)
+const currentConfiguredHeader = ref<any>(null)
+
+
+const configButtonDialog = ref(false)
+const currentConfiguredButton = ref<any>(null)
+
+function configHeader(header: any) {
+  currentConfiguredHeader.value = header
+  configHeaderDialog.value = true
+}
+
+function configButton(button: any) {
+  currentConfiguredButton.value = button
+  configButtonDialog.value = true
+}
+
+function tryParseAsJsonActions(value: string) {
+  try {
+    const temp = JSON.parse(value)
+    model.value.actions = temp
+  } catch (e) {
+    console.warn("Parsing error")
+  }
+}
+
+function tryParseAsJson(value: string, currentConfiguredHeader, index) {
+  try {
+    const temp = JSON.parse(value)
+    currentConfiguredHeader.actions[index] = temp
+  } catch (e) {
+    console.warn("Parsing error")
+  }
+}
+
+function tryParseAsJsonButtonProps(value: string, currentConfiguredButton) {
+  try {
+    const temp = JSON.parse(value)
+    currentConfiguredButton.btnProps = temp
+  } catch (e) {
+    console.warn("Parsing error")
+  }
+}
+
+function tryParseAsJsonButtonConfig(value: string, currentConfiguredButton) {
+  try {
+    const temp = JSON.parse(value)
+    currentConfiguredButton.config = temp
+  } catch (e) {
+    console.warn("Parsing error")
+  }
+}
 
 onMounted(() => {
   headers.value = model.value.source.headers
