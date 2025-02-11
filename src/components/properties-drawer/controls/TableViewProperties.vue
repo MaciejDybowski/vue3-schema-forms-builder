@@ -98,39 +98,41 @@
             label="Editable"
           />
 
-          <div
-            v-for="(headerAction,index) in currentConfiguredHeader.actions"
-            v-if="currentConfiguredHeader.key == 'actions'">
-            <v-card class="mx-4 my-2">
-              <v-card-text>
-                <tcn-code-editor
-                  :model-value="JSON.stringify(headerAction, null, 2)"
-                  height="300px"
-                  language="json"
-                  @update:model-value="value => tryParseAsJson(value, currentConfiguredHeader, index)"
-                />
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  color="error"
-                  density="compact"
-                  text="Delete action"
-                  variant="elevated"
-                  @click="currentConfiguredHeader.actions = currentConfiguredHeader.actions.filter((item, i) => i !== index)"
-                />
-              </v-card-actions>
-            </v-card>
+          <div v-if="currentConfiguredHeader.key == 'actions'">
+            <div
+              v-for="(headerAction,index) in currentConfiguredHeader.actions">
+
+              <v-card class="mx-4 my-2">
+                <v-card-text>
+                  <tcn-code-editor
+                    :model-value="JSON.stringify(headerAction, null, 2)"
+                    height="300px"
+                    language="json"
+                    @update:model-value="value => tryParseAsJson(value, currentConfiguredHeader, index)"
+                  />
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    color="error"
+                    density="compact"
+                    text="Delete action"
+                    variant="elevated"
+                    @click="currentConfiguredHeader.actions = currentConfiguredHeader.actions.filter((item, i) => i !== index)"
+                  />
+                </v-card-actions>
+              </v-card>
 
 
+            </div>
+            <v-btn
+              class="mx-4"
+              color="primary"
+              density="compact"
+              text="Add action"
+              variant="elevated"
+              @click="() => 'actions' in currentConfiguredHeader? currentConfiguredHeader.actions.push({}): currentConfiguredHeader['actions'] = [{}]"
+            />
           </div>
-          <v-btn
-            class="mx-4"
-            color="primary"
-            density="compact"
-            text="Add action"
-            variant="elevated"
-            @click="currentConfiguredHeader.actions.push({})"
-          />
         </v-card-text>
       </tcn-au-dialog>
 
