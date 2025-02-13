@@ -58,24 +58,23 @@ import {useDrawers} from "@/composables/useDrawers";
 import {computed, ref} from "vue";
 import FormElements from "@/components/elements-drawer/FormElements.vue";
 import PageElements from "@/components/elements-drawer/PageElements.vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const drawers = useDrawers();
-
-
 const tab = ref(null)
 const tabs = ref([
   {
-    text: 'Fields',
+    text: t('fields'),
     value: 'fields',
   },
   {
-    text: 'Page',
+    text: t('page'),
     value: 'page',
   },
 ])
 
 const query = ref("")
-
 const host = window.location.hostname
 const port = window.location.port
 const storybook = computed(() => {
@@ -87,7 +86,13 @@ const storybook = computed(() => {
 <style lang="scss" scoped></style>
 <i18n lang="json">
 {
-  "en": {},
-  "pl": {}
+  "en": {
+    "fields": "Fields",
+    "page": "Page"
+  },
+  "pl": {
+    "fields": "Pola",
+    "page": "Elementy"
+  }
 }
 </i18n>

@@ -85,6 +85,9 @@
           <textfield-general
             v-model="currentConfiguredHeader.valueMapping"
             label="Value mapping"/>
+          <textfield-general
+            v-model="currentConfiguredHeader.color"
+            label="Color"/>
           <select-general
             v-model="currentConfiguredHeader.type"
             :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}]"
