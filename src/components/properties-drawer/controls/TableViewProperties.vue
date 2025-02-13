@@ -90,10 +90,10 @@
             label="Color"/>
           <select-general
             v-model="currentConfiguredHeader.type"
-            :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}]"
+            :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}, {value: 'ALERT', title: 'Alert'}]"
             :return-object="false"
             clearable
-            label="Typ pola"
+            label="Field type"
           />
           <switch-general
             v-if="currentConfiguredHeader.type=='TEXT' || currentConfiguredHeader.type=='NUMBER'"
