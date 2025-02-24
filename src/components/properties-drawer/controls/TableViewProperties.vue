@@ -32,28 +32,41 @@
       title="Headers"
       value="headers"
     >
-
-      <div v-for="(header, index) in headers"
-           class="d-flex align-center my-1"
+      <draggable
+        v-model="headers"
+        :emptyInsertThreshold="100"
+        :sort="true"
+        class="d-flex flex-wrap"
+        item-key="key"
+        v-bind="dragOptions"
+        @change="updateHeaders"
+        handle=".draggable-icon"
       >
-        <textfield-general
-          v-model="header.title"
-          label="Title"/>
+        <template #item="{element, index}">
+          <div class="draggable-wrapper d-flex align-center justify-center">
+            <v-icon class="px-1 mx-0 draggable-icon cursor-grab"> mdi-drag-vertical</v-icon>
+            <textfield-general
+              v-model="element.title"
+              class="px-1 mx-0"
+              label="Title"/>
 
-        <v-btn
-          class="mx-1"
-          icon="mdi-cog"
-          size="x-small"
-          @click="configHeader(header)"
-        />
+            <v-btn
+              class="mx-1"
+              icon="mdi-cog"
+              size="x-small"
+              @click="configHeader(element)"
+            />
 
-        <v-btn
-          class="mx-1"
-          icon="mdi-delete"
-          size="x-small"
-          @click="removeHeader(index)"
-        />
-      </div>
+            <v-btn
+              class="mx-1"
+              icon="mdi-delete"
+              size="x-small"
+              @click="removeHeader(index)"
+            />
+          </div>
+        </template>
+      </draggable>
+
       <v-btn
         class="mx-4 my-2"
         color="primary"
@@ -272,6 +285,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {useStyle} from "@/main";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import draggable from 'vuedraggable'
 
 const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'headers'])
@@ -289,6 +303,15 @@ const headers = ref<any[]>([])
 const headerAction = ref<any>(null)
 const buttons = ref<any[]>([])
 
+function updateHeaders(val) {
+  model.value.source.headers = headers.value
+}
+
+const dragOptions = {
+  animation: 250,
+  group: "controls",
+  ghostClass: "ghost"
+};
 
 function removeHeader(index: number) {
   headers.value = headers.value.filter((item, i) => i !== index)
