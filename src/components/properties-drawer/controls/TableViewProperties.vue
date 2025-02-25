@@ -37,10 +37,10 @@
         :emptyInsertThreshold="100"
         :sort="true"
         class="d-flex flex-wrap"
+        handle=".draggable-icon"
         item-key="key"
         v-bind="dragOptions"
         @change="updateHeaders"
-        handle=".draggable-icon"
       >
         <template #item="{element, index}">
           <div class="draggable-wrapper d-flex align-center justify-center">
@@ -103,7 +103,7 @@
             label="Color"/>
           <select-general
             v-model="currentConfiguredHeader.type"
-            :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}, {value: 'ALERT', title: 'Alert'}]"
+            :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}, {value: 'ALERT', title: 'Alert'}, {value: 'COLLECTION', title: 'Collection'}]"
             :return-object="false"
             clearable
             label="Field type"
@@ -113,6 +113,21 @@
             v-model="currentConfiguredHeader.editable"
             label="Editable"
           />
+
+          <div v-if="currentConfiguredHeader.type == 'COLLECTION'">
+
+            <v-card class="mx-4 my-2">
+              <v-card-title>Collection items definition</v-card-title>
+              <v-card-text>
+                <tcn-code-editor
+                  :model-value="JSON.stringify(currentConfiguredHeader.items, null, 2)"
+                  height="150px"
+                  language="json"
+                  @update:model-value="value => tryParseAsJsonItemsInCollection(value, currentConfiguredHeader)"
+                />
+              </v-card-text>
+            </v-card>
+          </div>
 
           <v-card v-if="currentConfiguredHeader.key != 'actions'"
                   class="mx-4 my-2"
@@ -333,6 +348,15 @@ function configHeader(header: any) {
 function configButton(button: any) {
   currentConfiguredButton.value = button
   configButtonDialog.value = true
+}
+
+function tryParseAsJsonItemsInCollection(value: string, currentConfiguredHeader){
+  try {
+    const temp = JSON.parse(value)
+    currentConfiguredHeader.items = temp
+  } catch (e) {
+    console.warn("Parsing error")
+  }
 }
 
 function tryParseAsJsonHeaderProperties(value: string, currentConfiguredHeader) {
