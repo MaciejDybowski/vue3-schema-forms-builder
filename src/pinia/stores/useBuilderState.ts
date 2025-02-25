@@ -29,11 +29,15 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     }
   }
 
-  // TODO - refactoring na rekurencyjne
-  function deleteItem(event: ToolbarEvent) {
-    draggableModel.value = draggableModel.value.filter((c: any) => {
-      if ("tempItems" in c && c.key == event.sectionKey) {
-        c.tempItems = c.tempItems.filter((nc: any) => nc.key !== event.key)
+  function deleteItem(event: ToolbarEvent, model = null) {
+    const source = model ? model : draggableModel.value
+    draggableModel.value = source.filter((c: any) => {
+      if ("tempItems" in c) {
+        if (c.key == event.sectionKey) {
+          c.tempItems = c.tempItems.filter((nc: any) => nc.key !== event.key)
+        } else {
+          deleteItem(event, c.tempItems)
+        }
       }
       return c.key !== event.key
     })
