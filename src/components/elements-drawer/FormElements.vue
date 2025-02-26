@@ -233,6 +233,7 @@ function cloneControls(item: ElementDrawerFromElement) {
             addBtnText: "Add element",
             showDivider: false,
             ordinalNumberInModel: false,
+            showFirstInitRow: true
           },
           editable: true,
           showElements: true,

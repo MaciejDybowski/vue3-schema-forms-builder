@@ -57,6 +57,10 @@
         v-model="model.layout.options.ordinalNumberInModel"
         :label="t('ordinalNumberInModel')"
       />
+      <switch-general
+        v-model="model.layout.options.showFirstInitRow"
+        :label="t('showFirstInitRow')"
+      />
     </expansion-panel>
   </v-expansion-panels>
 
@@ -124,7 +128,8 @@ const {t} = useI18n()
     "addBtnMode": "Button mode",
     "addClearNode": "Add clear",
     "copyNode": "Copy above",
-    "actionCall": "Call action"
+    "actionCall": "Call action",
+    "showFirstInitRow": "Show empty first line"
   },
   "pl": {
     "editable": "Edycja sekcji dozwolona",
@@ -133,7 +138,8 @@ const {t} = useI18n()
     "addBtnMode": "Tryb przycisku",
     "addClearNode": "Dodawanie",
     "copyNode": "Kopiowanie powyższego",
-    "actionCall": "Wywołaj akcję"
+    "actionCall": "Wywołaj akcję",
+    "showFirstInitRow": "Pokazuj pusty pierwszy wiersz"
   }
 }
 </i18n>
