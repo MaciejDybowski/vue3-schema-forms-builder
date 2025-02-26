@@ -27,26 +27,33 @@
       <fill-row-property v-model="model.layout.fillRow"/>
     </expansion-panel>
 
-  <expansion-panel
-    :active="panels.includes('logic')"
-    title="Logic"
-    value="logic"
-  >
-    <read-only-property v-model="model.layout.props.readonly"/>
-    <if-property v-model="model.layout.if"/>
-  </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <read-only-property v-model="model.layout.props.readonly"/>
+      <textfield-general
+        :label="t('readonlyIfExpression')"
+        :model-value="model.layout.props.readonly"
+        @update:model-value="updateExpressionReadonly"
+      />
 
-  <expansion-panel
-    :active="panels.includes('source')"
-    title="Source"
-    value="source"
-  >
-    <source-property v-model="source"/>
-  </expansion-panel>
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
 
-  <validation-configuration :active="panels.includes('validations')"
-  />
-  <event-configuration :active="panels.includes('events')"/>
+    <expansion-panel
+      :active="panels.includes('source')"
+      title="Source"
+      value="source"
+    >
+      <source-property v-model="source"/>
+    </expansion-panel>
+
+    
+    <validation-configuration :active="panels.includes('validations')"
+    />
+    <event-configuration :active="panels.includes('events')"/>
 
 
   </v-expansion-panels>
@@ -69,7 +76,10 @@ import ValidationConfiguration from "@/components/properties-drawer/atoms/Valida
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const panels = ref<string[]>(["general", "logic", "source"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -93,6 +103,14 @@ const source = computed({
     useBuilderStateStore.setKeyInConfiguredField("source", val)
   }
 })
+
+function updateExpressionReadonly(val: string) {
+  if (!val) {
+    model.value.layout.props['readonly'] = false
+  } else {
+    model.value.layout.props['readonly'] = val
+  }
+}
 
 </script>
 
