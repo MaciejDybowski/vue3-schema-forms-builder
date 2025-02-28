@@ -35,6 +35,11 @@
       title="Properties"
       value="fieldProps"
     >
+      <textfield-general
+        v-model="model.layout.props['color']"
+        :label="t('color')"
+      />
+
       <false-value-mapping v-model="model.layout.props['false-value']"/>
       <true-value-mapping v-model="model.layout.props['true-value']"/>
     </expansion-panel>
@@ -58,6 +63,7 @@ import {useI18n} from "vue-i18n";
 import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMapping.vue";
 import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()
@@ -81,9 +87,11 @@ const model = computed({
 <i18n lang="json">
 {
   "en": {
+    "color": "Color",
     "valueMapping": "Value mapping"
   },
   "pl": {
+    "color": "Kolor",
     "valueMapping": "Mapowanie wartości"
   }
 }
