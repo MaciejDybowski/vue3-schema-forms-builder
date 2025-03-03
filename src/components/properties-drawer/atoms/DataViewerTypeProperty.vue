@@ -27,6 +27,7 @@ const items = ref([
   {value: "number", title: t('typeOptions.number')},
   {value: "phone", title: t('typeOptions.phone')},
   {value: "date", title: t('typeOptions.date')},
+  {value: "date-time", title: t('typeOptions.date-time')},
   {value: "dictionary", title: t('typeOptions.dictionary')},
 ])
 </script>
@@ -44,6 +45,7 @@ const items = ref([
       "number": "Number",
       "phone": "Phone",
       "date": "Date",
+      "date-time": "Datetime",
       "dictionary": "Dictionary"
     }
   },
@@ -54,6 +56,7 @@ const items = ref([
       "number": "Liczba",
       "phone": "Telefon",
       "date": "Data",
+      "date-time": "Data i czas",
       "dictionary": "Wartość słownikowa"
     }
   }
