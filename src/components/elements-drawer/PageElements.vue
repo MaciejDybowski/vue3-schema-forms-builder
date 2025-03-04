@@ -53,6 +53,12 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
     tag: "p",
   },
   {
+    icon: "mdi-format-text",
+    label: "Zwykły tekst",
+    component: "static-content",
+    tag: "span",
+  },
+  {
     icon: "mdi-alert-box-outline",
     label: "Alert",
     component: "static-content",
