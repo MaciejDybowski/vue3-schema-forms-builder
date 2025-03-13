@@ -3,4 +3,5 @@ export interface SchemaFormElement {
   tempItems?: any
   properties?: any
   sectionKey?: any
+  $ref?: any
 }

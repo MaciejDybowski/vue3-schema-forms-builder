@@ -37,7 +37,7 @@ export function useDraggableMapper() {
         formId: 'builder-tecna-id',
         key: key,
         ref: schemaElement.$ref
-      }
+      } as DraggableFormElement
       draggableElements.value.push(draggableElement)
       return
     }

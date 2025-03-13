@@ -18,4 +18,5 @@ export interface DraggableFormElement {
   formatInModel?: string
 
   sectionKey?: string
+  ref?: string
 }
