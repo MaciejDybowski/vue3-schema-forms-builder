@@ -32,6 +32,16 @@ export function useDraggableMapper() {
 
   function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement) {
 
+    if (schemaElement.$ref && schemaElement.$ref !== "") {
+      const draggableElement = {
+        formId: 'builder-tecna-id',
+        key: key,
+        ref: schemaElement.$ref
+      }
+      draggableElements.value.push(draggableElement)
+      return
+    }
+
     fillSchemaForBuilderPurpose(schemaElement)
 
     if (schemaElement.layout.schema) {
@@ -76,6 +86,7 @@ export function useDraggableMapper() {
 
   // funkcja uzupełnia wszystkie mapowania potrzebne do działania prawego panelu mapowania kontrolek na JSON Scheme
   function fillSchemaForBuilderPurpose(schemaElement: SchemaFormElement) {
+
     if (!schemaElement.layout.props) {
       schemaElement.layout.props = {}
     }
@@ -105,7 +116,7 @@ export function useDraggableMapper() {
         xxl: 12
       }
     }
-    if('lg' in schemaElement.layout.cols ) {
+    if ('lg' in schemaElement.layout.cols) {
       schemaElement.layout.cols = {
         xs: schemaElement.layout.cols.xs,
         sm: schemaElement.layout.cols.sm,

@@ -90,6 +90,7 @@ const controls = computed({
 
 watch(controls, () => {
   modelValue.value = mapDraggableToSchema(copyObject(controls.value))
+
 }, {deep: true})
 
 

@@ -10,6 +10,9 @@
       value="general"
     >
       <key-property v-model="model.key"/>
+      <textfield-general
+        v-model="model.ref"
+        label="Reference"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"

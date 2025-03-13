@@ -31,24 +31,28 @@
 
     <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
-      <text-field-properties v-if="model.layout.component == 'text-field'"/>
-      <number-field-properties v-if="model.layout.component == 'number-field'"/>
-      <static-content-properties v-if="model.layout.component == 'static-content'"/>
-      <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
-      <select-radio-checkbox-properties v-if="optionsComponent"/>
-      <duplicated-section-properties v-if="model.layout.component == 'duplicated-section'"/>
-      <date-properties v-if="model.layout.component == 'date-picker' || model.layout.component == 'date-time-picker'"/>
-      <dictionary-properties v-if="model.layout.component == 'dictionary' || model.layout.component =='combobox'"/>
-      <text-area-properties v-if="model.layout.component == 'text-area'"/>
-      <button-properties v-if="model.layout.component == 'button'"/>
-      <user-input-properties v-if="model.layout.component == 'user-input'"/>
-      <address-field-properties v-if="model.layout.component == 'address'"/>
-      <phone-field-properties v-if="model.layout.component == 'phone'"/>
-      <switch-properties v-if="model.layout.component == 'switch'"/>
-      <divider-properties v-if="model.layout.component == 'divider'"/>
-      <image-properties v-if="model.layout.component == 'image'"/>
-      <fields-group v-if="model.layout.component == 'fields-group'"/>
-      <table-view-properties v-if="model.layout.component == 'table-view'"/>
+      <ref-properties v-if="model.ref"/>
+      <template v-else-if="model.layout">
+        <text-field-properties v-if="model.layout.component == 'text-field'"/>
+        <number-field-properties v-if="model.layout.component == 'number-field'"/>
+        <static-content-properties v-if="model.layout.component == 'static-content'"/>
+        <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
+        <select-radio-checkbox-properties v-if="optionsComponent"/>
+        <duplicated-section-properties v-if="model.layout.component == 'duplicated-section'"/>
+        <date-properties v-if="model.layout.component == 'date-picker' || model.layout.component == 'date-time-picker'"/>
+        <dictionary-properties v-if="model.layout.component == 'dictionary' || model.layout.component =='combobox'"/>
+        <text-area-properties v-if="model.layout.component == 'text-area'"/>
+        <button-properties v-if="model.layout.component == 'button'"/>
+        <user-input-properties v-if="model.layout.component == 'user-input'"/>
+        <address-field-properties v-if="model.layout.component == 'address'"/>
+        <phone-field-properties v-if="model.layout.component == 'phone'"/>
+        <switch-properties v-if="model.layout.component == 'switch'"/>
+        <divider-properties v-if="model.layout.component == 'divider'"/>
+        <image-properties v-if="model.layout.component == 'image'"/>
+        <fields-group v-if="model.layout.component == 'fields-group'"/>
+        <table-view-properties v-if="model.layout.component == 'table-view'"/>
+      </template>
+
     </v-list>
 
   </v-navigation-drawer>
@@ -76,6 +80,7 @@ import DividerProperties from "@/components/properties-drawer/controls/DividerPr
 import ImageProperties from "@/components/properties-drawer/controls/ImageProperties.vue";
 import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
 import TableViewProperties from "@/components/properties-drawer/controls/TableViewProperties.vue";
+import RefProperties from "@/components/properties-drawer/controls/RefProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

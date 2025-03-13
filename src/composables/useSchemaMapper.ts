@@ -75,6 +75,14 @@ export function useSchemaMapper() {
   }
 
   function mapOthersElements(schema: FormSchema, formElement: DraggableFormElement) {
+    if ("ref" in formElement) {
+      schema.properties[formElement.key] = {
+        $ref: formElement.ref
+      }
+      return
+    }
+
+
     if (elementHasNestedKey(formElement)) {
       // basicData.firstName
       const keys = formElement.key.split(".")
@@ -166,7 +174,7 @@ export function useSchemaMapper() {
       if ("readonly" in props && props.readonly == false) {
         delete props.readonly
       }
-      if('counter' in props && props.counter == null) {
+      if ('counter' in props && props.counter == null) {
         delete props.counter
       }
     }

@@ -7,11 +7,11 @@ export function useColSizeMapper() {
   function colSize(element: SchemaField): number {
     switch (canvasMode.value) {
       case "DESKTOP":
-        return element.layout.cols.lg
+        return element?.layout?.cols.lg || 12
       case "MOBILE":
-        return element.layout.cols.xs
+        return element?.layout?.cols.xs || 12
       case "TABLET":
-        return element.layout.cols.sm
+        return element?.layout?.cols.sm || 12
       default:
         return 12
     }

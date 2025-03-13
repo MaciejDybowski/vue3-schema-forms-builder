@@ -8,7 +8,11 @@
       v-if="isToolbarVisible(isHovering, element)"
       :element="element"
     />
-    <form-node-mock :element="element"/>
+    <form-node-mock :element="element"
+                    v-if="!element.ref"/>
+    <div v-else>
+      {{element.ref}}
+    </div>
   </div>
 </template>
 
@@ -52,6 +56,9 @@ const isToolbarVisible = computed(() => (isHovering: any, element: any) => {
 })
 
 function fieldWrapperItemClass(element: any, isHovering: any) {
+  if(element.ref){
+    return "field-wrapper"
+  }
   if (element.layout.component !== "duplicated-section" || element.layout.component !== "fields-group" ) {
     return isToolbarVisible.value(isHovering, element) ? 'field-wrapper pa-3' : 'pa-3'
   } else {
@@ -81,7 +88,7 @@ function getStyleForBuilderField(element: any, hover: any) {
 
 
 function configControl(element: any) {
-  if (element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
+  if (element.ref || element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
     useBuilderStateStore.setConfiguredField(element)
     drawers.propertiesDrawer.value = true
   }
