@@ -21,6 +21,15 @@
     >
       <col-property v-model="model.layout.cols"/>
     </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
+
     <expansion-panel
       :active="panels.includes('source')"
       title="Source"
@@ -304,9 +313,11 @@ import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGene
 import {useStyle} from "@/main";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import draggable from 'vuedraggable'
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 
 const style = useStyle()
-const panels = ref<string[]>(["general", 'source', 'headers'])
+const panels = ref<string[]>(["general", 'source', 'logic', 'headers'])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
