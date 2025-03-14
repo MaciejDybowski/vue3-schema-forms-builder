@@ -12,10 +12,6 @@
       <key-property v-model="model.key"/>
       <label-property v-model="model.label"/>
       <default-value-property/>
-      <switch-general
-        v-model="model.layout.props.clearable"
-        label="Dodać ikonę kasowania?"
-      />
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"
@@ -50,7 +46,7 @@
       <source-property v-model="source"/>
     </expansion-panel>
 
-    
+
     <validation-configuration :active="panels.includes('validations')"
     />
     <event-configuration :active="panels.includes('events')"/>
