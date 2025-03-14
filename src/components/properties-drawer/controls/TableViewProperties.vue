@@ -111,6 +111,9 @@
             v-model="currentConfiguredHeader.valueMapping"
             label="Value mapping"/>
           <textfield-general
+            v-model="currentConfiguredHeader.footerMapping"
+            label="Footer mapping"/>
+          <textfield-general
             v-model="currentConfiguredHeader.color"
             label="Color"/>
           <select-general
