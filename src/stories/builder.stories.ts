@@ -6,7 +6,9 @@ import DevelopmentTable from "@/components/storybook-components/DevelopmentTable
 const meta = {
   title: 'Forms Builder',
   component: DevelopmentTable,
-  argTypes: {} as Partial<ArgTypes<any>>,
+  argTypes: {
+    modelValue: { control: "object", description: "Schema u" },
+  } as Partial<ArgTypes<any>>,
   args: {},
 } satisfies Meta<typeof DevelopmentTable>;
 
@@ -19,90 +21,28 @@ export const FormBuilderStory: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "tableOfRelationships": {
-          "layout": {"component": "table-view"},
-          "source": {
-            "data": "/api/v1/customers/{dataId}/relationships",
-            "buttons": [
-              {
-                label: "Add products",
-                btnProps: {
-                  color: "primary",
-                  rounded: false,
-                },
-                mode: "action",
-                config: {
-                  code: "batchAdd", // na froncie jest sprawdzanie jak batchAdd to i tak woła skrypt bo w obsłudze zadanie jest tylko jedna uniwersalna akcja
-                  featureId: "products",
-                  viewId: "94578-tabela",
-                  batchAddAttributePath: "dataId",
-                  scriptName: "add_products_to_offer",
-                },
-              },
-            ],
-            "headers": [
-              {
-                "title": "Identyfikator",
-                valueMapping: "Test",
-                "key": "id",
-                "type": "TEXT"
-              },
-              {
-                "title": "Nazwa",
-                "key": "name",
-                "type": "TEXT"
-              },
-              {
-                title: "",
-                key: "actions",
-                actions: [
-                  {
-                    icon: "mdi-delete-outline",
-                    mode: "action",
-                    code: "callScript",
-                    config: {
-                      params: {
-                        script: "delete_product_from_offer",
-                      },
-                      body: {
-                        dataId: "{product.id}",
-                      },
-                    },
-                    props: {
-                      color: "error",
-                    },
-                  },
-                  {
-                    condition: "",
-                    icon: "mdi-shipping-pallet",
-                    mode: "action",
-                    code: "callScript",
-                    config: {
-                      params: {
-                        script: "add_pallet_price",
-                      },
-                      body: {
-                        dataId: "{product.id}",
-                      },
-                    },
-                    props: {
-                      color: "primary",
-                    },
-                  },
-                ],
-              },]
-          },
-          "actions": {
-            "name": "nameAndCosTam"
+        "text-field-130":
+          {
+            "label": {$ref: "#/i18n/~$locale~/input1"},
+            "layout": {"component": "text-field"}
           }
-        }
       },
-      "required": []
+      "required": [],
+      "i18n": {
+        "pl": {
+          input1: "PL Input"
+        },
+        "en": {
+          input1: "EN Input"
+        }
+      }
     },
   }
 }
 
-export const FormBuilderStoryRef: Story = {
+export const FormBuilderStoryRef
+  :
+  Story = {
   args: {
     workspaceId: "bm",
     modelValue: {

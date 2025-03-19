@@ -47,6 +47,8 @@ import DemoForm from "@/components/main-canvas/DemoForm.vue";
 import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
 import {copyObject} from "@/utils/copy";
 import JsonWizzardCleaner from "@/components/main-canvas/JsonWizardCleaner.vue";
+import {Resolver} from "@stoplight/json-ref-resolver";
+import {useI18n} from "vue-i18n";
 
 
 let modelValue = defineModel<FormSchema>({
@@ -62,7 +64,8 @@ let modelValue = defineModel<FormSchema>({
           clearIcon: "mdi-close"
         }
       },
-      required: []
+      required: [],
+      i18n: {}
     }
   }
 })

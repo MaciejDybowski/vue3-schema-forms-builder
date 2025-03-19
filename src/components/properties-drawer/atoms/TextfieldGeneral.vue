@@ -6,7 +6,8 @@
       :label="label"
       :rows="rows"
       class="pt-2"
-      v-bind="{...style.inputStyle.value, ...attrs}"
+      :prefix="prefix"
+      v-bind="{...style.inputStyle.value}"
     />
   </v-list-item>
 </template>
@@ -20,8 +21,10 @@ const style = useStyle()
 const props = withDefaults(defineProps<{
   label: string
   rows?: number
+  prefix?: string | undefined
 }>(), {
-  rows: 1
+  rows: 1,
+  prefix: undefined
 })
 
 const attrs = useAttrs()

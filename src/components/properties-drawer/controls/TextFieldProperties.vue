@@ -10,7 +10,7 @@
       value="general"
     >
       <key-property v-model="model.key"/>
-      <label-property v-model="model.label"/>
+      <label-property v-model="model"/>
       <default-value-property/>
     </expansion-panel>
     <expansion-panel

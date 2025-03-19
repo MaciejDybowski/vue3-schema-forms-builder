@@ -5,4 +5,5 @@ export interface FormSchema {
 
   // form builder
   options?: any
+  i18n?: any
 }

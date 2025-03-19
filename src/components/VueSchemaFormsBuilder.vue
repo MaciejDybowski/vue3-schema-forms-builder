@@ -35,13 +35,10 @@ import {computed, FunctionPlugin, getCurrentInstance} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 
 
-// Do usunięcia jeżeli nie będzie kłopotów ze storem :D
-// import {schemaFormModelStoreInit} from "vue3-schema-forms";
-// schemaFormModelStoreInit.useFormModelStore("builder-tecna-id")
-// import {createVueSchemaForms} from "../../../vue3-schema-forms";
-// import "../../../vue3-schema-forms/dist/style.css"
-import {createVueSchemaForms} from "vue3-schema-forms";
-import "vue3-schema-forms/dist/style.css"
+import {createVueSchemaForms} from "../../../aurea-forms";
+import "../../../aurea-forms/dist/style.css"
+//import {createVueSchemaForms} from "vue3-schema-forms";
+//import "vue3-schema-forms/dist/style.css"
 
 const instance = getCurrentInstance();
 
@@ -68,7 +65,7 @@ const canvasColumns = computed(() => {
 const canvasColumnsMaxWidth = computed(() => {
   switch (canvas.canvasMode.value) {
     case "DESKTOP":
-      return "1920px";
+      return "1850px";
     case "TABLET":
       return "800px";
     case "MOBILE":

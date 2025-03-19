@@ -4,8 +4,10 @@ import {FormSchema} from "@/models/FormSchema";
 import {SchemaFormElement} from "@/models/SchemaFormElement";
 import {FormOptions} from "@/models/FormOptions";
 import {isNumber} from "lodash";
+import {Resolver} from "@stoplight/json-ref-resolver";
 
 export function useDraggableMapper() {
+
 
 
   function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions): Array<DraggableFormElement> {

@@ -23,6 +23,7 @@ export function useSchemaMapper() {
   function mapDraggableToSchema(formElements: DraggableFormElement[]): FormSchema {
     schema.value.properties = {}
     schema.value.required = []
+    schema.value.i18n = {}
 
     formElements.forEach((element: DraggableFormElement) => {
       mapSingleElement(schema.value, element)
@@ -103,6 +104,9 @@ export function useSchemaMapper() {
       removeDraggableFields(tempElement)
       mapUrlInDictionary(tempElement)
 
+      // TODO - początek batali z translacjami
+      schema.i18n = {...schema.i18n, ...formElement.i18n}
+      delete tempElement.i18n
 
       cleanJson(tempElement)
       schema.properties[tempElementKey] = tempElement

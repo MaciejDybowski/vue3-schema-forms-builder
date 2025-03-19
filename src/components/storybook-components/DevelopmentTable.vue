@@ -4,8 +4,7 @@
       v-model="modelValue"
     />
     <PropsViewer
-      :model="{}"
-      :schema="modelValue"
+      :json-data="modelValue"
     />
   </div>
   <loading-view v-else/>
