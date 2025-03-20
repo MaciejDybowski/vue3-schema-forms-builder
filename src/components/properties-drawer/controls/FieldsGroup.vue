@@ -24,6 +24,7 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
+      <textfield-general v-model="model.layout.hide" label="Hide boolean/expression"/>
     </expansion-panel>
   </v-expansion-panels>
 </template>
@@ -37,6 +38,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
 const panels = ref<string[]>(["general", "layout"])
 const useBuilderStateStore = useBuilderState()
