@@ -21,7 +21,7 @@
 import draggable from 'vuedraggable'
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
-import {computed, ComputedRef, ref, Ref, watch} from "vue";
+import {computed, ComputedRef, ref, Ref} from "vue";
 
 const style = useStyle()
 
@@ -131,6 +131,12 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Tabela",
     subtitle: "Dane zew. z edycją poj. wiersza",
     component: "table-view"
+  },
+  {
+    icon: "mdi-markdown",
+    label: "Markdown",
+    subtitle: "Pole markdown",
+    component: "markdown"
   }
 ])
 
@@ -175,6 +181,7 @@ function cloneControls(item: ElementDrawerFromElement) {
   }
 
   switch (item.component) {
+    case "markdown":
     case "text-field":
     case "text-area":
     case "location":

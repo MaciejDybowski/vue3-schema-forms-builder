@@ -22,3 +22,4 @@ export type FromElementComponent =
   | "image"
   | "fields-group"
   | "table-view"
+  | "markdown"

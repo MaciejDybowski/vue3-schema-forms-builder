@@ -1,23 +1,29 @@
 <template>
   <div :class="fieldWrapperItemClass(element, isHovering)"
        :style="getStyleForBuilderField(element, isHovering)"
-       v-on="attrs"
        @click="configControl(element)"
+       v-on="attrs"
   >
     <field-wrapper-toolbar
       v-if="isToolbarVisible(isHovering, element)"
       :element="element"
     />
-    <form-node-mock :element="element"
-                    v-if="!element.ref"/>
+
+    <!-- TODO zmienić tego ifa na markdown gdy markdown bedzie tez w trybie edycji -->
+    <div v-if="element.layout.component == 'markdown'">
+      Markdown content will be here
+    </div>
+    <form-node-mock v-else-if="!element.ref"
+                    :element="element"/>
+
     <div v-else>
-      {{element.ref}}
+      {{ element.ref }}
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, useAttrs} from "vue";
+import {computed, useAttrs} from "vue";
 
 import {useDrawers} from "@/composables/useDrawers";
 import FieldWrapperToolbar from "./FieldWrapperToolbar.vue";
@@ -44,7 +50,7 @@ const currentItemSectionKey = computed(() => {
 })
 
 const fieldIsCurrentConfigured = computed(() => (element: any) => {
-  if("sectionKey" in element) {
+  if ("sectionKey" in element) {
     return element.key === currentItemKey.value && element.sectionKey === currentItemSectionKey.value
   } else {
     return element.key === currentItemKey.value
@@ -56,10 +62,10 @@ const isToolbarVisible = computed(() => (isHovering: any, element: any) => {
 })
 
 function fieldWrapperItemClass(element: any, isHovering: any) {
-  if(element.ref){
+  if (element.ref) {
     return "field-wrapper"
   }
-  if (element.layout.component !== "duplicated-section" || element.layout.component !== "fields-group" ) {
+  if (element.layout.component !== "duplicated-section" || element.layout.component !== "fields-group") {
     return isToolbarVisible.value(isHovering, element) ? 'field-wrapper pa-3' : 'pa-3'
   } else {
     return "field-wrapper"

@@ -34,6 +34,7 @@
       <ref-properties v-if="model.ref"/>
       <template v-else-if="model.layout">
         <text-field-properties v-if="model.layout.component == 'text-field'"/>
+        <markdown-properties v-if="model.layout.component == 'markdown'"/>
         <number-field-properties v-if="model.layout.component == 'number-field'"/>
         <static-content-properties v-if="model.layout.component == 'static-content'"/>
         <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
@@ -81,6 +82,7 @@ import ImageProperties from "@/components/properties-drawer/controls/ImageProper
 import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue";
 import TableViewProperties from "@/components/properties-drawer/controls/TableViewProperties.vue";
 import RefProperties from "@/components/properties-drawer/controls/RefProperties.vue";
+import MarkdownProperties from "@/components/properties-drawer/controls/MarkdownProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
