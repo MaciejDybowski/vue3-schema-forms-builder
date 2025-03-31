@@ -4,7 +4,6 @@ import {FormSchema} from "@/models/FormSchema";
 import {SchemaFormElement} from "@/models/SchemaFormElement";
 import {FormOptions} from "@/models/FormOptions";
 import {isNumber} from "lodash";
-import {Resolver} from "@stoplight/json-ref-resolver";
 
 export function useDraggableMapper() {
 
@@ -66,9 +65,23 @@ export function useDraggableMapper() {
       required: formSchema.required?.includes(key) as boolean,
     } as DraggableFormElement
 
+    /*
+    * Sprawdzenie czy przychodzi nam $ref oraz pobranie obiektu dla lokalnego elementu z globalnego i18n
+    * */
+    if(draggableElement.label.$ref){
+      const labelKey = draggableElement.label.$ref.split("/").pop()
+      draggableElement.i18n = extractKey(formSchema.i18n, labelKey)
+    }
+
     dictionarySourceBuilderMapping(draggableElement)
 
     draggableElements.value.push(draggableElement)
+  }
+
+  function extractKey(i18n:object, key:string) {
+    return Object.fromEntries(
+      Object.entries(i18n).map(([lang, values]) => [lang, { [key]: values[key] }])
+    );
   }
 
   function dictionarySourceBuilderMapping(draggableElement: DraggableFormElement) {

@@ -10,15 +10,16 @@
     />
 
     <!-- TODO zmienić tego ifa na markdown gdy markdown bedzie tez w trybie edycji -->
-    <div v-if="element.layout.component == 'markdown'">
+    <div v-if="element.ref">
+      {{ element.ref }}
+    </div>
+    <div v-else-if="element.layout.component == 'markdown'">
       Markdown content will be here
     </div>
     <form-node-mock v-else-if="!element.ref"
                     :element="element"/>
 
-    <div v-else>
-      {{ element.ref }}
-    </div>
+
   </div>
 </template>
 
@@ -93,8 +94,10 @@ function getStyleForBuilderField(element: any, hover: any) {
 }
 
 
-function configControl(element: any) {
+async function configControl(element: any) {
   if (element.ref || element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
+    useBuilderStateStore.setConfiguredField(null)
+    await new Promise((r) => setTimeout(r, 10));
     useBuilderStateStore.setConfiguredField(element)
     drawers.propertiesDrawer.value = true
   }

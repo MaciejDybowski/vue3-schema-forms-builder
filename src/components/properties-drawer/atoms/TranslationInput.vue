@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, defineEmits, useAttrs} from "vue";
+import {computed, defineEmits, onMounted, useAttrs} from "vue";
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 

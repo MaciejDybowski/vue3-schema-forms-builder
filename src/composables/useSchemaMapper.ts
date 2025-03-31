@@ -104,13 +104,26 @@ export function useSchemaMapper() {
       removeDraggableFields(tempElement)
       mapUrlInDictionary(tempElement)
 
-      // TODO - początek batali z translacjami
-      schema.i18n = {...schema.i18n, ...formElement.i18n}
+      /*
+      * Pobranie lokalnego i18n z komponentu i proba merowania z globalnym
+      *  */
+      schema.i18n = mergeObjects(schema.i18n, formElement.i18n)
       delete tempElement.i18n
 
       cleanJson(tempElement)
       schema.properties[tempElementKey] = tempElement
     }
+  }
+
+  function mergeObjects(obj1, obj2) {
+    obj1 = obj1 || {};
+    obj2 = obj2 || {};
+    return Object.fromEntries(
+      Object.keys({...obj1, ...obj2}).map(lang => [
+        lang,
+        {...(obj1[lang] || {}), ...(obj2[lang] || {})}
+      ])
+    );
   }
 
   function mapRequiredProperty(schema: FormSchema, formElement: DraggableFormElement) {

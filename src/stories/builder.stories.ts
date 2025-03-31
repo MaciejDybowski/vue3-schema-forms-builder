@@ -7,7 +7,7 @@ const meta = {
   title: 'Forms Builder',
   component: DevelopmentTable,
   argTypes: {
-    modelValue: { control: "object", description: "Schema u" },
+    modelValue: {control: "object", description: "Schema u"},
   } as Partial<ArgTypes<any>>,
   args: {},
 } satisfies Meta<typeof DevelopmentTable>;
@@ -15,32 +15,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const FormBuilderStory: Story = {
+export const FormBuilderEmpty: Story = {
   args: {
     workspaceId: "bm",
     modelValue: {
       "type": "object",
       "properties": {
-        "text-field-130":
-          {
-            "label": {$ref: "#/i18n/~$locale~/input1"},
-            "layout": {"component": "text-field"}
-          }
+        "name": {"label": {"$ref": "#/i18n/~$locale~/name"}, "layout": {"component": "text-field"}},
+        "lastName": {"label": {"$ref": "#/i18n/~$locale~/lastName"}, "layout": {"component": "text-field"}}
       },
       "required": [],
-      "i18n": {
-        "pl": {
-          input1: "PL Input"
-        },
-        "en": {
-          input1: "EN Input"
-        }
-      }
-    },
+      "i18n": {"pl": {"name": "Imię", "lastName": "Naziwsko"}, "en": {"name": "Name", "lastName": "Last name"}}
+    }
   }
 }
 
-export const FormBuilderStoryRef
+export const FormBuilderRefTable
   :
   Story = {
   args: {
@@ -53,49 +43,3 @@ export const FormBuilderStoryRef
   }
 }
 
-
-const schema = {
-  "type": "object",
-  "properties": {
-    "fields-group-006": {
-      "layout": {
-        "component": "fields-group",
-        "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-        "schema": {
-          "type": "object",
-          "properties": {
-            "pole2": {"label": "Pole2", "layout": {"component": "text-field"}},
-            "pole3": {"label": "Pole3", "layout": {"component": "text-field"}},
-            "sekcjaPowielana": {
-              "layout": {
-                "component": "duplicated-section",
-                "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-                "schema": {
-                  "type": "object",
-                  "properties": {"pole1": {"label": "Pole1", "layout": {"component": "text-field"}}},
-                  "required": []
-                },
-                "options": {"addBtnText": "Add element", "showDivider": false, "ordinalNumberInModel": false},
-                "editable": true,
-                "showElements": true
-              }
-            }
-          },
-          "required": []
-        },
-        "props": {},
-        "options": {"showDivider": false, "addBtnText": "Add"}
-      }
-    }
-  },
-  "required": []
-}
-
-export const GroupStory
-  :
-  Story = {
-  args: {
-    workspaceId: "forte",
-    modelValue: schema,
-  }
-}

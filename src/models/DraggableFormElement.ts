@@ -20,4 +20,5 @@ export interface DraggableFormElement {
   sectionKey?: string
   ref?: string
   i18n?: Record<any, any>
+  label?: string | any
 }

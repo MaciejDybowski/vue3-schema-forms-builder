@@ -15,8 +15,10 @@
       @change="referenceChanged"
     />
 
+
     <translation-input
       v-if="isReference && modelValue.i18n"
+      :key="inputValue"
       v-model="modelValue.i18n"
       :input-key="i18nInputKey"
     />
@@ -38,21 +40,27 @@ const prefix = `#/i18n/~$locale~/`
 
 
 const inputValue = computed({
-  get: () => (typeof modelValue.value.label === 'string' ? modelValue.value.label : modelValue.value.label.$ref.replace(prefix, '')),
+  get: () => {
+    if (typeof modelValue.value.label === 'string') {
+      return modelValue.value.label
+    } else {
+      const value = modelValue.value.label.$ref.replace(prefix, '')
+      i18nInputKey.value = value
+      return value
+    }
+  },
   set: (value: string) => {
     if (value == null) {
       modelValue.value.label = ""
     }
-    modelValue.value.label = isReference.value ? {$ref: prefix + value} : value;
+    modelValue.value.label = isReference.value ? {$ref: prefix + value.trim()} : value;
   },
 });
-
 
 function updateLabel(value: string) {
   if (isReference.value) {
     const oldKey = i18nInputKey.value;
     const newKey = value.replace(prefix, '');
-
     updateI18nKey(oldKey, newKey);
     i18nInputKey.value = newKey;
   } else {
@@ -71,10 +79,10 @@ function updateI18nKey(oldKey: string, newKey: string) {
   }
 }
 
-
 function referenceChanged() {
   if (isReference.value) {
-    modelValue.value.label = {$ref: prefix + modelValue.value.label}
+    i18nInputKey.value = toCamelCase(inputValue.value)
+    modelValue.value.label = {$ref: prefix + toCamelCase(inputValue.value)}
     modelValue.value.i18n = i18nDefault.value
   } else {
     modelValue.value.label = modelValue.value.label.$ref.replace(prefix, '')
@@ -83,6 +91,11 @@ function referenceChanged() {
   }
 }
 
+function toCamelCase(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+}
 
 const i18nDefault = computed(() => {
   return {
