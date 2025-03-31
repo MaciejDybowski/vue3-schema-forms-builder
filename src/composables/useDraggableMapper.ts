@@ -68,7 +68,7 @@ export function useDraggableMapper() {
     /*
     * Sprawdzenie czy przychodzi nam $ref oraz pobranie obiektu dla lokalnego elementu z globalnego i18n
     * */
-    if(draggableElement.label.$ref){
+    if(draggableElement.label && draggableElement.label.$ref){
       const labelKey = draggableElement.label.$ref.split("/").pop()
       draggableElement.i18n = extractKey(formSchema.i18n, labelKey)
     }
