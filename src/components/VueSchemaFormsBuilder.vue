@@ -35,10 +35,10 @@ import {computed, FunctionPlugin, getCurrentInstance} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 
 
-import {createVueSchemaForms} from "../../../aurea-forms";
-import "../../../aurea-forms/dist/style.css"
-//import {createVueSchemaForms} from "vue3-schema-forms";
-//import "vue3-schema-forms/dist/style.css"
+//import {createVueSchemaForms} from "../../../aurea-forms";
+//import "../../../aurea-forms/dist/style.css"
+import {createVueSchemaForms} from "vue3-schema-forms";
+import "vue3-schema-forms/dist/style.css"
 
 const instance = getCurrentInstance();
 
