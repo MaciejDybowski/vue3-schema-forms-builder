@@ -149,7 +149,9 @@ function cloneStatic(item: ElementDrawerFromElement) {
         },
         options: {
           buttonProps: style.buttonStyle
-        }
+        },
+        mode: "",
+        config: {}
       }
     }
     case "divider": {
