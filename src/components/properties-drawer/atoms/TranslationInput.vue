@@ -37,7 +37,7 @@ const props = defineProps<{
 const emit = defineEmits(["update:modelValue", "change"]);
 const attrs = useAttrs();
 
-const locales = computed(() => ["en", "pl"].map(value => ({value})));
+const locales = computed(() => ["en", "pl", "ru", "de"].map(value => ({value})));
 
 function updateModelValue() {
   const updatedModel = {...model.value};
