@@ -72,7 +72,7 @@
         @closeButton="configButtonDialogSchema = false"
       >
         <v-card class="mx-4 my-2">
-          <v-card-title>Button configuration</v-card-title>
+          <v-card-title>Internal JSON Schema</v-card-title>
           <v-card-text>
             <tcn-code-editor
               :model-value="JSON.stringify(model.schema, null, 2)"
