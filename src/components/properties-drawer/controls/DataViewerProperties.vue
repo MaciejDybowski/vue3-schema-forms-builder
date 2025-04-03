@@ -11,7 +11,7 @@
       value="general"
     >
       <key-property v-model="model.key"/>
-      <label-property v-model="model.label"/>
+      <label-property v-model="model"/>
       <data-viewer-type-property v-model="model.type"/>
       <value-mapping-property v-model="model.valueMapping"/>
       <source-property
