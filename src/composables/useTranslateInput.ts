@@ -1,4 +1,5 @@
 import {computed, Ref, ref} from "vue";
+import {k} from "vite/dist/node/types.d-aGj9QkWt";
 
 
 export function useTranslateInput() {
@@ -27,21 +28,21 @@ export function useTranslateInput() {
       .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
   }
 
-  function init(modelValue: Ref<any>) {
-    isReference.value = typeof modelValue.value.label === "object"
+  function init(modelValue: Ref<any>, key: string) {
+    isReference.value = typeof modelValue.value[key] === "object"
     if (!modelValue.value.i18n && isReference.value) {
       modelValue.value.i18n = i18nDefault.value
     }
   }
 
-  function referenceChanged(modelValue: Ref<any>, inputValue: Ref<string>) {
+  function referenceChanged(modelValue: Ref<any>, inputValue: Ref<string>, key) {
     if (isReference.value) {
       i18nInputKey.value = toCamelCase(inputValue.value)
-      modelValue.value.label = {$ref: prefix + toCamelCase(inputValue.value)}
+      modelValue.value[key] = {$ref: prefix + toCamelCase(inputValue.value)}
       modelValue.value.i18n = i18nDefault.value
     } else {
-      modelValue.value.label = modelValue.value.label.$ref.replace(prefix, '')
-      i18nInputKey.value = modelValue.value.label
+      modelValue.value[key] = modelValue.value[key].$ref.replace(prefix, '')
+      i18nInputKey.value = modelValue.value[key]
       delete modelValue.value.i18n
     }
   }
@@ -56,14 +57,14 @@ export function useTranslateInput() {
     }
   }
 
-  function updateProperty(value: string, modelValue: Ref<any>) {
+  function updateProperty(value: string, modelValue: Ref<any>, key: string) {
     if (isReference.value) {
       const oldKey = i18nInputKey.value;
       const newKey = value.replace(prefix, '');
       updateI18nKey(oldKey, newKey, modelValue);
       i18nInputKey.value = newKey;
     } else {
-      i18nInputKey.value = modelValue.value.label
+      i18nInputKey.value = modelValue.value[key]
     }
   }
 

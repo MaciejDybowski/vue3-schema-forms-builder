@@ -1,26 +1,63 @@
 <template>
-  <v-list-item>
-    <v-textarea
-      v-model="modelValue"
+  <div>
+    <textfield-general
+      v-model="contentValue"
       :label="t('contentProperty')"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
-      rows="1"
-      :auto-grow="true"
+      :prefix="isReference? prefix: ''"
+      @update:model-value="value => updatePropertyTrigger(value)"
     />
-  </v-list-item>
+
+    <v-switch
+      v-model="isReference"
+      class="mx-4"
+      color="green"
+      hide-details="auto"
+      label="Use Reference"
+      @change="referenceChangedTrigger"
+    />
+
+    <translation-input
+      v-if="isReference && modelValue.i18n"
+      :key="contentValue"
+      v-model="modelValue.i18n"
+      :input-key="i18nInputKey"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
+import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
+import {useTranslateInput} from "@/composables/useTranslateInput";
+import {onBeforeMount} from "vue";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
-const style = useStyle();
+const modelValue = defineModel<any>();
+const {t} = useI18n();
+const {
+  init,
+  i18nInputKey,
+  prefix,
+  isReference,
+  referenceChanged,
+  updateProperty,
+  useDynamicInputValue
+} = useTranslateInput()
 
-const modelValue = defineModel()
+const contentValue = useDynamicInputValue('content', modelValue)
 
+function referenceChangedTrigger() {
+  referenceChanged(modelValue, contentValue, "content")
+}
 
-const {t} = useI18n()
+function updatePropertyTrigger(value: string) {
+  updateProperty(value, modelValue, "content")
+}
+
+onBeforeMount(() => {
+  init(modelValue, "content")
+})
+
 </script>
 
 <style lang="scss" scoped>

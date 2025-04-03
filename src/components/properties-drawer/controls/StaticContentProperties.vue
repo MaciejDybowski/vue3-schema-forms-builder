@@ -11,7 +11,7 @@
       value="general"
     >
       <key-property v-model="model.key"/>
-      <content-propery v-model="model.content"/>
+      <content-propery v-model="model"/>
       <select-general
         v-if="model.layout.tag=='v-alert'"
         v-model="model.layout.props.variant"

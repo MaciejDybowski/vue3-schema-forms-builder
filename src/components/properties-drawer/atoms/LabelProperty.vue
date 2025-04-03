@@ -46,15 +46,15 @@ const {
 const labelValue = useDynamicInputValue('label', modelValue)
 
 function referenceChangedTrigger() {
-  referenceChanged(modelValue, labelValue)
+  referenceChanged(modelValue, labelValue, 'label')
 }
 
 function updatePropertyTrigger(value: string) {
-  updateProperty(value, modelValue)
+  updateProperty(value, modelValue, 'label')
 }
 
 onBeforeMount(() => {
-  init(modelValue)
+  init(modelValue, 'label')
 })
 
 </script>
