@@ -15,6 +15,9 @@ export function useTranslateInput() {
       "en": {
         [i18nInputKey.value]: ""
       },
+      "de": {
+        [i18nInputKey.value]: ""
+      }
     }
   })
 

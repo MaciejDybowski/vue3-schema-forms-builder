@@ -1,8 +1,8 @@
 <template>
   <v-list-item>
     <v-text-field
-      class="mt-2"
       v-model="model[locale][inputKey]"
+      class="mt-2"
       v-bind="{ ...style.inputStyle.value, ...attrs }"
       @change="emit('change')"
       @update:model-value="updateModelValue"
@@ -22,14 +22,14 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, defineEmits, onMounted, useAttrs} from "vue";
+import {computed, defineEmits, onBeforeMount, useAttrs} from "vue";
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 
 const {t, locale} = useI18n();
 const style = useStyle();
 const model = defineModel<Record<string, string>>({
-  default: {en: {}, pl: {}}
+  default: {en: {}, pl: {}, de: {}}
 });
 const props = defineProps<{
   inputKey: string;
@@ -44,6 +44,25 @@ function updateModelValue() {
   updatedModel[locale.value][props.inputKey] = model.value[locale.value][props.inputKey];
   emit("update:modelValue", updatedModel);
 }
+
+function ensureModelDefaults() {
+  const updatedModel = {...model.value};
+  ["en", "pl", "de"].forEach(lang => {
+    if (!updatedModel[lang]) {
+      // @ts-ignore
+      updatedModel[lang] = {};
+    }
+    if (updatedModel[lang][props.inputKey] === undefined) {
+      updatedModel[lang][props.inputKey] = ""; // Tworzy pustą wartość dla inputKey
+    }
+  });
+
+  model.value = updatedModel;
+}
+onBeforeMount(() => {
+  ensureModelDefaults();
+});
+
 </script>
 
 <style lang="scss" scoped></style>
