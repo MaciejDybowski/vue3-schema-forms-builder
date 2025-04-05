@@ -21,11 +21,17 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "name": {"label": {"$ref": "#/i18n/~$locale~/name"}, "layout": {"component": "text-field"}},
-        "lastName": {"label": {"$ref": "#/i18n/~$locale~/lastName"}, "layout": {"component": "text-field"}}
+        "text-field-587": {
+          "label": "Item-text-field-587",
+          "layout": {"cols": {"xs": 6, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
+        },
+        "text-field-867": {
+          "label": "Item-text-field-867",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
+        }
       },
       "required": [],
-      "i18n": {"pl": {"name": "Imię", "lastName": "Naziwsko"}, "en": {"name": "Name", "lastName": "Last name"}}
+      "i18n": {}
     }
   }
 }

@@ -3,7 +3,7 @@
     v-model="modelValue"
     :emptyInsertThreshold="emptyInsertThreshold"
     :sort="true"
-    class="d-flex flex-wrap"
+    class="d-flex flex-wrap v-row no-gutters pa-0 ma-0"
     item-key="key"
     v-bind="dragOptions"
   >
