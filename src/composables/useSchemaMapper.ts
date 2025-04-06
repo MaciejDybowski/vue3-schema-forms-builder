@@ -30,6 +30,10 @@ export function useSchemaMapper() {
     })
 
     delete schema.value.options
+
+    clearEmptyKeyFromSchema(schema.value, "i18n")
+    clearEmptyKeyFromSchema(schema.value, "required")
+
     return schema.value
   }
 
@@ -95,6 +99,9 @@ export function useSchemaMapper() {
       const tempElement = {...formElement}
       keys.shift()
       tempElement.key = keys.join(".")
+
+      schema.i18n = mergeObjects(schema.i18n, formElement.i18n)
+      delete tempElement.i18n
       // call function for firstName with nested structure
       mapSingleElement(schema.properties[nestedRootKey], tempElement)
     } else {
@@ -112,6 +119,19 @@ export function useSchemaMapper() {
 
       cleanJson(tempElement)
       schema.properties[tempElementKey] = tempElement
+    }
+  }
+
+  function clearEmptyKeyFromSchema(obj, keyToRemove) {
+    if (obj && typeof obj === 'object') {
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          clearEmptyKeyFromSchema(obj[key], keyToRemove);
+          if (key === keyToRemove && Object.keys(obj[key]).length === 0) {
+            delete obj[key];
+          }
+        }
+      }
     }
   }
 

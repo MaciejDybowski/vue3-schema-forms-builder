@@ -21,17 +21,23 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "text-field-587": {
-          "label": "Item-text-field-587",
-          "layout": {"cols": {"xs": 6, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
-        },
-        "text-field-867": {
-          "label": "Item-text-field-867",
-          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
-        }
+        "wrapper": {
+          "properties": {
+            "item1": {
+              "label": {"$ref": "#/i18n/~$locale~/wrapperitem1"},
+              "layout": {"component": "text-field"}
+            }
+          },
+          "required": [],
+          "i18n": {
+            "pl": {"wrapperitem1": "wrapper_ite1m2"},
+            "en": {"wrapperitem1": "wrapper_item1"},
+            "de": {"wrapperitem1": "qwerty"}
+          }
+        }, "item": {"label": {"$ref": "#/i18n/~$locale~/item"}, "layout": {"component": "text-field"}}
       },
       "required": [],
-      "i18n": {}
+      "i18n": {"pl": {"item": "pl_item"}, "en": {"item": "en_item"}, "de": {"item": "qweqwrt"}}
     }
   }
 }

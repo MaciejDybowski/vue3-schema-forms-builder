@@ -1,4 +1,5 @@
 <template>
+  <v-divider class="mt-2"/>
   <textfield-general
     :label="t('defaultValue')"
     :model-value="defaultValueModel"
@@ -6,7 +7,7 @@
   />
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" se tup>
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
@@ -66,10 +67,10 @@ function mapDefaultValue(val: string) {
 <i18n lang="json">
 {
   "pl": {
-    "defaultValue": "Wartość domyślna"
+    "defaultValue": "Wartość domyślna pola"
   },
   "en": {
-    "defaultValue": "Default value"
+    "defaultValue": "Default value of field"
   }
 }
 </i18n>
