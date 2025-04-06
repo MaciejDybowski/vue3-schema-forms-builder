@@ -133,10 +133,15 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "table-view"
   },
   {
-    icon: "mdi-markdown",
+    icon: "mdi-language-markdown-outline",
     label: "Markdown",
     subtitle: "Pole markdown",
     component: "markdown"
+  },
+  {
+    icon: "mdi-format-list-numbered",
+    label: "Lista uporządkowana",
+    component: "ordered-multi-select"
   }
 ])
 
@@ -279,6 +284,17 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "dictionary":
     case "combobox": {
       return {
+        ...schemaElement,
+        source: {
+          url: "",
+          title: "label",
+          value: "id",
+        }
+      }
+    }
+    case "ordered-multi-select": {
+      return {
+        variant: "list",
         ...schemaElement,
         source: {
           url: "",

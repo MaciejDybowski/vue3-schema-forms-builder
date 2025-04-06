@@ -88,6 +88,7 @@ export function useDraggableMapper() {
     if (draggableElement.layout.component == 'dictionary'
       || (draggableElement.layout.component == 'user-input' && draggableElement.source)
       || draggableElement.layout.component == 'combobox'
+      || draggableElement.layout.component == 'ordered-multi-select'
     ) {
       const copy = draggableElement.source.url
       draggableElement.source.url = ""

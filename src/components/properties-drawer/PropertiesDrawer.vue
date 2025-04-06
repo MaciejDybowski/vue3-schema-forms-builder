@@ -40,7 +40,8 @@
         <data-viewer-properties v-if="model.layout.component == 'data-viewer'"/>
         <select-radio-checkbox-properties v-if="optionsComponent"/>
         <duplicated-section-properties v-if="model.layout.component == 'duplicated-section'"/>
-        <date-properties v-if="model.layout.component == 'date-picker' || model.layout.component == 'date-time-picker'"/>
+        <date-properties
+          v-if="model.layout.component == 'date-picker' || model.layout.component == 'date-time-picker'"/>
         <dictionary-properties v-if="model.layout.component == 'dictionary' || model.layout.component =='combobox'"/>
         <text-area-properties v-if="model.layout.component == 'text-area'"/>
         <button-properties v-if="model.layout.component == 'button'"/>
@@ -52,6 +53,7 @@
         <image-properties v-if="model.layout.component == 'image'"/>
         <fields-group v-if="model.layout.component == 'fields-group'"/>
         <table-view-properties v-if="model.layout.component == 'table-view'"/>
+        <ordered-multi-select-properties v-if="model.layout.component == 'ordered-multi-select'"/>
       </template>
 
     </v-list>
@@ -83,6 +85,7 @@ import FieldsGroup from "@/components/properties-drawer/controls/FieldsGroup.vue
 import TableViewProperties from "@/components/properties-drawer/controls/TableViewProperties.vue";
 import RefProperties from "@/components/properties-drawer/controls/RefProperties.vue";
 import MarkdownProperties from "@/components/properties-drawer/controls/MarkdownProperties.vue";
+import OrderedMultiSelectProperties from "@/components/properties-drawer/controls/OrderedMultiSelectProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

@@ -7,7 +7,7 @@
   />
 </template>
 
-<script lang="ts" se tup>
+<script lang="ts" setup>
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";

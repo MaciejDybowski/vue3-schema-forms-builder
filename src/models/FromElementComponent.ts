@@ -23,3 +23,4 @@ export type FromElementComponent =
   | "fields-group"
   | "table-view"
   | "markdown"
+  | "ordered-multi-select"
