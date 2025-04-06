@@ -47,7 +47,6 @@ const colRef = ref<HTMLElement | null>(null);
 
 onMounted(async () => {
   await nextTick(() => {
-    console.debug(colRef.value)
     if (colRef.value) {
       //@ts-ignore
       const el = colRef.value.$el as HTMLElement;
