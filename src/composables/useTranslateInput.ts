@@ -37,8 +37,8 @@ export function useTranslateInput() {
 
   function referenceChanged(modelValue: Ref<any>, inputValue: Ref<string>, key) {
     if (isReference.value) {
-      i18nInputKey.value = toCamelCase(inputValue.value)
-      modelValue.value[key] = {$ref: prefix + toCamelCase(inputValue.value)}
+      i18nInputKey.value = toCamelCase(modelValue.value.key)
+      modelValue.value[key] = {$ref: prefix + toCamelCase(modelValue.value.key)}
       modelValue.value.i18n = i18nDefault.value
     } else {
       modelValue.value[key] = modelValue.value[key].$ref.replace(prefix, '')
