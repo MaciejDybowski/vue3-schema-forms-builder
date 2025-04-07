@@ -71,6 +71,13 @@ export function useDraggableMapper() {
       const labelKey = draggableElement.label.$ref.split("/").pop()
       draggableElement.i18n = extractKey(globalI18n, labelKey)
     }
+    if (draggableElement.content && draggableElement.content.$ref) {
+      const labelKey = draggableElement.content.$ref.split("/").pop()
+      draggableElement.i18n = extractKey(globalI18n, labelKey)
+    }
+    /*
+     Koniec mapowań
+     */
 
     dictionarySourceBuilderMapping(draggableElement)
 

@@ -21,4 +21,5 @@ export interface DraggableFormElement {
   ref?: string
   i18n?: Record<any, any>
   label?: string | any
+  content?: any
 }

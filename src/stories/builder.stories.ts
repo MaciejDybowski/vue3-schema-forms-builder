@@ -18,7 +18,29 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderEmpty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {"type":"object","properties":{"item":{"label":{"$ref":"#/i18n/~$locale~/item"},"layout":{"component":"text-field","cols":{"xs":12,"sm":12,"md":12,"lg":4,"xl":4,"xxl":4}}},"wrapper":{"properties":{"item1":{"label":{"$ref":"#/i18n/~$locale~/wrapperitem1"},"layout":{"component":"text-field","cols":{"xs":12,"sm":4,"md":4,"lg":4,"xl":4,"xxl":4}}}}},"text-field-277":{"label":"Item-text-field-277","layout":{"cols":{"xs":12,"sm":12,"md":12,"lg":2,"xl":2,"xxl":2},"component":"text-field"}}},"i18n":{"pl":{"item":"pl_item","wrapperitem1":"wrapper_ite1m2"},"en":{"item":"en_item","wrapperitem1":"wrapper_item1"},"de":{"item":"qweqwrt","wrapperitem1":"qwerty"}}}
+    modelValue: {
+      "type": "object",
+      "properties": {
+        "static-content-719": {
+          "content": {"$ref": "#/i18n/~$locale~/staticContent719"},
+          "layout": {"component": "static-content", "tag": "h1"}
+        },
+        "test": {
+          "properties": {
+            "poqwert": {
+              "content": {"$ref": "#/i18n/~$locale~/testPoqwert"},
+              "layout": {"component": "static-content", "tag": "p"}
+            }
+          }
+        },
+        "text-field-010": {"label": {"$ref": "#/i18n/~$locale~/textField010"}, "layout": {"component": "text-field"}}
+      },
+      "i18n": {
+        "pl": {"staticContent719": "qwewqe", "testPoqwert": "qwe", "textField010": "qwewqewq"},
+        "en": {"staticContent719": "teqwe", "testPoqwert": "qwewq", "textField010": "qwewqeqewq"},
+        "de": {"staticContent719": "qwewqe", "testPoqwert": "qwewqe", "textField010": "qwewqeeqweqw"}
+      }
+    }
   }
 }
 
