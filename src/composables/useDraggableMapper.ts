@@ -8,14 +8,13 @@ import {isNumber} from "lodash";
 export function useDraggableMapper() {
 
 
-
-  function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions): Array<DraggableFormElement> {
+  function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions, globalI18n: object): Array<DraggableFormElement> {
     const draggableElements: Ref<DraggableFormElement[]> = ref([])
 
     Object.entries(formSchema.properties).forEach(([key, schemaElement]: [string, SchemaFormElement]) => {
 
       if (isNestedFields(schemaElement)) {
-        const mappedFields = [...mapSchemaToDraggable(schemaElement as FormSchema, formOptions)]
+        const mappedFields = [...mapSchemaToDraggable(schemaElement as FormSchema, formOptions, globalI18n)]
           .map(item => {
             item.key = `${key}.${item.key}`
             return item
@@ -23,7 +22,7 @@ export function useDraggableMapper() {
         draggableElements.value.push(...mappedFields)
 
       } else {
-        mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement)
+        mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement, globalI18n)
       }
 
     })
@@ -31,7 +30,7 @@ export function useDraggableMapper() {
     return draggableElements.value
   }
 
-  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement) {
+  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement, globalI18n: object) {
 
     if (schemaElement.$ref && schemaElement.$ref !== "") {
       const draggableElement = {
@@ -47,7 +46,7 @@ export function useDraggableMapper() {
 
     if (schemaElement.layout.schema) {
       schemaElement.layout.schema.options = formOptions
-      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions).map((item) => {
+      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions, formSchema.i18n).map((item) => {
         item["sectionKey"] = key
         return item
       })
@@ -66,11 +65,11 @@ export function useDraggableMapper() {
     } as DraggableFormElement
 
     /*
-    * Sprawdzenie czy przychodzi nam $ref oraz pobranie obiektu dla lokalnego elementu z globalnego i18n
+    * Sprawdzenie czy przychodzi nam $ref oraz pobranie obiektu dla lokalnego elementu z globalnego i18n, trzeba uważać na zagnieżdzenia item.property
     * */
-    if(draggableElement.label && draggableElement.label.$ref){
+    if (draggableElement.label && draggableElement.label.$ref) {
       const labelKey = draggableElement.label.$ref.split("/").pop()
-      draggableElement.i18n = extractKey(formSchema.i18n, labelKey)
+      draggableElement.i18n = extractKey(globalI18n, labelKey)
     }
 
     dictionarySourceBuilderMapping(draggableElement)
@@ -78,9 +77,9 @@ export function useDraggableMapper() {
     draggableElements.value.push(draggableElement)
   }
 
-  function extractKey(i18n:object, key:string) {
+  function extractKey(i18n: object, key: string) {
     return Object.fromEntries(
-      Object.entries(i18n).map(([lang, values]) => [lang, { [key]: values[key] }])
+      Object.entries(i18n).map(([lang, values]) => [lang, {[key]: values[key]}])
     );
   }
 

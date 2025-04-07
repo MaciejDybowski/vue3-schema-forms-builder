@@ -99,12 +99,12 @@ watch(controls, () => {
 
 onMounted(() => {
   useBuilderStateStore.resetState()
-  controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions)
+  controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions, modelValue.value.i18n)
 })
 
 function updateSchema(schema: string) {
   useBuilderStateStore.resetState()
-  controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions)
+  controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions, JSON.parse(schema).i18n)
 }
 
 </script>

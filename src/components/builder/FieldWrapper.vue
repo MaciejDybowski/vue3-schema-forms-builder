@@ -1,8 +1,8 @@
 <template>
   <v-col
     ref="colRef"
-    :cols="colSize(element)"
-    :style="calcWidth(element)"
+    :cols="cols"
+    :style="width"
     class="pa-0 ma-0 mb-3 "
   >
     <v-hover>
@@ -21,25 +21,25 @@
 // @ts-nocheck
 import FieldWrapperItem from "./FieldWrapperItem.vue";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
-import {SchemaField} from "vue3-schema-forms";
-import {nextTick, onMounted, ref} from "vue";
+import {computed, nextTick, onMounted, ref} from "vue";
 
 const props = defineProps<{
   element: any,
 }>()
 
 const {colSize} = useColSizeMapper()
+const cols = computed(() => colSize(props.element))
+const fillRow = computed(() => !!props.element.layout?.fillRow && cols.value < 12)
 
-function calcWidth(element: SchemaField) {
-  const isOffsetExist = !!element.layout?.offset;
-  const offset = isOffsetExist ? (element.layout?.offset as number) : 0;
-  const cols: number = colSize(element);
-  const fillRow = !!element.layout?.fillRow && cols < 12
-  if (fillRow) {
-    return `min-width:${(offset + cols) / 12 * 100}%; margin-right: ${(remainingSpace.value / 12) * 100}%!important;`
+const width = computed(() => {
+  const isOffsetExist = !!props.element.layout?.offset;
+  const offset = isOffsetExist ? (props.element.layout?.offset as number) : 0;
+
+  if (fillRow.value) {
+    return `min-width: ${(offset + cols) / 12 * 100}%; margin-right: ${(remainingSpace.value / 12) * 100}%!important;`
   }
   return `min-width: ${(offset + cols) / 12 * 100}%;`
-}
+})
 
 const isLastInRow = ref(false);
 const remainingSpace = ref(0);
