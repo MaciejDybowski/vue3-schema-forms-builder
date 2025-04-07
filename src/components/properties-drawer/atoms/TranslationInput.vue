@@ -1,23 +1,24 @@
 <template>
   <v-list-item>
-    <v-text-field
+    <v-select
+      v-model="locale"
+      :items="locales"
+      :label="t('selectLang')"
+      hide-details
+      item-title="value"
+      v-bind="style.inputStyle.value"
+      class="mt-2"
+    />
+    <v-textarea
       v-model="model[locale][inputKey]"
       class="mt-2"
       v-bind="{ ...style.inputStyle.value, ...attrs }"
       @change="emit('change')"
       @update:model-value="updateModelValue"
-    >
-      <template v-slot:prepend>
-        <v-select
-          v-model="locale"
-          :items="locales"
-          :label="t('selectLang')"
-          hide-details
-          item-title="value"
-          v-bind="style.inputStyle.value"
-        />
-      </template>
-    </v-text-field>
+      :label="t('translation')"
+      :auto-grow="true"
+      rows="2"
+    />
   </v-list-item>
 </template>
 
@@ -25,6 +26,7 @@
 import {computed, defineEmits, onBeforeMount, useAttrs} from "vue";
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
 const {t, locale} = useI18n();
 const style = useStyle();
@@ -70,13 +72,16 @@ onBeforeMount(() => {
 <i18n lang="json">
 {
   "pl": {
-    "selectLang": "Język"
+    "selectLang": "Język",
+    "translation": "Tłumaczenie"
   },
   "en": {
-    "selectLang": "Language"
+    "selectLang": "Language",
+    "translation": "Translation"
   },
   "ru": {
-    "selectLang": "Язык"
+    "selectLang": "Язык",
+    "translation": "Translation"
   }
 }
 </i18n>
