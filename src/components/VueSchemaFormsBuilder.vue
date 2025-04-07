@@ -31,7 +31,7 @@ import MainCanvas from "./main-canvas/MainCanvas.vue";
 import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "@/composables/useCanvas";
-import {computed, FunctionPlugin, getCurrentInstance} from "vue";
+import {computed, FunctionPlugin, getCurrentInstance, onBeforeUnmount} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 
 
@@ -39,6 +39,7 @@ import {FormSchema} from "@/models/FormSchema";
 //import "../../../aurea-forms/dist/style.css"
 import {createVueSchemaForms} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
 
 const instance = getCurrentInstance();
 
@@ -51,6 +52,12 @@ instance?.appContext.app.use(vueSchemaForms)
 
 const canvas = useCanvas();
 let modelValue = defineModel<FormSchema>()
+
+const useBuilderStateStore = useBuilderState()
+onBeforeUnmount(() => {
+  useBuilderStateStore.setConfiguredField(null)
+  useBuilderStateStore.updateDraggableModel([])
+})
 
 const canvasColumns = computed(() => {
   switch (canvas.canvasMode.value) {
