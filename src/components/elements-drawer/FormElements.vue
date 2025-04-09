@@ -338,7 +338,11 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         source: {
           data: "",
-          headers: [],
+          headers: [
+            {title:"Change me"},
+            {title:"Change me"},
+            {title:"Change me"}
+          ],
           buttons: []
         },
         actions: {}

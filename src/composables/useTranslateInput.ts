@@ -48,7 +48,7 @@ export function useTranslateInput() {
   }
 
   function updateI18nKey(oldKey: string, newKey: string, modelValue: Ref<any>) {
-    if (!modelValue.value.i18n || !isReference.value || oldKey === newKey) return;
+    if (!modelValue.value.i18n || oldKey === newKey) return;
     for (const lang in modelValue.value.i18n) {
       if (modelValue.value.i18n[lang]?.[oldKey] !== undefined) {
         modelValue.value.i18n[lang][newKey] = modelValue.value.i18n[lang][oldKey];

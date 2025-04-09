@@ -65,6 +65,7 @@
             />
             <textfield-general
               v-else
+              :disabled="true"
               v-model="element.title.$ref"
               class="px-1 mx-0"
               label="Title"/>
@@ -473,7 +474,6 @@ const {
   init,
   i18nInputKey,
   prefix,
-  isReference,
   updateI18nKey,
   i18nDefault,
   toCamelCase
@@ -510,9 +510,10 @@ function referenceChanged() {
 }
 
 function updateProperty(value: string) {
-  if (isReference.value) {
+  if (currentConfiguredHeader.value.isReference) {
     const oldKey = i18nInputKey.value;
     const newKey = value.replace(prefix, '');
+    console.debug(oldKey,newKey, model.value)
     updateI18nKey(oldKey, newKey, model);
     i18nInputKey.value = newKey;
   } else {
@@ -534,7 +535,7 @@ const useDynamicTitle = computed({
     if (value == null) {
       currentConfiguredHeader.value.title = "";
     }
-    currentConfiguredHeader.value.title = isReference.value ? {$ref: prefix + value.trim()} : value;
+    currentConfiguredHeader.value.title = currentConfiguredHeader.value.isReference ? {$ref: prefix + value.trim()} : value;
   }
 });
 </script>
