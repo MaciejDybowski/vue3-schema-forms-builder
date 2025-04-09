@@ -90,9 +90,12 @@ export function useTranslateInput() {
     useDynamicInputValue,
     updateProperty,
     i18nInputKey,
+    toCamelCase,
     prefix,
     isReference,
     init,
     referenceChanged,
+    updateI18nKey,
+    i18nDefault
   }
 }

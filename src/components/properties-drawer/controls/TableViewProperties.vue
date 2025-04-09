@@ -58,7 +58,14 @@
           <div class="draggable-wrapper d-flex align-center justify-center">
             <v-icon class="px-1 mx-0 draggable-icon cursor-grab"> mdi-drag-vertical</v-icon>
             <textfield-general
+              v-if="typeof element.title == 'string'"
               v-model="element.title"
+              class="px-1 mx-0"
+              label="Title"
+            />
+            <textfield-general
+              v-else
+              v-model="element.title.$ref"
               class="px-1 mx-0"
               label="Title"/>
 
@@ -92,10 +99,11 @@
         v-model="configHeaderDialog"
         :acceptColor="style.primaryWhite.value"
         acceptText="Save"
+        persistent
         scrollable
         width="800px"
-        @acceptButton="configHeaderDialog = false"
-        @closeButton="configHeaderDialog = false"
+        @acceptButton="closeConfigHeaderDialog"
+        @closeButton="closeConfigHeaderDialog"
       >
         <template #title>
           <v-card-title>
@@ -104,6 +112,30 @@
         </template>
 
         <v-card-text>
+          <textfield-general
+            v-model="useDynamicTitle"
+            :prefix="currentConfiguredHeader.isReference? prefix: ''"
+            label="Title"
+            @update:model-value="value => updateProperty(value)"
+          />
+
+          <v-switch
+            v-model="currentConfiguredHeader.isReference"
+            class="mx-4"
+            color="green"
+            hide-details="auto"
+            label="Use Reference"
+            @change="referenceChanged"
+          />
+
+          <translation-input
+            v-if="currentConfiguredHeader.isReference && model.i18n"
+            :key="useDynamicTitle"
+            v-model="model.i18n"
+            :input-key="i18nInputKey"
+          />
+
+
           <textfield-general
             v-model="currentConfiguredHeader.key"
             label="Key"/>
@@ -317,7 +349,8 @@ import {useStyle} from "@/main";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import draggable from 'vuedraggable'
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import {useTranslateInput} from "@/composables/useTranslateInput";
+import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
 
 const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'logic', 'headers'])
@@ -359,6 +392,8 @@ const currentConfiguredButton = ref<any>(null)
 
 function configHeader(header: any) {
   currentConfiguredHeader.value = header
+  currentConfiguredHeader.value.isReference = typeof currentConfiguredHeader.value.title != "string"
+
   configHeaderDialog.value = true
 }
 
@@ -367,7 +402,7 @@ function configButton(button: any) {
   configButtonDialog.value = true
 }
 
-function tryParseAsJsonItemsInCollection(value: string, currentConfiguredHeader){
+function tryParseAsJsonItemsInCollection(value: string, currentConfiguredHeader) {
   try {
     const temp = JSON.parse(value)
     currentConfiguredHeader.items = temp
@@ -421,11 +456,87 @@ function tryParseAsJsonButtonConfig(value: string, currentConfiguredButton) {
   }
 }
 
+function closeConfigHeaderDialog() {
+  configHeaderDialog.value = false
+  delete currentConfiguredHeader.value.isReference
+
+  currentConfiguredHeader.value = null
+}
+
 onMounted(() => {
   headers.value = model.value.source.headers
   headerAction.value = headers.value.filter((item) => item.key == "action")
   buttons.value = model.value.source.buttons
 })
+
+const {
+  init,
+  i18nInputKey,
+  prefix,
+  isReference,
+  updateI18nKey,
+  i18nDefault,
+  toCamelCase
+} = useTranslateInput()
+
+
+function referenceChanged() {
+  if (currentConfiguredHeader.value.isReference) {
+    i18nInputKey.value = toCamelCase(currentConfiguredHeader.value.title)
+    currentConfiguredHeader.value.title = {$ref: prefix + toCamelCase(currentConfiguredHeader.value.title)}
+
+    if (!model.value.i18n) {
+      model.value.i18n = i18nDefault.value
+    }
+    ['pl', 'en', 'de'].forEach(lang => {
+      if (!model.value.i18n[lang]) {
+        model.value.i18n[lang] = {};
+      }
+      model.value.i18n[lang][i18nInputKey.value] = "";
+    });
+
+  } else {
+    currentConfiguredHeader.value.title = currentConfiguredHeader.value.title.$ref.replace(prefix, '')
+    i18nInputKey.value = currentConfiguredHeader.value.title
+
+    if (model.value.i18n) {
+      Object.keys(model.value.i18n).forEach(lang => {
+        if (model.value.i18n[lang]) {
+          delete model.value.i18n[lang][i18nInputKey.value];
+        }
+      });
+    }
+  }
+}
+
+function updateProperty(value: string) {
+  if (isReference.value) {
+    const oldKey = i18nInputKey.value;
+    const newKey = value.replace(prefix, '');
+    updateI18nKey(oldKey, newKey, model);
+    i18nInputKey.value = newKey;
+  } else {
+    i18nInputKey.value = currentConfiguredHeader.value.title
+  }
+}
+
+const useDynamicTitle = computed({
+  get: () => {
+    if (typeof currentConfiguredHeader.value.title === 'string') {
+      return currentConfiguredHeader.value.title;
+    } else {
+      const value = currentConfiguredHeader.value.title.$ref.replace(prefix, '');
+      i18nInputKey.value = value;
+      return value;
+    }
+  },
+  set: (value: string) => {
+    if (value == null) {
+      currentConfiguredHeader.value.title = "";
+    }
+    currentConfiguredHeader.value.title = isReference.value ? {$ref: prefix + value.trim()} : value;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

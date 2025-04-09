@@ -18,7 +18,25 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderEmpty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {"type":"object","properties":{}}
+    modelValue: {
+      "type": "object",
+      "properties": {
+        "tableOfItems": {
+          "layout": {"component": "table-view"},
+          "source": {
+            "data": "",
+            "headers": [{"title": {"$ref": "#/i18n/~$locale~/name"}}, {"title": {"$ref": "#/i18n/~$locale~/surname"}}, {"title": "Value"}],
+            "buttons": []
+          },
+          "actions": {}
+        }
+      },
+      "i18n": {
+        "pl": {"name": "Imię", "surname": "Nazwisko"},
+        "en": {"name": "Name", "surname": "Surname"},
+        "de": {"name": "NAME", "surname": "SURNAME"}
+      }
+    }
   }
 }
 

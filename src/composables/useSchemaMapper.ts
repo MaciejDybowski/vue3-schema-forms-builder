@@ -6,6 +6,7 @@ import {useStyle} from "@/main";
 import {copyObject} from "@/utils/copy";
 import {isEmpty} from "lodash";
 import {Layout} from "@/models/Layout";
+import {mergeObjects} from "@/utils";
 
 
 export function useSchemaMapper() {
@@ -135,16 +136,7 @@ export function useSchemaMapper() {
     }
   }
 
-  function mergeObjects(obj1, obj2) {
-    obj1 = obj1 || {};
-    obj2 = obj2 || {};
-    return Object.fromEntries(
-      Object.keys({...obj1, ...obj2}).map(lang => [
-        lang,
-        {...(obj1[lang] || {}), ...(obj2[lang] || {})}
-      ])
-    );
-  }
+
 
   function mapRequiredProperty(schema: FormSchema, formElement: DraggableFormElement) {
     if (!schema.required) {

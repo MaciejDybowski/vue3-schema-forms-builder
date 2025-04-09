@@ -4,6 +4,7 @@ import {FormSchema} from "@/models/FormSchema";
 import {SchemaFormElement} from "@/models/SchemaFormElement";
 import {FormOptions} from "@/models/FormOptions";
 import {isNumber} from "lodash";
+import {mergeObjects} from "@/utils";
 
 export function useDraggableMapper() {
 
@@ -75,13 +76,42 @@ export function useDraggableMapper() {
       const labelKey = draggableElement.content.$ref.split("/").pop()
       draggableElement.i18n = extractKey(globalI18n, labelKey)
     }
+    if (draggableElement.layout.component == 'table-view') {
+      const keys = extractRefKeys(draggableElement)
+      keys.forEach(extractedKey => {
+        const translations = extractKey(globalI18n, extractedKey);
+        draggableElement.i18n = mergeObjects(draggableElement.i18n, translations)
+      });
+    }
     /*
      Koniec mapowań
      */
-
     dictionarySourceBuilderMapping(draggableElement)
 
     draggableElements.value.push(draggableElement)
+  }
+
+  function extractRefKeys(obj) {
+    const keys: string[] = [];
+
+    function recurse(current) {
+      if (typeof current !== 'object' || current === null) {
+        return;
+      }
+
+      if (current.$ref && typeof current.$ref === 'string') {
+        const key = current.$ref.split('/').pop() as string;
+        keys.push(key);
+      }
+
+      for (const value of Object.values(current)) {
+        recurse(value);
+      }
+    }
+
+    recurse(obj);
+
+    return keys;
   }
 
   function extractKey(i18n: object, key: string) {
