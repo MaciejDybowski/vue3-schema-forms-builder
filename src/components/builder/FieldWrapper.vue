@@ -1,18 +1,18 @@
 <template>
-  <v-col
-    :cols="cols"
-  >
-    <v-hover>
-      <template v-slot:default="{ isHovering, props }">
-        <field-wrapper-item
-          :element="element"
-          :is-hovering="isHovering as boolean"
-          v-bind="props"
-        />
-      </template>
-    </v-hover>
-  </v-col>
-  <div v-if="fillRow" class="fill-row"/>
+  <div :style="`width: ${cols/12*100}%`">
+    <div>
+      <v-hover>
+        <template v-slot:default="{ isHovering, props }">
+          <field-wrapper-item
+            :element="element"
+            :is-hovering="isHovering as boolean"
+            v-bind="props"
+          />
+        </template>
+      </v-hover>
+    </div>
+    <div v-if="fillRow" class="fill-row"/>
+  </div>
 </template>
 
 <script lang="ts" setup>

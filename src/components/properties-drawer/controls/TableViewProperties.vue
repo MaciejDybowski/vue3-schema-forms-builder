@@ -65,8 +65,8 @@
             />
             <textfield-general
               v-else
-              :disabled="true"
               v-model="element.title.$ref"
+              :disabled="true"
               class="px-1 mx-0"
               label="Title"/>
 
@@ -78,6 +78,7 @@
             />
 
             <v-btn
+              :disabled="index==0"
               class="mx-1"
               icon="mdi-delete"
               size="x-small"
@@ -92,7 +93,7 @@
         color="primary"
         density="compact"
         text="Dodaj"
-        @click="headers.push({})"
+        @click="headers.push({title:''})"
       />
 
       <tcn-au-dialog
@@ -114,10 +115,10 @@
 
         <v-card-text>
           <textfield-general
-            v-model="useDynamicTitle"
+            v-model="dynamicHeaderTitle"
             :prefix="currentConfiguredHeader.isReference? prefix: ''"
             label="Title"
-            @update:model-value="value => updateProperty(value)"
+            @update:model-value="value => updatePropertyHeaderTitle(value)"
           />
 
           <v-switch
@@ -126,14 +127,14 @@
             color="green"
             hide-details="auto"
             label="Use Reference"
-            @change="referenceChanged"
+            @change="referenceChangedHeaderTitle"
           />
 
           <translation-input
             v-if="currentConfiguredHeader.isReference && model.i18n"
-            :key="useDynamicTitle"
+            :key="dynamicHeaderTitle"
             v-model="model.i18n"
-            :input-key="i18nInputKey"
+            :input-key="currentConfiguredHeader.i18nInputKey"
           />
 
 
@@ -239,8 +240,17 @@
       <div v-for="(button, index) in buttons"
            class="d-flex align-center my-1">
         <textfield-general
+          v-if="typeof button.label == 'string'"
           v-model="button.label"
           label="Label"/>
+
+        <textfield-general
+          v-else
+          v-model="button.label.$ref"
+          :disabled="true"
+          class="px-1 mx-0"
+          label="Label"/>
+
         <v-btn
           class="mx-1"
           icon="mdi-cog"
@@ -263,10 +273,11 @@
         v-model="configButtonDialog"
         :acceptColor="style.primaryWhite.value"
         acceptText="Save"
+        persistent
         scrollable
         width="800px"
-        @acceptButton="configButtonDialog = false"
-        @closeButton="configButtonDialog = false"
+        @acceptButton="closeConfigButtonDialog"
+        @closeButton="closeConfigButtonDialog"
       >
 
         <template #title>
@@ -274,6 +285,30 @@
             Table action to configure: {{ currentConfiguredButton.label }}
           </v-card-title>
         </template>
+
+        <textfield-general
+          v-model="dynamicButtonLabel"
+          :prefix="currentConfiguredButton.isReference? prefix: ''"
+          label="Title"
+          @update:model-value="value => updatePropertyButtonLabel(value)"
+        />
+
+        <v-switch
+          v-model="currentConfiguredButton.isReference"
+          class="mx-4"
+          color="green"
+          hide-details="auto"
+          label="Use Reference"
+          @change="referenceChangedButtonLabel"
+        />
+
+        <translation-input
+          v-if="currentConfiguredButton.isReference && model.i18n"
+          :key="dynamicButtonLabel"
+          v-model="model.i18n"
+          :input-key="currentConfiguredButton.i18nInputKey"
+        />
+
 
         <select-general
           v-model="currentConfiguredButton.mode"
@@ -315,7 +350,7 @@
         color="primary"
         density="compact"
         text="Add"
-        @click="buttons.push({label: null, mode: null})"
+        @click="buttons.push({label: '', mode: null})"
       />
     </expansion-panel>
     <expansion-panel
@@ -393,13 +428,17 @@ const currentConfiguredButton = ref<any>(null)
 
 function configHeader(header: any) {
   currentConfiguredHeader.value = header
-  currentConfiguredHeader.value.isReference = typeof currentConfiguredHeader.value.title != "string"
-
+  const localIsReference = typeof currentConfiguredHeader.value.title != "string"
+  currentConfiguredHeader.value.isReference = localIsReference
+  currentConfiguredHeader.value.i18nInputKey = !localIsReference ? toCamelCase(header.title) : currentConfiguredHeader.value.title.$ref.split("/").pop()
   configHeaderDialog.value = true
 }
 
 function configButton(button: any) {
   currentConfiguredButton.value = button
+  const localIsReference = typeof currentConfiguredButton.value.label != "string"
+  currentConfiguredButton.value.isReference = localIsReference
+  currentConfiguredButton.value.i18nInputKey = !localIsReference ? toCamelCase(currentConfiguredButton.value.label) : currentConfiguredButton.value.label.$ref.split("/").pop()
   configButtonDialog.value = true
 }
 
@@ -460,8 +499,15 @@ function tryParseAsJsonButtonConfig(value: string, currentConfiguredButton) {
 function closeConfigHeaderDialog() {
   configHeaderDialog.value = false
   delete currentConfiguredHeader.value.isReference
-
+  delete currentConfiguredHeader.value.i18nInputKey
   currentConfiguredHeader.value = null
+}
+
+function closeConfigButtonDialog() {
+  configButtonDialog.value = false
+  delete currentConfiguredButton.value.isReference
+  delete currentConfiguredButton.value.i18nInputKey
+  currentConfiguredButton.value = null
 }
 
 onMounted(() => {
@@ -471,18 +517,15 @@ onMounted(() => {
 })
 
 const {
-  init,
-  i18nInputKey,
   prefix,
   updateI18nKey,
   i18nDefault,
   toCamelCase
 } = useTranslateInput()
 
-
-function referenceChanged() {
+function referenceChangedHeaderTitle() {
   if (currentConfiguredHeader.value.isReference) {
-    i18nInputKey.value = toCamelCase(currentConfiguredHeader.value.title)
+    currentConfiguredHeader.value.i18nInputKey = toCamelCase(currentConfiguredHeader.value.title)
     currentConfiguredHeader.value.title = {$ref: prefix + toCamelCase(currentConfiguredHeader.value.title)}
 
     if (!model.value.i18n) {
@@ -492,42 +535,41 @@ function referenceChanged() {
       if (!model.value.i18n[lang]) {
         model.value.i18n[lang] = {};
       }
-      model.value.i18n[lang][i18nInputKey.value] = "";
+      model.value.i18n[lang][currentConfiguredHeader.value.i18nInputKey] = "";
     });
 
   } else {
     currentConfiguredHeader.value.title = currentConfiguredHeader.value.title.$ref.replace(prefix, '')
-    i18nInputKey.value = currentConfiguredHeader.value.title
+    currentConfiguredHeader.value.i18nInputKey = currentConfiguredHeader.value.title
 
     if (model.value.i18n) {
       Object.keys(model.value.i18n).forEach(lang => {
         if (model.value.i18n[lang]) {
-          delete model.value.i18n[lang][i18nInputKey.value];
+          delete model.value.i18n[lang][currentConfiguredHeader.value.i18nInputKey];
         }
       });
     }
   }
 }
 
-function updateProperty(value: string) {
+function updatePropertyHeaderTitle(value: string) {
   if (currentConfiguredHeader.value.isReference) {
-    const oldKey = i18nInputKey.value;
+    const oldKey = currentConfiguredHeader.value.i18nInputKey
     const newKey = value.replace(prefix, '');
-    console.debug(oldKey,newKey, model.value)
     updateI18nKey(oldKey, newKey, model);
-    i18nInputKey.value = newKey;
+    currentConfiguredHeader.value.i18nInputKey = newKey;
   } else {
-    i18nInputKey.value = currentConfiguredHeader.value.title
+    currentConfiguredHeader.value.i18nInputKey = currentConfiguredHeader.value.title
   }
 }
 
-const useDynamicTitle = computed({
+const dynamicHeaderTitle = computed({
   get: () => {
     if (typeof currentConfiguredHeader.value.title === 'string') {
       return currentConfiguredHeader.value.title;
     } else {
       const value = currentConfiguredHeader.value.title.$ref.replace(prefix, '');
-      i18nInputKey.value = value;
+      currentConfiguredHeader.value.i18nInputKey = value;
       return value;
     }
   },
@@ -538,6 +580,64 @@ const useDynamicTitle = computed({
     currentConfiguredHeader.value.title = currentConfiguredHeader.value.isReference ? {$ref: prefix + value.trim()} : value;
   }
 });
+
+const dynamicButtonLabel = computed({
+  get: () => {
+    if (typeof currentConfiguredButton.value.label === 'string') {
+      return currentConfiguredButton.value.label;
+    } else {
+      const value = currentConfiguredButton.value.label.$ref.replace(prefix, '');
+      currentConfiguredButton.value.i18nInputKey = value;
+      return value;
+    }
+  },
+  set: (value: string) => {
+    if (value == null) {
+      currentConfiguredButton.value.label = "";
+    }
+    currentConfiguredButton.value.label = currentConfiguredButton.value.isReference ? {$ref: prefix + value.trim()} : value;
+  }
+});
+
+function referenceChangedButtonLabel() {
+  if (currentConfiguredButton.value.isReference) {
+    currentConfiguredButton.value.i18nInputKey = toCamelCase(currentConfiguredButton.value.label)
+    currentConfiguredButton.value.label = {$ref: prefix + toCamelCase(currentConfiguredButton.value.label)}
+
+    if (!model.value.i18n) {
+      model.value.i18n = i18nDefault.value
+    }
+    ['pl', 'en', 'de'].forEach(lang => {
+      if (!model.value.i18n[lang]) {
+        model.value.i18n[lang] = {};
+      }
+      model.value.i18n[lang][currentConfiguredButton.value.i18nInputKey] = "";
+    });
+
+  } else {
+    currentConfiguredButton.value.label = currentConfiguredButton.value.label.$ref.replace(prefix, '')
+    currentConfiguredButton.value.i18nInputKey = currentConfiguredButton.value.label
+
+    if (model.value.i18n) {
+      Object.keys(model.value.i18n).forEach(lang => {
+        if (model.value.i18n[lang]) {
+          delete model.value.i18n[lang][currentConfiguredButton.value.i18nInputKey];
+        }
+      });
+    }
+  }
+}
+
+function updatePropertyButtonLabel(value: string) {
+  if (currentConfiguredButton.value.isReference) {
+    const oldKey = currentConfiguredButton.value.i18nInputKey
+    const newKey = value.replace(prefix, '');
+    updateI18nKey(oldKey, newKey, model);
+    currentConfiguredButton.value.i18nInputKey = newKey;
+  } else {
+    currentConfiguredButton.value.i18nInputKey = currentConfiguredButton.value.label
+  }
+}
 </script>
 
 <style lang="scss" scoped>
