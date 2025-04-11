@@ -21,20 +21,18 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "tableOfItems": {
-          "layout": {"component": "table-view"},
-          "source": {
-            "data": "",
-            "headers": [{"title": {"$ref": "#/i18n/~$locale~/name"}}, {"title": {"$ref": "#/i18n/~$locale~/surname"}}, {"title": "Value"}],
-            "buttons": []
-          },
-          "actions": {}
+        "text-field-442": {
+          "label": "Item-text-field-442",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
+        },
+        "text-field-442178_cloned": {
+          "label": "text-field-442178_cloned",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
+        },
+        "text-field-442242_cloned": {
+          "label": "text-field-442242_cloned",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 4, "xl": 4, "xxl": 4}, "component": "text-field"}
         }
-      },
-      "i18n": {
-        "pl": {"name": "Imię", "surname": "Nazwisko"},
-        "en": {"name": "Name", "surname": "Surname"},
-        "de": {"name": "NAME", "surname": "SURNAME"}
       }
     }
   }

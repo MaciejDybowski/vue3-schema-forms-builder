@@ -1,28 +1,30 @@
 <template>
-  <div :style="`width: ${cols/12*100}%`">
-    <div>
-      <v-hover>
-        <template v-slot:default="{ isHovering, props }">
-          <field-wrapper-item
-            :element="element"
-            :is-hovering="isHovering as boolean"
-            v-bind="props"
-          />
-        </template>
-      </v-hover>
-    </div>
-    <div v-if="fillRow" class="fill-row"/>
-  </div>
+  <v-col
+    :cols="cols"
+    v-bind="attrs"
+  >
+    <v-hover>
+      <template v-slot:default="{ isHovering, props }">
+        <field-wrapper-item
+          :element="element"
+          :is-hovering="isHovering as boolean"
+          v-bind="props"
+        />
+      </template>
+    </v-hover>
+  </v-col>
+  <div v-if="fillRow" class="fill-row"/>
 </template>
 
 <script lang="ts" setup>
 import FieldWrapperItem from "./FieldWrapperItem.vue";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
-import {computed} from "vue";
+import {computed, useAttrs} from "vue";
 
 const props = defineProps<{
   element: any,
 }>()
+const attrs = useAttrs()
 
 const {colSize} = useColSizeMapper()
 

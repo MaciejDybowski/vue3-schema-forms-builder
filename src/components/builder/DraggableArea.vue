@@ -3,7 +3,7 @@
     v-model="modelValue"
     :emptyInsertThreshold="emptyInsertThreshold"
     :sort="true"
-    class="d-flex flex-wrap"
+    class="d-flex flex-wrap v-row"
     item-key="key"
     v-bind="dragOptions"
   >
@@ -15,7 +15,8 @@
 
 <script lang="ts" setup>
 
-import draggable from 'vuedraggable'
+// https://github.com/SortableJS/vue.draggable.next/issues/111
+import draggable from "../../vuedraggable/vuedraggable";
 import FieldWrapper from "../builder/FieldWrapper.vue";
 
 const modelValue = defineModel<any[]>()
