@@ -7,6 +7,7 @@
       v-on="attrs"
       v-bind="{...style.inputStyle.value, ...props}"
       :items="attrs.items"
+      clearable
     />
   </v-list-item>
 </template>

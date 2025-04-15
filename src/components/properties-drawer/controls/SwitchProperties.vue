@@ -17,7 +17,6 @@
         v-model="model.mode"
         :items="[{value: 'visibility', title: t('visibility')}]"
         :return-object="false"
-        clearable
         label="Switch Mode"
       />
       <v-alert

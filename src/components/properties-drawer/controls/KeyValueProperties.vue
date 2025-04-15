@@ -157,7 +157,7 @@ import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import draggable from 'vuedraggable'
+import draggable from "../../../vuedraggable/vuedraggable";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
 import {useTranslateInput} from "@/composables/useTranslateInput";

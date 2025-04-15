@@ -383,7 +383,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {useStyle} from "@/main";
 import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
-import draggable from 'vuedraggable'
+import draggable from "../../../vuedraggable/vuedraggable";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
