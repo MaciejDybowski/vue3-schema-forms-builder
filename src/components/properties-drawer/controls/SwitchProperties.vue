@@ -12,6 +12,24 @@
     >
       <key-property v-model="model.key"/>
       <label-property v-model="model"/>
+
+      <select-general
+        v-model="model.mode"
+        :items="[{value: 'visibility', title: t('visibility')}]"
+        :return-object="false"
+        clearable
+        label="Switch Mode"
+      />
+      <v-alert
+        icon="mdi-information-outline"
+        v-if="model.mode=='visibility'"
+        variant="outlined"
+        text="Value of switch is internal"
+        color="info"
+        density="compact"
+        class="mx-4"
+      />
+
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"
@@ -64,6 +82,7 @@ import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMa
 import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()
@@ -88,11 +107,13 @@ const model = computed({
 {
   "en": {
     "color": "Color",
-    "valueMapping": "Value mapping"
+    "valueMapping": "Value mapping",
+    "visibility": "Visibility"
   },
   "pl": {
     "color": "Kolor",
-    "valueMapping": "Mapowanie wartości"
+    "valueMapping": "Mapowanie wartości",
+    "visibility": "Tylko widoczność"
   }
 }
 </i18n>

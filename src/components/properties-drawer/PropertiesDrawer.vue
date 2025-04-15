@@ -54,6 +54,7 @@
         <fields-group v-if="model.layout.component == 'fields-group'"/>
         <table-view-properties v-if="model.layout.component == 'table-view'"/>
         <ordered-multi-select-properties v-if="model.layout.component == 'ordered-multi-select'"/>
+        <key-value-properties v-if="model.layout.component == 'key-value-list'"/>
       </template>
 
     </v-list>
@@ -86,6 +87,7 @@ import TableViewProperties from "@/components/properties-drawer/controls/TableVi
 import RefProperties from "@/components/properties-drawer/controls/RefProperties.vue";
 import MarkdownProperties from "@/components/properties-drawer/controls/MarkdownProperties.vue";
 import OrderedMultiSelectProperties from "@/components/properties-drawer/controls/OrderedMultiSelectProperties.vue";
+import KeyValueProperties from "@/components/properties-drawer/controls/KeyValueProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
