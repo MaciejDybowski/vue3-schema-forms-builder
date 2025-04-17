@@ -38,11 +38,11 @@ export function useSchemaMapper() {
     return schema.value
   }
 
-  function mapSingleElement(schema: FormSchema, formElement: DraggableFormElement) {
+  function mapSingleElement(schema: FormSchema, formElement: DraggableFormElement, globalSchema: any = null) {
     if (elementIsDuplicatedSection(formElement)) {
       mapDuplicatedSectionToSchema(schema, formElement)
     } else {
-      mapOthersElements(schema, formElement);
+      mapOthersElements(schema, formElement, globalSchema);
     }
   }
 
@@ -59,7 +59,7 @@ export function useSchemaMapper() {
     const tempElementKey = tempElement.key
     tempElement.layout.schema.properties = {}
     tempElement.tempItems.forEach(element => {
-      mapSingleElement(tempElement.layout.schema, element)
+      mapSingleElement(tempElement.layout.schema, element, schema)
     })
     removeDraggableFields(tempElement)
     schema.properties[tempElementKey] = tempElement
@@ -80,7 +80,7 @@ export function useSchemaMapper() {
     delete formElement.required
   }
 
-  function mapOthersElements(schema: FormSchema, formElement: DraggableFormElement) {
+  function mapOthersElements(schema: FormSchema, formElement: DraggableFormElement, globalSchema: any = null) {
     if ("ref" in formElement) {
       schema.properties[formElement.key] = {
         $ref: formElement.ref
@@ -115,7 +115,13 @@ export function useSchemaMapper() {
       /*
       * Pobranie lokalnego i18n z komponentu i proba merowania z globalnym
       *  */
-      schema.i18n = mergeObjects(schema.i18n, formElement.i18n)
+      if (globalSchema) { // grupa i pewnie duplikowana sekcja
+        globalSchema.i18n = mergeObjects(globalSchema.i18n, formElement.i18n)
+
+      } else {
+        schema.i18n = mergeObjects(schema.i18n, formElement.i18n)
+      }
+
       delete tempElement.i18n
 
       cleanJson(tempElement)
@@ -135,7 +141,6 @@ export function useSchemaMapper() {
       }
     }
   }
-
 
 
   function mapRequiredProperty(schema: FormSchema, formElement: DraggableFormElement) {

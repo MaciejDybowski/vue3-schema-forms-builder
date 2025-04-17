@@ -21,21 +21,25 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "tableOfItems": {
-          "layout": {"component": "table-view"},
-          "source": {
-            "data": "",
-            "headers": [{"title": {"$ref": "#/i18n/~$locale~/name"}}, {"title": {"$ref": "#/i18n/~$locale~/surname"}}, {"title": "Value"}],
-            "buttons": []
-          },
-          "actions": {}
+        "group1": {
+          "layout": {
+            "component": "fields-group",
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text-field-352": {
+                  "label": {"$ref": "#/i18n/~$locale~/textField352"},
+                  "layout": {"component": "text-field"}
+                }
+              }
+            },
+            "props": {},
+            "options": {"showDivider": false, "addBtnText": "Add"}
+          }
         }
       },
-      "i18n": {
-        "pl": {"name": "Imię", "surname": "Nazwisko"},
-        "en": {"name": "Name", "surname": "Surname"},
-        "de": {"name": "NAME", "surname": "SURNAME"}
-      }
+      "i18n": {"pl": {"textField352": "qwewqe"}, "en": {"textField352": "qweqw"}, "de": {"textField352": "qwewqewq"}}
     }
   }
 }
