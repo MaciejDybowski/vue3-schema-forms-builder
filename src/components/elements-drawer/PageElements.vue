@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import draggable from 'vuedraggable'
+import draggable from "../../vuedraggable/vuedraggable";
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ComputedRef, ref, Ref} from "vue";
@@ -78,6 +78,11 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
     icon: "mdi-card-outline",
     label: "Przycisk",
     component: "button"
+  },
+  {
+    icon: "mdi-list-box-outline",
+    label: "Lista klucz-wartość",
+    component: "key-value-list"
   }
 ])
 
@@ -170,7 +175,27 @@ function cloneStatic(item: ElementDrawerFromElement) {
         },
       }
     }
-
+    case "key-value-list": {
+      return {
+        key: id,
+        label: "",
+        config: [
+          {title: "Key", valueMapping: "Key"},
+          {title: "Value", valueMapping: "Value"}
+        ],
+        layout: {
+          component: "key-value-list",
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
+        },
+      }
+    }
   }
 }
 

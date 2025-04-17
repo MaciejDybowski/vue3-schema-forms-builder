@@ -24,3 +24,4 @@ export type FromElementComponent =
   | "table-view"
   | "markdown"
   | "ordered-multi-select"
+  | "key-value-list"

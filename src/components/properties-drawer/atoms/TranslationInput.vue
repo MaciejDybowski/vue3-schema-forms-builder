@@ -54,6 +54,7 @@ function ensureModelDefaults() {
       // @ts-ignore
       updatedModel[lang] = {};
     }
+
     if (updatedModel[lang][props.inputKey] === undefined) {
       updatedModel[lang][props.inputKey] = ""; // Tworzy pustą wartość dla inputKey
     }
