@@ -14,7 +14,7 @@
 
       <select-general
         v-model="model.mode"
-        :items="[{value: 'copy', title: `Copy`}, {value:'form-and-action', title: 'Form and action'}]"
+        :items="[{value: 'copy', title: `Copy`}, {value:'form-and-action', title: 'Form and action'}, {value:'api-call', title: 'API Call'}]"
         :return-object="false"
         clearable
         label="Btn mode"
