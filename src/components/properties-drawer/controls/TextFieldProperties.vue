@@ -64,8 +64,14 @@
         :label="t('persistentHint')"
       />
     </expansion-panel>
-    <validation-configuration :active="panels.includes('validations')"
-    />
+    <validation-configuration :active="panels.includes('validations')">
+      <template #afterRequired>
+        <number-general
+          v-model="model.layout.props['counter']"
+          :label="t('counter')"
+        />
+      </template>
+    </validation-configuration>
     <event-configuration :active="panels.includes('events')"/>
   </v-expansion-panels>
 
@@ -91,6 +97,7 @@ import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGenera
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
