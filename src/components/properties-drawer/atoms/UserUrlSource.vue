@@ -8,6 +8,17 @@
       auto-grow
       rows="3"
     />
+
+    <v-list-item>
+      <v-switch
+        v-model="modelValue.singleOptionAutoSelect"
+        :label="t('singleOptionAutoSelect')"
+        class="mx-2"
+
+        hide-details="auto"
+        v-bind="style.inputStyle.value"
+      />
+    </v-list-item>
   </v-list-item>
 </template>
 
@@ -35,12 +46,14 @@ const {t} = useI18n()
   "en": {
     "groupFilterProperty": "Group",
     "filterHint": "Group names separated by coma",
-    "urlKey": "URL"
+    "urlKey": "URL",
+    "singleOptionAutoSelect": "Auto select when single"
   },
   "pl": {
     "groupFilterProperty": "Grupa",
     "filterHint": "Nazwa grupy oddzielana przecinkami",
-    "urlKey": "Specjalny URL"
+    "urlKey": "Specjalny URL",
+    "singleOptionAutoSelect": "Auto wybieranie, gdy pojedyncza wartość"
   }
 }
 </i18n>
