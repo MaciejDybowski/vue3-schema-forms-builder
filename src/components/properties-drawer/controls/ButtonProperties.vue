@@ -96,6 +96,13 @@
       <fill-row-property v-model="model.layout.fillRow"/>
 
     </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
   </v-expansion-panels>
 </template>
 
@@ -109,6 +116,9 @@ import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
