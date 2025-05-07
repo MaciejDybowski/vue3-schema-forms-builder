@@ -61,6 +61,7 @@
       <simple-source-property v-model="source"/>
     </expansion-panel>
     <validation-configuration :active="panels.includes('validations')"/>
+    <event-configuration :active="panels.includes('events')"/>
   </v-expansion-panels>
 
 </template>
@@ -85,6 +86,7 @@ import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()

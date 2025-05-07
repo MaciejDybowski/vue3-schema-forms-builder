@@ -15,7 +15,7 @@
     <select-general
       v-if="eventType"
       v-model="eventMode"
-      :items="[{value: 'action', title: t('actionLabel')}, {value: 'change-model', title: t('changeModelLabel')}]"
+      :items="[{value: 'action', title: t('actionLabel')}, {value: 'change-model', title: t('changeModelLabel')}, {value: 'emit-event', title: t('emitEventLabel')}]"
       :label="t('mode')"
       :return-object="false"
       clearable
@@ -158,6 +158,41 @@
         </v-btn>
       </v-list-item>
     </div>
+    <div v-if="eventMode=='emit-event'">
+      <v-list-item
+        v-for="(item, key) in variables"
+        density="compact"
+      >
+        <div class="d-flex py-2 align-center justify-center">
+          <v-text-field
+            v-model="item['path']"
+            class="pr-2"
+            label="Ścieżka"
+            v-bind="style.inputStyle.value"
+          />
+          <v-text-field
+            v-model="item['value']"
+            class="pl-2"
+            label="Nowa wartość"
+            v-bind="style.inputStyle.value"
+          />
+          <v-btn
+            class="mx-2"
+            density="compact"
+            flat
+            icon="mdi-delete"
+            size="small"
+            @click="variables = variables.filter((n, t) => t !== key)"
+          >
+          </v-btn>
+        </div>
+      </v-list-item>
+      <textfield-general
+        v-model="eventSignal"
+        :label="t('eventSignal')"
+        @update:model-value="setEventSignal"
+      />
+    </div>
   </expansion-panel>
 </template>
 
@@ -211,6 +246,13 @@ const actionCode = ref(null)
 function setActionCOde(value: string) {
   if (eventType.value) {
     model.value[eventType.value]['code'] = value
+  }
+}
+
+const eventSignal = ref(null)
+function setEventSignal(value: string) {
+  if (eventType.value) {
+    model.value[eventType.value]['eventSignal'] = value
   }
 }
 
@@ -291,7 +333,6 @@ onMounted(() => {
     })
   }
 
-
   if (eventMode.value == "change-model") {
     variables.value = model.value['onChange'].variables.map((item: any) => {
       if (item['value'] === null) {
@@ -299,6 +340,10 @@ onMounted(() => {
       }
       return item
     })
+  }
+
+  if (eventMode.value == "emit-event"){
+    eventSignal.value = model.value['onChange'].eventSignal
   }
 })
 
@@ -319,6 +364,8 @@ onMounted(() => {
     "onChangeLabel": "On value change",
     "mode": "Mode",
     "changeModelLabel": "Model change",
+    "emitEventLabel": "Emit event",
+    "eventSignal": "Signal",
     "actionLabel": "Action",
     "actionCode": "Action code",
     "scriptCode": "Script code",
@@ -339,6 +386,8 @@ onMounted(() => {
     "onChangeLabel": "Zmiana wartości",
     "mode": "Tryb pracy",
     "changeModelLabel": "Zmiana wartości modelu",
+    "emitEventLabel": "Emituj zdarzenie",
+    "eventSignal": "Sygnał",
     "actionLabel": "Akcja",
     "actionCode": "Kod akcji",
     "scriptCode": "Kod skryptu (db => code)",
