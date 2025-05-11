@@ -25,6 +25,13 @@
         :label="t('opacity')"
       />
     </expansion-panel>
+    <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
   </v-expansion-panels>
 
 
@@ -40,6 +47,9 @@ import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGene
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 const panels = ref<string[]>(["general"])
 const {t} = useI18n()
