@@ -61,7 +61,7 @@
     >
       <col-property v-model="model.layout.cols"/>
       <offset-property v-model="model.layout.offset"/>
-
+      <fill-row-property v-model="model.layout.fillRow"/>
     </expansion-panel>
 
     <expansion-panel
@@ -88,6 +88,7 @@ import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 
 const panels = ref<string[]>(["general", "logic"])
 const {t} = useI18n()
