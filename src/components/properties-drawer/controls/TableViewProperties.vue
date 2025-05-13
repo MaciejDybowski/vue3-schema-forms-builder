@@ -118,7 +118,6 @@
             v-model="dynamicHeaderTitle"
             :prefix="currentConfiguredHeader.isReference? prefix: ''"
             label="Title"
-            @update:model-value="value => updatePropertyHeaderTitle(value)"
           />
 
           <v-switch
@@ -290,7 +289,6 @@
           v-model="dynamicButtonLabel"
           :prefix="currentConfiguredButton.isReference? prefix: ''"
           label="Title"
-          @update:model-value="value => updatePropertyButtonLabel(value)"
         />
 
         <v-switch
@@ -518,50 +516,17 @@ onMounted(() => {
 
 const {
   prefix,
-  updateI18nKey,
-  i18nDefault,
   toCamelCase
 } = useTranslateInput()
 
 function referenceChangedHeaderTitle() {
   if (currentConfiguredHeader.value.isReference) {
-    currentConfiguredHeader.value.i18nInputKey = toCamelCase(currentConfiguredHeader.value.title)
     currentConfiguredHeader.value.title = {$ref: prefix + toCamelCase(currentConfiguredHeader.value.title)}
-
-    if (!model.value.i18n) {
-      model.value.i18n = i18nDefault.value
-    }
-    ['pl', 'en', 'de'].forEach(lang => {
-      if (!model.value.i18n[lang]) {
-        model.value.i18n[lang] = {};
-      }
-      model.value.i18n[lang][currentConfiguredHeader.value.i18nInputKey] = "";
-    });
-
   } else {
     currentConfiguredHeader.value.title = currentConfiguredHeader.value.title.$ref.replace(prefix, '')
-    currentConfiguredHeader.value.i18nInputKey = currentConfiguredHeader.value.title
-
-    if (model.value.i18n) {
-      Object.keys(model.value.i18n).forEach(lang => {
-        if (model.value.i18n[lang]) {
-          delete model.value.i18n[lang][currentConfiguredHeader.value.i18nInputKey];
-        }
-      });
-    }
   }
 }
 
-function updatePropertyHeaderTitle(value: string) {
-  if (currentConfiguredHeader.value.isReference) {
-    const oldKey = currentConfiguredHeader.value.i18nInputKey
-    const newKey = value.replace(prefix, '');
-    updateI18nKey(oldKey, newKey, model);
-    currentConfiguredHeader.value.i18nInputKey = newKey;
-  } else {
-    currentConfiguredHeader.value.i18nInputKey = currentConfiguredHeader.value.title
-  }
-}
 
 const dynamicHeaderTitle = computed({
   get: () => {
@@ -601,41 +566,9 @@ const dynamicButtonLabel = computed({
 
 function referenceChangedButtonLabel() {
   if (currentConfiguredButton.value.isReference) {
-    currentConfiguredButton.value.i18nInputKey = toCamelCase(currentConfiguredButton.value.label)
     currentConfiguredButton.value.label = {$ref: prefix + toCamelCase(currentConfiguredButton.value.label)}
-
-    if (!model.value.i18n) {
-      model.value.i18n = i18nDefault.value
-    }
-    ['pl', 'en', 'de'].forEach(lang => {
-      if (!model.value.i18n[lang]) {
-        model.value.i18n[lang] = {};
-      }
-      model.value.i18n[lang][currentConfiguredButton.value.i18nInputKey] = "";
-    });
-
   } else {
     currentConfiguredButton.value.label = currentConfiguredButton.value.label.$ref.replace(prefix, '')
-    currentConfiguredButton.value.i18nInputKey = currentConfiguredButton.value.label
-
-    if (model.value.i18n) {
-      Object.keys(model.value.i18n).forEach(lang => {
-        if (model.value.i18n[lang]) {
-          delete model.value.i18n[lang][currentConfiguredButton.value.i18nInputKey];
-        }
-      });
-    }
-  }
-}
-
-function updatePropertyButtonLabel(value: string) {
-  if (currentConfiguredButton.value.isReference) {
-    const oldKey = currentConfiguredButton.value.i18nInputKey
-    const newKey = value.replace(prefix, '');
-    updateI18nKey(oldKey, newKey, model);
-    currentConfiguredButton.value.i18nInputKey = newKey;
-  } else {
-    currentConfiguredButton.value.i18nInputKey = currentConfiguredButton.value.label
   }
 }
 </script>

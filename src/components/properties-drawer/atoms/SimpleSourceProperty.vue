@@ -12,30 +12,36 @@
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
-  <v-list-item
+  <v-list
     v-for="(item, key) in modelValue.items"
     density="compact"
   >
-    <div class="d-flex py-2 align-center justify-center">
-      <v-text-field
+    <div class="d-flex align-center justify-center">
+      <textfield-general
+        style="max-width: 100px"
+        :label="t('simpleSource.value')"
         :model-value="item.value"
         @update:model-value="(val) => parseValue(item, val)"
-        :hide-details="true"
-        :label="t('simpleSource.value')"
-        class="pr-2"
-        density="compact"
-        v-bind="style.inputStyle.value"
+        class="pa-0 ma-0 px-1"
       />
-      <v-text-field
+
+      <textfield-general
+        style="max-width: 160px"
+        v-if="typeof item.title == 'string'"
         v-model="item.title"
-        :hide-details="true"
         :label="t('simpleSource.label')"
-        class="pl-2"
-        density="compact"
-        v-bind="style.inputStyle.value"
+        class="pa-0 ma-0 px-1"
       />
+      <textfield-general
+        style="max-width: 160px"
+        v-else
+        v-model="item.title.$ref"
+        :disabled="true"
+        :label="t('simpleSource.label')"
+      />
+
       <v-btn
-        class="mx-2"
+        class="mx-1 pa-0"
         density="compact"
         flat
         icon="mdi-delete"
@@ -43,8 +49,17 @@
         @click="deleteOption(key)"
       >
       </v-btn>
+      <v-btn
+        class="mx-1 pa-0"
+        density="compact"
+        flat
+        icon="mdi-cog"
+        size="small"
+        @click="configOption(item)"
+      >
+      </v-btn>
     </div>
-  </v-list-item>
+  </v-list>
   <v-list-item density="compact">
     <v-btn
       color="primary"
@@ -54,11 +69,55 @@
     >Dodaj
     </v-btn>
   </v-list-item>
+
+  <tcn-au-dialog
+    v-if="configOptionDialog"
+    v-model="configOptionDialog"
+    :acceptColor="style.primaryWhite.value"
+    acceptText="Save"
+    persistent
+    scrollable
+    width="800px"
+    @acceptButton="closeConfigItemDialog"
+    @closeButton="closeConfigItemDialog"
+  >
+    <template #title>
+      <v-card-title>
+        Item configuration
+      </v-card-title>
+    </template>
+
+    <v-card-text>
+      <textfield-general
+        :label="t('simpleSource.value')"
+        :model-value="currentConfiguredOption.value"
+        @update:model-value="(val) => parseValue(currentConfiguredOption, val)"
+      />
+
+      <textfield-general
+        v-model="dynamicItemTitle"
+        :prefix="currentConfiguredOption.isReference? prefix: ''"
+        label="Title"
+      />
+
+      <v-switch
+        v-model="currentConfiguredOption.isReference"
+        class="mx-4"
+        color="green"
+        hide-details="auto"
+        label="Use Reference"
+        @change="referenceChangedItemTitle"
+      />
+    </v-card-text>
+  </tcn-au-dialog>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
+import {computed, ref} from "vue";
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import {useTranslateInput} from "@/composables/useTranslateInput";
 
 const style = useStyle()
 const {t} = useI18n()
@@ -93,6 +152,51 @@ function parseValue(item, val: any) {
 function deleteOption(key: number) {
   modelValue.value.items = modelValue.value.items.filter((n, t) => t !== key)
 }
+
+
+const {
+  prefix,
+  toCamelCase
+} = useTranslateInput()
+const currentConfiguredOption = ref<any>(null)
+const configOptionDialog = ref(false)
+
+function configOption(option: any) {
+  currentConfiguredOption.value = option
+  currentConfiguredOption.value.isReference = typeof currentConfiguredOption.value.title != "string"
+  configOptionDialog.value = true
+}
+
+function closeConfigItemDialog() {
+  configOptionDialog.value = false
+  delete currentConfiguredOption.value.isReference
+  currentConfiguredOption.value = null
+}
+
+const dynamicItemTitle = computed({
+  get: () => {
+    if (typeof currentConfiguredOption.value.title === 'string') {
+      return currentConfiguredOption.value.title;
+    } else {
+      return currentConfiguredOption.value.title.$ref.replace(prefix, '');
+    }
+  },
+  set: (value: string) => {
+    if (value == null) {
+      currentConfiguredOption.value.title = "";
+    }
+    currentConfiguredOption.value.title = currentConfiguredOption.value.isReference ? {$ref: prefix + value.trim()} : value;
+  }
+});
+
+function referenceChangedItemTitle() {
+  if (currentConfiguredOption.value.isReference) {
+    currentConfiguredOption.value.title = {$ref: prefix + toCamelCase(currentConfiguredOption.value.title)}
+  } else {
+    currentConfiguredOption.value.title = currentConfiguredOption.value.title.$ref.replace(prefix, '')
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>

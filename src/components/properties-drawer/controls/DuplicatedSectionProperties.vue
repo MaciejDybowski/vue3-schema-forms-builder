@@ -24,7 +24,7 @@
       title="Properties"
       value="fieldProps"
     >
-      <duplicated-section-button-property v-model="model.layout.options.addBtnText"/>
+      <duplicated-section-button-property v-model="model.layout.options"/>
 
       <select-general
         v-model="model.layout.options.addBtnMode"

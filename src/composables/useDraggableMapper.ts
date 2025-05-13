@@ -4,18 +4,17 @@ import {FormSchema} from "@/models/FormSchema";
 import {SchemaFormElement} from "@/models/SchemaFormElement";
 import {FormOptions} from "@/models/FormOptions";
 import {isNumber} from "lodash";
-import {mergeObjects} from "@/utils";
 
 export function useDraggableMapper() {
 
 
-  function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions, globalI18n: object): Array<DraggableFormElement> {
+  function mapSchemaToDraggable(formSchema: FormSchema, formOptions: FormOptions): Array<DraggableFormElement> {
     const draggableElements: Ref<DraggableFormElement[]> = ref([])
 
     Object.entries(formSchema.properties).forEach(([key, schemaElement]: [string, SchemaFormElement]) => {
 
       if (isNestedFields(schemaElement)) {
-        const mappedFields = [...mapSchemaToDraggable(schemaElement as FormSchema, formOptions, globalI18n)]
+        const mappedFields = [...mapSchemaToDraggable(schemaElement as FormSchema, formOptions)]
           .map(item => {
             item.key = `${key}.${item.key}`
             return item
@@ -23,7 +22,7 @@ export function useDraggableMapper() {
         draggableElements.value.push(...mappedFields)
 
       } else {
-        mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement, globalI18n)
+        mapSingleElement(formSchema, formOptions, draggableElements, key, schemaElement)
       }
 
     })
@@ -31,7 +30,7 @@ export function useDraggableMapper() {
     return draggableElements.value
   }
 
-  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement, globalI18n: object) {
+  function mapSingleElement(formSchema: FormSchema, formOptions: FormOptions, draggableElements: Ref<DraggableFormElement[]>, key: string, schemaElement: SchemaFormElement) {
 
     if (schemaElement.$ref && schemaElement.$ref !== "") {
       const draggableElement = {
@@ -47,7 +46,7 @@ export function useDraggableMapper() {
 
     if (schemaElement.layout.schema) {
       schemaElement.layout.schema.options = formOptions
-      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions, formSchema.i18n).map((item) => {
+      schemaElement.tempItems = mapSchemaToDraggable(schemaElement.layout.schema, formOptions).map((item) => {
         item["sectionKey"] = key
         return item
       })
@@ -65,59 +64,9 @@ export function useDraggableMapper() {
       required: formSchema.required?.includes(key) as boolean,
     } as DraggableFormElement
 
-    /*
-    * Sprawdzenie czy przychodzi nam $ref oraz pobranie obiektu dla lokalnego elementu z globalnego i18n, trzeba uważać na zagnieżdzenia item.property
-    * */
-    if (draggableElement.label && draggableElement.label.$ref) {
-      const labelKey = draggableElement.label.$ref.split("/").pop()
-      draggableElement.i18n = extractKey(globalI18n, labelKey)
-    }
-    if (draggableElement.content && draggableElement.content.$ref) {
-      const labelKey = draggableElement.content.$ref.split("/").pop()
-      draggableElement.i18n = extractKey(globalI18n, labelKey)
-    }
-    if (draggableElement.layout.component == 'table-view') {
-      const keys = extractRefKeys(draggableElement)
-      keys.forEach(extractedKey => {
-        const translations = extractKey(globalI18n, extractedKey);
-        draggableElement.i18n = mergeObjects(draggableElement.i18n, translations)
-      });
-    }
-    /*
-     Koniec mapowań
-     */
     dictionarySourceBuilderMapping(draggableElement)
 
     draggableElements.value.push(draggableElement)
-  }
-
-  function extractRefKeys(obj) {
-    const keys: string[] = [];
-
-    function recurse(current) {
-      if (typeof current !== 'object' || current === null) {
-        return;
-      }
-
-      if (current.$ref && typeof current.$ref === 'string') {
-        const key = current.$ref.split('/').pop() as string;
-        keys.push(key);
-      }
-
-      for (const value of Object.values(current)) {
-        recurse(value);
-      }
-    }
-
-    recurse(obj);
-
-    return keys;
-  }
-
-  function extractKey(i18n: object, key: string) {
-    return Object.fromEntries(
-      Object.entries(i18n).map(([lang, values]) => [lang, {[key]: values[key]}])
-    );
   }
 
   function dictionarySourceBuilderMapping(draggableElement: DraggableFormElement) {

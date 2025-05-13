@@ -112,7 +112,6 @@
             v-model="dynamicHeaderTitle"
             :prefix="currentConfiguredHeader.isReference? prefix: ''"
             label="Title"
-            @update:model-value="value => updatePropertyHeaderTitle(value)"
           />
 
           <v-switch
@@ -122,13 +121,6 @@
             hide-details="auto"
             label="Use Reference"
             @change="referenceChangedHeaderTitle"
-          />
-
-          <translation-input
-            v-if="currentConfiguredHeader.isReference && model.i18n &&currentConfiguredHeader.i18nInputKey"
-            :key="dynamicHeaderTitle"
-            v-model="model.i18n"
-            :input-key="currentConfiguredHeader.i18nInputKey"
           />
 
           <textfield-general
@@ -158,8 +150,6 @@ import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vu
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import draggable from "../../../vuedraggable/vuedraggable";
-import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import {useStyle} from "@/main";
 
@@ -174,8 +164,6 @@ const style = useStyle()
 const useBuilderStateStore = useBuilderState()
 const {
   prefix,
-  updateI18nKey,
-  i18nDefault,
   toCamelCase
 } = useTranslateInput()
 
@@ -199,16 +187,13 @@ function updateHeaders() {
 
 function configHeader(header: any) {
   currentConfiguredHeader.value = header
-  const localIsReference = typeof currentConfiguredHeader.value.title != "string"
-  currentConfiguredHeader.value.isReference = localIsReference
-  currentConfiguredHeader.value.i18nInputKey = !localIsReference ? toCamelCase(header.title) : currentConfiguredHeader.value.title.$ref.split("/").pop()
+  currentConfiguredHeader.value.isReference = typeof currentConfiguredHeader.value.title != "string"
   configHeaderDialog.value = true
 }
 
 function closeConfigHeaderDialog() {
   configHeaderDialog.value = false
   delete currentConfiguredHeader.value.isReference
-  delete currentConfiguredHeader.value.i18nInputKey
   currentConfiguredHeader.value = null
 }
 
@@ -217,9 +202,7 @@ const dynamicHeaderTitle = computed({
     if (typeof currentConfiguredHeader.value.title === 'string') {
       return currentConfiguredHeader.value.title;
     } else {
-      const value = currentConfiguredHeader.value.title.$ref.replace(prefix, '');
-      currentConfiguredHeader.value.i18nInputKey = value;
-      return value;
+      return currentConfiguredHeader.value.title.$ref.replace(prefix, '');
     }
   },
   set: (value: string) => {
@@ -232,41 +215,9 @@ const dynamicHeaderTitle = computed({
 
 function referenceChangedHeaderTitle() {
   if (currentConfiguredHeader.value.isReference) {
-    currentConfiguredHeader.value.i18nInputKey = toCamelCase(currentConfiguredHeader.value.title)
     currentConfiguredHeader.value.title = {$ref: prefix + toCamelCase(currentConfiguredHeader.value.title)}
-
-    if (!model.value.i18n) {
-      model.value.i18n = i18nDefault.value
-    }
-    ['pl', 'en', 'de'].forEach(lang => {
-      if (!model.value.i18n[lang]) {
-        model.value.i18n[lang] = {};
-      }
-      model.value.i18n[lang][currentConfiguredHeader.value.i18nInputKey] = "";
-    });
-
   } else {
     currentConfiguredHeader.value.title = currentConfiguredHeader.value.title.$ref.replace(prefix, '')
-    currentConfiguredHeader.value.i18nInputKey = currentConfiguredHeader.value.title
-
-    if (model.value.i18n) {
-      Object.keys(model.value.i18n).forEach(lang => {
-        if (model.value.i18n[lang]) {
-          delete model.value.i18n[lang][currentConfiguredHeader.value.i18nInputKey];
-        }
-      });
-    }
-  }
-}
-
-function updatePropertyHeaderTitle(value: string) {
-  if (currentConfiguredHeader.value.isReference) {
-    const oldKey = currentConfiguredHeader.value.i18nInputKey
-    const newKey = value.replace(prefix, '');
-    updateI18nKey(oldKey, newKey, model);
-    currentConfiguredHeader.value.i18nInputKey = newKey;
-  } else {
-    currentConfiguredHeader.value.i18nInputKey = currentConfiguredHeader.value.title
   }
 }
 

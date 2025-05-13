@@ -64,8 +64,7 @@ let modelValue = defineModel<FormSchema>({
           clearIcon: "mdi-close"
         }
       },
-      required: [],
-      i18n: {}
+      required: []
     }
   }
 })
@@ -99,12 +98,12 @@ watch(controls, () => {
 
 onMounted(() => {
   useBuilderStateStore.resetState()
-  controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions, modelValue.value.i18n)
+  controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions)
 })
 
 function updateSchema(schema: string) {
   useBuilderStateStore.resetState()
-  controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions, JSON.parse(schema).i18n)
+  controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions)
 }
 
 </script>

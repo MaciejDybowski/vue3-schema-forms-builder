@@ -1,9 +1,10 @@
 <template>
   <div>
     <textfield-general
-      v-model="contentValue"
-      :label="t('contentProperty')"
+      v-model="hintValue"
+      :label="t('hint')"
       :prefix="isReference? prefix: ''"
+
     />
     <v-switch
       v-model="isReference"
@@ -13,13 +14,16 @@
       label="Use Reference"
       @change="referenceChangedTrigger"
     />
+
+
   </div>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import {useTranslateInput} from "@/composables/useTranslateInput";
+
 
 const modelValue = defineModel<any>();
 const {t} = useI18n();
@@ -30,12 +34,11 @@ const {
   getValueForInput
 } = useTranslateInput()
 
-const contentValue = getValueForInput('content', modelValue)
+const hintValue = getValueForInput('hint', modelValue)
 
 function referenceChangedTrigger() {
-  referenceChanged(modelValue, "content", contentValue.value)
+  referenceChanged(modelValue, "hint", hintValue.value)
 }
-
 
 
 </script>
@@ -47,10 +50,10 @@ function referenceChangedTrigger() {
 <i18n lang="json">
 {
   "en": {
-    "contentProperty": "Text value"
+    "hint": "Hint"
   },
   "pl": {
-    "contentProperty": "Tekst"
+    "hint": "Podpowiedź"
   }
 }
 </i18n>

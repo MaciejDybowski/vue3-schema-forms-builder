@@ -4,7 +4,7 @@
       v-model="labelValue"
       :label="t('label')"
       :prefix="isReference? prefix: ''"
-      @update:model-value="value => updatePropertyTrigger(value)"
+
     />
     <v-switch
       v-model="isReference"
@@ -15,47 +15,31 @@
       @change="referenceChangedTrigger"
     />
 
-    <translation-input
-      v-if="isReference && modelValue.i18n"
-      :key="labelValue"
-      v-model="modelValue.i18n"
-      :input-key="i18nInputKey"
-    />
+
   </div>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import {onBeforeMount} from "vue";
-import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
 import {useTranslateInput} from "@/composables/useTranslateInput";
+
 
 const modelValue = defineModel<any>();
 const {t} = useI18n();
 const {
-  init,
-  i18nInputKey,
   prefix,
   isReference,
   referenceChanged,
-  updateProperty,
-  useDynamicInputValue
+  getValueForInput
 } = useTranslateInput()
 
-const labelValue = useDynamicInputValue('label', modelValue)
+const labelValue = getValueForInput('label', modelValue)
 
 function referenceChangedTrigger() {
-  referenceChanged(modelValue, labelValue, 'label')
+  referenceChanged(modelValue, "label", labelValue.value)
 }
 
-function updatePropertyTrigger(value: string) {
-  updateProperty(value, modelValue, 'label')
-}
-
-onBeforeMount(() => {
-  init(modelValue, 'label')
-})
 
 </script>
 

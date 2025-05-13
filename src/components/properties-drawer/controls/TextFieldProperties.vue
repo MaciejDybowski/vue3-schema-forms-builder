@@ -50,10 +50,9 @@
       title="Field properties"
       value="fieldProps"
     >
-      <textfield-general
-        v-model="model.layout.props['hint']"
-        :label="t('hint')"
-      />
+
+      <hint-property v-model="model.layout.props"/>
+
       <textfield-general
         :label="t('persistentHintIfExpression')"
         :model-value="model.layout.props['persistent-hint']"
@@ -98,6 +97,7 @@ import ValidationConfiguration from "@/components/properties-drawer/atoms/Valida
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import HintProperty from "@/components/properties-drawer/atoms/HintProperty.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

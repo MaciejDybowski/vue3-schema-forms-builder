@@ -1,23 +1,44 @@
 <template>
   <v-list-item>
-    <v-text-field
-      v-model="modelValue"
+    <textfield-general
+      v-model="duplicatedSectionButton"
       :label="t('duplicatedSectionButtonText')"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
+      :prefix="isReference? prefix: ''"
+
+    />
+    <v-switch
+      v-model="isReference"
+      class="mx-4"
+      color="green"
+      hide-details="auto"
+      label="Use Reference"
+      @change="referenceChangedTrigger"
     />
   </v-list-item>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
-
-const style = useStyle()
+import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import {useTranslateInput} from "@/composables/useTranslateInput";
 
 const modelValue = defineModel()
-
 const {t} = useI18n()
+
+const {
+  prefix,
+  isReference,
+  referenceChanged,
+  getValueForInput
+} = useTranslateInput()
+
+const duplicatedSectionButton = getValueForInput('addBtnText', modelValue)
+
+function referenceChangedTrigger() {
+  referenceChanged(modelValue, "addBtnText", duplicatedSectionButton.value)
+}
+
+
 </script>
 
 <style lang="scss" scoped>

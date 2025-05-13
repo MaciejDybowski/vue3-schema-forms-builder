@@ -18,29 +18,7 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderEmpty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {
-      "type": "object",
-      "properties": {
-        "group1": {
-          "layout": {
-            "component": "fields-group",
-            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-            "schema": {
-              "type": "object",
-              "properties": {
-                "text-field-352": {
-                  "label": {"$ref": "#/i18n/~$locale~/textField352"},
-                  "layout": {"component": "text-field"}
-                }
-              }
-            },
-            "props": {},
-            "options": {"showDivider": false, "addBtnText": "Add"}
-          }
-        }
-      },
-      "i18n": {"pl": {"textField352": "qwewqe"}, "en": {"textField352": "qweqw"}, "de": {"textField352": "qwewqewq"}}
-    }
+    modelValue: {"type":"object","properties":{"duplicated-section-833":{"layout":{"component":"duplicated-section","cols":{"xs":12,"sm":12,"md":12,"lg":12,"xl":12,"xxl":12},"schema":{"type":"object","properties":{}},"options":{"addBtnText":{"$ref":"#/i18n/~$locale~/qweqwe"},"showDivider":false,"ordinalNumberInModel":false,"showFirstInitRow":true,"addBtnMode":"add"}},"editable":true,"showElements":true}}}
   }
 }
 

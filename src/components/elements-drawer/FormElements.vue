@@ -247,9 +247,10 @@ function cloneControls(item: ElementDrawerFromElement) {
             ordinalNumberInModel: false,
             showFirstInitRow: true
           },
-          editable: true,
-          showElements: true,
+
         },
+        editable: true,
+        showElements: true,
         options: {
           fieldProps: style.inputStyle,
           buttonProps: style.buttonStyle

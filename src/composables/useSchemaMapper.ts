@@ -6,7 +6,6 @@ import {useStyle} from "@/main";
 import {copyObject} from "@/utils/copy";
 import {isEmpty} from "lodash";
 import {Layout} from "@/models/Layout";
-import {mergeObjects} from "@/utils";
 
 
 export function useSchemaMapper() {
@@ -24,15 +23,12 @@ export function useSchemaMapper() {
   function mapDraggableToSchema(formElements: DraggableFormElement[]): FormSchema {
     schema.value.properties = {}
     schema.value.required = []
-    schema.value.i18n = {}
 
     formElements.forEach((element: DraggableFormElement) => {
       mapSingleElement(schema.value, element)
     })
 
     delete schema.value.options
-
-    clearEmptyKeyFromSchema(schema.value, "i18n")
     clearEmptyKeyFromSchema(schema.value, "required")
 
     return schema.value
@@ -101,8 +97,7 @@ export function useSchemaMapper() {
       keys.shift()
       tempElement.key = keys.join(".")
 
-      schema.i18n = mergeObjects(schema.i18n, formElement.i18n)
-      delete tempElement.i18n
+
       // call function for firstName with nested structure
       mapSingleElement(schema.properties[nestedRootKey], tempElement)
     } else {
@@ -112,17 +107,6 @@ export function useSchemaMapper() {
       removeDraggableFields(tempElement)
       mapUrlInDictionary(tempElement)
 
-      /*
-      * Pobranie lokalnego i18n z komponentu i proba merowania z globalnym
-      *  */
-      if (globalSchema) { // grupa i pewnie duplikowana sekcja
-        globalSchema.i18n = mergeObjects(globalSchema.i18n, formElement.i18n)
-
-      } else {
-        schema.i18n = mergeObjects(schema.i18n, formElement.i18n)
-      }
-
-      delete tempElement.i18n
 
       cleanJson(tempElement)
       schema.properties[tempElementKey] = tempElement
