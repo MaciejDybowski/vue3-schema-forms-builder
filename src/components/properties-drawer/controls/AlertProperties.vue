@@ -11,7 +11,55 @@
       value="general"
     >
       <key-property v-model="model.key"/>
+
+      <v-switch
+        v-model="model.memorable"
+        label="Memorable state"
+        class="mx-4"
+        hide-details="auto"
+
+      />
+
       <content-propery v-model="model"/>
+      <select-general
+
+        v-model="model.layout.props.variant"
+        :items="[
+       {value: 'flat', title: t('flat')},
+       {value:'elevated', title: t('elevated')},
+       {value:'plain', title: t('plain')},
+       {value:'outlined', title: t('outlined')},
+       {value:'text', title: t('text')},
+       {value:'tonal', title: t('tonal')}]"
+        :label="t('variantLabel')"
+        :return-object="false"
+        clearable
+      />
+
+      <select-general
+        v-model="model.layout.props.type"
+        :items="[
+       {value: 'success', title: t('success')},
+       {value:'info', title: t('info')},
+       {value:'warning', title: t('warning')},
+       {value:'error', title: t('error')}]
+    "
+        :label="t('typeLabel')"
+        :return-object="false"
+        clearable
+      />
+
+      <select-general
+        v-model="model.layout.props.density"
+        :items="[
+       {value: 'default', title: t('default')},
+       {value:'comfortable', title: t('comfortable')},
+       {value:'compact', title: t('compact')}]
+    "
+        :label="t('densityLabel')"
+        :return-object="false"
+        clearable
+      />
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"
@@ -48,6 +96,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import {useI18n} from "vue-i18n";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
+import {useStyle} from "@/main";
 
 const panels = ref<string[]>(["general", "logic"])
 const {t} = useI18n()
@@ -60,6 +109,8 @@ const model = computed({
     useBuilderStateStore.setConfiguredField(val)
   }
 })
+
+const style = useStyle()
 
 </script>
 

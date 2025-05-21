@@ -25,3 +25,4 @@ export type FromElementComponent =
   | "markdown"
   | "ordered-multi-select"
   | "key-value-list"
+  | "alert"

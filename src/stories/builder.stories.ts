@@ -18,7 +18,10 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderEmpty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {"type":"object","properties":{"duplicated-section-833":{"layout":{"component":"duplicated-section","cols":{"xs":12,"sm":12,"md":12,"lg":12,"xl":12,"xxl":12},"schema":{"type":"object","properties":{}},"options":{"addBtnText":{"$ref":"#/i18n/~$locale~/qweqwe"},"showDivider":false,"ordinalNumberInModel":false,"showFirstInitRow":true,"addBtnMode":"add"}},"editable":true,"showElements":true}}}
+    modelValue: {
+      "type": "object",
+      "properties": {}
+    }
   }
 }
 

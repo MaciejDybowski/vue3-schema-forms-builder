@@ -87,7 +87,7 @@ export function useDraggableMapper() {
 
   // funkcja uzupełnia wszystkie mapowania potrzebne do działania prawego panelu mapowania kontrolek na JSON Scheme
   function fillSchemaForBuilderPurpose(schemaElement: SchemaFormElement) {
-
+    console.debug(schemaElement)
     if (!schemaElement.layout.props) {
       schemaElement.layout.props = {}
     }

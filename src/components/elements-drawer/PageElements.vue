@@ -16,11 +16,12 @@
   </draggable>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import draggable from "../../vuedraggable/vuedraggable";
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ComputedRef, ref, Ref} from "vue";
+
 const style = useStyle()
 
 const props = defineProps<{
@@ -61,8 +62,7 @@ const staticContent: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-alert-box-outline",
     label: "Alert",
-    component: "static-content",
-    tag: "v-alert",
+    component: "alert",
   },
   {
     icon: "mdi-minus",
@@ -101,6 +101,29 @@ function cloneStatic(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)
 
   switch (item.component) {
+    case "alert": {
+      return {
+        key: id,
+        memorable: false,
+        content: "Change it",
+        layout: {
+          component: item.component,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
+          props: {},
+        },
+        on: {
+          input: (e: any) => {
+          },
+        },
+      }
+    }
     case "static-content": {
       return {
         key: id,
@@ -204,11 +227,9 @@ function generateKey(name: string): string {
 }
 
 
-
 </script>
 
 
-
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

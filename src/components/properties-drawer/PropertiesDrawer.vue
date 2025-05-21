@@ -33,6 +33,7 @@
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <ref-properties v-if="model.ref"/>
       <template v-else-if="model.layout">
+        <alert-properties v-if="model.layout.component == 'alert'"/>
         <text-field-properties v-if="model.layout.component == 'text-field'"/>
         <markdown-properties v-if="model.layout.component == 'markdown'"/>
         <number-field-properties v-if="model.layout.component == 'number-field'"/>
@@ -88,6 +89,7 @@ import RefProperties from "@/components/properties-drawer/controls/RefProperties
 import MarkdownProperties from "@/components/properties-drawer/controls/MarkdownProperties.vue";
 import OrderedMultiSelectProperties from "@/components/properties-drawer/controls/OrderedMultiSelectProperties.vue";
 import KeyValueProperties from "@/components/properties-drawer/controls/KeyValueProperties.vue";
+import AlertProperties from "@/components/properties-drawer/controls/AlertProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
