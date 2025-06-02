@@ -1,6 +1,6 @@
 // @ts-nocheck
-import {Meta, StoryObj} from '@storybook/vue3';
-import {ArgTypes} from '@storybook/types';
+import {Meta, StoryObj} from '@storybook/vue3-vite';
+import {ArgTypes} from 'storybook/internal/types';
 import DevelopmentTable from "@/components/storybook-components/DevelopmentTable.vue"
 
 const meta = {

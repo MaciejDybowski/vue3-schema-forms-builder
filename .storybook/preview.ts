@@ -1,6 +1,6 @@
 // @ts-nocheck
-import type {Preview} from '@storybook/vue3';
-import {setup} from '@storybook/vue3';
+import type {Preview} from '@storybook/vue3-vite';
+import {setup} from '@storybook/vue3-vite';
 import vuetify from './plugins/vuetify';
 import {withVuetifyTheme} from './withVuetifyTheme.decorator';
 import i18n, {i18nConfig} from './plugins/i18n';

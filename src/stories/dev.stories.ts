@@ -1,6 +1,6 @@
 // @ts-nocheck
-import {Meta, StoryObj} from '@storybook/vue3';
-import {ArgTypes} from '@storybook/types';
+import {Meta, StoryObj} from '@storybook/vue3-vite';
+import {ArgTypes} from 'storybook/internal/types';
 import ComponentWrapper from "../components/storybook-components/ComponentWrapper.vue";
 
 const meta = {
