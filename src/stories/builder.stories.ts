@@ -25,16 +25,3 @@ export const FormBuilderEmpty: Story = {
   }
 }
 
-export const FormBuilderRefTable
-  :
-  Story = {
-  args: {
-    workspaceId: "bm",
-    modelValue: {
-      "type": "object",
-      "properties": {"tableOfRelationships": {"$ref": "http://aureadev.tecna.pl/formularz-1.json"}},
-      "required": []
-    }
-  }
-}
-

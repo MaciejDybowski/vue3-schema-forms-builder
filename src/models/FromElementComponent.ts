@@ -26,3 +26,4 @@ export type FromElementComponent =
   | "ordered-multi-select"
   | "key-value-list"
   | "alert"
+  | "multi-language-control"

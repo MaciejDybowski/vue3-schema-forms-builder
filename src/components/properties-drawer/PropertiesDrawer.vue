@@ -33,6 +33,7 @@
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <ref-properties v-if="model.ref"/>
       <template v-else-if="model.layout">
+        <multi-language-control-properties v-if="model.layout.component=='multi-language-control'"/>
         <alert-properties v-if="model.layout.component == 'alert'"/>
         <text-field-properties v-if="model.layout.component == 'text-field'"/>
         <markdown-properties v-if="model.layout.component == 'markdown'"/>
@@ -90,6 +91,7 @@ import MarkdownProperties from "@/components/properties-drawer/controls/Markdown
 import OrderedMultiSelectProperties from "@/components/properties-drawer/controls/OrderedMultiSelectProperties.vue";
 import KeyValueProperties from "@/components/properties-drawer/controls/KeyValueProperties.vue";
 import AlertProperties from "@/components/properties-drawer/controls/AlertProperties.vue";
+import MultiLanguageControlProperties from "@/components/properties-drawer/controls/MultiLanguageControlProperties.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

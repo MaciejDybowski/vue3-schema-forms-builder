@@ -37,12 +37,13 @@ import {FormSchema} from "@/models/FormSchema";
 
 //import {createVueSchemaForms} from "../../../aurea-forms";
 //import "../../../aurea-forms/dist/style.css"
-import {createVueSchemaForms} from "vue3-schema-forms";
+import {createVueSchemaForms, provideFormModel} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 
 const instance = getCurrentInstance();
 
+const form = provideFormModel();
 
 const vueSchemaForms = createVueSchemaForms({
   installFormControls: true

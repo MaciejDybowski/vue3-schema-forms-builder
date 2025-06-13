@@ -1,10 +1,10 @@
 import {useCanvas} from "@/composables/useCanvas";
-import {SchemaField} from "vue3-schema-forms";
+
 
 export function useColSizeMapper() {
   const {canvasMode} = useCanvas()
 
-  function colSize(element: SchemaField): number {
+  function colSize(element: any): number {
     switch (canvasMode.value) {
       case "DESKTOP":
         return element?.layout?.cols.lg || 12

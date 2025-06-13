@@ -142,6 +142,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     icon: "mdi-format-list-numbered",
     label: "Lista uporządkowana",
     component: "ordered-multi-select"
+  },
+  {
+    icon: "mdi-translate-variant",
+    label: "Multi Language Field",
+    component: "multi-language-control"
   }
 ])
 
@@ -290,6 +295,11 @@ function cloneControls(item: ElementDrawerFromElement) {
           url: "",
           title: "label",
           value: "id",
+          returnObject: true,
+          lazy: true,
+          singleOptionAutoSelect: true,
+          multiple: false,
+          maxSelection: 0
         }
       }
     }
@@ -348,6 +358,15 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         actions: {}
       }
+    case "multi-language-control": {
+      return {
+        ...schemaElement,
+        options: {
+          ...schemaElement.options,
+          availableLocales: [{code: "en-GB", name: "English"}]
+        }
+      }
+    }
   }
 }
 

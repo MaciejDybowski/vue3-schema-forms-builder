@@ -70,6 +70,23 @@
       v-bind="style.inputStyle.value"
     />
   </v-list-item>
+  <v-list-item>
+    <v-switch
+      v-model="modelValue.multiple"
+      :label="t('multiple')"
+      class="mx-2"
+      hide-details="auto"
+      v-bind="style.inputStyle.value"
+    />
+  </v-list-item>
+
+
+  <number-general
+    v-if="modelValue.multiple"
+    v-model="modelValue.maxSelection"
+    :label="t('maxSelection')"
+  />
+
 </template>
 
 <script lang="ts" setup>
@@ -77,7 +94,7 @@
 
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
 
 const modelValue = defineModel<any>({
   default: () => {
@@ -106,7 +123,9 @@ const {t} = useI18n()
     "returnObject": "Return object",
     "lazyLoading": "Lazy loading",
     "singleOptionAutoSelect": "Auto select when single",
-    "urlErrorMessage": "The address you entered is incorrect"
+    "urlErrorMessage": "The address you entered is incorrect",
+    "multiple": "Multiple values",
+    "maxSelection": "Limit for multiple values"
   },
   "pl": {
     "configLabel": "Konfiguracja słownika",
@@ -119,7 +138,9 @@ const {t} = useI18n()
     "returnObject": "Zwracaj obiekt",
     "lazyLoading": "Stronicowanie wyników",
     "singleOptionAutoSelect": "Auto wybieranie, gdy pojedyncza wartość",
-    "urlErrorMessage": "Podany adres jest nieprawidłowy"
+    "urlErrorMessage": "Podany adres jest nieprawidłowy",
+    "multiple": "Wiele wartości",
+    "maxSelection": "Limit na wiele wartości"
   }
 }
 </i18n>
