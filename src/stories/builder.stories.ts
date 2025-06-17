@@ -25,3 +25,31 @@ export const FormBuilderEmpty: Story = {
   }
 }
 
+export const Fixing: Story = {
+  args: {
+    workspaceId: "bm",
+    modelValue: {
+      "type": "object",
+      "properties": {
+        "groupOne": {
+          "layout": {
+            "component": "fields-group",
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "label": "Item",
+                  "layout": {
+                    "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 6, "xl": 6, "xxl": 6},
+                    "component": "text-field"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

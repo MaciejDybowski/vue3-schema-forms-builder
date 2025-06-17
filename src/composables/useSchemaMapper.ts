@@ -62,7 +62,6 @@ export function useSchemaMapper() {
   }
 
   function removeDraggableFields(formElement: Partial<DraggableFormElement>) {
-    delete formElement.formId
     delete formElement.key
     delete formElement.on
     delete formElement.options
@@ -103,6 +102,7 @@ export function useSchemaMapper() {
     } else {
       const tempElement = {...formElement}
       const tempElementKey = tempElement.key
+
       mapRequiredProperty(schema, formElement)
       removeDraggableFields(tempElement)
       mapUrlInDictionary(tempElement)

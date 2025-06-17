@@ -5,7 +5,9 @@
     />
     <PropsViewer
       :json-data="modelValue"
+      :draggable="useBuilderStateStore.getDraggableModel"
     />
+
   </div>
   <loading-view v-else/>
 </template>
@@ -17,6 +19,10 @@ import LoadingView from "@/components/storybook-components/LoadingView.vue";
 import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue";
 import PropsViewer from "@/components/storybook-components/PropsViewer.vue";
 import {FormSchema} from "@/models/FormSchema";
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
+
+
+const useBuilderStateStore = useBuilderState()
 
 const modelValue = defineModel<FormSchema>()
 

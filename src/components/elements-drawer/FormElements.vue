@@ -163,7 +163,6 @@ const filteredControls: ComputedRef<ElementDrawerFromElement[]> = computed(() =>
 function cloneControls(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)
   const schemaElement = {
-    formId: '333',
     key: id,
     label: "Item-" + id,
     layout: {
@@ -180,14 +179,6 @@ function cloneControls(item: ElementDrawerFromElement) {
       component: item.component,
       props: {}
     },
-    on: {
-      input: (e: any) => {
-      },
-    },
-    options: {
-      fieldProps: style.inputStyle,
-      buttonProps: style.buttonStyle
-    }
   }
 
   switch (item.component) {
@@ -231,6 +222,7 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "duplicated-section": {
       return {
         key: id,
+        sectionKey: id,
         tempItems: [],
         layout: {
           component: item.component,
@@ -256,15 +248,13 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         editable: true,
         showElements: true,
-        options: {
-          fieldProps: style.inputStyle,
-          buttonProps: style.buttonStyle
-        }
+
       }
     }
     case "fields-group": {
       return {
         key: id,
+        sectionKey: id,
         tempItems: [],
         layout: {
           component: item.component,
@@ -281,10 +271,6 @@ function cloneControls(item: ElementDrawerFromElement) {
             properties: {},
           },
         },
-        options: {
-          fieldProps: style.inputStyle,
-          buttonProps: style.buttonStyle
-        }
       }
     }
     case "dictionary":
@@ -342,7 +328,6 @@ function cloneControls(item: ElementDrawerFromElement) {
       }
     case "table-view":
       return {
-        formId: '333',
         key: id,
         layout: {
           ...schemaElement.layout,
@@ -362,7 +347,6 @@ function cloneControls(item: ElementDrawerFromElement) {
       return {
         ...schemaElement,
         options: {
-          ...schemaElement.options,
           availableLocales: [{code: "en-GB", name: "English"}]
         }
       }

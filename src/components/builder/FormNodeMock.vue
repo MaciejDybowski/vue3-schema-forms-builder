@@ -16,6 +16,7 @@
         :empty-insert-threshold="30"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         class="pt-6"
+        :section-key="element.key"
       />
       <v-divider
         v-if="element.layout.options.showDivider"
@@ -40,6 +41,7 @@
         :empty-insert-threshold="30"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         class="pt-6"
+        :section-key="element.key"
       />
     </div>
 
@@ -53,15 +55,30 @@ import {computed, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
 import {cloneDeep} from "lodash";
+import {useStyle} from "@/main";
+
+
 
 const props = defineProps<{
   element: any
 }>()
 
+const style = useStyle()
+
 const preparedElement = computed(() => {
   const temp = cloneDeep(props.element)
   // remove props for mock because engine modify this to null after set to model
   delete temp.defaultValue
+
+  temp.options = {
+    ...temp.options,
+    fieldProps: style.inputStyle.value,
+    buttonProps: style.buttonStyle.value
+  }
+  temp.on = {
+    input: (e: any) => {
+    },
+  }
   return temp
 })
 

@@ -1,5 +1,6 @@
 <template>
   <draggable
+    :key="modelValue?.length"
     v-model="modelValue"
     :emptyInsertThreshold="emptyInsertThreshold"
     :sort="true"
@@ -18,14 +19,26 @@
 // https://github.com/SortableJS/vue.draggable.next/issues/111
 import draggable from "../../vuedraggable/vuedraggable";
 import FieldWrapper from "../builder/FieldWrapper.vue";
+import {watch} from "vue";
 
 const modelValue = defineModel<any[]>()
 
+
 const props = withDefaults(defineProps<{
   emptyInsertThreshold?: number,
+  sectionKey?: string | null
 }>(), {
-  emptyInsertThreshold: 100
+  emptyInsertThreshold: 100,
+  sectionKey: null
 })
+
+if (props.sectionKey) {
+  watch(() => modelValue.value, (value) => {
+    modelValue.value?.forEach(it => {
+      it['sectionKey'] = props.sectionKey
+    })
+  }, {deep: true})
+}
 
 const dragOptions = {
   animation: 250,
