@@ -28,7 +28,7 @@
     "@vueuse/components": "^11.1.0",
     "@vueuse/core": "^11.1.0",
     "roboto-fontface": "*",
-    "vue3-schema-forms": "0.2.2-snapshot-7"
+    "vue3-schema-forms": "0.2.4"
   },
   "peerDependencies": {
     "axios": "^1.7.2",

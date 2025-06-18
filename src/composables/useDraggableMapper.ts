@@ -109,6 +109,16 @@ export function useDraggableMapper() {
           xxl: 12
         }
       }
+      if (schemaElement.layout.offset === undefined) {
+        schemaElement.layout.offset = {
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 0,
+          xl: 0,
+          xxl: 0
+        }
+      }
       if ('lg' in schemaElement.layout.cols) {
         schemaElement.layout.cols = {
           xs: schemaElement.layout.cols.xs,

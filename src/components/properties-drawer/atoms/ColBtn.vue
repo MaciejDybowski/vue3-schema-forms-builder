@@ -3,8 +3,8 @@
     :value="value"
     class="px-0"
     height="26.5"
-    max-width="26.2"
-    min-width="26.2"
+    max-width="26"
+    min-width="26"
     variant="outlined"
   >
     <span class="col-val-btn">{{ value }}</span>

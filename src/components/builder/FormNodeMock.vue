@@ -1,12 +1,12 @@
 <template>
-  <div :style="calcOffset(element)">
+  <div :class="[]">
     <component
       :is='`node-${element.layout.component}`'
       v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
       :key="renderKey"
+      :class="['disabled-field', calcOffset(element)]"
       :model='{}'
       :schema='preparedElement'
-      class="disabled-field"
       v-bind="{readonly:true}"
     />
 
@@ -14,9 +14,9 @@
       <draggable-area
         v-model="element.tempItems"
         :empty-insert-threshold="30"
+        :section-key="element.key"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         class="pt-6"
-        :section-key="element.key"
       />
       <v-divider
         v-if="element.layout.options.showDivider"
@@ -39,9 +39,9 @@
       <draggable-area
         v-model="element.tempItems"
         :empty-insert-threshold="30"
+        :section-key="element.key"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         class="pt-6"
-        :section-key="element.key"
       />
     </div>
 
@@ -56,7 +56,7 @@ import {useVTheme} from "@/composables/useVTheme";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
 import {cloneDeep} from "lodash";
 import {useStyle} from "@/main";
-
+import {useOffsetSizeMapper} from "@/composables/useOffsetSizeMapper";
 
 
 const props = defineProps<{
@@ -100,12 +100,18 @@ watch(props.element, () => {
 }, {deep: true})
 
 const {colSize} = useColSizeMapper()
+const {offsetSize} = useOffsetSizeMapper()
 
 function calcOffset(element: any) {
   const isOffsetExist = !!element.layout?.offset;
-  const offset = isOffsetExist ? (element.layout?.offset as number) : 0;
+  const offset = isOffsetExist ? offsetSize(element) : 0;
   const cols = colSize(element) as number
-  return `margin-left: ${offset / (offset + cols) * 100}%`
+
+  let cssString = '';
+  if (isOffsetExist) {
+    cssString += `offset-${offset}`;
+  }
+  return cssString;
 }
 
 </script>

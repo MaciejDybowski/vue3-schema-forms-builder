@@ -174,7 +174,14 @@ function cloneControls(item: ElementDrawerFromElement) {
         xl: 12,
         xxl: 12
       },
-      offset: 0,
+      offset: {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
+        xl: 0,
+        xxl: 0
+      },
       fillRow: false,
       component: item.component,
       props: {}

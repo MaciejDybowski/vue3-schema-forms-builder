@@ -165,11 +165,18 @@ export function useSchemaMapper() {
       xl: 12,
       xxl: 12,
     }
+    const offset = {
+      xs: 0,
+      sm: 0,
+      md: 0,
+      lg: 0,
+      xl: 0,
+      xxl: 0,
+    }
     if (formElement.layout && JSON.stringify(formElement.layout.cols) === JSON.stringify(cols)) {
       delete layout.cols
     }
-
-    if (formElement.layout && formElement.layout.offset === 0) {
+    if (formElement.layout && JSON.stringify(formElement.layout.offset) == JSON.stringify(offset)) {
       delete layout.offset
     }
 

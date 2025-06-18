@@ -1,59 +1,64 @@
 <template>
-  <v-list-item>
-    <div class="col-property">
-      <p class="v-label">{{ t('label') }}</p>
-      <v-btn-toggle
-        v-model="modelValue"
-        class="mt-1"
-        density="compact"
-        mandatory
-        @update:model-value="calcCols"
-      >
-        <col-btn :value="0"></col-btn>
-        <col-btn :value="1"></col-btn>
-        <col-btn :value="2"></col-btn>
-        <col-btn :value="3"></col-btn>
-        <col-btn :value="4"></col-btn>
-        <col-btn :value="5"></col-btn>
-        <col-btn :value="6"></col-btn>
-        <col-btn :value="7"></col-btn>
-        <col-btn :value="8"></col-btn>
-        <col-btn :value="9"></col-btn>
-        <col-btn :value="10"></col-btn>
-        <col-btn :value="11"></col-btn>
-      </v-btn-toggle>
-    </div>
+  <v-list-item class="pb-0">
+    <offset-btn-toggle
+      v-model:breakpoint-larger="modelValue.xxl"
+      v-model:breakpoint-smaller="modelValue.xl"
+      v-model:breakpoint-smallest="modelValue.lg"
+      :label="t('offset.desktop')"
+    />
+    <offset-btn-toggle
+      v-model:breakpoint-larger="modelValue.md"
+      v-model:breakpoint-smaller="modelValue.sm"
+      v-model:breakpoint-smallest="modelValue.sm"
+      :label="t('offset.tablet')"
+    />
+    <offset-btn-toggle
+      v-model:breakpoint-larger="modelValue.xs"
+      v-model:breakpoint-smaller="modelValue.xs"
+      v-model:breakpoint-smallest="modelValue.xs"
+      :label="t('offset.mobile')"
+    />
   </v-list-item>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
-import {useCanvas} from "@/composables/useCanvas";
+import OffsetBtnToggle from "@/components/properties-drawer/atoms/OffsetBtnToggle.vue";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {watch} from "vue";
 
-const modelValue = defineModel<number>()
-const {t} = useI18n()
-const {canvasMode} = useCanvas()
+
+const modelValue = defineModel<{
+  xxl: number,
+  xl: number,
+  lg: number,
+  md: number,
+  sm: number,
+  xs: number
+}>({
+  default: {}
+})
+
+watch(() => modelValue.value, () => {
+  calcCols()
+}, {deep: true})
+
 const useBuilderStateStore = useBuilderState()
 
-function calcCols(val: number) {
-  const configuredField = useBuilderStateStore.getConfiguredField
+function calcCols() {
+  const configuredField = useBuilderStateStore.getConfiguredField;
+  const cols = configuredField.layout.cols;
 
-  const mobileScreenCol = configuredField.layout.cols.sm
-  if (mobileScreenCol + (val + 1) >= 12) {
-    const newColsSize = 12 - val
-    const newCols = {
-      xs: newColsSize,
-      sm: newColsSize,
-      md: newColsSize,
-      lg: newColsSize,
-      xl: newColsSize,
-      xxl: newColsSize
+  for (let [key, value] of Object.entries(cols)) {
+    if (value + modelValue.value[key] > 12) {
+      cols[key] = 12 - modelValue.value[key]; // Reassign directly to the object
     }
-    useBuilderStateStore.setKeyInConfiguredField("layout.cols", newCols)
   }
+
+
 }
+
+const {t} = useI18n()
 
 </script>
 
@@ -64,10 +69,18 @@ function calcCols(val: number) {
 <i18n lang="json">
 {
   "en": {
-    "label": "Offset"
+    "offset": {
+      "desktop": "Offset on desktop and laptops",
+      "tablet": "Offset on tablets",
+      "mobile": "Offset on mobile phones"
+    }
   },
   "pl": {
-    "label": "Przesunięcie pola"
+    "offset": {
+      "desktop": "Przesunięcie pola - ekran typu monitor",
+      "tablet": "Przesunięcie pola - ekran typu tablet",
+      "mobile": "Przesunięcie pola - ekran typu smartfon"
+    }
   }
 }
 </i18n>

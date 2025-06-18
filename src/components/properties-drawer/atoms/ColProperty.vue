@@ -25,6 +25,8 @@
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import ColBtnToggle from "@/components/properties-drawer/atoms/ColBtnToggle.vue";
+import {watch} from "vue";
+import {useBuilderState} from "@/pinia/stores/useBuilderState";
 
 const modelValue = defineModel<{
   xxl: number,
@@ -38,6 +40,24 @@ const modelValue = defineModel<{
 })
 
 const {t} = useI18n()
+
+watch(() => modelValue.value, () => {
+  calcOffset()
+}, {deep: true})
+
+const useBuilderStateStore = useBuilderState()
+
+function calcOffset() {
+  const configuredField = useBuilderStateStore.getConfiguredField;
+  const offset = configuredField.layout.offset;
+
+  for (let [key, value] of Object.entries(offset)) {
+    if (value + modelValue.value[key] > 12) {
+      offset[key] = 12 - modelValue.value[key]; // Reassign directly to the object
+    }
+  }
+}
+
 
 </script>
 

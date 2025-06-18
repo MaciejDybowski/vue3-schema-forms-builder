@@ -20,6 +20,7 @@
 import FieldWrapperItem from "./FieldWrapperItem.vue";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
 import {computed, useAttrs} from "vue";
+import {useOffsetSizeMapper} from "@/composables/useOffsetSizeMapper";
 
 const props = defineProps<{
   element: any,
@@ -27,12 +28,13 @@ const props = defineProps<{
 const attrs = useAttrs()
 
 const {colSize} = useColSizeMapper()
+const {offsetSize} = useOffsetSizeMapper()
 
 const fillRow = computed(() => {
   return !!props.element.layout?.fillRow && colSize(props.element) < 12
 })
 const cols = computed(() => {
-  return colSize(props.element)
+  return colSize(props.element) + offsetSize(props.element)
 })
 </script>
 
