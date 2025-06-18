@@ -30,6 +30,7 @@
       :active="panels.includes('fieldProps')"
       title="Field properties"
       value="fieldProps"
+      v-if="component !='select'"
     >
       <horizontal-radio-or-checkbox-property
         v-if="component == 'checkbox' || component == 'radio-button'"
