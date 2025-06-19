@@ -100,81 +100,57 @@ const filteredStaticContent: ComputedRef<ElementDrawerFromElement[]> = computed(
 function cloneStatic(item: ElementDrawerFromElement) {
   const id = generateKey(item.component)
 
+  const base = {
+    layout: {
+      component: item.component,
+      cols: {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12,
+        xxl: 12
+      },
+      offset: {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
+        xl: 0,
+        xxl: 0
+      },
+      props: {},
+    },
+  }
+
   switch (item.component) {
     case "alert": {
       return {
         key: id,
         memorable: false,
         content: "Change it",
-        layout: {
-          component: item.component,
-          cols: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
-            xl: 12,
-            xxl: 12
-          },
-          props: {},
-        },
-        on: {
-          input: (e: any) => {
-          },
-        },
+        layout: base.layout
       }
     }
     case "static-content": {
       return {
         key: id,
         content: "Change it",
-        layout: {
-          component: item.component,
-          tag: item.tag,
-          cols: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
-            xl: 12,
-            xxl: 12
-          },
-          props: {},
-        }
+        layout: base.layout
       }
     }
     case "data-viewer": {
       return {
         key: id,
         label: "Item-" + id,
-        layout: {
-          component: item.component,
-          cols: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
-            xl: 12,
-            xxl: 12
-          },
-        }
+        layout: base.layout
       }
     }
     case "button": {
       return {
         key: id,
         label: "Click me",
-        layout: {
-          component: item.component,
-          cols: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
-            xl: 12,
-            xxl: 12
-          },
-        },
+        layout: base.layout,
         options: {
           buttonProps: style.buttonStyle
         },
@@ -185,17 +161,7 @@ function cloneStatic(item: ElementDrawerFromElement) {
     case "divider": {
       return {
         key: id,
-        layout: {
-          component: "divider",
-          cols: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
-            xl: 12,
-            xxl: 12
-          },
-        },
+        layout: base.layout
       }
     }
     case "key-value-list": {
@@ -206,17 +172,7 @@ function cloneStatic(item: ElementDrawerFromElement) {
           {title: "Key", valueMapping: "Key"},
           {title: "Value", valueMapping: "Value"}
         ],
-        layout: {
-          component: "key-value-list",
-          cols: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
-            xl: 12,
-            xxl: 12
-          },
-        },
+        layout: base.layout
       }
     }
   }
