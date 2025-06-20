@@ -43,41 +43,89 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     })
   }
 
-  // TODO - refactoring na rekurencyjne
-  function cloneItem(event: ToolbarEvent) {
-    let clonedIndex = 0;
-    let clonedControl: any = {}
-    let clonedParent = ""
-    draggableModel.value.forEach((c: any, index: number) => {
-      if ("tempItems" in c && c.key == event.sectionKey) {
-        c.tempItems.forEach((nc: any, index: number) => {
-          if (nc.key === event.key) {
-            clonedIndex = index
-            clonedControl = cloneDeep(nc)
-            clonedParent = c.key
-          }
-        })
-      }
 
-      if (c.key === event.key) {
-        clonedIndex = index
-        clonedControl = cloneDeep(c)
-      }
-    })
-
-    clonedControl.key = clonedControl.key + Math.random().toString().substring(2, 5) + "_cloned"
-    clonedControl.label = clonedControl.key
-
-
-    if (clonedParent) {
-      const duplicatedSection: any = draggableModel.value.filter((c: any) => c.key == clonedParent)[0]
-      duplicatedSection.tempItems.splice(clonedIndex + 1, 0, clonedControl)
-
-    } else {
-      draggableModel.value.splice(clonedIndex + 1, 0, clonedControl)
-    }
+  function generateClonedKey(originalKey: string): string {
+    return `${originalKey}_${Math.random().toString().substring(2, 5)}_cloned`;
   }
 
+  function deepCloneWithNewKeys(control: any): any {
+    const cloned = cloneDeep(control);
+    cloned.key = generateClonedKey(control.key);
+    cloned.label = cloned.key;
+
+    if (Array.isArray(cloned.tempItems)) {
+      cloned.tempItems = cloned.tempItems.map((item: any) => deepCloneWithNewKeys(item));
+    }
+
+    return cloned;
+  }
+
+  function findAndCloneRecursive(
+    items: any[],
+    event: ToolbarEvent,
+    parentKey: string | null = null
+  ): { clonedControl: any, parentKey: string | null, index: number } | null {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      if (item.key === event.key) {
+        return {
+          clonedControl: deepCloneWithNewKeys(item),
+          parentKey,
+          index: i
+        };
+      }
+
+      if (Array.isArray(item.tempItems)) {
+        const result = findAndCloneRecursive(item.tempItems, event, item.key);
+        if (result) return result;
+      }
+    }
+
+    return null;
+  }
+
+  function insertClonedItemRecursive(
+    items: any[],
+    parentKey: string,
+    clonedControl: any,
+    index: number
+  ): boolean {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      if (item.key === parentKey && Array.isArray(item.tempItems)) {
+        item.tempItems.splice(index + 1, 0, clonedControl);
+        return true;
+      }
+
+      if (Array.isArray(item.tempItems)) {
+        const inserted = insertClonedItemRecursive(item.tempItems, parentKey, clonedControl, index);
+        if (inserted) return true;
+      }
+    }
+
+    return false;
+  }
+
+  function cloneItem(event: ToolbarEvent) {
+    const result = findAndCloneRecursive(draggableModel.value, event);
+
+    if (result) {
+      const {clonedControl, parentKey, index} = result;
+
+      if (parentKey) {
+        const inserted = insertClonedItemRecursive(draggableModel.value, parentKey, clonedControl, index);
+        if (!inserted) {
+          console.warn("Nie znaleziono miejsca do wstawienia zduplikowanego elementu.");
+        }
+      } else {
+        draggableModel.value.splice(index + 1, 0, clonedControl);
+      }
+    } else {
+      console.warn("Nie znaleziono elementu do sklonowania.");
+    }
+  }
 
   // configured field
   const configuredField: Ref<any> = ref(null)
