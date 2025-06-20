@@ -241,6 +241,14 @@ function cloneControls(item: ElementDrawerFromElement) {
             xl: 12,
             xxl: 12
           },
+          offset: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+            xl: 0,
+            xxl: 0
+          },
           schema: {
             type: "object",
             properties: {},
@@ -272,6 +280,14 @@ function cloneControls(item: ElementDrawerFromElement) {
             lg: 12,
             xl: 12,
             xxl: 12
+          },
+          offset: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+            xl: 0,
+            xxl: 0
           },
           schema: {
             type: "object",

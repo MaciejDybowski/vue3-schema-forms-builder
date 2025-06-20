@@ -102,6 +102,7 @@ function cloneStatic(item: ElementDrawerFromElement) {
 
   const base = {
     layout: {
+      tag: item.tag,
       component: item.component,
       cols: {
         xs: 12,

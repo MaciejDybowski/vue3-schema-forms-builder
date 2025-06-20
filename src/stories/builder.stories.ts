@@ -21,28 +21,40 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "text-field-987": {
-          "label": "Item-text-field-987",
-          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8, "xxl": 8}, "component": "text-field"}
-        },
-        "text-field-987035_cloned": {
-          "label": "text-field-987035_cloned",
-          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 2, "xl": 2, "xxl": 2}, "component": "text-field"}
-        },
-        "text-field-987035_cloned830_cloned": {
-          "label": "text-field-987035_cloned830_cloned",
-          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 2, "xl": 2, "xxl": 2}, "component": "text-field"}
-        },
-        "item": {
-          "label": "item",
-          "layout": {"component": "text-field", "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8, "xxl": 8}}
-        },
-        "text-field-073": {
-          "label": "Item-text-field-073",
+        "groupOne": {
+          "sectionKey": "fields-group-574",
           "layout": {
-            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 2, "xl": 2, "xxl": 2},
-            "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 2, "xl": 2, "xxl": 2},
-            "component": "text-field"
+            "component": "fields-group",
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 0, "xl": 0, "xxl": 0},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "sectionKey": "groupOne",
+                  "layout": {
+                    "component": "duplicated-section",
+                    "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+                    "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 0, "xl": 0, "xxl": 0},
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "paragraf": {"content": "Change it", "layout": {"component": "static-content"}},
+                        "poleTekstowe": {"label": "Text field", "layout": {"component": "text-field"}}
+                      }
+                    },
+                    "options": {
+                      "addBtnText": "Add element",
+                      "showDivider": false,
+                      "ordinalNumberInModel": false,
+                      "showFirstInitRow": true
+                    }
+                  },
+                  "editable": true,
+                  "showElements": true
+                }
+              }
+            }
           }
         }
       }
@@ -50,7 +62,9 @@ export const FormBuilderEmpty: Story = {
   }
 }
 
-export const Fixing: Story = {
+export const Fixing
+  :
+  Story = {
   args: {
     workspaceId: "bm",
     modelValue: {
