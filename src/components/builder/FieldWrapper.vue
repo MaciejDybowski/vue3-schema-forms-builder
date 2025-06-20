@@ -1,5 +1,6 @@
 <template>
   <v-col
+    :class="['px-0', `offset-${offsetSize(element)}`]"
     :cols="cols"
     v-bind="attrs"
   >
@@ -34,7 +35,7 @@ const fillRow = computed(() => {
   return !!props.element.layout?.fillRow && colSize(props.element) < 12
 })
 const cols = computed(() => {
-  return colSize(props.element) + offsetSize(props.element)
+  return colSize(props.element) //+ offsetSize(props.element)
 })
 </script>
 

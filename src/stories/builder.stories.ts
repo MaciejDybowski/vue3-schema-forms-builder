@@ -18,7 +18,35 @@ type Story = StoryObj<typeof meta>;
 export const FormBuilderEmpty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue:{"type":"object","properties":{"item":{"label":"item","layout":{"component":"text-field"}}}}
+    modelValue: {
+      "type": "object",
+      "properties": {
+        "text-field-987": {
+          "label": "Item-text-field-987",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8, "xxl": 8}, "component": "text-field"}
+        },
+        "text-field-987035_cloned": {
+          "label": "text-field-987035_cloned",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 2, "xl": 2, "xxl": 2}, "component": "text-field"}
+        },
+        "text-field-987035_cloned830_cloned": {
+          "label": "text-field-987035_cloned830_cloned",
+          "layout": {"cols": {"xs": 12, "sm": 12, "md": 12, "lg": 2, "xl": 2, "xxl": 2}, "component": "text-field"}
+        },
+        "item": {
+          "label": "item",
+          "layout": {"component": "text-field", "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8, "xxl": 8}}
+        },
+        "text-field-073": {
+          "label": "Item-text-field-073",
+          "layout": {
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 2, "xl": 2, "xxl": 2},
+            "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 2, "xl": 2, "xxl": 2},
+            "component": "text-field"
+          }
+        }
+      }
+    }
   }
 }
 

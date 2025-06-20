@@ -1,10 +1,10 @@
 <template>
-  <div :class="[]">
+  <div>
     <component
       :is='`node-${element.layout.component}`'
       v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
       :key="renderKey"
-      :class="['disabled-field', calcOffset(element)]"
+      :class="['disabled-field']"
       :model='{}'
       :schema='preparedElement'
       v-bind="{readonly:true}"
@@ -102,17 +102,19 @@ watch(props.element, () => {
 const {colSize} = useColSizeMapper()
 const {offsetSize} = useOffsetSizeMapper()
 
+/*
 function calcOffset(element: any) {
-  const isOffsetExist = !!element.layout?.offset;
-  const offset = isOffsetExist ? offsetSize(element) : 0;
+  const offset = offsetSize(element) || 0;
   const cols = colSize(element) as number
 
   let cssString = '';
-  if (isOffsetExist) {
+  if (offset>0) {
     cssString += `offset-${offset}`;
   }
+  console.debug(cols, offset)
   return cssString;
 }
+*/
 
 </script>
 
