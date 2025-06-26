@@ -91,6 +91,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "date-time-picker"
   },
   {
+    icon: "mdi-calendar-filter",
+    label: "Rok",
+    component: "year-picker"
+  },
+  {
     icon: "mdi-map-marker",
     label: "Lokalizacja",
     component: "location"
@@ -195,6 +200,7 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "location":
     case "date-picker":
     case "date-time-picker":
+    case "year-picker":
     case "address":
     case "switch":
     case "phone": {
@@ -358,9 +364,9 @@ function cloneControls(item: ElementDrawerFromElement) {
         source: {
           data: "",
           headers: [
-            {title:"Change me"},
-            {title:"Change me"},
-            {title:"Change me"}
+            {title: "Change me"},
+            {title: "Change me"},
+            {title: "Change me"}
           ],
           buttons: []
         },

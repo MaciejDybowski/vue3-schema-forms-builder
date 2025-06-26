@@ -27,3 +27,4 @@ export type FromElementComponent =
   | "key-value-list"
   | "alert"
   | "multi-language-control"
+  | "year-picker"

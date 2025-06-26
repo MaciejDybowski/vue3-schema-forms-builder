@@ -21,41 +21,10 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "groupOne": {
-          "sectionKey": "fields-group-574",
-          "layout": {
-            "component": "fields-group",
-            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-            "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 0, "xl": 0, "xxl": 0},
-            "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "sectionKey": "groupOne",
-                  "layout": {
-                    "component": "duplicated-section",
-                    "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
-                    "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 0, "xl": 0, "xxl": 0},
-                    "schema": {
-                      "type": "object",
-                      "properties": {
-                        "paragraf": {"content": "Change it", "layout": {"component": "static-content"}},
-                        "poleTekstowe": {"label": "Text field", "layout": {"component": "text-field"}}
-                      }
-                    },
-                    "options": {
-                      "addBtnText": "Add element",
-                      "showDivider": false,
-                      "ordinalNumberInModel": false,
-                      "showFirstInitRow": true
-                    }
-                  },
-                  "editable": true,
-                  "showElements": true
-                }
-              }
-            }
-          }
+        "year-picker-606": {
+          "label": "Item-year-picker-606",
+          "layout": {"component": "year-picker"},
+          "range": [2000, 3200]
         }
       }
     }
