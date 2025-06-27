@@ -7,8 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ColBtn: typeof import('./src/components/properties-drawer/atoms/ColBtn.vue')['default']
-    ColProperty: typeof import('./src/components/properties-drawer/atoms/ColProperty.vue')['default']
+    ColBtn: typeof import('./src/components/properties-drawer/atoms/cols/ColBtn.vue')['default']
+    ColProperty: typeof import('./src/components/properties-drawer/atoms/cols/ColProperty.vue')['default']
     DevelopmentTable: typeof import('.storybook/components/DevelopmentTable.vue')['default']
     DraggableArea: typeof import('./src/components/builder/DraggableArea.vue')['default']
     ElementsDrawer: typeof import('./src/components/elements-drawer/ElementsDrawer.vue')['default']

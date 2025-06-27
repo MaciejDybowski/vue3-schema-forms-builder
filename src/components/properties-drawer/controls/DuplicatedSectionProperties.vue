@@ -34,7 +34,7 @@
         clearable
       />
 
-      <textfield-general
+      <text-property-wrapper
         v-if="model.layout.options.addBtnMode === 'action'"
         v-model="actionCode"
         label="Kod akcji"
@@ -42,22 +42,25 @@
       />
 
 
-      <duplicated-section-divider-property v-model="model.layout.options.showDivider"/>
+      <boolean-switch-property-wrapper
+        v-model="model.layout.options.showDivider"
+        :label="t('duplicatedSectionShowDivider')"
+      />
 
 
-      <checkbox-general
+      <boolean-checkbox-property-wrapper
         v-model="model.editable"
         :label="t('editable')"
       />
-      <checkbox-general
+      <boolean-checkbox-property-wrapper
         v-model="model.showElements"
         :label="t('showElements')"
       />
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.options.ordinalNumberInModel"
         :label="t('ordinalNumberInModel')"
       />
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.options.showFirstInitRow"
         :label="t('showFirstInitRow')"
       />
@@ -72,16 +75,16 @@
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import DuplicatedSectionButtonProperty from "@/components/properties-drawer/atoms/DuplicatedSectionButtonProperty.vue";
-import DuplicatedSectionDividerProperty
-  from "@/components/properties-drawer/atoms/DuplicatedSectionDividerProperty.vue";
-import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import {useI18n} from "vue-i18n";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "fieldProps"])
 const useBuilderStateStore = useBuilderState()
@@ -129,7 +132,8 @@ const {t} = useI18n()
     "addClearNode": "Add clear",
     "copyNode": "Copy above",
     "actionCall": "Call action",
-    "showFirstInitRow": "Show empty first line"
+    "showFirstInitRow": "Show empty first line",
+    "duplicatedSectionShowDivider": "Show divider between section"
   },
   "pl": {
     "editable": "Edycja sekcji dozwolona",
@@ -139,7 +143,8 @@ const {t} = useI18n()
     "addClearNode": "Dodawanie",
     "copyNode": "Kopiowanie powyższego",
     "actionCall": "Wywołaj akcję",
-    "showFirstInitRow": "Pokazuj pusty pierwszy wiersz"
+    "showFirstInitRow": "Pokazuj pusty pierwszy wiersz",
+    "duplicatedSectionShowDivider": "Pokazuj rozdzielacz pomiędzy sekcjami"
   }
 }
 </i18n>

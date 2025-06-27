@@ -13,7 +13,7 @@
       <key-property v-model="model.key"/>
       <label-property v-model="model"/>
 
-      <select-general
+      <boolean-switch-property-wrapper
         v-model="model.mode"
         :items="[{value: 'visibility', title: t('visibility')}]"
         :return-object="false"
@@ -52,7 +52,7 @@
       title="Properties"
       value="fieldProps"
     >
-      <textfield-general
+      <text-property-wrapper
         v-model="model.layout.props['color']"
         :label="t('color')"
       />
@@ -71,17 +71,18 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import {useI18n} from "vue-i18n";
 import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMapping.vue";
 import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const useBuilderStateStore = useBuilderState()
 const {t} = useI18n()

@@ -27,7 +27,7 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.hide"
         :label="model.layout.hide ? t('hide') : t('visible')"
       />
@@ -50,13 +50,13 @@
         <template #item="{element, index}">
           <div class="draggable-wrapper d-flex align-center justify-center">
             <v-icon class="px-1 mx-0 draggable-icon cursor-grab"> mdi-drag-vertical</v-icon>
-            <textfield-general
+            <text-property-wrapper
               v-if="typeof element.title == 'string'"
               v-model="element.title"
               class="px-1 mx-0"
               label="Title"
             />
-            <textfield-general
+            <text-property-wrapper
               v-else
               v-model="element.title.$ref"
               :disabled="true"
@@ -108,7 +108,7 @@
         </template>
 
         <v-card-text>
-          <textfield-general
+          <text-property-wrapper
             v-model="dynamicHeaderTitle"
             :prefix="currentConfiguredHeader.isReference? prefix: ''"
             label="Title"
@@ -123,7 +123,7 @@
             @change="referenceChangedHeaderTitle"
           />
 
-          <textfield-general
+          <text-property-wrapper
             v-model="currentConfiguredHeader.valueMapping"
             label="Value mapping"/>
 
@@ -144,14 +144,15 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+
 import draggable from "../../../vuedraggable/vuedraggable";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import {useStyle} from "@/main";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const dragOptions = {
   animation: 250,

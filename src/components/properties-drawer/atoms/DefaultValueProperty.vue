@@ -1,6 +1,6 @@
 <template>
   <v-divider class="mt-2"/>
-  <textfield-general
+  <text-property-wrapper
     :label="t('defaultValue')"
     :model-value="defaultValueModel"
     @update:model-value="mapDefaultValue"
@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {useI18n} from "vue-i18n";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()

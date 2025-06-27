@@ -1,32 +1,32 @@
 <template>
   <v-list-item class="pb-0">
-
-    <col-btn-toggle
+    <offset-btn-toggle
       v-model:breakpoint-larger="modelValue.xxl"
       v-model:breakpoint-smaller="modelValue.xl"
       v-model:breakpoint-smallest="modelValue.lg"
-      :label="t('size.desktop')"
+      :label="t('offset.desktop')"
     />
-    <col-btn-toggle
+    <offset-btn-toggle
       v-model:breakpoint-larger="modelValue.md"
       v-model:breakpoint-smaller="modelValue.sm"
       v-model:breakpoint-smallest="modelValue.sm"
-      :label="t('size.tablet')"
+      :label="t('offset.tablet')"
     />
-    <col-btn-toggle
+    <offset-btn-toggle
       v-model:breakpoint-larger="modelValue.xs"
       v-model:breakpoint-smaller="modelValue.xs"
       v-model:breakpoint-smallest="modelValue.xs"
-      :label="t('size.mobile')"
+      :label="t('offset.mobile')"
     />
   </v-list-item>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import ColBtnToggle from "@/components/properties-drawer/atoms/ColBtnToggle.vue";
-import {watch} from "vue";
+import OffsetBtnToggle from "@/components/properties-drawer/atoms/offset/OffsetBtnToggle.vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
+import {watch} from "vue";
+
 
 const modelValue = defineModel<{
   xxl: number,
@@ -39,25 +39,26 @@ const modelValue = defineModel<{
   default: {}
 })
 
-const {t} = useI18n()
-
 watch(() => modelValue.value, () => {
-  calcOffset()
+  calcCols()
 }, {deep: true})
 
 const useBuilderStateStore = useBuilderState()
 
-function calcOffset() {
+function calcCols() {
   const configuredField = useBuilderStateStore.getConfiguredField;
-  const offset = configuredField.layout.offset;
+  const cols = configuredField.layout.cols;
 
-  for (let [key, value] of Object.entries(offset)) {
+  for (let [key, value] of Object.entries(cols)) {
     if (value + modelValue.value[key] > 12) {
-      offset[key] = 12 - modelValue.value[key]; // Reassign directly to the object
+      cols[key] = 12 - modelValue.value[key]; // Reassign directly to the object
     }
   }
+
+
 }
 
+const {t} = useI18n()
 
 </script>
 
@@ -68,17 +69,17 @@ function calcOffset() {
 <i18n lang="json">
 {
   "en": {
-    "size": {
-      "desktop": "Size on desktop and laptops",
-      "tablet": "Size on tablets",
-      "mobile": "Size on mobile phones"
+    "offset": {
+      "desktop": "Offset on desktop and laptops",
+      "tablet": "Offset on tablets",
+      "mobile": "Offset on mobile phones"
     }
   },
   "pl": {
-    "size": {
-      "desktop": "Szerokość pola - ekran typu monitor",
-      "tablet": "Szerokość pola - ekran typu tablet",
-      "mobile": "Szerokość pola - ekran typu smartfon"
+    "offset": {
+      "desktop": "Przesunięcie pola - ekran typu monitor",
+      "tablet": "Przesunięcie pola - ekran typu tablet",
+      "mobile": "Przesunięcie pola - ekran typu smartfon"
     }
   }
 }

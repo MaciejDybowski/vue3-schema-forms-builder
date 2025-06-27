@@ -4,7 +4,7 @@
     :title="t('validations')"
     value="validations"
   >
-    <checkbox-general
+    <boolean-checkbox-property-wrapper
       v-model="model.required"
       :label="t('requiredProperty')"
     />
@@ -31,12 +31,12 @@
           v-bind="style.inputStyle.value"
         />
       </v-list-item>
-      <textfield-general
+      <text-property-wrapper
         v-model="rule.rule"
         label="Funkcja JSONata"
       />
 
-      <textfield-general
+      <text-property-wrapper
         v-model="rule.message"
         label="Komunikat"
       />
@@ -68,11 +68,12 @@
 import {useI18n} from "vue-i18n";
 import {computed, onMounted, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+
 import {useStyle} from "@/main";
-import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
-import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const {t} = useI18n()
 const style = useStyle()

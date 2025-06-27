@@ -29,7 +29,7 @@
     >
       <if-property v-model="model.layout.if"/>
       <read-only-property v-model="model.layout.props.readonly"/>
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.hide"
         :label="model.layout.hide ? t('hide') : t('visible')"
       />
@@ -37,7 +37,7 @@
 
     <validation-configuration :active="panels.includes('validations')">
       <template #afterRequired>
-        <number-general
+        <number-property-wrapper
           v-model="model.layout.props['counter']"
           :label="t('counter')"
         />
@@ -55,20 +55,20 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
-import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
+
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
+
+
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
-import HintProperty from "@/components/properties-drawer/atoms/HintProperty.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
+
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
@@ -83,15 +83,6 @@ const model = computed({
 })
 
 const {t} = useI18n()
-
-function updateExpressionPersistentHint(val: string) {
-  const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
-  const matches = val.match(regex)
-  if (matches) {
-    model.value.layout.props['persistent-hint'] = val
-  }
-}
-
 </script>
 
 <style lang="scss" scoped>

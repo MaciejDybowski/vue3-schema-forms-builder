@@ -1,25 +1,22 @@
 <template>
-  <div>
-    <textfield-general
-      v-model="contentValue"
-      :label="t('contentProperty')"
-      :prefix="isReference? prefix: ''"
-    />
-    <v-switch
-      v-model="isReference"
-      class="mx-4"
-      color="green"
-      hide-details="auto"
-      label="Use Reference"
-      @change="referenceChangedTrigger"
-    />
-  </div>
+  <text-property-wrapper
+    v-model="contentValue"
+    :label="t('contentProperty')"
+    :prefix="isReference? prefix: ''"
+  />
+  <boolean-switch-property-wrapper
+    v-model="isReference"
+    color="green"
+    label="Use Reference"
+    @change="referenceChangedTrigger"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useTranslateInput} from "@/composables/useTranslateInput";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const modelValue = defineModel<any>();
 const {t} = useI18n();
@@ -35,7 +32,6 @@ const contentValue = getValueForInput('content', modelValue)
 function referenceChangedTrigger() {
   referenceChanged(modelValue, "content", contentValue.value)
 }
-
 
 
 </script>

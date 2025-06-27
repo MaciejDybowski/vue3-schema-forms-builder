@@ -20,9 +20,9 @@
         label="Btn mode"
       />
       <v-btn
+        append-icon="mdi-cog"
         class="mx-4 my-4"
         color="primary"
-        append-icon="mdi-cog"
         size="small"
         text="Configuration"
         @click="configButtonDialog = true"
@@ -54,9 +54,9 @@
 
       <v-btn
         v-if="model.mode=='form-and-action'"
+        append-icon="mdi-cog"
         class="mx-4 my-4"
         color="primary"
-        append-icon="mdi-cog"
         size="small"
         text="Dialog schema"
         @click="configButtonDialogSchema = true"
@@ -112,13 +112,12 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()

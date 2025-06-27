@@ -23,13 +23,13 @@
         />
       </v-list-item>
 
-      <textfield-general
+      <text-property-wrapper
         v-if="model.type=='float'"
         v-model="model.precision"
         :label="t('precision')"
         type="number"
       />
-      <textfield-general
+      <text-property-wrapper
         v-if="model.type=='float'"
         v-model="model.precisionMin"
         :label="t('precisionMin')"
@@ -62,14 +62,14 @@
       value="logic">
       <read-only-property v-model="model.layout.props.readonly"/>
 
-      <textfield-general
+      <text-property-wrapper
         :label="t('readonlyIfExpression')"
         :model-value="model.layout.props.readonly"
         @update:model-value="updateExpressionReadonly"
       />
       <if-property v-model="model.layout.if"/>
 
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.hide"
         :label="model.layout.hide ? t('hide') : t('visible')"
       />
@@ -80,12 +80,12 @@
       title="Expressions"
       value="expressions"
     >
-      <textfield-general
+      <text-property-wrapper
         v-model="model.expression"
         :label="t('expression')"
       />
 
-      <textfield-general
+      <text-property-wrapper
         v-model="model.calculation"
         :label="t('calculation')"
       />
@@ -97,16 +97,16 @@
       title="Field properties"
       value="fieldProps"
     >
-      <textfield-general
+      <text-property-wrapper
         v-model="model.layout.props['hint']"
         :label="t('hint')"
       />
-      <textfield-general
+      <text-property-wrapper
         :label="t('persistentHintIfExpression')"
         :model-value="model.layout.props['persistent-hint']"
         @update:model-value="updateExpressionPersistentHint"
       />
-      <checkbox-general
+      <boolean-checkbox-property-wrapper
         v-model="model.layout.props['persistent-hint']"
         :label="t('persistentHint')"
       />
@@ -125,20 +125,21 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import {useI18n} from "vue-i18n";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "logic", "expressions"])
 const useBuilderStateStore = useBuilderState()

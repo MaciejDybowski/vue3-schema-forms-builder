@@ -29,7 +29,7 @@
       value="logic"
     >
       <read-only-property v-model="model.layout.props.readonly"/>
-      <textfield-general
+      <text-property-wrapper
         :label="t('readonlyIfExpression')"
         :model-value="model.layout.props.readonly"
         @update:model-value="updateExpressionReadonly"
@@ -60,20 +60,21 @@
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+
 import {useI18n} from "vue-i18n";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general", "logic", "source"])

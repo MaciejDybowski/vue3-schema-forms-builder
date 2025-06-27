@@ -1,32 +1,32 @@
 <template>
   <v-list-item class="pb-0">
-    <offset-btn-toggle
+
+    <col-btn-toggle
       v-model:breakpoint-larger="modelValue.xxl"
       v-model:breakpoint-smaller="modelValue.xl"
       v-model:breakpoint-smallest="modelValue.lg"
-      :label="t('offset.desktop')"
+      :label="t('size.desktop')"
     />
-    <offset-btn-toggle
+    <col-btn-toggle
       v-model:breakpoint-larger="modelValue.md"
       v-model:breakpoint-smaller="modelValue.sm"
       v-model:breakpoint-smallest="modelValue.sm"
-      :label="t('offset.tablet')"
+      :label="t('size.tablet')"
     />
-    <offset-btn-toggle
+    <col-btn-toggle
       v-model:breakpoint-larger="modelValue.xs"
       v-model:breakpoint-smaller="modelValue.xs"
       v-model:breakpoint-smallest="modelValue.xs"
-      :label="t('offset.mobile')"
+      :label="t('size.mobile')"
     />
   </v-list-item>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import OffsetBtnToggle from "@/components/properties-drawer/atoms/OffsetBtnToggle.vue";
-import {useBuilderState} from "@/pinia/useBuilderState";
+import ColBtnToggle from "@/components/properties-drawer/atoms/cols/ColBtnToggle.vue";
 import {watch} from "vue";
-
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const modelValue = defineModel<{
   xxl: number,
@@ -39,26 +39,25 @@ const modelValue = defineModel<{
   default: {}
 })
 
+const {t} = useI18n()
+
 watch(() => modelValue.value, () => {
-  calcCols()
+  calcOffset()
 }, {deep: true})
 
 const useBuilderStateStore = useBuilderState()
 
-function calcCols() {
+function calcOffset() {
   const configuredField = useBuilderStateStore.getConfiguredField;
-  const cols = configuredField.layout.cols;
+  const offset = configuredField.layout.offset;
 
-  for (let [key, value] of Object.entries(cols)) {
+  for (let [key, value] of Object.entries(offset)) {
     if (value + modelValue.value[key] > 12) {
-      cols[key] = 12 - modelValue.value[key]; // Reassign directly to the object
+      offset[key] = 12 - modelValue.value[key]; // Reassign directly to the object
     }
   }
-
-
 }
 
-const {t} = useI18n()
 
 </script>
 
@@ -69,17 +68,17 @@ const {t} = useI18n()
 <i18n lang="json">
 {
   "en": {
-    "offset": {
-      "desktop": "Offset on desktop and laptops",
-      "tablet": "Offset on tablets",
-      "mobile": "Offset on mobile phones"
+    "size": {
+      "desktop": "Size on desktop and laptops",
+      "tablet": "Size on tablets",
+      "mobile": "Size on mobile phones"
     }
   },
   "pl": {
-    "offset": {
-      "desktop": "Przesunięcie pola - ekran typu monitor",
-      "tablet": "Przesunięcie pola - ekran typu tablet",
-      "mobile": "Przesunięcie pola - ekran typu smartfon"
+    "size": {
+      "desktop": "Szerokość pola - ekran typu monitor",
+      "tablet": "Szerokość pola - ekran typu tablet",
+      "mobile": "Szerokość pola - ekran typu smartfon"
     }
   }
 }

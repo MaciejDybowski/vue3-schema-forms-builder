@@ -1,22 +1,17 @@
 <template>
-  <v-list-item>
-    <v-text-field
-      :model-value="modelValue"
-      @update:model-value="parseValue"
-      :label="t('falseValueMapping')"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  <text-property-wrapper
+    :label="t('falseValueMapping')"
+    :model-value="modelValue"
+    @update:model-value="parseValue"
+  />
+
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
-
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const modelValue = defineModel()
-const style = useStyle()
 
 const {t} = useI18n()
 const emit = defineEmits<{
@@ -24,7 +19,7 @@ const emit = defineEmits<{
 }>();
 
 function parseValue(val: string) {
-  if(val === ""){
+  if (val === "") {
     emit("update:modelValue", null)
     return;
   }

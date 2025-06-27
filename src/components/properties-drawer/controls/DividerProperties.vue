@@ -12,15 +12,15 @@
       <key-property v-model="model.key"/>
       <col-property v-model="model.layout.cols"/>
 
-      <number-general
+      <number-property-wrapper
         v-model="model.thickness"
         :label="t('thickness')"
       />
-      <textfield-general
+      <text-property-wrapper
         v-model="model.color"
         :label="t('color')"
       />
-      <textfield-general
+      <text-property-wrapper
         v-model="model.opacity"
         :label="t('opacity')"
       />
@@ -42,14 +42,13 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
+
 import {useI18n} from "vue-i18n";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general"])
 const {t} = useI18n()

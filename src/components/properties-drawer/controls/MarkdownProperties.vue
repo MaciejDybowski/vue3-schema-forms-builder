@@ -27,7 +27,7 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.hide"
         :label="model.layout.hide ? t('hide') : t('visible')"
       />
@@ -45,13 +45,14 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
+
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

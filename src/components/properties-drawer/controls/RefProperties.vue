@@ -10,7 +10,7 @@
       value="general"
     >
       <key-property v-model="model.key"/>
-      <textfield-general
+      <text-property-wrapper
         v-model="model.ref"
         label="Reference"/>
     </expansion-panel>
@@ -23,12 +23,10 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import {useI18n} from "vue-i18n";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general"])
-const {t} = useI18n()
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

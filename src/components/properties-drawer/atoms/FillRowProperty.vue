@@ -1,21 +1,15 @@
 <template>
-  <v-list-item>
-    <v-switch
-      v-model="modelValue"
-      :label="t('fillRowProperty')"
-      class="mx-2"
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  <boolean-switch-property-wrapper
+    v-model="modelValue"
+    :label="t('fillRowProperty')"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const modelValue = defineModel()
-const style = useStyle()
 
 const {t} = useI18n()
 </script>

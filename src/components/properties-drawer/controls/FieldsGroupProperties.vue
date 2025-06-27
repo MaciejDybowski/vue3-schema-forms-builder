@@ -24,21 +24,21 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
-      <textfield-general v-model="model.layout.hide" label="Hide boolean/expression"/>
+      <text-property-wrapper v-model="model.layout.hide" label="Hide boolean/expression"/>
     </expansion-panel>
   </v-expansion-panels>
 </template>
 
 <script lang="ts" setup>
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+
+;
 
 const panels = ref<string[]>(["general", "layout"])
 const useBuilderStateStore = useBuilderState()

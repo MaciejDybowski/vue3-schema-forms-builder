@@ -2,86 +2,47 @@
   <v-list-item density="compact">
     <span>{{ t('configLabel') }}</span>
   </v-list-item>
-  <v-list-item>
-    <v-textarea
-      v-model="modelValue.builder_url"
-      :auto-grow="true"
-      :label="t('urlKey')"
-      class="pt-2"
-      rows="1"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-text-field
-      v-model="modelValue.title"
-      :label="t('title')"
-      class="pt-2"
+  <text-property-wrapper
+    v-model="modelValue.builder_url"
+    :label="t('urlKey')"
+  />
 
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-text-field
-      v-model="modelValue['value']"
-      :label="t('value')"
-      class="pt-2"
+  <text-property-wrapper
+    v-model="modelValue.title"
+    :label="t('title')"
+  />
 
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-text-field
-      v-model="modelValue.description"
-      :label="t('description')"
-      class="pt-2"
+  <text-property-wrapper
+    v-model="modelValue['value']"
+    :label="t('value')"
+  />
 
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-switch
-      v-model="modelValue.returnObject"
-      :label="t('returnObject')"
-      class="mx-2"
+  <text-property-wrapper
+    v-model="modelValue.description"
+    :label="t('description')"
+  />
 
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-switch
-      v-model="modelValue.lazy"
-      :label="t('lazyLoading')"
-      class="mx-2"
+  <boolean-switch-property-wrapper
+    v-model="modelValue.returnObject"
+    :label="t('returnObject')"
+  />
 
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
+  <boolean-switch-property-wrapper
+    v-model="modelValue.lazy"
+    :label="t('lazyLoading')"
+  />
 
-  </v-list-item>
-  <v-list-item>
-    <v-switch
-      v-model="modelValue.singleOptionAutoSelect"
-      :label="t('singleOptionAutoSelect')"
-      class="mx-2"
+  <boolean-switch-property-wrapper
+    v-model="modelValue.singleOptionAutoSelect"
+    :label="t('singleOptionAutoSelect')"
+  />
 
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
-  <v-list-item>
-    <v-switch
-      v-model="modelValue.multiple"
-      :label="t('multiple')"
-      class="mx-2"
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  <boolean-switch-property-wrapper
+    v-model="modelValue.multiple"
+    :label="t('multiple')"
+  />
 
-
-  <number-general
+  <number-property-wrapper
     v-if="modelValue.multiple"
     v-model="modelValue.maxSelection"
     :label="t('maxSelection')"
@@ -93,15 +54,15 @@
 
 
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
-import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const modelValue = defineModel<any>({
   default: () => {
   }
 })
 
-const style = useStyle()
 const {t} = useI18n()
 
 </script>

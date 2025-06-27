@@ -1,17 +1,14 @@
 <template>
-  <v-list-item>
-    <v-text-field
-      v-model="modelValue"
-      :label="t('modelKey')"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  <text-property-wrapper
+    v-model="modelValue"
+    :label="t('modelKey')"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const modelValue = defineModel()
 const style = useStyle()

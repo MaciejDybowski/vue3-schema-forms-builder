@@ -8,6 +8,7 @@
       mandatory
       @update:model-value="updateSmaller"
     >
+      <col-btn :value="0"></col-btn>
       <col-btn :value="1"></col-btn>
       <col-btn :value="2"></col-btn>
       <col-btn :value="3"></col-btn>
@@ -19,13 +20,12 @@
       <col-btn :value="9"></col-btn>
       <col-btn :value="10"></col-btn>
       <col-btn :value="11"></col-btn>
-      <col-btn :value="12"></col-btn>
     </v-btn-toggle>
   </div>
 </template>
 
 <script lang="ts" setup>
-import ColBtn from "@/components/properties-drawer/atoms/ColBtn.vue";
+import ColBtn from "@/components/properties-drawer/atoms/cols/ColBtn.vue";
 
 const props = defineProps<{
   label: string

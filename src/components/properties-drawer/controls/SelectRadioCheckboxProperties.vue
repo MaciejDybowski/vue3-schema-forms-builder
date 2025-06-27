@@ -27,16 +27,20 @@
     </expansion-panel>
 
     <expansion-panel
+      v-if="component !='select'"
       :active="panels.includes('fieldProps')"
       title="Field properties"
       value="fieldProps"
-      v-if="component !='select'"
     >
-      <horizontal-radio-or-checkbox-property
-        v-if="component == 'checkbox' || component == 'radio-button'"
+
+
+      <boolean-checkbox-property-wrapper
         v-model="model.layout.props.inline"
+        :label="t('horizontalLayout')"
       />
-      <checkbox-general
+
+
+      <boolean-checkbox-property-wrapper
         v-if="component == 'checkbox'"
         v-model="model.layout.props.multiple"
         :label="t('multipleProps')"
@@ -73,21 +77,19 @@ import {computed, ComputedRef, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import {FromElementComponent} from "@/models/FromElementComponent";
-import HorizontalRadioOrCheckboxProperty
-  from "@/components/properties-drawer/atoms/HorizontalRadioOrCheckboxProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import CheckboxGeneral from "@/components/properties-drawer/atoms/CheckboxGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()
@@ -128,9 +130,11 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
 <i18n lang="json">
 {
   "en": {
+    "horizontalLayout": "Set horizontal",
     "multipleProps": "Multiple values"
   },
   "pl": {
+    "horizontalLayout": "Ułóż horyzontalnie",
     "multipleProps": "Dozwolone wiele wartości"
   }
 }

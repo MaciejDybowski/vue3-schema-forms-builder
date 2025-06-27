@@ -2,42 +2,37 @@
   <v-list-item density="compact">
     <span>{{ t('simpleSource.title') }}</span>
   </v-list-item>
-  <v-list-item>
-    <v-switch
-      v-model="modelValue.returnObject"
-      :label="t('simpleSource.returnObject')"
-      class="mx-2"
 
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  <boolean-switch-property-wrapper
+    v-model="modelValue.returnObject"
+    :label="t('simpleSource.returnObject')"
+  />
   <v-list
     v-for="(item, key) in modelValue.items"
     density="compact"
   >
     <div class="d-flex align-center justify-center">
-      <textfield-general
-        style="max-width: 100px"
+      <text-property-wrapper
         :label="t('simpleSource.value')"
         :model-value="item.value"
-        @update:model-value="(val) => parseValue(item, val)"
         class="pa-0 ma-0 px-1"
+        style="max-width: 100px"
+        @update:model-value="(val) => parseValue(item, val)"
       />
 
-      <textfield-general
-        style="max-width: 160px"
+      <text-property-wrapper
         v-if="typeof item.title == 'string'"
         v-model="item.title"
         :label="t('simpleSource.label')"
         class="pa-0 ma-0 px-1"
-      />
-      <textfield-general
         style="max-width: 160px"
+      />
+      <text-property-wrapper
         v-else
         v-model="item.title.$ref"
         :disabled="true"
         :label="t('simpleSource.label')"
+        style="max-width: 160px"
       />
 
       <v-btn
@@ -88,23 +83,21 @@
     </template>
 
     <v-card-text>
-      <textfield-general
+      <text-property-wrapper
         :label="t('simpleSource.value')"
         :model-value="currentConfiguredOption.value"
         @update:model-value="(val) => parseValue(currentConfiguredOption, val)"
       />
 
-      <textfield-general
+      <text-property-wrapper
         v-model="dynamicItemTitle"
         :prefix="currentConfiguredOption.isReference? prefix: ''"
         label="Title"
       />
 
-      <v-switch
+      <boolean-switch-property-wrapper
         v-model="currentConfiguredOption.isReference"
-        class="mx-4"
         color="green"
-        hide-details="auto"
         label="Use Reference"
         @change="referenceChangedItemTitle"
       />
@@ -116,8 +109,10 @@
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 import {computed, ref} from "vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+
 import {useTranslateInput} from "@/composables/useTranslateInput";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const style = useStyle()
 const {t} = useI18n()

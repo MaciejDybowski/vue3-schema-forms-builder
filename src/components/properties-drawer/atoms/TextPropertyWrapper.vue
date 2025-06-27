@@ -4,9 +4,9 @@
       v-model="modelValue"
       :auto-grow="true"
       :label="label"
+      :prefix="prefix"
       :rows="rows"
       class="pt-2"
-      :prefix="prefix"
       v-bind="{...style.inputStyle.value}"
     />
   </v-list-item>

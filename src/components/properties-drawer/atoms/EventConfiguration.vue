@@ -23,7 +23,7 @@
     />
 
     <div v-if="eventMode=='action'">
-      <textfield-general
+      <text-property-wrapper
         v-model="actionCode"
         :label="t('actionCode')"
         @update:model-value="setActionCOde"
@@ -187,7 +187,7 @@
           </v-btn>
         </div>
       </v-list-item>
-      <textfield-general
+      <text-property-wrapper
         v-model="eventSignal"
         :label="t('eventSignal')"
         @update:model-value="setEventSignal"
@@ -203,11 +203,11 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import {useI18n} from "vue-i18n";
 import {computed, onMounted, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {cloneDeep, merge} from "lodash";
 import {useStyle} from "@/main";
 import set from "lodash/set";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const {t} = useI18n()
 const style = useStyle()
@@ -250,6 +250,7 @@ function setActionCOde(value: string) {
 }
 
 const eventSignal = ref(null)
+
 function setEventSignal(value: string) {
   if (eventType.value) {
     model.value[eventType.value]['eventSignal'] = value
@@ -342,7 +343,7 @@ onMounted(() => {
     })
   }
 
-  if (eventMode.value == "emit-event"){
+  if (eventMode.value == "emit-event") {
     eventSignal.value = model.value['onChange'].eventSignal
   }
 })

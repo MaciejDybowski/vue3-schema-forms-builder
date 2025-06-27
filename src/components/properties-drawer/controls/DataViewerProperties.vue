@@ -12,8 +12,22 @@
     >
       <key-property v-model="model.key"/>
       <label-property v-model="model"/>
-      <data-viewer-type-property v-model="model.type"/>
-      <value-mapping-property v-model="model.valueMapping"/>
+
+
+      <select-general
+        v-model="model.type"
+        :items="items"
+        :label="t('typeProperty')"
+        :return-object="false"
+        clearable
+      />
+
+      <text-property-wrapper
+        v-model="model.valueMapping"
+        :label="t('valueMapping')"
+      />
+
+
       <source-property
         v-if="model.type=='dictionary'"
         v-model="source"
@@ -36,7 +50,7 @@
       <read-only-property v-model="model.layout.props.readonly"/>
 
       <if-property v-model="model.layout.if"/>
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.hide"
         :label="model.layout.hide ? t('hide') : t('visible')"
       />
@@ -59,19 +73,19 @@
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import ValueMappingProperty from "@/components/properties-drawer/atoms/ValueMappingProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import DataViewerTypeProperty from "@/components/properties-drawer/atoms/DataViewerTypeProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
 import {useI18n} from "vue-i18n";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general"])
@@ -98,6 +112,15 @@ const source = computed({
   }
 })
 
+const items = ref([
+  {value: "text", title: t('typeOptions.text')},
+  {value: "number", title: t('typeOptions.number')},
+  {value: "phone", title: t('typeOptions.phone')},
+  {value: "date", title: t('typeOptions.date')},
+  {value: "date-time", title: t('typeOptions.date-time')},
+  {value: "dictionary", title: t('typeOptions.dictionary')},
+])
+
 </script>
 
 <style lang="scss" scoped>
@@ -108,11 +131,31 @@ const source = computed({
 {
   "en": {
     "hide": "Hide",
-    "visible": "Visible"
+    "visible": "Visible",
+    "typeProperty": "Type of data",
+    "typeOptions": {
+      "text": "Text",
+      "number": "Number",
+      "phone": "Phone",
+      "date": "Date",
+      "date-time": "Datetime",
+      "dictionary": "Dictionary",
+      "valueMapping": "Value mapping"
+    }
   },
   "pl": {
     "hide": "Ukryte",
-    "visible": "Widoczne"
+    "visible": "Widoczne",
+    "typeProperty": "Typ danych",
+    "typeOptions": {
+      "text": "Tekst",
+      "number": "Liczba",
+      "phone": "Telefon",
+      "date": "Data",
+      "date-time": "Data i czas",
+      "dictionary": "Wartość słownikowa",
+      "valueMapping": "Mapowanie wartości"
+    }
   }
 }
 </i18n>

@@ -12,12 +12,9 @@
     >
       <key-property v-model="model.key"/>
 
-      <v-switch
+      <boolean-switch-property-wrapper
         v-model="model.memorable"
         label="Memorable state"
-        class="mx-4"
-        hide-details="auto"
-
       />
 
       <content-propery v-model="model"/>
@@ -88,15 +85,16 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import {useStyle} from "@/main";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "logic"])
 const {t} = useI18n()

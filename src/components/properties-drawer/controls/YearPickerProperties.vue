@@ -14,18 +14,18 @@
       <default-value-property/>
 
 
-      <switch-general
+      <boolean-switch-property-wrapper
         :model-value="model.range != null"
         label="Range"
         @update:model-value="value => value ? model.range = [] : model.range = null"
       />
 
-      <number-general
+      <number-property-wrapper
         v-if="model.range != null"
         v-model="model.range[0]"
         label="Min Year"
       />
-      <number-general
+      <number-property-wrapper
         v-if="model.range != null"
         v-model="model.range[1]"
         label="Max Year"/>
@@ -47,7 +47,7 @@
     >
       <if-property v-model="model.layout.if"/>
       <read-only-property v-model="model.layout.props.readonly"/>
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.hide"
         :label="model.layout.hide ? t('hide') : t('visible')"
       />
@@ -68,11 +68,13 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import NumberGeneral from "@/components/properties-drawer/atoms/NumberGeneral.vue";
+
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
+
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

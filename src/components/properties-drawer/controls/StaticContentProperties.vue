@@ -40,9 +40,9 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import {useI18n} from "vue-i18n";

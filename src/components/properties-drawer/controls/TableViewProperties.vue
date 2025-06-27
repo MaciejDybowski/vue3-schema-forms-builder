@@ -10,7 +10,7 @@
       value="general"
     >
       <key-property v-model="model.key"/>
-      <textfield-general
+      <text-property-wrapper
         v-model="model.ref"
         label="Reference"/>
     </expansion-panel>
@@ -35,7 +35,7 @@
       title="Source"
       value="source"
     >
-      <textfield-general
+      <text-property-wrapper
         v-model="model.source.data"
         label="Data URL"/>
     </expansion-panel>
@@ -57,13 +57,13 @@
         <template #item="{element, index}">
           <div class="draggable-wrapper d-flex align-center justify-center">
             <v-icon class="px-1 mx-0 draggable-icon cursor-grab"> mdi-drag-vertical</v-icon>
-            <textfield-general
+            <text-property-wrapper
               v-if="typeof element.title == 'string'"
               v-model="element.title"
               class="px-1 mx-0"
               label="Title"
             />
-            <textfield-general
+            <text-property-wrapper
               v-else
               v-model="element.title.$ref"
               :disabled="true"
@@ -114,7 +114,7 @@
         </template>
 
         <v-card-text>
-          <textfield-general
+          <text-property-wrapper
             v-model="dynamicHeaderTitle"
             :prefix="currentConfiguredHeader.isReference? prefix: ''"
             label="Title"
@@ -137,16 +137,16 @@
           />
 
 
-          <textfield-general
+          <text-property-wrapper
             v-model="currentConfiguredHeader.key"
             label="Key"/>
-          <textfield-general
+          <text-property-wrapper
             v-model="currentConfiguredHeader.valueMapping"
             label="Value mapping"/>
-          <textfield-general
+          <text-property-wrapper
             v-model="currentConfiguredHeader.footerMapping"
             label="Footer mapping"/>
-          <textfield-general
+          <text-property-wrapper
             v-model="currentConfiguredHeader.color"
             label="Color"/>
           <select-general
@@ -156,7 +156,7 @@
             clearable
             label="Field type"
           />
-          <switch-general
+          <boolean-switch-property-wrapper
             v-if="currentConfiguredHeader.type=='TEXT' || currentConfiguredHeader.type=='NUMBER'"
             v-model="currentConfiguredHeader.editable"
             label="Editable"
@@ -238,12 +238,12 @@
     >
       <div v-for="(button, index) in buttons"
            class="d-flex align-center my-1">
-        <textfield-general
+        <text-property-wrapper
           v-if="typeof button.label == 'string'"
           v-model="button.label"
           label="Label"/>
 
-        <textfield-general
+        <text-property-wrapper
           v-else
           v-model="button.label.$ref"
           :disabled="true"
@@ -285,7 +285,7 @@
           </v-card-title>
         </template>
 
-        <textfield-general
+        <text-property-wrapper
           v-model="dynamicButtonLabel"
           :prefix="currentConfiguredButton.isReference? prefix: ''"
           label="Title"
@@ -372,19 +372,21 @@
 
 <script lang="ts" setup>
 
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
+
 import {useStyle} from "@/main";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+
 import draggable from "../../../vuedraggable/vuedraggable";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'logic', 'headers'])

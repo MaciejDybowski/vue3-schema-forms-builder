@@ -1,19 +1,14 @@
 <template>
-  <v-list-item>
-    <v-textarea
-      v-model="modelValue"
-      :label="t('ifProperty')"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
-      rows="1"
-      :auto-grow="true"
-    />
-  </v-list-item>
+  <text-property-wrapper
+    v-model="modelValue"
+    :label="t('ifProperty')"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 
 const modelValue = defineModel()

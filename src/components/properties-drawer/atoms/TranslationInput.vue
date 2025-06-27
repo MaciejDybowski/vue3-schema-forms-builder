@@ -26,7 +26,6 @@
 import {computed, defineEmits, onBeforeMount, useAttrs} from "vue";
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 
 const {t, locale} = useI18n();
 const style = useStyle();

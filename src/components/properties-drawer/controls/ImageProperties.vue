@@ -33,24 +33,24 @@
       title="Properties"
       value="fieldProps"
     >
-      <textfield-general
+      <text-property-wrapper
         v-model="model.src"
         label="Scieżka"
       />
 
-      <textfield-general
+      <text-property-wrapper
         v-model="model.layout.props['aspect-ratio']"
         label="Aspect ratio"
       />
-      <textfield-general
+      <text-property-wrapper
         v-model="model.layout.props['width']"
         label="Width"
       />
-      <textfield-general
+      <text-property-wrapper
         v-model="model.layout.props['height']"
         label="Height"
       />
-      <switch-general
+      <boolean-switch-property-wrapper
         v-model="model.layout.props['cover']"
         label="Cover"
       />
@@ -65,18 +65,17 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
+import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/OffsetProperty.vue";
-import {useI18n} from "vue-i18n";
-import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
-import SwitchGeneral from "@/components/properties-drawer/atoms/SwitchGeneral.vue";
+import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "fieldProps"])
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n()
+
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
