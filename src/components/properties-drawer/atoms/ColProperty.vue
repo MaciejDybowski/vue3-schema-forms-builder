@@ -26,7 +26,7 @@
 import {useI18n} from "vue-i18n";
 import ColBtnToggle from "@/components/properties-drawer/atoms/ColBtnToggle.vue";
 import {watch} from "vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const modelValue = defineModel<{
   xxl: number,

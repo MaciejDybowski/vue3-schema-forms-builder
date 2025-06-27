@@ -29,7 +29,7 @@ import {computed, useAttrs} from "vue";
 import {useDrawers} from "@/composables/useDrawers";
 import FieldWrapperToolbar from "./FieldWrapperToolbar.vue";
 import FormNodeMock from "./FormNodeMock.vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import {useVTheme} from "@/composables/useVTheme";
 
 

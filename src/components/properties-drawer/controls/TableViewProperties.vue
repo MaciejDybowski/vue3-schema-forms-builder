@@ -376,7 +376,7 @@ import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {computed, onMounted, ref} from "vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {useStyle} from "@/main";

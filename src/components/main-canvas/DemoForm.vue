@@ -54,7 +54,7 @@ import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {useStyle} from "@/main";
 import {useDrawers} from "@/composables/useDrawers";
 import {useI18n} from "vue-i18n";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import axios from "axios";
 
 const {t} = useI18n()

@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import TextfieldGeneral from "@/components/properties-drawer/atoms/TextfieldGeneral.vue";
 import {computed, onMounted, ref} from "vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import {useI18n} from "vue-i18n";
 
 const {t} = useI18n()

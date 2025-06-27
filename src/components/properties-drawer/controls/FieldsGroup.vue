@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/ColProperty.vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";

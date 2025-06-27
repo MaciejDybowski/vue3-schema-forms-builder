@@ -1,6 +1,6 @@
 import {App, ComputedRef} from "vue";
 import components from "./components/index";
-import {useBuilderState} from "./pinia/stores/useBuilderState";
+import {useBuilderState} from "./pinia/useBuilderState";
 import {useStyleDefault} from "@/composables/useStyleDefault";
 
 export let useStyle = () => useStyleDefault() as unknown as UseStyleComposable;

@@ -33,7 +33,7 @@ import {computed, onMounted, watch} from "vue";
 
 import DraggableArea from "../builder/DraggableArea.vue";
 
-import {useBuilderState} from "../../pinia/stores/useBuilderState";
+import {useBuilderState} from "../../pinia/useBuilderState";
 import {useMainCanvas} from "../../composables/useMainCanvas";
 import "vue-json-pretty/lib/styles.css";
 import "vue3-schema-forms/dist/style.css"

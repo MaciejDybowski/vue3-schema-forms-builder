@@ -1,5 +1,5 @@
 import {CanvasMode} from "../models/CanvasMode";
-import {useAppConfig} from "../pinia/stores/useAppConfig";
+import {useAppConfig} from "../pinia/useAppConfig";
 import {computed} from "vue";
 
 export function useCanvas() {

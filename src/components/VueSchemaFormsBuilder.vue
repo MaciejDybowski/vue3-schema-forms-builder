@@ -39,7 +39,7 @@ import {FormSchema} from "@/models/FormSchema";
 //import "../../../aurea-forms/dist/style.css"
 import {createVueSchemaForms, provideFormModel} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const instance = getCurrentInstance();
 

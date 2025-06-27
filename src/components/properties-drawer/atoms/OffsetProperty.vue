@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import OffsetBtnToggle from "@/components/properties-drawer/atoms/OffsetBtnToggle.vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import {watch} from "vue";
 
 

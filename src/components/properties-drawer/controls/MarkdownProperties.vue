@@ -41,7 +41,7 @@
 <script lang="ts" setup>
 
 import {computed, ref} from "vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";

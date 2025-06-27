@@ -19,7 +19,7 @@ import LoadingView from "./LoadingView.vue";
 import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue";
 import PropsViewer from "./PropsViewer.vue";
 import {FormSchema} from "@/models/FormSchema";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 
 const useBuilderStateStore = useBuilderState()

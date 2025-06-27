@@ -68,7 +68,7 @@
 <script lang="ts" setup>
 import {useDrawers} from "@/composables/useDrawers";
 import {computed, ref} from "vue";
-import {useBuilderState} from "@/pinia/stores/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 import TextFieldProperties from "@/components/properties-drawer/controls/TextFieldProperties.vue";
 import StaticContentProperties from "@/components/properties-drawer/controls/StaticContentProperties.vue";
 import DataViewerProperties from "@/components/properties-drawer/controls/DataViewerProperties.vue";

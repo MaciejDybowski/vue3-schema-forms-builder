@@ -31,7 +31,7 @@ import FieldWrapperToolbarLabel from "./FieldWrapperToolbarLabel.vue";
 import FieldWrapperToolbarBtn from "./FieldWrapperToolbarBtn.vue";
 import {useDrawers} from "../../composables/useDrawers";
 
-import {useBuilderState} from "../../pinia/stores/useBuilderState";
+import {useBuilderState} from "../../pinia/useBuilderState";
 
 const props = defineProps<{
   element: any
