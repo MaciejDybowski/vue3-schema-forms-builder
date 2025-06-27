@@ -1,21 +1,15 @@
 <template>
-  <v-list-item>
-    <v-checkbox
-      v-model="modelValue"
-      :label="t('readOnlyProperty')"
-      class="mx-2"
-      hide-details="auto"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  <boolean-checkbox-property-wrapper
+    v-model="modelValue"
+    :label="t('readOnlyProperty')"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const modelValue = defineModel()
-const style = useStyle()
 
 const {t} = useI18n()
 

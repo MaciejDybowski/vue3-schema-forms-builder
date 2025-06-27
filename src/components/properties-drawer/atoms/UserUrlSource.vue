@@ -1,36 +1,25 @@
 <template>
-  <v-list-item>
-    <v-textarea
-      v-model="modelValue.builder_url"
-      :label="t('urlKey')"
-      v-bind="style.inputStyle.value"
-      class="pt-2"
-      auto-grow
-      rows="3"
-    />
+  <text-property-wrapper
+    v-model="modelValue.builder_url"
+    :label="t('urlKey')"
+    :rows="3"
+  />
 
-    <v-list-item>
-      <v-switch
-        v-model="modelValue.singleOptionAutoSelect"
-        :label="t('singleOptionAutoSelect')"
-        class="mx-2"
-
-        hide-details="auto"
-        v-bind="style.inputStyle.value"
-      />
-    </v-list-item>
-  </v-list-item>
+  <boolean-switch-property-wrapper
+    v-model="modelValue.singleOptionAutoSelect"
+    :label="t('singleOptionAutoSelect')"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 
 const modelValue = defineModel<any>({
   default: () => {
   }
 })
-const style = useStyle()
 
 const {t} = useI18n()
 

@@ -1,28 +1,24 @@
 <template>
-  <v-list-item>
-    <v-text-field
+  <text-property-wrapper
+      :label="t('trueValueMapping')"
       :model-value="modelValue"
       @update:model-value="parseValue"
-      :label="t('trueValueMapping')"
-      class="pt-2"
-      v-bind="style.inputStyle.value"
-    />
-  </v-list-item>
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const modelValue = defineModel()
-const style = useStyle()
 
 const {t} = useI18n()
 const emit = defineEmits<{
   (e: "update:modelValue", val: any): boolean | string;
 }>();
+
 function parseValue(val: string) {
-  if(val === ""){
+  if (val === "") {
     emit("update:modelValue", null)
     return;
   }
