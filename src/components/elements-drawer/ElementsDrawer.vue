@@ -38,7 +38,7 @@
 
     <v-card-text>
       <v-tabs-window v-model="tab">
-        <v-tabs-window-item class="pa-4" value="fields">
+        <v-tabs-window-item value="fields">
           <form-elements :query="query"/>
         </v-tabs-window-item>
         <v-tabs-window-item value="page">

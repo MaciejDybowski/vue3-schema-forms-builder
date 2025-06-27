@@ -2,9 +2,9 @@
   <v-btn
     :value="value"
     class="px-0"
-    height="26.5"
-    max-width="26"
-    min-width="26"
+    height="25"
+    max-width="25"
+    min-width="25"
     variant="outlined"
   >
     <span class="col-val-btn">{{ value }}</span>

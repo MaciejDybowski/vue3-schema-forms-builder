@@ -19,11 +19,8 @@
 
 <script lang="ts" setup>
 import draggable from "../../vuedraggable/vuedraggable";
-import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ComputedRef, ref, Ref} from "vue";
-
-const style = useStyle()
 
 const props = defineProps<{
   query: string
