@@ -4,9 +4,7 @@ import {mergeConfig} from "vite";
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
-    "@storybook/addon-links",
     'storybook-addon-mock',
-    "@chromatic-com/storybook",
     "@storybook/addon-docs"
   ],
   core: {},

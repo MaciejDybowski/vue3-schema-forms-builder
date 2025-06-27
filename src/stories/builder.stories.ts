@@ -1,7 +1,7 @@
 // @ts-nocheck
 import {Meta, StoryObj} from '@storybook/vue3-vite';
 import {ArgTypes} from 'storybook/internal/types';
-import DevelopmentTable from "@/components/storybook-components/DevelopmentTable.vue"
+import DevelopmentTable from "../../.storybook/components/DevelopmentTable.vue"
 
 const meta = {
   title: 'Forms Builder',

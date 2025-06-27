@@ -14,10 +14,10 @@
 
 <script lang='ts' setup>
 import {onBeforeMount, ref} from 'vue';
-import {fetchToken} from "../../../.storybook/keycloak_auth";
-import LoadingView from "@/components/storybook-components/LoadingView.vue";
+import {fetchToken} from "../keycloak_auth";
+import LoadingView from "./LoadingView.vue";
 import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue";
-import PropsViewer from "@/components/storybook-components/PropsViewer.vue";
+import PropsViewer from "./PropsViewer.vue";
 import {FormSchema} from "@/models/FormSchema";
 import {useBuilderState} from "@/pinia/stores/useBuilderState";
 

@@ -9,7 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ColBtn: typeof import('./src/components/properties-drawer/atoms/ColBtn.vue')['default']
     ColProperty: typeof import('./src/components/properties-drawer/atoms/ColProperty.vue')['default']
-    DevelopmentTable: typeof import('./src/components/storybook-components/DevelopmentTable.vue')['default']
+    DevelopmentTable: typeof import('.storybook/components/DevelopmentTable.vue')['default']
     DraggableArea: typeof import('./src/components/builder/DraggableArea.vue')['default']
     ElementsDrawer: typeof import('./src/components/elements-drawer/ElementsDrawer.vue')['default']
     FieldWrapper: typeof import('./src/components/builder/FieldWrapper.vue')['default']
@@ -19,7 +19,7 @@ declare module 'vue' {
     FieldWrapperToolbarLabel: typeof import('./src/components/builder/FieldWrapperToolbarLabel.vue')['default']
     FormBuilder: typeof import('./src/components/FormBuilder.vue')['default']
     FormNodeMock: typeof import('./src/components/builder/FormNodeMock.vue')['default']
-    LoadingView: typeof import('./src/components/storybook-components/LoadingView.vue')['default']
+    LoadingView: typeof import('.storybook/components/LoadingView.vue')['default']
     MainCanvas: typeof import('./src/components/main-canvas/MainCanvas.vue')['default']
     MainCanvasToolboxLeft: typeof import('./src/components/main-canvas/MainCanvasToolboxLeft.vue')['default']
     MainCanvasToolboxRight: typeof import('./src/components/main-canvas/MainCanvasToolboxRight.vue')['default']
