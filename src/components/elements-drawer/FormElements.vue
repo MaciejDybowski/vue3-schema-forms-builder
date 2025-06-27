@@ -4,6 +4,7 @@
     :group="{ name: 'controls', pull: 'clone', put: false }"
     :list="filteredControls"
     item-key="label"
+    :sort="false"
   >
     <template #item="{element}">
       <v-list-item link>
@@ -92,11 +93,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Rok",
     component: "year-picker"
   },
-  {
+/*  {
     icon: "mdi-map-marker",
     label: "Lokalizacja",
     component: "location"
-  },
+  },*/
   {
     icon: "mdi-phone",
     label: "Telefon",

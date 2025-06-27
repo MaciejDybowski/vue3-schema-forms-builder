@@ -4,6 +4,7 @@
     :group="{ name: 'controls', pull: 'clone', put: false }"
     :list="filteredStaticContent"
     item-key="label"
+    :sort="false"
   >
     <template #item="{element}">
       <v-list-item link>
