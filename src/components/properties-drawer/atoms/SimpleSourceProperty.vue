@@ -53,7 +53,14 @@
         @click="configOption(item)"
       >
       </v-btn>
+
     </div>
+    <text-property-wrapper
+      v-if="field.layout.component=='checkbox'"
+      class="mx-1"
+      v-model="item.disabledCondition"
+      label="Disabled condition"
+    />
   </v-list>
   <v-list-item density="compact">
     <v-btn
@@ -64,6 +71,7 @@
     >Dodaj
     </v-btn>
   </v-list-item>
+
 
   <tcn-au-dialog
     v-if="configOptionDialog"
@@ -113,9 +121,23 @@ import {computed, ref} from "vue";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const style = useStyle()
 const {t} = useI18n()
+
+
+const useBuilderStateStore = useBuilderState()
+const field = computed({
+  get() {
+    return useBuilderStateStore.getConfiguredField
+  },
+  set(val) {
+    useBuilderStateStore.setConfiguredField(val)
+  }
+})
+
+
 const modelValue = defineModel<{
   items: Array<any>,
   returnObject: boolean
