@@ -24,6 +24,10 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
+      <boolean-switch-property-wrapper
+        v-model="model.layout.hide"
+        :label="model.layout.hide ? t('hide') : t('visible')"
+      />
       <text-property-wrapper v-model="model.layout.hide" label="Hide boolean/expression"/>
     </expansion-panel>
   </v-expansion-panels>
@@ -37,6 +41,8 @@ import {computed, ref} from "vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import {useI18n} from "vue-i18n";
 
 ;
 
@@ -50,9 +56,25 @@ const model = computed({
     useBuilderStateStore.setConfiguredField(val)
   }
 })
+
+const {t} = useI18n()
 </script>
 
 
 <style lang="scss" scoped>
 
 </style>
+
+
+<i18n lang="json">
+{
+  "en": {
+    "hide": "Hide",
+    "visible": "Visible"
+  },
+  "pl": {
+    "hide": "Ukryte",
+    "visible": "Widoczne"
+  }
+}
+</i18n>

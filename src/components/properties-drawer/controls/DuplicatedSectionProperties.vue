@@ -25,6 +25,11 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
+      <boolean-switch-property-wrapper
+        v-model="model.layout.hide"
+        :label="model.layout.hide ? t('hide') : t('visible')"
+      />
+      <text-property-wrapper v-model="model.layout.hide" label="Hide boolean/expression"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('fieldProps')"
@@ -141,7 +146,9 @@ const {t} = useI18n()
     "copyNode": "Copy above",
     "actionCall": "Call action",
     "showFirstInitRow": "Show empty first line",
-    "duplicatedSectionShowDivider": "Show divider between section"
+    "duplicatedSectionShowDivider": "Show divider between section",
+    "hide": "Hide",
+    "visible": "Visible"
   },
   "pl": {
     "editable": "Edycja sekcji dozwolona",
@@ -152,7 +159,9 @@ const {t} = useI18n()
     "copyNode": "Kopiowanie powyższego",
     "actionCall": "Wywołaj akcję",
     "showFirstInitRow": "Pokazuj pusty pierwszy wiersz",
-    "duplicatedSectionShowDivider": "Pokazuj rozdzielacz pomiędzy sekcjami"
+    "duplicatedSectionShowDivider": "Pokazuj rozdzielacz pomiędzy sekcjami",
+    "hide": "Ukryte",
+    "visible": "Widoczne"
   }
 }
 </i18n>
