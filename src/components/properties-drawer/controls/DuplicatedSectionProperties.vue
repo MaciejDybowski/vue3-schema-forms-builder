@@ -20,6 +20,13 @@
       <col-property v-model="model.layout.cols"/>
     </expansion-panel>
     <expansion-panel
+      :active="panels.includes('logic')"
+      title="Logic"
+      value="logic"
+    >
+      <if-property v-model="model.layout.if"/>
+    </expansion-panel>
+    <expansion-panel
       :active="panels.includes('fieldProps')"
       title="Properties"
       value="fieldProps"
@@ -85,6 +92,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 const panels = ref<string[]>(["general", "fieldProps"])
 const useBuilderStateStore = useBuilderState()
