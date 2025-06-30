@@ -24,7 +24,7 @@ update_vue_forms:
   script:
     - echo "Lib version is = $VUE_FORMS_VERSION"
     - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
-    - npm install vue3-schema-forms@$VUE_FORMS_VERSION
+    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=https://nexus3.tecna.pl/repository/npm-private
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
     - git add package.json package-lock.json
