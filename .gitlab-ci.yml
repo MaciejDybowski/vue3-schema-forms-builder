@@ -22,9 +22,11 @@ update_vue_forms:
   image: docker.tecna.pl/node:lts
   stage: update_forms
   script:
-    - echo "Lib version is = $VUE_FORMS_VERSION"
     - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
-    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=https://nexus3.tecna.pl/repository/npm-private
+    - npm config set registry https://${NPM_PROXY}
+    - npm set //${NPM_REGISTRY}:_authToken=${NPM_TOKEN}
+    - npm set //${NPM_PROXY}:_authToken=${NPM_TOKEN}
+    - npm install vue3-schema-forms@$VUE_FORMS_VERSION
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
     - git add package.json package-lock.json
