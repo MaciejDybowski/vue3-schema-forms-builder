@@ -13,7 +13,23 @@ variables:
   UPSTREAM_REPO_PASSWORD: $NEXUS_PASSWORD
 
 stages:
+  - update_forms
   - publish # no need to split it into separate stages, we can also avoid passing artifacts that way
+
+
+update_vue_forms:
+  image: docker.tecna.pl/node:lts
+  stage: update_forms
+  script:
+    - npm run update-vue-forms
+    - git config --global user.email "ci-bot@example.com"
+    - git config --global user.name "CI Bot"
+    - git add package.json package-lock.json
+    - git commit -m "chore: update vue3-schema-forms to version $VUE_FORMS_VERSION [skip ci]"
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "pipeline" && $VUE_FORMS_VERSION'
+      when: always
 
 npm-publish:
   stage: publish
