@@ -25,7 +25,7 @@ update_vue_forms:
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
     - git add package.json package-lock.json
-    - git commit -m "chore: update vue3-schema-forms to version $VUE_FORMS_VERSION [skip ci]"
+    - git commit -m "Update vue3-schema-forms to version $VUE_FORMS_VERSION [skip ci]"
     - git push origin HEAD:$CI_COMMIT_REF_NAME
   rules:
     - if: '$CI_PIPELINE_SOURCE == "pipeline" && $VUE_FORMS_VERSION'
