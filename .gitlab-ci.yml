@@ -30,7 +30,7 @@ update_vue_forms:
     - git remote set-url origin "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
     - git add package.json package-lock.json
     - git commit -m "Update vue3-schema-forms to version $VUE_FORMS_VERSION [skip ci]"
-    - echo "CI_COMMIT_REF_NAME=${$CI_COMMIT_REF_NAME}"
+    - echo "CI_COMMIT_REF_NAME = ${CI_COMMIT_REF_NAME}"
     #- git push origin HEAD:$CI_COMMIT_REF_NAME
     - git push origin HEAD:dev
   rules:
