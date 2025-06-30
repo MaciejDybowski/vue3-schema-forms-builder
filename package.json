@@ -27,7 +27,7 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@vueuse/core": "^11.1.0",
-    "vue3-schema-forms": "0.2.6-snapshot-1"
+    "vue3-schema-forms": "^0.2.6"
   },
   "peerDependencies": {
     "axios": "^1.7.2",

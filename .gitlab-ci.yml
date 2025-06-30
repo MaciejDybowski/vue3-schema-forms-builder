@@ -14,28 +14,7 @@ variables:
   VUE_FORMS_VERSION: $VUE_FORMS_VERSION
 
 stages:
-  - update_forms
   - publish
-
-
-update_vue_forms:
-  image: docker.tecna.pl/node:lts
-  stage: update_forms
-  script:
-    - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
-    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=https://nexus3.tecna.pl/repository/npm-private
-    - git config --global user.email "ci-bot@example.com"
-    - git config --global user.name "CI Bot"
-    - echo "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
-    - git remote set-url origin "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
-    - git add package.json package-lock.json
-    - git commit -m "Update vue3-schema-forms to version $VUE_FORMS_VERSION [skip ci]"
-    - echo "CI_COMMIT_REF_NAME = ${CI_COMMIT_REF_NAME}"
-    #- git push origin HEAD:$CI_COMMIT_REF_NAME
-    - git push origin HEAD:dev
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "pipeline" && $VUE_FORMS_VERSION'
-      when: always
 
 npm-publish:
   stage: publish
