@@ -11,6 +11,7 @@ variables:
   DOWNSTREAM_REPO: $REGISTRY_URL
   UPSTREAM_REPO_USER: $NEXUS_USER
   UPSTREAM_REPO_PASSWORD: $NEXUS_PASSWORD
+  VUE_FORMS_VERSION: $VUE_FORMS_VERSION
 
 stages:
   - update_forms
@@ -21,8 +22,9 @@ update_vue_forms:
   image: docker.tecna.pl/node:lts
   stage: update_forms
   script:
+    - echo "Lib version is = $VUE_FORMS_VERSION"
     - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
-    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=https://$NPM_REGISTRY
+    - npm install vue3-schema-forms@$VUE_FORMS_VERSION
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
     - git add package.json package-lock.json
