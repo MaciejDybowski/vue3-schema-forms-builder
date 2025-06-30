@@ -14,14 +14,15 @@ variables:
 
 stages:
   - update_forms
-  - publish # no need to split it into separate stages, we can also avoid passing artifacts that way
+  - publish
 
 
 update_vue_forms:
   image: docker.tecna.pl/node:lts
   stage: update_forms
   script:
-    - npm run update-vue-forms
+    - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
+    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=$NPM_REGISTRY
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
     - git add package.json package-lock.json
