@@ -1,5 +1,5 @@
 <template>
-  <v-list-item>
+  <component :is="wrapperTag">
     <v-textarea
       v-model="modelValue"
       :auto-grow="true"
@@ -9,7 +9,7 @@
       class="pt-2"
       v-bind="{...style.inputStyle.value}"
     />
-  </v-list-item>
+  </component>
 </template>
 
 <script lang="ts" setup>
@@ -22,9 +22,11 @@ const props = withDefaults(defineProps<{
   label: string
   rows?: number
   prefix?: string | undefined
+  wrapperTag?: string | undefined
 }>(), {
   rows: 1,
-  prefix: undefined
+  prefix: undefined,
+  wrapperTag: "v-list-item"
 })
 
 const attrs = useAttrs()

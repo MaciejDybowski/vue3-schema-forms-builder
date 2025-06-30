@@ -1,74 +1,105 @@
 <template>
-  <v-list-item density="compact">
-    <span>{{ t('simpleSource.title') }}</span>
-  </v-list-item>
-
   <boolean-switch-property-wrapper
     v-model="modelValue.returnObject"
     :label="t('simpleSource.returnObject')"
   />
-  <v-list
-    v-for="(item, key) in modelValue.items"
-    density="compact"
+
+
+  <draggable
+    :key="computedItems['value']"
+    v-model="computedItems"
+    :sort="true"
+    class="d-flex flex-wrap v-row pl-3"
+    handle=".draggable-icon"
+    item-key="value"
+    v-bind="dragOptions"
   >
-    <div class="d-flex align-center justify-center">
-      <text-property-wrapper
-        :label="t('simpleSource.value')"
-        :model-value="item.value"
-        class="pa-0 ma-0 px-1"
-        style="max-width: 100px"
-        @update:model-value="(val) => parseValue(item, val)"
-      />
+    <template #item="{element}">
+      <div>
 
-      <text-property-wrapper
-        v-if="typeof item.title == 'string'"
-        v-model="item.title"
-        :label="t('simpleSource.label')"
-        class="pa-0 ma-0 px-1"
-        style="max-width: 160px"
-      />
-      <text-property-wrapper
-        v-else
-        v-model="item.title.$ref"
-        :disabled="true"
-        :label="t('simpleSource.label')"
-        style="max-width: 160px"
-      />
+        <v-row class="pa-0 ma-0 align-center" dense>
 
-      <v-btn
-        class="mx-1 pa-0"
-        density="compact"
-        flat
-        icon="mdi-delete"
-        size="small"
-        @click="deleteOption(key)"
-      >
-      </v-btn>
-      <v-btn
-        class="mx-1 pa-0"
-        density="compact"
-        flat
-        icon="mdi-cog"
-        size="small"
-        @click="configOption(item)"
-      >
-      </v-btn>
+          <v-col class="pa-0 ma-0" cols="4">
+            <text-property-wrapper
+              :label="t('simpleSource.value')"
+              :model-value="element.value"
+              class="pr-1"
+              @update:model-value="(val) => parseValue(element, val)"
+            />
+          </v-col>
+          <v-col class="pa-0 ma-0" cols="5">
+            <text-property-wrapper
+              v-if="typeof element.title === 'string'"
+              v-model="element.title"
+              :label="t('simpleSource.label')"
+              class="pl-1 pr-1"
+            />
+            <text-property-wrapper
+              v-else
+              v-model="element.title.$ref"
+              :disabled="true"
+              :label="t('simpleSource.label')"
+              class="pl-1 pr-1"
+            />
+          </v-col>
+          <v-col class="pa-0 ma-0" cols="3">
+            <v-btn
+              density="compact"
+              flat
+              icon="mdi-cog"
+              size="small"
+              @click="configOption(element)"
+            />
+            <v-btn
+              density="compact"
+              flat
+              icon="mdi-delete"
+              size="small"
+              @click="deleteOption(element)"
+            />
+            <v-icon
+              class="draggable-icon cursor-grab"
+              size="small"
+            >
+              mdi-drag-vertical
+            </v-icon>
+          </v-col>
+        </v-row>
 
-    </div>
-    <text-property-wrapper
-      v-if="field.layout.component=='checkbox'"
-      class="mx-1"
-      v-model="item.disabledCondition"
-      label="Disabled condition"
-    />
-  </v-list>
-  <v-list-item density="compact">
+        <v-row
+          v-if="field.layout.component === 'checkbox'"
+          class="pa-0 ma-0"
+          dense
+        >
+          <v-col class="pa-0 ma-0" cols="12">
+            <v-card-subtitle
+              v-if="element.disabledCondition == null || element.disabledCondition == undefined"
+              class="link cursor-pointer"
+              @click="element.disabledCondition = 'changeMe'"
+            >Click and define a disabled condition
+            </v-card-subtitle>
+            <text-property-wrapper
+              v-else
+              v-model="element.disabledCondition"
+              class="mt-1 mr-4"
+              label="Disabled condition"
+            />
+          </v-col>
+        </v-row>
+      </div>
+    </template>
+  </draggable>
+
+
+  <v-list-item>
     <v-btn
+      class="mt-4"
       color="primary"
       prepend-icon="mdi-plus"
       size="small"
       @click="addOption"
-    >Dodaj
+    >
+      {{ t('simpleSource.addButton') }}
     </v-btn>
   </v-list-item>
 
@@ -77,7 +108,7 @@
     v-if="configOptionDialog"
     v-model="configOptionDialog"
     :acceptColor="style.primaryWhite.value"
-    acceptText="Save"
+    :acceptText="t('common.save', 'Save')"
     persistent
     scrollable
     width="800px"
@@ -86,32 +117,50 @@
   >
     <template #title>
       <v-card-title>
-        Item configuration
+        {{ t('simpleSource.title') }}
       </v-card-title>
     </template>
-
     <v-card-text>
       <text-property-wrapper
         :label="t('simpleSource.value')"
         :model-value="currentConfiguredOption.value"
         @update:model-value="(val) => parseValue(currentConfiguredOption, val)"
       />
-
       <text-property-wrapper
         v-model="dynamicItemTitle"
-        :prefix="currentConfiguredOption.isReference? prefix: ''"
-        label="Title"
+        :label="t('simpleSource.label')"
+        :prefix="currentConfiguredOption.isReference ? prefix : ''"
       />
-
       <boolean-switch-property-wrapper
         v-model="currentConfiguredOption.isReference"
         color="green"
         label="Use Reference"
         @change="referenceChangedItemTitle"
       />
+      <v-row
+        v-if="field.layout.component === 'checkbox'"
+        class="pa-0 ma-0"
+        dense
+      >
+        <v-col class="pa-0 ma-0" cols="12">
+          <v-card-subtitle
+            v-if="currentConfiguredOption.disabledCondition == null || currentConfiguredOption.disabledCondition == undefined"
+            class="link cursor-pointer"
+            @click="currentConfiguredOption.disabledCondition = 'changeMe'"
+          >Click and define a disabled condition
+          </v-card-subtitle>
+          <text-property-wrapper
+            v-else
+            v-model="currentConfiguredOption.disabledCondition"
+            class="mt-1"
+            label="Disabled condition"
+          />
+        </v-col>
+      </v-row>
     </v-card-text>
   </tcn-au-dialog>
 </template>
+
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
@@ -122,9 +171,24 @@ import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
+import Draggable from "@/vuedraggable/vuedraggable";
 
 const style = useStyle()
 const {t} = useI18n()
+
+const computedItems = computed({
+  get() {
+    return modelValue.value.items
+  },
+  set(val) {
+    modelValue.value.items = val
+  }
+})
+const dragOptions = {
+  animation: 250,
+  group: "controls",
+  ghostClass: "ghost"
+};
 
 
 const useBuilderStateStore = useBuilderState()
@@ -216,9 +280,11 @@ function referenceChangedItemTitle() {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
 </style>
+
+
 <i18n lang="json">
 {
   "en": {
