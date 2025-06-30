@@ -22,13 +22,11 @@ update_vue_forms:
   image: docker.tecna.pl/node:lts
   stage: update_forms
   script:
-    - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
     - npm config set registry https://${NPM_PROXY}
-    - npm set //${NPM_REGISTRY}:_authToken=${NPM_TOKEN}
-    - npm set //${NPM_PROXY}:_authToken=${NPM_TOKEN}
     - npm install vue3-schema-forms@$VUE_FORMS_VERSION
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
+    - git remote set-url origin "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
     - git add package.json package-lock.json
     - git commit -m "Update vue3-schema-forms to version $VUE_FORMS_VERSION [skip ci]"
     - git push origin HEAD:$CI_COMMIT_REF_NAME
