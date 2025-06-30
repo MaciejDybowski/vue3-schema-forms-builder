@@ -22,7 +22,7 @@ update_vue_forms:
   stage: update_forms
   script:
     - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
-    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=$NPM_REGISTRY
+    - npm install vue3-schema-forms@$VUE_FORMS_VERSION --registry=https://$NPM_REGISTRY
     - git config --global user.email "ci-bot@example.com"
     - git config --global user.name "CI Bot"
     - git add package.json package-lock.json
