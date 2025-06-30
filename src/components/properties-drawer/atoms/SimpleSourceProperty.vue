@@ -6,14 +6,12 @@
 
 
   <draggable
-    :key="computedItems['value']"
     v-model="computedItems"
     :sort="true"
     class="d-flex flex-wrap v-row pl-3"
     handle=".draggable-icon"
-    item-key="value"
-    v-bind="dragOptions"
-  >
+    item-key=""
+    v-bind="dragOptions">
     <template #item="{element}">
       <div>
 
