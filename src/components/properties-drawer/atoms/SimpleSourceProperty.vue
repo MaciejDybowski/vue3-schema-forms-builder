@@ -19,6 +19,7 @@
 
           <v-col class="pa-0 ma-0" cols="4">
             <text-property-wrapper
+              :grow-enabled="false"
               :label="t('simpleSource.value')"
               :model-value="element.value"
               class="pr-1"
@@ -29,6 +30,7 @@
             <text-property-wrapper
               v-if="typeof element.title === 'string'"
               v-model="element.title"
+              :grow-enabled="false"
               :label="t('simpleSource.label')"
               class="pl-1 pr-1"
             />
@@ -36,6 +38,7 @@
               v-else
               v-model="element.title.$ref"
               :disabled="true"
+              :grow-enabled="false"
               :label="t('simpleSource.label')"
               class="pl-1 pr-1"
             />
@@ -228,8 +231,8 @@ function parseValue(item, val: any) {
   }
 }
 
-function deleteOption(key: number) {
-  modelValue.value.items = modelValue.value.items.filter((n, t) => t !== key)
+function deleteOption(obj: any) {
+  computedItems.value = computedItems.value.filter((item) => item.value !== obj.value)
 }
 
 

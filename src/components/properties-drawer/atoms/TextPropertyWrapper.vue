@@ -2,7 +2,7 @@
   <component :is="wrapperTag">
     <v-textarea
       v-model="modelValue"
-      :auto-grow="true"
+      :auto-grow="growEnabled"
       :label="label"
       :prefix="prefix"
       :rows="rows"
@@ -23,10 +23,12 @@ const props = withDefaults(defineProps<{
   rows?: number
   prefix?: string | undefined
   wrapperTag?: string | undefined
+  growEnabled?: boolean | undefined
 }>(), {
   rows: 1,
   prefix: undefined,
-  wrapperTag: "v-list-item"
+  wrapperTag: "v-list-item",
+  growEnabled: true,
 })
 
 const attrs = useAttrs()
