@@ -4,12 +4,12 @@
     v-model="modelValue"
     :emptyInsertThreshold="emptyInsertThreshold"
     :sort="true"
-    class="d-flex flex-wrap v-row"
+    class="d-flex flex-wrap v-row list-group"
     item-key="key"
     v-bind="dragOptions"
   >
     <template #item="{element}">
-      <field-wrapper :element="element"/>
+      <field-wrapper  class="list-group-item" :element="element"/>
     </template>
   </draggable>
 </template>

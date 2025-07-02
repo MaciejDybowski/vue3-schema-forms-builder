@@ -13,7 +13,7 @@
     "dist/*"
   ],
   "scripts": {
-    "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private --force",
+    "install-registry": "npm cache clear --force && npm install --registry=https://nexus3.tecna.pl/repository/npm-private --force",
     "update-tecna-vue-shared": "npm install tecna-vue-shared@next --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force",
     "dev": "echo ' to link lib run  \"npm link vue3-schema-forms-builder\" in your destination project' && npm link && vite build --watch",
     "build": "vue-tsc --noEmit && vite build",
@@ -50,6 +50,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.36.0",
+    "sass-embedded": "^1.89.2",
     "sortablejs": "^1.15.6",
     "storybook": "^9.0.9",
     "typescript": "^5.4.5",

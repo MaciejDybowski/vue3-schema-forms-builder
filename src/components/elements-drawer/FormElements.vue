@@ -1,19 +1,31 @@
 <template>
   <draggable
     :clone="cloneControls"
-    :group="{ name: 'controls', pull: 'clone', put: false }"
+    :fallback-tolerance="0"
+    :force-fallback="true"
+    :group="{name: 'people', pull: 'clone', put: false}"
     :list="filteredControls"
-    item-key="label"
     :sort="false"
+    chosen-class="sortable-chosen-left"
+    class="list-group left-list"
+    drag-class="sortable-drag"
+    fallback-class="sortable-fallback"
+    ghost-class="sortable-ghost-left"
+    itemKey="id"
+    @end="onDragEnd"
+    @start="onDragStart"
+
   >
     <template #item="{element}">
-      <v-list-item link>
-        <template #prepend>
-          <v-icon>{{ element.icon }}</v-icon>
-        </template>
-        <v-list-item-title>{{ element.label }}</v-list-item-title>
-        <v-list-item-subtitle v-if="element.subtitle">{{ element.subtitle }}</v-list-item-subtitle>
-      </v-list-item>
+      <div class="list-group-item">
+        <v-list-item link>
+          <template #prepend>
+            <v-icon>{{ element.icon }}</v-icon>
+          </template>
+          <v-list-item-title>{{ element.label }}</v-list-item-title>
+          <v-list-item-subtitle v-if="element.subtitle">{{ element.subtitle }}</v-list-item-subtitle>
+        </v-list-item>
+      </div>
     </template>
   </draggable>
 </template>
@@ -22,6 +34,8 @@
 import draggable from "../../vuedraggable/vuedraggable";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ComputedRef, ref, Ref} from "vue";
+import {useDragDrop} from "../../../.storybook/components/useDragDrop";
+import Draggable from "@/vuedraggable/vuedraggable";
 
 const props = defineProps<{
   query: string
@@ -93,11 +107,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Rok",
     component: "year-picker"
   },
-/*  {
-    icon: "mdi-map-marker",
-    label: "Lokalizacja",
-    component: "location"
-  },*/
+  /*  {
+      icon: "mdi-map-marker",
+      label: "Lokalizacja",
+      component: "location"
+    },*/
   {
     icon: "mdi-phone",
     label: "Telefon",
@@ -385,9 +399,40 @@ function generateKey(name: string): string {
   return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5)
 }
 
+const {onDragStart, onDragEnd} = useDragDrop();
+
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
+.left-container {
+  flex: 1;
+}
 
+/* Style dla lewej listy - subtelne efekty */
+.sortable-chosen-left {
+  opacity: 0.9;
+  transform: scale(0.98);
+  z-index: 1000;
+
+  &::before,
+  &::after {
+    display: none !important;
+  }
+}
+
+.sortable-drag {
+  opacity: 0.9;
+}
+
+.sortable-fallback {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
 </style>
+
+

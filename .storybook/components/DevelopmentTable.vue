@@ -1,12 +1,13 @@
 <template>
   <div v-if="!loading">
-    <VueSchemaFormsBuilder
+    <parent-component/>
+<!--    <VueSchemaFormsBuilder
       v-model="modelValue"
     />
     <PropsViewer
       :json-data="modelValue"
       :draggable="useBuilderStateStore.getDraggableModel"
-    />
+    />-->
 
   </div>
   <loading-view v-else/>
@@ -20,6 +21,8 @@ import VueSchemaFormsBuilder from "@/components/VueSchemaFormsBuilder.vue";
 import PropsViewer from "./PropsViewer.vue";
 import {FormSchema} from "@/models/FormSchema";
 import {useBuilderState} from "@/pinia/useBuilderState";
+import TestComponent from "./TestComponent.vue";
+import ParentComponent from "./ParentComponent.vue";
 
 
 const useBuilderStateStore = useBuilderState()
