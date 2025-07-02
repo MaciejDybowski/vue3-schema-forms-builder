@@ -5,6 +5,22 @@
     multiple
   >
     <expansion-panel
+      :active="panels.includes('conversion')"
+      title="Conversion"
+      value="conversion"
+    >
+      <select-general
+        v-model="model.layout.component"
+        :items="[
+          {value: 'text-field', title: 'Text-field'},
+          {value: 'text-area', title: 'Textarea'},
+       ]"
+        :return-object="false"
+        label="Component"
+      />
+    </expansion-panel>
+
+    <expansion-panel
       :active="panels.includes('general')"
       title="General"
       value="general"
@@ -60,6 +76,7 @@ import ValidationConfiguration from "@/components/properties-drawer/atoms/Valida
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 const {t} = useI18n()

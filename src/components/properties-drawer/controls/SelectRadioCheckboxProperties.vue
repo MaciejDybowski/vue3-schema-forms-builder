@@ -6,6 +6,23 @@
     multiple
   >
     <expansion-panel
+      :active="panels.includes('conversion')"
+      title="Conversion"
+      value="conversion"
+    >
+      <select-general
+        v-model="model.layout.component"
+        :items="[
+       {value: 'radio-button', title: 'Radio'},
+       {value:'checkbox', title: 'Checkbox'},
+       {value:'select', title: 'Select'}
+       ]"
+        :return-object="false"
+        label="Component"
+      />
+
+    </expansion-panel>
+    <expansion-panel
       :active="panels.includes('general')"
       title="General"
       value="general"
@@ -90,6 +107,7 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()

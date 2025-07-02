@@ -5,6 +5,22 @@
     multiple
   >
     <expansion-panel
+      :active="panels.includes('conversion')"
+      title="Conversion"
+      value="conversion"
+    >
+      <select-general
+        v-model="model.layout.component"
+        :items="[
+          {value: 'date-picker', title: 'Date picker'},
+          {value: 'date-time-picker', title: 'Date time picker'},
+       ]"
+        :return-object="false"
+        label="Component"
+      />
+    </expansion-panel>
+
+    <expansion-panel
       :active="panels.includes('general')"
       title="General"
       value="general"
@@ -64,6 +80,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {useI18n} from "vue-i18n";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general"])

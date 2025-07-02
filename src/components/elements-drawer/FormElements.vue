@@ -31,9 +31,9 @@
 
 <script lang="ts" setup>
 import draggable from "../../vuedraggable/vuedraggable";
-import { ElementDrawerFromElement } from "@/models/ElementDrawerFromElement";
-import { computed, ComputedRef, ref, Ref } from "vue";
-import { useDragDrop } from "../../../.storybook/components/useDragDrop";
+import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
+import {computed, ComputedRef, ref, Ref} from "vue";
+import {useDragDrop} from "../../../.storybook/components/useDragDrop";
 
 const props = defineProps<{
   query: string
@@ -390,7 +390,7 @@ function generateKey(name: string): string {
   return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5);
 }
 
-const { onDragStart, onDragEnd } = useDragDrop();
+const {onDragStart, onDragEnd} = useDragDrop();
 </script>
 
 <style lang="scss" scoped>

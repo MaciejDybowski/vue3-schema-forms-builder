@@ -5,6 +5,22 @@
     multiple
   >
     <expansion-panel
+      :active="panels.includes('conversion')"
+      title="Conversion"
+      value="conversion"
+    >
+      <select-general
+        v-model="model.layout.component"
+        :items="[
+       {value: 'dictionary', title: 'Autocomplete'},
+       {value:'combobox', title: 'Combobox'},
+       ]"
+        :return-object="false"
+        label="Component"
+      />
+
+    </expansion-panel>
+    <expansion-panel
       :active="panels.includes('general')"
       title="General"
       value="general"
@@ -75,6 +91,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
 import {useI18n} from "vue-i18n";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general", "logic", "source"])

@@ -1,18 +1,29 @@
 <template>
   <draggable
     :clone="cloneStatic"
+    :fallback-tolerance="0"
+    :force-fallback="true"
     :group="{ name: 'controls', pull: 'clone', put: false }"
     :list="filteredStaticContent"
-    item-key="label"
     :sort="false"
+    chosen-class="sortable-chosen-left"
+    class="elements-list"
+    drag-class="sortable-drag"
+    fallback-class="sortable-fallback"
+    ghost-class="sortable-ghost"
+    itemKey="id"
+    @end="onDragEnd"
+    @start="onDragStart"
   >
     <template #item="{element}">
-      <v-list-item link>
-        <template #prepend>
-          <v-icon>{{ element.icon }}</v-icon>
-        </template>
-        <v-list-item-title>{{ element.label }}</v-list-item-title>
-      </v-list-item>
+      <div>
+        <v-list-item link>
+          <template #prepend>
+            <v-icon>{{ element.icon }}</v-icon>
+          </template>
+          <v-list-item-title>{{ element.label }}</v-list-item-title>
+        </v-list-item>
+      </div>
     </template>
   </draggable>
 </template>
@@ -22,8 +33,10 @@ import draggable from "../../vuedraggable/vuedraggable";
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ComputedRef, ref, Ref} from "vue";
+import {useDragDrop} from "../../../.storybook/components/useDragDrop";
 
 const style = useStyle()
+const { onDragStart, onDragEnd } = useDragDrop();
 
 const props = defineProps<{
   query: string
@@ -187,7 +200,21 @@ function generateKey(name: string): string {
 
 </script>
 
-
 <style lang="scss" scoped>
+.elements-list {
+  min-height: 100px;
+  position: relative;
+}
 
+:deep(.sortable-chosen-left) {
+  opacity: 0.8;
+}
+
+:deep(.sortable-drag) {
+  opacity: 0.9;
+}
+
+:deep(.sortable-fallback) {
+  display: none !important;
+}
 </style>

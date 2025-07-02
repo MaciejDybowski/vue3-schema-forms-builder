@@ -5,6 +5,22 @@
     multiple
   >
     <expansion-panel
+      :active="panels.includes('conversion')"
+      title="Conversion"
+      value="conversion"
+    >
+      <select-general
+        v-model="model.layout.component"
+        :items="[
+          {value: 'text-field', title: 'Text-field'},
+          {value: 'text-area', title: 'Textarea'},
+       ]"
+        :return-object="false"
+        label="Component"
+      />
+    </expansion-panel>
+
+    <expansion-panel
       :active="panels.includes('general')"
       title="General"
       value="general"
@@ -99,6 +115,7 @@ import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPr
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

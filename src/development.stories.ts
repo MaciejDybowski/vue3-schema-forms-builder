@@ -21,7 +21,18 @@ export const FormBuilderEmpty: Story = {
     workspaceId: "bm",
     modelValue: {
       "type": "object",
-      "properties": {}
+      "properties": {
+        "checkbox-379": {
+          "label": "Item-checkbox-379",
+          "layout": {"component": "checkbox", "props": {"multiple": true}},
+          "source": {
+            "items": [{"value": 1, "title": "Option 1"}, {"value": 2, "title": "Option 2"}, {
+              "value": 3,
+              "title": "Option 3"
+            }]
+          }
+        }
+      }
     }
   }
 }

@@ -6,6 +6,26 @@
     multiple
   >
     <expansion-panel
+      :active="panels.includes('conversion')"
+      title="Conversion"
+      value="conversion"
+    >
+      <select-general
+        v-model="model.layout.tag"
+        :items="[
+       {value: 'h1', title: 'Header 1'},
+       {value: 'h2', title: 'Header 2'},
+       {value: 'h3', title: 'Header 3'},
+       {value: 'p', title: 'Paragraph'},
+       {value: 'span', title: 'Span'},
+       ]"
+        :return-object="false"
+        label="Component"
+      />
+
+    </expansion-panel>
+
+    <expansion-panel
       :active="panels.includes('general')"
       title="General"
       value="general"
