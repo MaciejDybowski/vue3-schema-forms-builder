@@ -3,21 +3,20 @@
     :clone="cloneControls"
     :fallback-tolerance="0"
     :force-fallback="true"
-    :group="{name: 'people', pull: 'clone', put: false}"
+    :group="{name: 'controls', pull: 'clone', put: false}"
     :list="filteredControls"
     :sort="false"
     chosen-class="sortable-chosen-left"
-    class="list-group left-list"
+    class="elements-list"
     drag-class="sortable-drag"
     fallback-class="sortable-fallback"
-    ghost-class="sortable-ghost-left"
+    ghost-class="sortable-ghost"
     itemKey="id"
     @end="onDragEnd"
     @start="onDragStart"
-
   >
     <template #item="{element}">
-      <div class="list-group-item">
+      <div>
         <v-list-item link>
           <template #prepend>
             <v-icon>{{ element.icon }}</v-icon>
@@ -32,14 +31,13 @@
 
 <script lang="ts" setup>
 import draggable from "../../vuedraggable/vuedraggable";
-import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
-import {computed, ComputedRef, ref, Ref} from "vue";
-import {useDragDrop} from "../../../.storybook/components/useDragDrop";
-import Draggable from "@/vuedraggable/vuedraggable";
+import { ElementDrawerFromElement } from "@/models/ElementDrawerFromElement";
+import { computed, ComputedRef, ref, Ref } from "vue";
+import { useDragDrop } from "../../../.storybook/components/useDragDrop";
 
 const props = defineProps<{
   query: string
-}>()
+}>();
 
 const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
@@ -107,11 +105,6 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Rok",
     component: "year-picker"
   },
-  /*  {
-      icon: "mdi-map-marker",
-      label: "Lokalizacja",
-      component: "location"
-    },*/
   {
     icon: "mdi-phone",
     label: "Telefon",
@@ -165,20 +158,20 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Multi Language Field",
     component: "multi-language-control"
   }
-])
+]);
 
 const filteredControls: ComputedRef<ElementDrawerFromElement[]> = computed(() => {
   return controls.value.filter((item: ElementDrawerFromElement) => {
     if (props.query) {
-      return item.label.toLowerCase().includes(props.query.toLowerCase())
+      return item.label.toLowerCase().includes(props.query.toLowerCase());
     } else {
-      return item
+      return item;
     }
-  })
-})
+  });
+});
 
 function cloneControls(item: ElementDrawerFromElement) {
-  const id = generateKey(item.component)
+  const id = generateKey(item.component);
   const schemaElement = {
     key: id,
     label: "Item-" + id,
@@ -203,7 +196,7 @@ function cloneControls(item: ElementDrawerFromElement) {
       component: item.component,
       props: {}
     },
-  }
+  };
 
   switch (item.component) {
     case "markdown":
@@ -216,11 +209,11 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "address":
     case "switch":
     case "phone": {
-      return schemaElement
+      return schemaElement;
     }
     case "checkbox":
-      const temp = {...schemaElement}
-      temp.layout.props["multiple"] = true
+      const temp = {...schemaElement};
+      temp.layout.props["multiple"] = true;
       return {
         ...temp,
         source: {
@@ -230,7 +223,7 @@ function cloneControls(item: ElementDrawerFromElement) {
             {value: 3, title: "Option 3"},
           ],
         },
-      }
+      };
     case "select":
     case "radio-button": {
       return {
@@ -242,7 +235,7 @@ function cloneControls(item: ElementDrawerFromElement) {
             {value: 3, title: "Option 3"},
           ],
         },
-      }
+      };
     }
     case "duplicated-section": {
       return {
@@ -277,12 +270,10 @@ function cloneControls(item: ElementDrawerFromElement) {
             ordinalNumberInModel: false,
             showFirstInitRow: true
           },
-
         },
         editable: true,
         showElements: true,
-
-      }
+      };
     }
     case "fields-group": {
       return {
@@ -312,7 +303,7 @@ function cloneControls(item: ElementDrawerFromElement) {
             properties: {},
           },
         },
-      }
+      };
     }
     case "dictionary":
     case "combobox": {
@@ -328,7 +319,7 @@ function cloneControls(item: ElementDrawerFromElement) {
           multiple: false,
           maxSelection: 0
         }
-      }
+      };
     }
     case "ordered-multi-select": {
       return {
@@ -339,20 +330,20 @@ function cloneControls(item: ElementDrawerFromElement) {
           title: "label",
           value: "id",
         }
-      }
+      };
     }
     case "user-input":
       return {
         ...schemaElement,
         source: {
-          url: "" // TODO - przerobić kontrolkę po stronie vueShared
+          url: ""
         }
-      }
+      };
     case "number-field":
       return {
         ...schemaElement,
         type: "int"
-      }
+      };
     case "image":
       return {
         ...schemaElement,
@@ -366,7 +357,7 @@ function cloneControls(item: ElementDrawerFromElement) {
           },
         },
         src: "/api/v1/features/{context.menuFeatureId}/images/{id}?Workspace-Id={context.workspaceId}&dataId={dataId}&width={width}&height={height}&lastModifiedAt="
-      }
+      };
     case "table-view":
       return {
         key: id,
@@ -383,56 +374,40 @@ function cloneControls(item: ElementDrawerFromElement) {
           buttons: []
         },
         actions: {}
-      }
+      };
     case "multi-language-control": {
       return {
         ...schemaElement,
         options: {
           availableLocales: [{code: "en-GB", name: "English"}]
         }
-      }
+      };
     }
   }
 }
 
 function generateKey(name: string): string {
-  return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5)
+  return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5);
 }
 
-const {onDragStart, onDragEnd} = useDragDrop();
-
+const { onDragStart, onDragEnd } = useDragDrop();
 </script>
 
-
-<style lang="scss">
-.left-container {
-  flex: 1;
+<style lang="scss" scoped>
+.elements-list {
+  min-height: 100px;
+  position: relative;
 }
 
-/* Style dla lewej listy - subtelne efekty */
-.sortable-chosen-left {
-  opacity: 0.9;
-  transform: scale(0.98);
-  z-index: 1000;
-
-  &::before,
-  &::after {
-    display: none !important;
-  }
+:deep(.sortable-chosen-left) {
+  opacity: 0.8;
 }
 
-.sortable-drag {
+:deep(.sortable-drag) {
   opacity: 0.9;
 }
 
-.sortable-fallback {
+:deep(.sortable-fallback) {
   display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
 }
 </style>
-
-
