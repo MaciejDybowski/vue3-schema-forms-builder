@@ -35,7 +35,7 @@ import {computed, FunctionPlugin, getCurrentInstance, onBeforeUnmount} from "vue
 import {FormSchema} from "@/models/FormSchema";
 
 
-//import {createVueSchemaForms} from "../../../aurea-forms";
+//import {createVueSchemaForms, provideFormModel} from "../../../aurea-forms";
 //import "../../../aurea-forms/dist/style.css"
 import {createVueSchemaForms, provideFormModel} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"

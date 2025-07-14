@@ -46,6 +46,11 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "text-field"
   },
   {
+    icon: "mdi-text-box-edit-outline",
+    label: "Pole tekstowe [text->input]",
+    component: "text-switch-field"
+  },
+  {
     icon: "mdi-numeric-1-box-outline",
     label: "Pole liczbowe",
     component: "number-field"
@@ -210,6 +215,12 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "switch":
     case "phone": {
       return schemaElement;
+    }
+    case "text-switch-field":{
+      return {
+        content: "Change me",
+        ...schemaElement,
+      }
     }
     case "checkbox":
       const temp = {...schemaElement};
