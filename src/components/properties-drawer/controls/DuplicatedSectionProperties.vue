@@ -12,6 +12,22 @@
     >
       <key-property v-model="model.key"/>
     </expansion-panel>
+
+    <expansion-panel
+      :active="panels.includes('dependencies')"
+      title="Dependencies"
+      value="dependencies"
+    >
+      <text-property-wrapper
+        v-model="model.sourcePath"
+        label="Source path (dependencies)"
+      />
+      <text-property-wrapper
+        label="Update Triggers (syntax string)"
+        v-model="updateTriggers"
+        />
+    </expansion-panel>
+
     <expansion-panel
       :active="panels.includes('layout')"
       title="Layout"
@@ -107,6 +123,17 @@ const model = computed({
   },
   set(val) {
     useBuilderStateStore.setConfiguredField(val)
+  }
+})
+
+
+const updateTriggers = computed({
+  get() {
+    console.debug(model.value.updateTriggers.join(","))
+    return model.value.updateTriggers.join(",")
+  },
+  set(val) {
+    model.value.upateTriggers = val.split(",")
   }
 })
 

@@ -22,15 +22,24 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "checkbox-379": {
-          "label": "Item-checkbox-379",
-          "layout": {"component": "checkbox", "props": {"multiple": true}},
-          "source": {
-            "items": [{"value": 1, "title": "Option 1"}, {"value": 2, "title": "Option 2"}, {
-              "value": 3,
-              "title": "Option 3"
-            }]
-          }
+        "duplicated-section-114": {
+          "sectionKey": "duplicated-section-114",
+          "layout": {
+            "component": "duplicated-section",
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 0, "xl": 0, "xxl": 0},
+            "schema": {"type": "object", "properties": {}},
+            "options": {
+              "addBtnText": "Add element",
+              "showDivider": false,
+              "ordinalNumberInModel": false,
+              "showFirstInitRow": true
+            }
+          },
+          "editable": true,
+          "showElements": true,
+          sourcePath: "items",
+          updateTriggers: ["select:value"],
         }
       }
     }

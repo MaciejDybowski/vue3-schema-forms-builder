@@ -12,6 +12,11 @@
       <key-property v-model="model.key"/>
       <label-property v-model="model"/>
 
+      <text-property-wrapper
+        v-model="model.sourcePath"
+        label="Source path (dependencies)"
+      />
+
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"

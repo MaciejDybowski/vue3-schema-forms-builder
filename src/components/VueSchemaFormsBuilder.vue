@@ -35,15 +35,16 @@ import {computed, FunctionPlugin, getCurrentInstance, onBeforeUnmount} from "vue
 import {FormSchema} from "@/models/FormSchema";
 
 
-//import {createVueSchemaForms, provideFormModel} from "../../../aurea-forms";
-//import "../../../aurea-forms/dist/style.css"
-import {createVueSchemaForms, provideFormModel} from "vue3-schema-forms";
+/*import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "../../../aurea-forms";
+import "../../../aurea-forms/dist/style.css"*/
+import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
 import {useBuilderState} from "@/pinia/useBuilderState";
 
 const instance = getCurrentInstance();
 
 const form = provideFormModel();
+const cache = provideGeneratorCache()
 
 const vueSchemaForms = createVueSchemaForms({
   installFormControls: true

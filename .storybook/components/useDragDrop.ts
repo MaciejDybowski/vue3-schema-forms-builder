@@ -24,9 +24,9 @@ const dragState = ref<'idle' | 'dragging' | 'dropping'>('idle');
 
 export const useDragDrop = () => {
   const onChange = (evt: ChangeEvent): void => {
-    console.log('Zmiana w liście:', evt);
+   // console.log('Zmiana w liście:', evt);
 
-    // Dodatkowa logika na podstawie typu zmiany
+ /*   // Dodatkowa logika na podstawie typu zmiany
     if (evt.added) {
       console.log('Element dodany:', evt.added.element, 'na pozycji:', evt.added.newIndex);
     }
@@ -35,19 +35,18 @@ export const useDragDrop = () => {
     }
     if (evt.moved) {
       console.log('Element przeniesiony:', evt.moved.element, 'z', evt.moved.oldIndex, 'na', evt.moved.newIndex);
-    }
+    }*/
   };
 
   const onDragStart = (evt: DragEvent): void => {
     dragFromLeft.value = evt.from.classList.contains('left-list');
     dragState.value = 'dragging';
-    console.log('Drag started from left:', dragFromLeft.value);
   };
 
   const onDragEnd = (evt: DragEvent): void => {
     dragFromLeft.value = false;
     dragState.value = 'idle';
-    console.log('Drag ended');
+
   };
 
   const onDragEnter = (): void => {
