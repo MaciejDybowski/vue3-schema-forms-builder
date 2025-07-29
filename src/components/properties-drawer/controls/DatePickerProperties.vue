@@ -43,6 +43,7 @@
       <col-property v-model="model.layout.cols"/>
       <offset-property v-model="model.layout.offset"/>
       <fill-row-property v-model="model.layout.fillRow"/>
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('logic')"

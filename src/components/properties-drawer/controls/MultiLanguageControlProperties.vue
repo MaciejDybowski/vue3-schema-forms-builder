@@ -21,6 +21,7 @@
       <col-property v-model="model.layout.cols"/>
       <offset-property v-model="model.layout.offset"/>
       <fill-row-property v-model="model.layout.fillRow"/>
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('logic')"
@@ -68,6 +69,7 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 
 const panels = ref<string[]>(["general", "logic", "validations"])

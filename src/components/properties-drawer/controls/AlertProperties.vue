@@ -66,6 +66,7 @@
       <col-property v-model="model.layout.cols"/>
       <offset-property v-model="model.layout.offset"/>
       <fill-row-property v-model="model.layout.fillRow"/>
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
 
     <expansion-panel
@@ -95,6 +96,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import {useStyle} from "@/main";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "logic"])
 const {t} = useI18n()

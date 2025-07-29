@@ -41,6 +41,7 @@
       <col-property v-model="model.layout.cols"/>
       <offset-property v-model="model.layout.offset"/>
       <fill-row-property v-model="model.layout.fillRow"/>
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
 
     <expansion-panel
@@ -108,6 +109,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()

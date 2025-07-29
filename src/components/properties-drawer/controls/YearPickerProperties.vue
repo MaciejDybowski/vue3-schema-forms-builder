@@ -13,6 +13,10 @@
       <label-property v-model="model"/>
       <default-value-property/>
 
+      <text-property-wrapper
+        v-model="model.expression"
+        label="Expression"
+      />
 
       <boolean-switch-property-wrapper
         :model-value="model.range != null"
@@ -39,6 +43,7 @@
       <col-property v-model="model.layout.cols"/>
       <offset-property v-model="model.layout.offset"/>
       <fill-row-property v-model="model.layout.fillRow"/>
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('logic')"
@@ -74,6 +79,7 @@ import ValidationConfiguration from "@/components/properties-drawer/atoms/Valida
 import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 
 const panels = ref<string[]>(["general", "logic", "validations"])

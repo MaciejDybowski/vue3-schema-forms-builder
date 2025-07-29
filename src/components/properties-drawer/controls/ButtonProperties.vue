@@ -94,7 +94,7 @@
     >
       <col-property v-model="model.layout.cols"/>
       <fill-row-property v-model="model.layout.fillRow"/>
-
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('logic')"
@@ -117,6 +117,7 @@ import FillRowProperty from "@/components/properties-drawer/atoms/FillRowPropert
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 
 const panels = ref<string[]>(["general"])
