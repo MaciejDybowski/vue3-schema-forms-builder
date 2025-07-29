@@ -14,6 +14,7 @@
         :items="[
           {value: 'text-field', title: 'Text-field'},
           {value: 'text-area', title: 'Textarea'},
+          {value: 'text-switch-field', title:'Text-Paragraph'}
        ]"
         :return-object="false"
         label="Component"
