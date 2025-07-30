@@ -17,6 +17,7 @@
       value="layout"
     >
       <col-property v-model="model.layout.cols"/>
+      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('logic')"
