@@ -23,9 +23,10 @@
         label="Source path (dependencies)"
       />
       <text-property-wrapper
+        :model-value="model.updateTriggers"
         label="Update Triggers (syntax string)"
-        v-model="updateTriggers"
-        />
+        @update:model-value="updateTriggers"
+      />
     </expansion-panel>
 
     <expansion-panel
@@ -128,15 +129,9 @@ const model = computed({
 })
 
 
-const updateTriggers = computed({
-  get() {
-    console.debug(model.value.updateTriggers.join(","))
-    return model.value.updateTriggers.join(",")
-  },
-  set(val) {
-    model.value.upateTriggers = val.split(",")
-  }
-})
+function updateTriggers(val) {
+  model.value.updateTriggers = val.split(",")
+}
 
 const actionCode = ref(null)
 

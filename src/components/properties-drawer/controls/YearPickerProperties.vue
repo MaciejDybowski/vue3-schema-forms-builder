@@ -18,22 +18,6 @@
         label="Expression"
       />
 
-      <boolean-switch-property-wrapper
-        :model-value="model.range != null"
-        label="Range"
-        @update:model-value="value => value ? model.range = [] : model.range = null"
-      />
-
-      <number-property-wrapper
-        v-if="model.range != null"
-        v-model="model.range[0]"
-        label="Min Year"
-      />
-      <number-property-wrapper
-        v-if="model.range != null"
-        v-model="model.range[1]"
-        label="Max Year"/>
-
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"

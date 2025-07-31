@@ -22,14 +22,24 @@ export const FormBuilderEmpty: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "text-field-990": {
-          "label": "Item-text-field-990",
-          "layout": {"component": "text-field", "cellClass": "pb-1"}
-        },
-        "text-switch-field-540": {
-          "content": "Change me",
-          "label": "Item-text-switch-field-540",
-          "layout": {"component": "text-switch-field", "cellClass": "py-0"}
+        "duplicated-section-114": {
+          "sectionKey": "duplicated-section-114",
+          "layout": {
+            "component": "duplicated-section",
+            "cols": {"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "xxl": 12},
+            "offset": {"xs": 0, "sm": 0, "md": 0, "lg": 0, "xl": 0, "xxl": 0},
+            "schema": {"type": "object", "properties": {}},
+            "options": {
+              "addBtnText": "Add element",
+              "showDivider": false,
+              "ordinalNumberInModel": false,
+              "showFirstInitRow": true
+            }
+          },
+          "editable": true,
+          "showElements": true,
+          sourcePath: "items",
+          updateTriggers: ["select:value,other:id"],
         }
       }
     }
