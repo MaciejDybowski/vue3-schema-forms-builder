@@ -20,7 +20,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <PropertiesDrawer/>
+    <PropertiesDrawer :schema="modelValue"/>
   </div>
 </template>
 
