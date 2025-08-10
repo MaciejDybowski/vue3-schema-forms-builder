@@ -60,7 +60,8 @@ if (props.sectionKey) {
 }
 
 .draggable-area > * {
-  margin-bottom: 16px; /* większy odstęp między elementami */
+  margin-bottom: 10px; /* większy odstęp między elementami */
+  margin-top: 10px; /* większy odstęp między elementami */
   //background-color: lightgrey;
 }
 

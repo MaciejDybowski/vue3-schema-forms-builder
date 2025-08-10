@@ -17,7 +17,7 @@
         :empty-insert-threshold="30"
         :section-key="element.key"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
-        class="pt-6"
+
       />
       <v-divider
         v-if="element.layout.options.showDivider"
@@ -89,9 +89,9 @@ const color = theme.isDarkTheme.value ? "white" : "primary";
 
 const duplicatedSectionStyle = computed(() => {
   if (theme.isLightTheme.value) {
-    return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE; border-bottom: 0px'
+    return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE; border-bottom: 0px; margin: 0 0'
   } else {
-    return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5; border-bottom: 0px'
+    return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5; border-bottom: 0px; margin: 0 0'
   }
 })
 
