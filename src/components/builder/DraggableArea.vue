@@ -8,7 +8,7 @@
     :force-fallback="true"
     :group="{name: 'controls'}"
     :sort="true"
-    :swap-threshold="0.4"
+    :swap-threshold="0.6"
     chosen-class="sortable-chosen-right"
     class="d-flex flex-wrap v-row draggable-area"
     drag-class="sortable-drag"
@@ -59,63 +59,27 @@ if (props.sectionKey) {
   position: relative;
 }
 
+.draggable-area > * {
+  margin-bottom: 16px; /* większy odstęp między elementami */
+  //background-color: lightgrey;
+}
 
-/* Ghost - linia z napisem */
+
 :deep(.sortable-ghost) {
   opacity: 1 !important;
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
+  background: none !important;
+  border: 1px dashed  !important;
+  box-sizing: border-box !important;
   margin: 8px 0 !important;
-  height: 32px !important;
+  height: 40px !important; /* większy ghost => łatwiej trafić */
   width: 100% !important;
   position: relative !important;
   display: block !important;
+  border-radius: 6px !important;
 }
 
 :deep(.sortable-ghost *) {
   display: none !important;
-}
-
-/* Linia */
-:deep(.sortable-ghost::before) {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(26, 25, 115, 0.8);
-  transform: translateY(-50%);
-  margin: 0 4px
-}
-
-/* Napis */
-:deep(.sortable-ghost::after) {
-  content: 'Drag it here';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(26, 25, 115, 1);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-
-}
-
-@keyframes pulse-blue {
-  0%, 100% {
-    background: rgba(26, 25, 115, 0.8);
-    box-shadow: 0 0 8px rgba(26, 25, 115, 0.4);
-  }
-  50% {
-    background: rgba(26, 25, 115, 1);
-    box-shadow: 0 0 12px rgba(26, 25, 115, 0.6);
-  }
 }
 
 /* Uproszczone stany */

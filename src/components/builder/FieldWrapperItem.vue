@@ -67,7 +67,7 @@ function fieldWrapperItemClass(element: any, isHovering: any) {
     return "field-wrapper"
   }
   if (element.layout.component !== "duplicated-section" || element.layout.component !== "fields-group") {
-    return isToolbarVisible.value(isHovering, element) ? 'field-wrapper pa-3' : 'pa-3'
+    return isToolbarVisible.value(isHovering, element) ? 'field-wrapper pa-1 pt-2' : 'pa-1 pt-2'
   } else {
     return "field-wrapper"
   }

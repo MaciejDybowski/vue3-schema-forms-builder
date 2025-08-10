@@ -4,7 +4,7 @@
       :is='`node-${element.layout.component}`'
       v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
       :key="renderKey"
-      :class="['disabled-field']"
+      :class="['disabled-builder-field']"
       :model='{}'
       :schema='preparedElement'
       v-bind="{readonly:true}"
@@ -120,8 +120,8 @@ function calcOffset(element: any) {
 
 </script>
 
-<style lang="scss" scoped>
-.disabled-field {
+<style lang="scss" >
+.disabled-builder-field {
   pointer-events: none; /* Disable all pointer events */
 }
 </style>

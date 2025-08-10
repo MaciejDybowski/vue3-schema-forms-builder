@@ -157,9 +157,7 @@ async function sentRequestToAIModel() {
 }
 
 .ai-input-bar {
-  /* Tło, cień można dostosować według gustu */
-  background: white;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+
 }
 
 </style>
