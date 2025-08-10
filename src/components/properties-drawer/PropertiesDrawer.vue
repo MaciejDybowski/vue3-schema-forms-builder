@@ -35,6 +35,7 @@
       <div class="ai-input-bar px-2 pb-2 pt-1">
         <v-textarea
           v-model="aiRequest"
+          :disabled="aiLoading"
           :rows="4"
           label="Put your prompt here..."
           no-resize
@@ -42,6 +43,7 @@
         >
           <template #append-inner>
             <v-btn
+              :loading="aiLoading"
               aria-label="Wyślij wiadomość do modelu AI"
               class="mt-auto mb-1"
               color="primary"
@@ -111,12 +113,16 @@ const storybook = computed(() => {
 })
 
 
+const aiLoading = ref(false);
+
 async function sentRequestToAIModel() {
+  aiLoading.value = true
   const prefix = JSON.stringify(modelValue.value) + "  Polecenie:"
 
-  const examples = `{\\"type\\":\\"object\\",\\"properties\\":{\\"textField\\":{\\"label\\":\\"Pole tekstowe\\",\\"layout\\":{\\"component\\":\\"text-field\\"}},\\"textArea\\":{\\"label\\":\\"Obszar tekstowy\\",\\"layout\\":{\\"component\\":\\"text-area\\"}},\\"numberField\\":{\\"label\\":\\"Pole liczbowe\\",\\"layout\\":{\\"component\\":\\"number-field\\"},\\"type\\":\\"int\\"},\\"datePicker\\":{\\"label\\":\\"Date picker\\",\\"layout\\":{\\"component\\":\\"date-picker\\"}},\\"dateTimePicker\\":{\\"label\\":\\"Date-time picker\\",\\"layout\\":{\\"component\\":\\"date-time-picker\\"}},\\"switch\\":{\\"label\\":\\"Pole przełącznik\\",\\"layout\\":{\\"component\\":\\"switch\\"}},\\"radioButton\\":{\\"label\\":\\"Pole typu radio\\",\\"layout\\":{\\"component\\":\\"radio-button\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"select\\":{\\"label\\":\\"Pole wyboru\\",\\"layout\\":{\\"component\\":\\"select\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"userInput\\":{\\"label\\":\\"Pole użytkownik\\",\\"layout\\":{\\"component\\":\\"user-input\\"},\\"source\\":{\\"url\\":\\"\\"}}}}`
+  //const preExamples = " Podaję Ci gotowy json string zawierający poprawne definicje różynch pól formularza. Wybieraj odpowiednie z tego zestawu dodając z polecenia kolejne pola: "
+  //const examples = `{\\"type\\":\\"object\\",\\"properties\\":{\\"textField\\":{\\"label\\":\\"Pole tekstowe\\",\\"layout\\":{\\"component\\":\\"text-field\\"}},\\"textArea\\":{\\"label\\":\\"Obszar tekstowy\\",\\"layout\\":{\\"component\\":\\"text-area\\"}},\\"numberField\\":{\\"label\\":\\"Pole liczbowe\\",\\"layout\\":{\\"component\\":\\"number-field\\"},\\"type\\":\\"int\\"},\\"datePicker\\":{\\"label\\":\\"Date picker\\",\\"layout\\":{\\"component\\":\\"date-picker\\"}},\\"dateTimePicker\\":{\\"label\\":\\"Date-time picker\\",\\"layout\\":{\\"component\\":\\"date-time-picker\\"}},\\"switch\\":{\\"label\\":\\"Pole przełącznik\\",\\"layout\\":{\\"component\\":\\"switch\\"}},\\"radioButton\\":{\\"label\\":\\"Pole typu radio\\",\\"layout\\":{\\"component\\":\\"radio-button\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"select\\":{\\"label\\":\\"Pole wyboru\\",\\"layout\\":{\\"component\\":\\"select\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"userInput\\":{\\"label\\":\\"Pole użytkownik\\",\\"layout\\":{\\"component\\":\\"user-input\\"},\\"source\\":{\\"url\\":\\"\\"}}}}`
   //const request = `Oczekiwany resultat: Zwróć surową rozszerzoną o nowe pola struktrę strukturę JSON tylko i wyłącznie tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Tj. nie opakowywuj jsona w \`\`\` ani nic. Sam tekst. Dodatkowo dołączam ci zbiór poprawnych pól w JSON schema`
-  const request2 = `Oczekiwany rezultant: Zgodnie z poleceniem zwróć rozszerzoną strukturę JSON Schema o nowe pola. Odpowiedź powinna być stringiem tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Nie opakowywuj jsona w \`\`\`json  \`\`\``
+  const request2 = `Oczekiwany rezultant: Zgodnie z poleceniem zwróć rozszerzoną strukturę JSON Schema o nowe pola (korzystaj z przykładów podanych poniżej jako json string). Odpowiedź powinna być stringiem tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Nie opakowywuj jsona w \`\`\`json  \`\`\``
 
   //console.debug("Full request")
   //console.debug(prefix + aiRequest + request2)
@@ -125,6 +131,7 @@ async function sentRequestToAIModel() {
   console.debug(`AI response`, JSON.parse(newSchema as string))
 
   modelValue.value = JSON.parse(newSchema as string)
+  aiLoading.value = false
 }
 
 

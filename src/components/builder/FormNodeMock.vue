@@ -17,7 +17,6 @@
         :empty-insert-threshold="30"
         :section-key="element.key"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
-
       />
       <v-divider
         v-if="element.layout.options.showDivider"

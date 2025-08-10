@@ -43,6 +43,12 @@ const props = withDefaults(defineProps<{
   sectionKey: null
 });
 
+watch(() => modelValue.value, () => {
+  modelValue.value?.forEach(it => {
+    it['sectionKey'] = props.sectionKey;
+  });
+}, {immediate: true, deep: true});
+
 if (props.sectionKey) {
   watch(() => modelValue.value, (value) => {
     modelValue.value?.forEach(it => {
@@ -69,7 +75,7 @@ if (props.sectionKey) {
 :deep(.sortable-ghost) {
   opacity: 1 !important;
   background: none !important;
-  border: 1px dashed  !important;
+  border: 1px dashed !important;
   box-sizing: border-box !important;
   margin: 8px 0 !important;
   height: 40px !important; /* większy ghost => łatwiej trafić */

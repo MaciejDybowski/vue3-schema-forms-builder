@@ -28,7 +28,7 @@
     "@google/genai": "^1.13.0",
     "@mdi/font": "7.4.47",
     "@vueuse/core": "^11.1.0",
-    "vue3-schema-forms": "0.2.14-snapshot-2"
+    "vue3-schema-forms": "0.2.15"
   },
   "peerDependencies": {
     "axios": "^1.7.2",
