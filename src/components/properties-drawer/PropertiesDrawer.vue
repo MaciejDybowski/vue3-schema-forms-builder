@@ -8,39 +8,6 @@
     scrim="transparent"
     width="350"
   >
-
-    <div class="d-flex flex-column px-2">
-      <div class="d-flex align-center">
-        <span class="v-card-title ml-0 pl-0">JSON</span>
-        <div>
-          <v-btn
-            density="compact"
-            icon="mdi-content-copy"
-            variant="text"
-            @click="() => {}"
-          />
-        </div>
-      </div>
-      <div style="height: 60%; overflow-y: auto;">
-        <vue-json-pretty :data="jsonSchema"/>
-      </div>
-      <v-divider class="mt-2 px-0 mx-0"/>
-
-      <v-textarea
-        v-model="aiRequest"
-        clearable
-        label="Put your prompt here..."
-        rows="2"
-        variant="outlined"
-      />
-      <v-btn text="Ask AI"
-             @click="sentRequestToAIModel"
-      >
-
-      </v-btn>
-    </div>
-
-
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
       <ref-properties v-if="model.ref"/>
       <template v-else-if="model.layout">
@@ -48,6 +15,46 @@
       </template>
     </v-list>
 
+    <div v-else class="json-ai-layout fill-height d-flex flex-column">
+      <div class="json-panel flex-grow-1 d-flex flex-column px-2 overflow-y-auto">
+        <div class="d-flex align-center">
+          <span class="v-card-title ml-0 pl-0">JSON Schema</span>
+          <v-spacer/>
+          <v-btn
+            class="mx-4"
+            density="compact"
+            icon="mdi-content-copy"
+            variant="text"
+            @click="() => {}"
+          />
+        </div>
+        <v-divider class="my-1"/>
+        <vue-json-pretty :data="modelValue as any"/>
+      </div>
+
+      <div class="ai-input-bar px-2 pb-2 pt-1">
+        <v-textarea
+          v-model="aiRequest"
+          :rows="4"
+          label="Put your prompt here..."
+          no-resize
+          variant="outlined"
+        >
+          <template #append-inner>
+            <v-btn
+              aria-label="Wyślij wiadomość do modelu AI"
+              class="mt-auto mb-1"
+              color="primary"
+              icon
+              size="small"
+              @click="sentRequestToAIModel"
+            >
+              <v-icon>mdi-send</v-icon>
+            </v-btn>
+          </template>
+        </v-textarea>
+      </div>
+    </div>
   </v-navigation-drawer>
 </template>
 
@@ -59,6 +66,7 @@ import RefProperties from "@/components/properties-drawer/controls/RefProperties
 import {controlsProperties} from "@/components/properties-drawer/controls";
 import VueJsonPretty from "vue-json-pretty";
 import {useGenAI} from "@/composables/useGenAI";
+import {FormSchema} from "@/models/FormSchema";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()
@@ -66,11 +74,8 @@ const useBuilderStateStore = useBuilderState()
 const aiRequest = ref("")
 const {askAI} = useGenAI()
 
-const {schema} = withDefaults(defineProps<{
-  schema: any
-}>(), {
-  schema: {}
-})
+let modelValue = defineModel<FormSchema>()
+
 
 const model = computed({
   get() {
@@ -105,16 +110,21 @@ const storybook = computed(() => {
   return host === 'localhost' && port === "6006"
 })
 
-const jsonSchema = computed(() => {
-  return schema
-})
 
-async function sentRequestToAIModel(){
-  const prefix = JSON.stringify(schema) + "  Polecenie:"
-  console.debug(prefix)
+async function sentRequestToAIModel() {
+  const prefix = JSON.stringify(modelValue.value) + "  Polecenie:"
 
-  //const newSchema = await askAI(prefix + aiRequest + " Oczekiwany resultat: Zwróć strukturę JSON tylko i wyłącznie tak abym na zwróconym tekście wykonać JSON.parse(wynik)")
-  //console.debug(JSON.parse(newSchema))
+  const examples = `{\\"type\\":\\"object\\",\\"properties\\":{\\"textField\\":{\\"label\\":\\"Pole tekstowe\\",\\"layout\\":{\\"component\\":\\"text-field\\"}},\\"textArea\\":{\\"label\\":\\"Obszar tekstowy\\",\\"layout\\":{\\"component\\":\\"text-area\\"}},\\"numberField\\":{\\"label\\":\\"Pole liczbowe\\",\\"layout\\":{\\"component\\":\\"number-field\\"},\\"type\\":\\"int\\"},\\"datePicker\\":{\\"label\\":\\"Date picker\\",\\"layout\\":{\\"component\\":\\"date-picker\\"}},\\"dateTimePicker\\":{\\"label\\":\\"Date-time picker\\",\\"layout\\":{\\"component\\":\\"date-time-picker\\"}},\\"switch\\":{\\"label\\":\\"Pole przełącznik\\",\\"layout\\":{\\"component\\":\\"switch\\"}},\\"radioButton\\":{\\"label\\":\\"Pole typu radio\\",\\"layout\\":{\\"component\\":\\"radio-button\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"select\\":{\\"label\\":\\"Pole wyboru\\",\\"layout\\":{\\"component\\":\\"select\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"userInput\\":{\\"label\\":\\"Pole użytkownik\\",\\"layout\\":{\\"component\\":\\"user-input\\"},\\"source\\":{\\"url\\":\\"\\"}}}}`
+  //const request = `Oczekiwany resultat: Zwróć surową rozszerzoną o nowe pola struktrę strukturę JSON tylko i wyłącznie tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Tj. nie opakowywuj jsona w \`\`\` ani nic. Sam tekst. Dodatkowo dołączam ci zbiór poprawnych pól w JSON schema`
+  const request2 = `Oczekiwany rezultant: Zgodnie z poleceniem zwróć rozszerzoną strukturę JSON Schema o nowe pola. Odpowiedź powinna być stringiem tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Nie opakowywuj jsona w \`\`\`json  \`\`\``
+
+  //console.debug("Full request")
+  //console.debug(prefix + aiRequest + request2)
+
+  const newSchema = await askAI(prefix + aiRequest + request2)
+  console.debug(`AI response`, JSON.parse(newSchema as string))
+
+  modelValue.value = JSON.parse(newSchema as string)
 }
 
 
@@ -134,5 +144,22 @@ async function sentRequestToAIModel(){
   border-radius: 0;
 }
 
+.json-ai-layout {
+  height: 100vh; /* lub 100% jeśli kontener nadrzędny odpowiada za wysokość */
+}
+
+.json-panel {
+  min-height: 0 !important; /* kluczowe by overflow działało prawidłowo */
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.ai-input-bar {
+  /* Tło, cień można dostosować według gustu */
+  background: white;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+}
 
 </style>

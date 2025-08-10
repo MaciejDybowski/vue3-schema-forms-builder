@@ -12,6 +12,7 @@
           </v-col>
           <v-col class="main-container" cols="">
             <MainCanvas v-model="modelValue"
+                        :key="key"
                         class="stretch"/>
           </v-col>
           <v-col class="main-container ma-2" cols="auto">
@@ -20,7 +21,9 @@
         </v-row>
       </v-col>
     </v-row>
-    <PropertiesDrawer :schema="modelValue"/>
+    <PropertiesDrawer :model-value="modelValue"
+                      @update:model-value="updateAndRerender"
+    />
   </div>
 </template>
 
@@ -31,7 +34,7 @@ import MainCanvas from "./main-canvas/MainCanvas.vue";
 import MainCanvasToolboxLeft from "./main-canvas/MainCanvasToolboxLeft.vue";
 import MainCanvasToolboxRight from "./main-canvas/MainCanvasToolboxRight.vue";
 import {useCanvas} from "@/composables/useCanvas";
-import {computed, FunctionPlugin, getCurrentInstance, onBeforeUnmount} from "vue";
+import {computed, FunctionPlugin, getCurrentInstance, onBeforeUnmount, ref} from "vue";
 import {FormSchema} from "@/models/FormSchema";
 
 
@@ -54,6 +57,12 @@ instance?.appContext.app.use(vueSchemaForms)
 
 const canvas = useCanvas();
 let modelValue = defineModel<FormSchema>()
+let key = ref(1)
+
+function updateAndRerender(val: any) {
+  modelValue.value = val
+  key.value++
+}
 
 const useBuilderStateStore = useBuilderState()
 onBeforeUnmount(() => {

@@ -10,7 +10,13 @@ export function useGenAI() {
       contents: contents,
     });
     console.log(response.text);
-    return response.text;
+
+    let text = response.text
+    if (response.text?.includes('json')) {
+      text = response.text.slice(7, -3);
+    }
+
+    return text
   }
 
   return {askAI}
