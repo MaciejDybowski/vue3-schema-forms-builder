@@ -117,17 +117,30 @@ const aiLoading = ref(false);
 
 async function sentRequestToAIModel() {
   aiLoading.value = true
-  const prefix = JSON.stringify(modelValue.value) + "  Polecenie:"
+  const currentModel = JSON.stringify(modelValue.value)
 
-  //const preExamples = " Podaję Ci gotowy json string zawierający poprawne definicje różynch pól formularza. Wybieraj odpowiednie z tego zestawu dodając z polecenia kolejne pola: "
-  //const examples = `{\\"type\\":\\"object\\",\\"properties\\":{\\"textField\\":{\\"label\\":\\"Pole tekstowe\\",\\"layout\\":{\\"component\\":\\"text-field\\"}},\\"textArea\\":{\\"label\\":\\"Obszar tekstowy\\",\\"layout\\":{\\"component\\":\\"text-area\\"}},\\"numberField\\":{\\"label\\":\\"Pole liczbowe\\",\\"layout\\":{\\"component\\":\\"number-field\\"},\\"type\\":\\"int\\"},\\"datePicker\\":{\\"label\\":\\"Date picker\\",\\"layout\\":{\\"component\\":\\"date-picker\\"}},\\"dateTimePicker\\":{\\"label\\":\\"Date-time picker\\",\\"layout\\":{\\"component\\":\\"date-time-picker\\"}},\\"switch\\":{\\"label\\":\\"Pole przełącznik\\",\\"layout\\":{\\"component\\":\\"switch\\"}},\\"radioButton\\":{\\"label\\":\\"Pole typu radio\\",\\"layout\\":{\\"component\\":\\"radio-button\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"select\\":{\\"label\\":\\"Pole wyboru\\",\\"layout\\":{\\"component\\":\\"select\\"},\\"source\\":{\\"items\\":[{\\"value\\":1,\\"title\\":\\"Option 1\\"},{\\"value\\":2,\\"title\\":\\"Option 2\\"},{\\"value\\":3,\\"title\\":\\"Option 3\\"}]}},\\"userInput\\":{\\"label\\":\\"Pole użytkownik\\",\\"layout\\":{\\"component\\":\\"user-input\\"},\\"source\\":{\\"url\\":\\"\\"}}}}`
-  //const request = `Oczekiwany resultat: Zwróć surową rozszerzoną o nowe pola struktrę strukturę JSON tylko i wyłącznie tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Tj. nie opakowywuj jsona w \`\`\` ani nic. Sam tekst. Dodatkowo dołączam ci zbiór poprawnych pól w JSON schema`
-  const request2 = `Oczekiwany rezultant: Zgodnie z poleceniem zwróć rozszerzoną strukturę JSON Schema o nowe pola (korzystaj z przykładów podanych poniżej jako json string). Odpowiedź powinna być stringiem tak abym na zwróconym tekście wykonać JSON.parse(wynik) i nie zwracało ono żadnego błędu. Nie opakowywuj jsona w \`\`\`json  \`\`\``
+  const prompt = `
+  You are given an initial JSON Schema object.
+  Your task is to extend this schema by adding only the new fields explicitly requested in my instruction, selecting them from the provided reference set of field definitions.
+  Important rules:
+  1. Do not invent new field definitions — only use the ones provided in the reference JSON string below.
+  2. Keep all existing fields from the input schema unchanged.
+  3. Add the new requested fields using the exact structure (labels, layout, source, type) from the reference JSON.
+  4. The result must be a valid JSON string (not surrounded by code fences) so that JSON.parse(result) works without errors.
+  5. Return only the JSON string — no explanations or extra text.
 
-  //console.debug("Full request")
-  //console.debug(prefix + aiRequest + request2)
+  Reference set of fields (copy-paste base):
+  {"type":"object","properties":{"textField":{"label":"Text Field","layout":{"component":"text-field"}},"textArea":{"label":"Text Area","layout":{"component":"text-area"}},"numberField":{"label":"Number Field","layout":{"component":"number-field"},"type":"int"},"datePicker":{"label":"Date picker","layout":{"component":"date-picker"}},"dateTimePicker":{"label":"Date-time picker","layout":{"component":"date-time-picker"}},"switch":{"label":"Switch Field","layout":{"component":"switch"}},"radioButton":{"label":"Radio Button Field","layout":{"component":"radio-button"},"source":{"items":[{"value":1,"title":"Option 1"},{"value":2,"title":"Option 2"},{"value":3,"title":"Option 3"}]}},"select":{"label":"Select Field","layout":{"component":"select"},"source":{"items":[{"value":1,"title":"Option 1"},{"value":2,"title":"Option 2"},{"value":3,"title":"Option 3"}]}},"userInput":{"label":"User Input Field","layout":{"component":"user-input"},"source":{"url":""}}}}
 
-  const newSchema = await askAI(prefix + aiRequest + request2)
+  Input you will get:
+  1. JSON Schema object (string) with the current form definition.
+  2. My instruction that tells you which new fields to add in Polish.
+
+  Ad1. Current model as JSON string: ${currentModel}
+  Ad2. Instruction: ${aiRequest.value},
+  `
+
+  const newSchema = await askAI(prompt)
   console.debug(`AI response`, JSON.parse(newSchema as string))
 
   modelValue.value = JSON.parse(newSchema as string)
