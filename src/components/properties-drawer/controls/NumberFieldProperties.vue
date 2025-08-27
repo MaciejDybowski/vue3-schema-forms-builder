@@ -103,6 +103,14 @@
         :label="t('hint')"
       />
       <text-property-wrapper
+        v-model="model.layout.props['prefix']"
+        :label="t('prefix')"
+      />
+      <text-property-wrapper
+        v-model="model.layout.props['suffix']"
+        :label="t('suffix')"
+      />
+      <text-property-wrapper
         :label="t('persistentHintIfExpression')"
         :model-value="model.layout.props['persistent-hint']"
         @update:model-value="updateExpressionPersistentHint"
@@ -193,7 +201,9 @@ function updateExpressionReadonly(val: string) {
     "roundLabel": "Round option",
     "ceilOptionLabel": "Ceil option",
     "floorOptionLabel": "Float option",
-    "roundOptionLabel": "Round option"
+    "roundOptionLabel": "Round option",
+    "suffix": "Suffix",
+    "prefix": "Prefix"
   },
   "pl": {
     "int": "Całkowita",
@@ -211,7 +221,9 @@ function updateExpressionReadonly(val: string) {
     "roundLabel": "Opcje zaokrąglania",
     "ceilOptionLabel": "Ceil",
     "floorOptionLabel": "Floor",
-    "roundOptionLabel": "Round"
+    "roundOptionLabel": "Round",
+    "suffix": "Suffix",
+    "prefix": "Prefix"
   }
 }
 </i18n>
