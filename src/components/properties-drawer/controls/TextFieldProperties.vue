@@ -70,6 +70,8 @@
     >
 
       <hint-property v-model="model.layout.props"/>
+      <prefix-property v-model="model.layout.props"/>
+      <suffix-property v-model="model.layout.props"/>
 
       <text-property-wrapper
         :label="t('persistentHintIfExpression')"
@@ -118,6 +120,8 @@ import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import PrefixProperty from "@/components/properties-drawer/atoms/PrefixProperty.vue";
+import SuffixProperty from "@/components/properties-drawer/atoms/SuffixProperty.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
@@ -163,7 +167,9 @@ function updateExpressionPersistentHint(val: string) {
     "counter": "Counter of letters",
     "eventType": "Event type",
     "events": "Events",
-    "onChangeLabel": "On value change"
+    "onChangeLabel": "On value change",
+    "suffix": "Suffix",
+    "prefix": "Prefix"
   },
   "pl": {
     "calculation": "Obliczenia",
@@ -177,7 +183,9 @@ function updateExpressionPersistentHint(val: string) {
     "counter": "Licznik liter",
     "eventType": "Rodzaj zdarzenia",
     "events": "Zdarzenia",
-    "onChangeLabel": "Zmiana wartości"
+    "onChangeLabel": "Zmiana wartości",
+    "suffix": "Suffix",
+    "prefix": "Prefix"
   }
 }
 </i18n>
