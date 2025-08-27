@@ -3,7 +3,7 @@
   <text-property-wrapper
     v-model="suffixValue"
     :label="t('suffix')"
-    :prefix="isReference? suffix: ''"
+    :prefix="isReference? prefix: ''"
 
   />
   <boolean-switch-property-wrapper
@@ -26,7 +26,7 @@ import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/B
 const modelValue = defineModel<any>();
 const {t} = useI18n();
 const {
-  suffix,
+  prefix,
   isReference,
   referenceChanged,
   getValueForInput
