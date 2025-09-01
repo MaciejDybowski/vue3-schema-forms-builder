@@ -145,7 +145,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const history: Ref<Array<any>> = ref([])
   const historyPointer = ref(-1);
   const isUndoAvailable = computed(() => history.value.length > 1 && historyPointer.value > 0)
-  const isRendoAvailable = computed(() => historyPointer.value + 1 < history.value.length)
+  const isRedoAvailable = computed(() => historyPointer.value + 1 < history.value.length)
 
   function saveState(value) {
     history.value.push(value)
@@ -166,7 +166,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     // console.debug("wskaznik = ", historyPointer.value)
   }
 
-  function rendo() {
+  function redo() {
     historyPointer.value++
     updateDraggableModel(history.value[historyPointer.value], true)
   }
@@ -179,8 +179,8 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     cloneItem,
     saveState,
     undo,
-    rendo,
-    isRendoAvailable,
+    redo,
+    isRedoAvailable,
     resetState,
     isUndoAvailable,
     getConfiguredField,
