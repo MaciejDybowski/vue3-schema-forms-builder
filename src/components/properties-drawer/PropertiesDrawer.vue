@@ -15,7 +15,7 @@
       </template>
     </v-list>
 
-    <div v-else class="json-ai-layout fill-height d-flex flex-column">
+<!--    <div v-else class="json-ai-layout fill-height d-flex flex-column">
       <div class="json-panel flex-grow-1 d-flex flex-column px-2 overflow-y-auto">
         <div class="d-flex align-center">
           <span class="v-card-title ml-0 pl-0">JSON Schema</span>
@@ -56,7 +56,7 @@
           </template>
         </v-textarea>
       </div>
-    </div>
+    </div>-->
   </v-navigation-drawer>
 </template>
 
