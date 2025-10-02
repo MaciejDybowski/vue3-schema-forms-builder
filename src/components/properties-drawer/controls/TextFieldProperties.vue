@@ -18,6 +18,7 @@
        ]"
         :return-object="false"
         label="Component"
+        :clearable="false"
       />
     </expansion-panel>
 
