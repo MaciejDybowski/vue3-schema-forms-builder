@@ -45,7 +45,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
 
 
   function generateClonedKey(originalKey: string): string {
-    return `${originalKey}_${Math.random().toString().substring(2, 5)}_cloned`;
+    return `${originalKey}${Math.random().toString().substring(2, 5)}Clone`;
   }
 
   function deepCloneWithNewKeys(control: any): any {

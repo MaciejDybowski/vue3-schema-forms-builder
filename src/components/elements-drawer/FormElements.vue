@@ -404,7 +404,19 @@ function cloneControls(item: ElementDrawerFromElement) {
 }
 
 function generateKey(name: string): string {
-  return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5);
+  const camelCaseName = name
+    .toLowerCase()
+    .split(" ")
+    .map((word, index) =>
+      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join("")
+    .split("-")
+    .map((word, index) =>
+      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join("");
+  return camelCaseName + Math.random().toString().substring(2, 5);
 }
 
 const {onDragStart, onDragEnd} = useDragDrop();
