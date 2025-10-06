@@ -29,3 +29,4 @@ export type FromElementComponent =
   | "multi-language-control"
   | "year-picker"
   | "text-switch-field"
+  | "file-field"

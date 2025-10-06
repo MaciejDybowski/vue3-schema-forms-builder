@@ -24,6 +24,7 @@ import UserInputProperties from "./UserInputProperties.vue";
 import YearPickerProperties from "./YearPickerProperties.vue";
 import PhoneProperties from "@/components/properties-drawer/controls/PhoneProperties.vue";
 import TextSwitchProperties from "@/components/properties-drawer/controls/TextSwitchProperties.vue";
+import FileFieldProperties from "@/components/properties-drawer/controls/FileFieldProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -52,4 +53,5 @@ export const controlsProperties = {
   "user-input-properties": UserInputProperties,
   "year-picker-properties": YearPickerProperties,
   "text-switch-field-properties": TextSwitchProperties,
+  "file-field-properties": FileFieldProperties
 };
