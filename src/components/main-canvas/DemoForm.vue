@@ -75,6 +75,7 @@ const showForm = ref(false)
 const schemaContainDictionary = ref(false)
 const workspaceId = computed({
   get() {
+    console.debug(useBuilderStateStore.getWorkspaceId)
     return useBuilderStateStore.getWorkspaceId
   },
   set(value: string) {
@@ -92,8 +93,11 @@ onMounted(() => {
   drawers.propertiesDrawer.value = false
   drawers.elementsDrawer.value = false
 
-  showForm.value = !JSON.stringify(props.schema).includes("dictionary")
-  schemaContainDictionary.value = !showForm.value
+  showForm.value = !!workspaceId.value
+
+  schemaContainDictionary.value = ["dictionary", "combobox", "table", "user"].some(type =>
+    JSON.stringify(props.schema).includes(type)
+  )
 
   if (schemaContainDictionary.value && workspaceId.value) {
     showForm.value = true
