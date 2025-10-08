@@ -1,18 +1,18 @@
 <template>
   <div class="d-flex align-center">
     <h2>{{ t('titleFormDemo') }}</h2>
-    <span v-if="showForm && schemaContainDictionary"
+    <span v-if="!showForm && schemaContainDictionary"
           class="mx-4 v-list-item-subtitle text-decoration-underline"
           style="cursor: pointer;"
           v-bind="style.buttonStyle"
-          @click="showForm=false"
+          @click="showForm=true"
     >
       {{ t('changeWorkspaceId') }}: {{ workspaceId }}
     </span>
   </div>
   <v-divider class="mb-4"/>
 
-  <v-row v-if="!showForm" dense>
+  <v-row v-if="showForm" dense>
     <v-col cols="12">
       <span class="v-list-item-subtitle">{{ t('workspaceDescription') }}</span>
     </v-col>
@@ -86,21 +86,21 @@ const workspaceId = computed({
 function setWorkspaceIdHeader() {
   //@ts-ignore
   axios.defaults.headers.common['Workspace-Id'] = workspaceId.value;
-  showForm.value = true
+  showForm.value = false
 }
 
 onMounted(() => {
   drawers.propertiesDrawer.value = false
   drawers.elementsDrawer.value = false
 
-  showForm.value = !!workspaceId.value
+  showForm.value = workspaceId.value == ""
 
   schemaContainDictionary.value = ["dictionary", "combobox", "table", "user"].some(type =>
     JSON.stringify(props.schema).includes(type)
   )
 
   if (schemaContainDictionary.value && workspaceId.value) {
-    showForm.value = true
+    showForm.value = false
   }
 })
 
