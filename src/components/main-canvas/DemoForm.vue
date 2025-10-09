@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex align-center">
     <h2>{{ t('titleFormDemo') }}</h2>
-    <span v-if="!showForm && schemaContainDictionary"
+    <span v-if="!showForm && schemaContainUrlElements"
           class="mx-4 v-list-item-subtitle text-decoration-underline"
           style="cursor: pointer;"
           v-bind="style.buttonStyle"
@@ -12,7 +12,7 @@
   </div>
   <v-divider class="mb-4"/>
 
-  <v-row v-if="showForm" dense>
+  <v-row v-if="showForm && schemaContainUrlElements" dense>
     <v-col cols="12">
       <span class="v-list-item-subtitle">{{ t('workspaceDescription') }}</span>
     </v-col>
@@ -72,10 +72,9 @@ const drawers = useDrawers();
 
 const useBuilderStateStore = useBuilderState()
 const showForm = ref(false)
-const schemaContainDictionary = ref(false)
+const schemaContainUrlElements = ref(false)
 const workspaceId = computed({
   get() {
-    console.debug(useBuilderStateStore.getWorkspaceId)
     return useBuilderStateStore.getWorkspaceId
   },
   set(value: string) {
@@ -95,11 +94,12 @@ onMounted(() => {
 
   showForm.value = workspaceId.value == ""
 
-  schemaContainDictionary.value = ["dictionary", "combobox", "table", "user"].some(type =>
+  schemaContainUrlElements.value = ["dictionary", "combobox", "table", "user"].some(type =>
     JSON.stringify(props.schema).includes(type)
   )
 
-  if (schemaContainDictionary.value && workspaceId.value) {
+  console.debug(showForm.value, schemaContainUrlElements.value)
+  if (schemaContainUrlElements.value && workspaceId.value) {
     showForm.value = false
   }
 })
