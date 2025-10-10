@@ -21,9 +21,7 @@ export const FormBuilderEmpty: Story = {
     workspaceId: "bm",
     modelValue: {
       "type": "object",
-      "properties": {
-
-      }
+      "properties": {"textField820": {"label": "Item-textField820", "layout": {"component": "text-field"}}}
     },
   }
 }

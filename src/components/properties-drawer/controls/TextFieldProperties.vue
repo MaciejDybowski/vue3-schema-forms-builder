@@ -11,6 +11,7 @@
     >
       <select-general
         v-model="model.layout.component"
+        :clearable="false"
         :items="[
           {value: 'text-field', title: 'Text-field'},
           {value: 'text-area', title: 'Textarea'},
@@ -18,7 +19,6 @@
        ]"
         :return-object="false"
         label="Component"
-        :clearable="false"
       />
     </expansion-panel>
 
@@ -58,10 +58,19 @@
       title="Expressions"
       value="expressions"
     >
-      <text-property-wrapper
+
+      <v-label
+        class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('expression') }}
+      </v-label>
+      <tcn-code-editor
         v-model="model.expression"
-        :label="t('expression')"
+        :codemirrorOptions="{
+          lineNumbers: 'off'
+        }"
+        height="150px"
+        language="text"
       />
+
 
     </expansion-panel>
     <expansion-panel
@@ -163,7 +172,7 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHintIfExpression": "Hint expression",
     "hide": "Hide",
     "visible": "Visible",
-    "expression": "Expression",
+    "expression": "Use JSONata functionality or use built-in expressions.",
     "validations": "Validations",
     "counter": "Counter of letters",
     "eventType": "Event type",
@@ -179,7 +188,7 @@ function updateExpressionPersistentHint(val: string) {
     "persistentHintIfExpression": "Podpowiedź warunek",
     "hide": "Ukryte",
     "visible": "Widoczne",
-    "expression": "Wyrażenie",
+    "expression": "Korzystaj z funkcji JSONata lub wbodowanych wyrażeń.",
     "validations": "Walidacje",
     "counter": "Licznik liter",
     "eventType": "Rodzaj zdarzenia",

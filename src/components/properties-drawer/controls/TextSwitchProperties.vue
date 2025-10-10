@@ -62,11 +62,17 @@
       title="Expressions"
       value="expressions"
     >
-      <text-property-wrapper
+      <v-label
+        class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('expression') }}
+      </v-label>
+      <tcn-code-editor
         v-model="model.expression"
-        :label="t('expression')"
+        :codemirrorOptions="{
+          lineNumbers: 'off'
+        }"
+        height="150px"
+        language="text"
       />
-
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('fieldProps')"
