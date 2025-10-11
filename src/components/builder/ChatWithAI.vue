@@ -21,7 +21,7 @@
       width="380"
       height="480"
       elevation="16"
-      class="d-flex flex-column"
+      class="d-flex flex-column chat-card"
       :style="cardStyle"
     >
       <v-card-title class="text-primary text-h6">
@@ -131,11 +131,20 @@ const toggleButtonStyle = computed(() => ({
   position: 'fixed',
   bottom: '24px',
   right: `${rightOffset.value}px`,
+  transition: 'right 0.3s cubic-bezier(0.4, 0, 0.2, 1)', // Material Design easing
 }))
 
-// Przesuwanie karty wewnątrz overlay przez margines
+// Przesuwanie karty wewnątrz overlay przez margines z transition
 const cardStyle = computed(() => ({
   marginRight: `${drawers.propertiesDrawer.value ? DRAWER_WIDTH : 0}px`,
-  marginBottom: `${BOTTOM_MARGIN}px`
+  marginBottom: `${BOTTOM_MARGIN}px`,
+  transition: 'margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1)' // Material Design easing
 }))
 </script>
+
+<style scoped>
+.chat-card {
+  /* Dodatkowe transition dla transform/scale jeśli potrzebne */
+  transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>
