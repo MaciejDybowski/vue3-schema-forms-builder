@@ -1,7 +1,6 @@
 <template>
   <!-- Przycisk otwierania czatu -->
   <v-btn
-    class="chat-toggle-btn"
     color="primary"
     icon
     size="large"
@@ -11,19 +10,25 @@
     <v-icon>{{ isOpen ? 'mdi-close' : 'mdi-robot' }}</v-icon>
   </v-btn>
 
-  <!-- Okno czatu -->
-  <v-expand-transition>
+  <!-- Okno czatu (overlay) -->
+  <v-overlay
+    v-model="isOpen"
+    persistent
+    :scrim="false"
+    class="d-flex justify-end align-end"
+  >
     <v-card
-      v-if="isOpen"
-      elevation="100"
-
-      :style="chatWindowStyle"
+      width="380"
+      height="480"
+      elevation="16"
+      class="d-flex flex-column"
+      :style="cardStyle"
     >
       <v-card-title class="text-primary text-h6">
         AI Chatbot
       </v-card-title>
 
-      <v-divider/>
+      <v-divider />
 
       <v-card-text class="d-flex flex-column flex-grow-1 pa-0">
         <!-- Lista wiadomości -->
@@ -61,23 +66,22 @@
         />
       </v-card-text>
     </v-card>
-  </v-expand-transition>
+  </v-overlay>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref } from 'vue'
-import {useDrawers} from "@/composables/useDrawers";
+import { ref, computed, nextTick } from 'vue'
+import { useDrawers } from '@/composables/useDrawers'
 
 interface Message {
   from: 'user' | 'ai'
   text: string
 }
 
-const drawers = useDrawers();
-
+const drawers = useDrawers()
 const DRAWER_WIDTH = 350
-const BASE_RIGHT = 24
-const OPEN_BOTTOM = 88
+const BASE_MARGIN = 24
+const BOTTOM_MARGIN = 88
 
 const isOpen = ref(false)
 const messages = ref<Message[]>([
@@ -98,7 +102,6 @@ const sendMessage = async () => {
   await nextTick()
   scrollToBottom()
 
-  // Symulowana odpowiedź AI
   setTimeout(() => {
     messages.value.push({
       from: 'ai',
@@ -121,25 +124,18 @@ const scrollToBottom = () => {
 }
 
 const rightOffset = computed(() =>
-  drawers.propertiesDrawer.value ? DRAWER_WIDTH + BASE_RIGHT : BASE_RIGHT
+  drawers.propertiesDrawer.value ? DRAWER_WIDTH + BASE_MARGIN : BASE_MARGIN
 )
 
-const chatWindowStyle = computed(() => ({
-  position: 'fixed',
-  bottom: `${OPEN_BOTTOM}px`,
-  right: `${rightOffset.value}px`,
-  width: '380px',
-  height: '480px',
-  display: 'flex',
-  flexDirection: 'column'
-}))
 const toggleButtonStyle = computed(() => ({
   position: 'fixed',
   bottom: '24px',
   right: `${rightOffset.value}px`,
 }))
-</script>
 
-<style scoped>
-/* Nie potrzeba zmian w stylu - wszystko w style w JS */
-</style>
+// Przesuwanie karty wewnątrz overlay przez margines
+const cardStyle = computed(() => ({
+  marginRight: `${drawers.propertiesDrawer.value ? DRAWER_WIDTH : 0}px`,
+  marginBottom: `${BOTTOM_MARGIN}px`
+}))
+</script>
