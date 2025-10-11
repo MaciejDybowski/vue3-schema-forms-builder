@@ -1,25 +1,40 @@
 <template>
   <v-btn
+    v-if="!isOpen"
     color="primary"
     icon
     size="large"
     :style="buttonStyle"
-    @click="isOpen = !isOpen"
+    @click="isOpen = true"
   >
-    <v-icon>{{ isOpen ? 'mdi-close' : 'mdi-robot' }}</v-icon>
+    <v-icon>mdi-robot</v-icon>
   </v-btn>
 
   <v-overlay
     v-model="isOpen"
-    persistent
     :scrim="false"
     class="d-flex justify-end align-end"
+    style="pointer-events: none"
   >
+    <!-- Przycisk zamykający w dokładnie tym samym miejscu -->
+    <v-btn
+      color="primary"
+      icon
+      size="large"
+      :style="buttonStyle"
+      style="pointer-events: auto; position: fixed"
+      @click="isOpen = false"
+    >
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
+
+    <!-- Okno czatu -->
     <v-card
       width="380"
       height="480"
       class="d-flex flex-column"
       :style="cardStyle"
+      style="pointer-events: auto"
     >
       <v-card-title class="text-primary">
         AI Chatbot
