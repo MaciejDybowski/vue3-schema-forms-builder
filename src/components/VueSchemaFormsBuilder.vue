@@ -11,6 +11,7 @@
             <MainCanvasToolboxLeft class="stretch"/>
           </v-col>
           <v-col class="main-container" cols="">
+            <chat-with-a-i/>
             <MainCanvas v-model="modelValue"
                         :key="key"
                         class="stretch"/>
@@ -43,6 +44,7 @@ import "../../../aurea-forms/dist/style.css"*/
 import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "vue3-schema-forms";
 import "vue3-schema-forms/dist/style.css"
 import {useBuilderState} from "@/pinia/useBuilderState";
+import ChatWithAI from "@/components/builder/ChatWithAI.vue";
 
 const instance = getCurrentInstance();
 
