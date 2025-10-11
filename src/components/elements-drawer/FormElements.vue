@@ -330,6 +330,7 @@ function cloneControls(item: ElementDrawerFromElement) {
           url: "",
           title: "label",
           value: "id",
+          description: "description",
           returnObject: true,
           lazy: true,
           singleOptionAutoSelect: true,

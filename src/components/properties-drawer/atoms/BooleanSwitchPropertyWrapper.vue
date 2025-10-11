@@ -1,12 +1,13 @@
 <template>
-  <v-list-item>
+  <v-list-item v-bind="attrs">
     <v-switch
-      class="mx-2"
       v-model="modelValue"
       :false-value="false"
       :true-value="true"
-      hide-details="auto"
+      class="mx-2"
       color="primary"
+      density="compact"
+      hide-details="auto"
       v-bind="props"
     />
   </v-list-item>
@@ -14,7 +15,9 @@
 
 <script lang="ts" setup>
 import {useStyle} from "@/main";
+import {useAttrs} from "vue";
 
+const attrs = useAttrs()
 const modelValue = defineModel()
 const style = useStyle()
 const props = defineProps<{
