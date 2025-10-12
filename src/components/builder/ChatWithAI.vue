@@ -28,7 +28,7 @@
     <v-card
       :style="cardStyle as StyleValue"
       class="d-flex flex-column"
-      color="grey-lighten-5"
+      :color="theme.isLightTheme.value ? 'grey-lighten-5': 'grey-darken-3'"
       height="480"
       style="pointer-events: auto; z-index: 2000;"
       width="380"
@@ -45,7 +45,8 @@
           class="flex-grow-1"
           style="overflow-y: auto; padding: 0 16px;"
         >
-          <v-list class="pa-0" style="background-color: #FAFAFA;">
+          <v-list class="pa-0"
+                  :style="theme.isLightTheme.value ? 'background-color: #FAFAFA;' : 'background-color: #424242;'">
             <v-list-item
               v-for="(msg, i) in messages"
               :key="i"
@@ -54,7 +55,7 @@
               <div
                 :class="[
                   'pa-2 rounded mb-2',
-                  msg.from === 'user' ? 'bg-primary text-white ml-auto' : 'bg-grey-lighten-3'
+                  msg.from === 'user' ? 'bg-primary text-white ml-auto' : theme.isLightTheme.value ? 'bg-grey-lighten-3' : 'bg-grey-darken-2'
                 ]"
                 style="max-width: 85%"
               >
@@ -109,6 +110,9 @@ import {useDrawers} from '@/composables/useDrawers'
 import {useStyle} from "@/main";
 import axios from "axios";
 import {useI18n} from "vue-i18n";
+import {useVTheme} from "@/composables/useVTheme";
+
+const theme = useVTheme()
 
 const {t} = useI18n()
 const drawers = useDrawers()
@@ -219,7 +223,7 @@ const buttonStyle = computed((): StyleValue => ({
 }))
 
 const cardStyle = computed((): StyleValue => ({
-  marginRight: `${drawers.propertiesDrawer.value ? 350 : 0}px`,
+  marginRight: `${drawers.propertiesDrawer.value ? 380 : 30}px`,
   marginBottom: '88px',
   transition: 'margin-right 0.3s ease'
 }))
