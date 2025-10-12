@@ -1,8 +1,7 @@
 <template>
   <v-btn
     v-if="!isOpen"
-    :style="buttonStyle"
-    color="primary"
+    :style="buttonStyle as StyleValue"
     icon
     size="large"
     @click="isOpen = true"
@@ -16,33 +15,31 @@
     class="d-flex justify-end align-end"
     style="pointer-events: none"
   >
-    <!-- Przycisk zamykający w dokładnie tym samym miejscu -->
     <v-btn
-      :style="buttonStyle"
-      color="primary"
+      :style="buttonStyle as StyleValue"
       icon
       size="large"
-      style="pointer-events: auto; position: fixed"
+      style="pointer-events: auto; position: fixed; z-index: 2001;"
       @click="isOpen = false"
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
 
     <v-card
-      :style="cardStyle"
+      :style="cardStyle as StyleValue"
       class="d-flex flex-column"
-      height="550"
-      style="pointer-events: auto"
+      color="grey-lighten-5"
+      height="480"
+      style="pointer-events: auto; z-index: 2000;"
       width="380"
     >
-      <v-card-title class="text-primary flex-shrink-0">
+      <v-card-title class="flex-shrink-0">
         AI Chatbot
       </v-card-title>
 
       <v-divider class="flex-shrink-0"/>
 
       <v-card-text class="d-flex flex-column pa-0" style="flex: 1; min-height: 0;">
-        <!-- Obszar czatu z przewijaniem -->
         <div
           ref="chatContainer"
           class="flex-grow-1"
@@ -52,23 +49,41 @@
             <v-list-item
               v-for="(msg, i) in messages"
               :key="i"
-              :ref="i === messages.length - 1 ? 'lastMessage' : undefined"
               class="px-0"
             >
               <div
                 :class="[
                   'pa-2 rounded mb-2',
-                  msg.from === 'user' ? 'bg-primary text-white ml-auto' : 'bg-grey-lighten-4'
+                  msg.from === 'user' ? 'bg-primary text-white ml-auto' : 'bg-grey-lighten-3'
                 ]"
-                style="max-width: 80%"
+                style="max-width: 85%"
               >
                 {{ msg.text }}
+              </div>
+              <div v-if="msg.showAiActions" class="my-2">
+                <v-btn
+                  class="mr-2"
+                  color="green"
+                  size="x-small"
+                  v-bind="style.buttonStyle.value"
+                  @click="accept(msg)"
+                >
+                  {{ t('accept') }}
+                </v-btn>
+                <v-btn
+                  class="ml-2"
+                  color="error"
+                  size="x-small"
+                  v-bind="style.buttonStyle.value"
+                  @click="reject(msg)"
+                >
+                  {{ t('reject') }}
+                </v-btn>
               </div>
             </v-list-item>
           </v-list>
         </div>
 
-        <!-- Pole tekstowe o stałej wysokości -->
         <div class="flex-shrink-0 pa-3 pt-0">
           <v-textarea
             v-model="newMessage"
@@ -89,22 +104,37 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, nextTick, ref, watch} from 'vue'
+import {computed, nextTick, ref, StyleValue, watch} from 'vue'
 import {useDrawers} from '@/composables/useDrawers'
 import {useStyle} from "@/main";
+import axios from "axios";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const drawers = useDrawers()
 const isOpen = ref(false)
 const newMessage = ref('')
 const messages = ref([
-  {from: 'ai', text: 'Cześć! Jak mogę pomóc?'}
+  {
+    from: 'ai',
+    text: t('helloMessage'),
+    showAiActions: false
+  }
 ])
+
+const emits = defineEmits<{
+  (e: "preview", val: any),
+  (e: "accept"),
+  (e: "reject"),
+}>()
 
 const style = useStyle()
 const chatContainer = ref<HTMLElement | null>(null)
-const lastMessage = ref<HTMLElement | null>(null)
 
-// Funkcja do płynnego przewijania do dołu
+const {schema} = defineProps<{
+  schema: any
+}>()
+
 const scrollToBottom = async () => {
   await nextTick()
   if (chatContainer.value) {
@@ -115,23 +145,10 @@ const scrollToBottom = async () => {
   }
 }
 
-// Alternatywna metoda z scrollIntoView
-const scrollToLastMessage = async () => {
-  await nextTick()
-  if (lastMessage.value) {
-    lastMessage.value.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end'
-    })
-  }
-}
-
-// Obserwuj zmiany w wiadomościach i automatycznie przewijaj
 watch(messages, async () => {
   await scrollToBottom()
 }, {deep: true})
 
-// Przewijaj do dołu gdy otwiera się czat
 watch(isOpen, async (newValue) => {
   if (newValue) {
     await scrollToBottom()
@@ -140,35 +157,89 @@ watch(isOpen, async (newValue) => {
 
 const sendMessage = async () => {
   if (!newMessage.value.trim()) return
+  newMessage.value = newMessage.value.trim()
 
-  messages.value.push({from: 'user', text: newMessage.value})
+  messages.value.push({from: 'user', text: newMessage.value, showAiActions: false})
   const userText = newMessage.value.toLowerCase()
   newMessage.value = ''
 
-  // Przewiń po dodaniu wiadomości użytkownika
   await scrollToBottom()
 
-  setTimeout(async () => {
-    const reply = userText.includes('test') ? 'Test OK ✅' : 'Interesujące! 🤔'
-    messages.value.push({from: 'ai', text: reply})
-    // Przewijanie nastąpi automatycznie przez watcher
-  }, 500)
+  messages.value.push({
+    from: 'ai',
+    text: t('workInProgress'),
+    showAiActions: false
+  })
+  await callAiModel(userText)
+}
+
+async function callAiModel(message: string) {
+  try {
+    const response = await axios.post('/api/assist/form', {
+      userMessage: message,
+      currentFormJson: schema
+    })
+    messages.value.push({
+      from: 'ai',
+      text: response.data.rationale,
+      showAiActions: true,
+    })
+    emits("preview", response.data.updatedFormJson)
+  } catch (e) {
+    console.error(e)
+
+    messages.value.push({
+      from: 'ai',
+      text: t('sthWentWrong'),
+      showAiActions: false
+    })
+  }
+}
+
+function accept(mes) {
+  mes.showAiActions = false
+  emits('accept')
+}
+
+function reject(mes) {
+  mes.showAiActions = false
+  emits('reject')
 }
 
 const offset = computed(() =>
   (drawers.propertiesDrawer.value ? 350 : 0) + 24
 )
 
-const buttonStyle = computed(() => ({
-  position: 'fixed',
+const buttonStyle = computed((): StyleValue => ({
+  position: 'fixed' as const,
   bottom: '24px',
   right: `${offset.value}px`,
-  transition: 'right 0.3s ease'
+  transition: 'right 0.3s ease',
+  zIndex: 2002
 }))
 
-const cardStyle = computed(() => ({
+const cardStyle = computed((): StyleValue => ({
   marginRight: `${drawers.propertiesDrawer.value ? 350 : 0}px`,
   marginBottom: '88px',
   transition: 'margin-right 0.3s ease'
 }))
 </script>
+
+<i18n lang="json">
+{
+  "en": {
+    "accept": "Accept",
+    "reject": "Reject",
+    "helloMessage": "Hello! 👋 My name is Aurelius – your assistant in the Aurea system. I am here to help you use Aurea Modeler effectively, answer your questions, suggest features, and streamline your work.",
+    "workInProgress": "💡 I'm already working on it, it may take a few seconds!",
+    "sthWentWrong": "It appears that I have encountered an issue. Please give me a moment and try again."
+  },
+  "pl": {
+    "accept": "Akceptuj",
+    "reject": "Odrzuc",
+    "helloMessage": "Cześć! 👋 Nazywam się Aurelius – Twój asystent w systemie Aurea. Jestem tutaj, aby pomóc Ci efektywnie korzystać z Aurea Modeler, odpowiadać na pytania, podpowiadać funkcje i usprawniać Twoją pracę.",
+    "workInProgress": "💡 Już nad tym pracuję, to może potrwać kilkanaście sekund!",
+    "sthWentWrong": "Wygląda na to, że napotkałem problem. Daj mi chwilkę i spróbuj ponownie."
+  }
+}
+</i18n>

@@ -11,9 +11,14 @@
             <MainCanvasToolboxLeft class="stretch"/>
           </v-col>
           <v-col class="main-container" cols="">
-            <chat-with-a-i/>
-            <MainCanvas v-model="modelValue"
-                        :key="key"
+            <chat-with-a-i
+              :schema="modelValue"
+              @accept="accept"
+              @preview="previewAi"
+              @reject="reject"
+            />
+            <MainCanvas :key="key"
+                        v-model="modelValue"
                         class="stretch"/>
           </v-col>
           <v-col class="main-container ma-2" cols="auto">
@@ -92,6 +97,24 @@ const canvasColumnsMaxWidth = computed(() => {
       return "400px";
   }
 });
+
+const lastUserJsonModel = ref<any>(null)
+
+function previewAi(val: any) {
+  lastUserJsonModel.value = modelValue.value
+  modelValue.value = val
+  key.value++
+}
+
+function accept() {
+  lastUserJsonModel.value = null
+}
+
+function reject() {
+  modelValue.value = lastUserJsonModel.value
+  lastUserJsonModel.value = null
+  key.value++
+}
 </script>
 
 <style lang="scss" scoped>
