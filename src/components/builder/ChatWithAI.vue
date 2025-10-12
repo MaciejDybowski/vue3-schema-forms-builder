@@ -45,7 +45,7 @@
           class="flex-grow-1"
           style="overflow-y: auto; padding: 0 16px;"
         >
-          <v-list class="pa-0">
+          <v-list class="pa-0" style="background-color: #FAFAFA;">
             <v-list-item
               v-for="(msg, i) in messages"
               :key="i"
