@@ -1,9 +1,8 @@
 <template>
-  <v-list-item>
+  <v-list-item v-bind="attrs">
     <v-checkbox
       v-model="modelValue"
       :label="label"
-      class="mx-2"
       hide-details="auto"
       v-bind="style.inputStyle.value"
     />
@@ -12,6 +11,9 @@
 
 <script lang="ts" setup>
 import {useStyle} from "@/main";
+import {useAttrs} from "vue";
+
+const attrs = useAttrs()
 
 const modelValue = defineModel()
 const props = defineProps<{
