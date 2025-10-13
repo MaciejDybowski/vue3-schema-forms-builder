@@ -1,14 +1,8 @@
 <template>
-  <v-list-item density="compact">
-    <span>{{ t('configLabel') }}</span>
-  </v-list-item>
-
   <text-property-wrapper
     v-model="modelValue.builder_url"
     :label="t('urlKey')"
   />
-
-
 
   <template class="d-flex align-center">
     <boolean-checkbox-property-wrapper
@@ -28,7 +22,6 @@
       </template>
     </v-tooltip>
   </template>
-
 
 
   <template class="d-flex align-center">
@@ -83,15 +76,17 @@
 
   <text-property-wrapper
     v-if="showAdvancedConfiguration"
+    v-model="modelValue['value']"
+    :label="t('value')"
+  />
+
+
+  <text-property-wrapper
+    v-if="showAdvancedConfiguration"
     v-model="modelValue.title"
     :label="t('title')"
   />
 
-  <text-property-wrapper
-    v-if="showAdvancedConfiguration"
-    v-model="modelValue['value']"
-    :label="t('value')"
-  />
 
   <text-property-wrapper
     v-if="showAdvancedConfiguration"
@@ -113,8 +108,7 @@
 import {useI18n} from "vue-i18n";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const modelValue = defineModel<any>({
@@ -140,9 +134,9 @@ const {t} = useI18n()
     "workspaceId": "Workspace Id (builder purpose)",
     "propertyDescription": "Dictionary configuration",
     "urlKey": "URL address dictionary",
-    "value": "Value",
-    "title": "Title",
-    "description": "Description",
+    "value": "Value mapping",
+    "title": "Title mapping",
+    "description": "Description mapping",
     "returnObject": "Save object",
     "lazyLoading": "Lazy loading",
     "singleOptionAutoSelect": "Auto select value",
@@ -159,9 +153,9 @@ const {t} = useI18n()
     "workspaceId": "Workspace Id (builder purpose)",
     "propertyDescription": "Konfiguracja słownika",
     "urlKey": "Adres URL słownika",
-    "value": "Id",
-    "title": "Tytuł",
-    "description": "Opis dodatkowy",
+    "value": "Mapowanie Id",
+    "title": "Mapowanie Etykiety",
+    "description": "Mapowanie opisu",
     "returnObject": "Zapisz obiekt",
     "lazyLoading": "Stronicowanie wyników",
     "singleOptionAutoSelect": "Automatyczny wybór wartości",

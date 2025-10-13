@@ -7,7 +7,8 @@
       :prefix="prefix"
       :rows="rows"
       class="pt-2"
-      v-bind="{...style.inputStyle.value}"
+      v-bind="{...style.inputStyle.value, ...props, ...attrs}"
+
     />
   </component>
 </template>
@@ -15,6 +16,10 @@
 <script lang="ts" setup>
 import {useStyle} from "@/main";
 import {useAttrs} from "vue";
+
+/*const emits = defineEmits<{
+  (e: "click:append-inner")
+}>();*/
 
 const modelValue = defineModel()
 const style = useStyle()
@@ -24,6 +29,8 @@ const props = withDefaults(defineProps<{
   prefix?: string | undefined
   wrapperTag?: string | undefined
   growEnabled?: boolean | undefined
+
+
 }>(), {
   rows: 1,
   prefix: undefined,

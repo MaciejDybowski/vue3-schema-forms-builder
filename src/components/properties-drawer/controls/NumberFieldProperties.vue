@@ -63,8 +63,7 @@
       value="logic">
       <read-only-property v-model="model.layout.props.readonly"/>
 
-      <text-property-wrapper
-        :label="t('readonlyIfExpression')"
+      <read-only-expression-property
         :model-value="model.layout.props.readonly"
         @update:model-value="updateExpressionReadonly"
       />
@@ -81,25 +80,9 @@
       title="Expressions"
       value="expressions"
     >
-      <v-label
-        class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('expression') }}
-      </v-label>
-      <tcn-code-editor
-        v-model="model.expression"
-        :codemirrorOptions="{
-          lineNumbers: 'off',
-           minimap: {
-            enabled: false
-          }
-        }"
-        height="150px"
-        language="text"
-      />
+      <expression-property v-model="model.expression"/>
 
-      <text-property-wrapper
-        v-model="model.calculation"
-        :label="t('calculation')"
-      />
+      <calculatiuon-property v-model="model.calculation"/>
 
     </expansion-panel>
 
@@ -159,6 +142,9 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
+import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
+import ReadOnlyExpressionProperty from "@/components/properties-drawer/atoms/ReadOnlyExpressionProperty.vue";
 
 const panels = ref<string[]>(["general", "logic", "expressions"])
 const useBuilderStateStore = useBuilderState()

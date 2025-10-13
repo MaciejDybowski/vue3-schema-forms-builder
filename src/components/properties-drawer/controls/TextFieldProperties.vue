@@ -59,21 +59,7 @@
       value="expressions"
     >
 
-      <v-label
-        class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('expression') }}
-      </v-label>
-      <tcn-code-editor
-        v-model="model.expression"
-        :codemirrorOptions="{
-          lineNumbers: 'off',
-          minimap: {
-            enabled: false
-          }
-        }"
-        height="120px"
-        language="text"
-      />
-
+      <expression-property v-model="model.expression"/>
 
     </expansion-panel>
     <expansion-panel
@@ -135,6 +121,7 @@ import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/B
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import PrefixProperty from "@/components/properties-drawer/atoms/PrefixProperty.vue";
 import SuffixProperty from "@/components/properties-drawer/atoms/SuffixProperty.vue";
+import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
