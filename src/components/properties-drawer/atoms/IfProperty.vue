@@ -1,7 +1,9 @@
 <template>
   <text-property-wrapper
     v-model="modelValue"
+    :grow-enabled="false"
     :label="t('ifProperty')"
+    :rows="3"
     append-inner-icon="mdi-cog"
     @click:append-inner="openAdvancedDialog"
   />
@@ -14,8 +16,8 @@
     persistent
     scrollable
     width="800px"
-    @acceptButton="() => {}"
-    @closeButton="() => {}"
+    @acceptButton="save"
+    @closeButton="cancel"
   >
     <template #title>
       <v-card-title>
@@ -25,7 +27,7 @@
     <v-card-text class="px-0">
 
       <tcn-code-editor
-        v-model="modelValue"
+        v-model="modelInDialog"
         :codemirrorOptions="{}"
         height="300px"
         language="text"
@@ -41,8 +43,6 @@ import {useStyle} from "@/main";
 import {ref} from "vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
-
-
 const showAdvancedDialog = ref(false)
 
 function openAdvancedDialog() {
@@ -51,8 +51,17 @@ function openAdvancedDialog() {
 
 const modelValue = defineModel()
 const style = useStyle()
-
+const modelInDialog = ref<any>(null)
 const {t} = useI18n()
+
+function cancel() {
+  showAdvancedDialog.value = false
+}
+
+function save() {
+  modelValue.value = modelInDialog.value
+  showAdvancedDialog.value = false
+}
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,9 @@
   <div>
     <text-property-wrapper
       v-model="model"
+      :grow-enabled="false"
       :label="t('expression')"
+      :rows="5"
       append-inner-icon="mdi-cog"
       @click:append-inner="openAdvancedDialog"
     />
@@ -15,8 +17,8 @@
       persistent
       scrollable
       width="800px"
-      @acceptButton="() => {}"
-      @closeButton="() => {}"
+      @acceptButton="save"
+      @closeButton="cancel"
     >
       <template #title>
         <v-card-title>
@@ -26,7 +28,7 @@
       <v-card-text class="px-0">
 
         <tcn-code-editor
-          v-model="model"
+          v-model="modelInDialog"
           :codemirrorOptions="{}"
           height="300px"
           language="text"
@@ -49,8 +51,20 @@ const style = useStyle()
 
 const showAdvancedDialog = ref(false)
 
+const modelInDialog = ref<any>(null)
+
 function openAdvancedDialog() {
+  modelInDialog.value = model.value
   showAdvancedDialog.value = true
+}
+
+function cancel() {
+  showAdvancedDialog.value = false
+}
+
+function save() {
+  model.value = modelInDialog.value
+  showAdvancedDialog.value = false
 }
 
 </script>

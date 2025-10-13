@@ -6,6 +6,8 @@
       :label="t('readonlyExpression')"
       append-inner-icon="mdi-cog"
       @click:append-inner="openAdvancedDialog"
+      :grow-enabled="false"
+      :rows="3"
     />
     <tcn-au-dialog
       v-if="showAdvancedDialog"
@@ -15,8 +17,8 @@
       persistent
       scrollable
       width="800px"
-      @acceptButton="() => {}"
-      @closeButton="() => {}"
+      @acceptButton="save"
+      @closeButton="cancel"
     >
       <template #title>
         <v-card-title>
@@ -26,7 +28,7 @@
       <v-card-text class="px-0">
 
         <tcn-code-editor
-          v-model="model"
+          v-model="modelInDialog"
           :codemirrorOptions="{}"
           height="300px"
           language="text"
@@ -48,11 +50,19 @@ const model = defineModel()
 const style = useStyle()
 
 const showAdvancedDialog = ref(false)
+const modelInDialog = ref<any>(null)
 
 function openAdvancedDialog() {
   showAdvancedDialog.value = true
 }
+function cancel() {
+  showAdvancedDialog.value = false
+}
 
+function save() {
+  model.value = modelInDialog.value
+  showAdvancedDialog.value = false
+}
 </script>
 
 <style lang="scss" scoped>

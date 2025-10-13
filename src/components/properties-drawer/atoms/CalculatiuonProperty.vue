@@ -5,6 +5,8 @@
       :label="t('calculationProperty')"
       append-inner-icon="mdi-cog"
       @click:append-inner="openAdvancedDialog"
+      :rows="3"
+      :grow-enabled="false"
     />
     <tcn-au-dialog
       v-if="showAdvancedDialog"
@@ -14,8 +16,8 @@
       persistent
       scrollable
       width="800px"
-      @acceptButton="() => {}"
-      @closeButton="() => {}"
+      @acceptButton="save"
+      @closeButton="cancel"
     >
       <template #title>
         <v-card-title>
@@ -25,7 +27,7 @@
       <v-card-text class="px-0">
 
         <tcn-code-editor
-          v-model="modelValue"
+          v-model="modelInDialog"
           :codemirrorOptions="{}"
           height="300px"
           language="text"
@@ -44,11 +46,19 @@ import {ref} from "vue";
 
 const modelValue = defineModel()
 const style = useStyle();
-
+const modelInDialog = ref<any>(null)
 const showAdvancedDialog = ref(false)
 
 function openAdvancedDialog() {
   showAdvancedDialog.value = true
+}
+function cancel() {
+  showAdvancedDialog.value = false
+}
+
+function save() {
+  modelValue.value = modelInDialog.value
+  showAdvancedDialog.value = false
 }
 
 const {t} = useI18n()
