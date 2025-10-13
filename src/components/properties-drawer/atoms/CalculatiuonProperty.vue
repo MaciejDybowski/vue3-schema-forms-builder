@@ -62,11 +62,13 @@ const {t} = useI18n()
 {
   "en": {
     "advancedConfiguration": "Advanced configuration",
-    "calculationProperty": "Calculation"
+    "calculationProperty": "Calculation",
+    "save": "Save"
   },
   "pl": {
     "advancedConfiguration": "Konfiguracja zaawansowana",
-    "calculationProperty": "Obliczenia"
+    "calculationProperty": "Obliczenia",
+    "save": "Zapisz"
   }
 }
 </i18n>

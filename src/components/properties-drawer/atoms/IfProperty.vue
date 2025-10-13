@@ -62,11 +62,13 @@ const {t} = useI18n()
 {
   "en": {
     "ifProperty": "Conditional rendering",
-    "advancedConfiguration": "Advanced configuration"
+    "advancedConfiguration": "Advanced configuration",
+    "save": "Save"
   },
   "pl": {
     "advancedConfiguration": "Konfiguracja zaawansowana",
-    "ifProperty": "Warunek widoczności"
+    "ifProperty": "Warunek widoczności",
+    "save": "Zapisz"
   }
 }
 </i18n>
