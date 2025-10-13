@@ -1,14 +1,24 @@
 <template>
-  <text-property-wrapper
+  <v-label
+    class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('ifProperty') }}
+  </v-label>
+  <tcn-code-editor
     v-model="modelValue"
-    :label="t('ifProperty')"
+    :codemirrorOptions="{
+          lineNumbers: 'off',
+          minimap: {
+            enabled: false
+          }
+        }"
+    height="80px"
+    language="text"
   />
+
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 
 const modelValue = defineModel()

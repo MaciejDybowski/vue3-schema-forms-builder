@@ -21,22 +21,7 @@ export const FormBuilderEmpty: Story = {
     workspaceId: "bm",
     modelValue: {
       "type": "object",
-      "properties": {
-        "dictionary704": {
-          "label": "Item-dictionary704",
-          "layout": {"component": "dictionary"},
-          "source": {
-            "url": "",
-            "title": "label",
-            "value": "id",
-            "returnObject": true,
-            "lazy": true,
-            "singleOptionAutoSelect": true,
-            "multiple": false,
-            "maxSelection": 0
-          }
-        }
-      }
+      "properties": {"expression": {"label": "Expression", "layout": {"component": "text-field"}}}
     },
   }
 }

@@ -11,6 +11,7 @@
     >
       <select-general
         v-model="model.layout.component"
+        :clearable="false"
         :items="[
           {value: 'text-field', title: 'Text-field'},
           {value: 'text-area', title: 'Textarea'},
@@ -18,7 +19,6 @@
        ]"
         :return-object="false"
         label="Component"
-        :clearable="false"
       />
     </expansion-panel>
 
@@ -68,7 +68,10 @@
       <tcn-code-editor
         v-model="model.expression"
         :codemirrorOptions="{
-          lineNumbers: 'off'
+          lineNumbers: 'off',
+           minimap: {
+            enabled: false
+          }
         }"
         height="150px"
         language="text"

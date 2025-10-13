@@ -65,9 +65,12 @@
       <tcn-code-editor
         v-model="model.expression"
         :codemirrorOptions="{
-          lineNumbers: 'off'
+          lineNumbers: 'off',
+          minimap: {
+            enabled: false
+          }
         }"
-        height="150px"
+        height="120px"
         language="text"
       />
 

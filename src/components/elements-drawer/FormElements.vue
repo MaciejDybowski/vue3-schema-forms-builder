@@ -331,9 +331,9 @@ function cloneControls(item: ElementDrawerFromElement) {
           title: "label",
           value: "id",
           description: "description",
-          returnObject: true,
+          returnObject: false,
           lazy: true,
-          singleOptionAutoSelect: true,
+          singleOptionAutoSelect: false,
           multiple: false,
           maxSelection: 0
         }
