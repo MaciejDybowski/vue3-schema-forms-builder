@@ -12,6 +12,11 @@
       <key-property v-model="model.key"/>
       <label-property v-model="model"/>
 
+      <text-property-wrapper
+        v-model="model.fileLabel"
+        :label="t('fileLabel')"
+      />
+
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"
@@ -29,6 +34,7 @@
     >
       <if-property v-model="model.layout.if"/>
     </expansion-panel>
+    <validation-configuration :active="panels.includes('validations')"/>
   </v-expansion-panels>
 </template>
 
@@ -43,10 +49,13 @@ import FillRowProperty from "@/components/properties-drawer/atoms/FillRowPropert
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import {useI18n} from "vue-i18n";
 
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
+const {t} = useI18n()
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -56,8 +65,17 @@ const model = computed({
   }
 })
 </script>
-
-
 <style lang="scss" scoped>
 
 </style>
+
+<i18n lang="json">
+{
+  "pl": {
+    "fileLabel": "Etykieta pliku"
+  },
+  "en": {
+    "fileLabel": "File label"
+  }
+}
+</i18n>
