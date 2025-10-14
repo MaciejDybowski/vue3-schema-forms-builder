@@ -46,6 +46,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 const showAdvancedDialog = ref(false)
 
 function openAdvancedDialog() {
+  modelInDialog.value =  modelValue.value
   showAdvancedDialog.value = true
 }
 

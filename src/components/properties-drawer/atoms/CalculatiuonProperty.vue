@@ -50,6 +50,7 @@ const modelInDialog = ref<any>(null)
 const showAdvancedDialog = ref(false)
 
 function openAdvancedDialog() {
+  modelInDialog.value = modelValue.value
   showAdvancedDialog.value = true
 }
 function cancel() {
