@@ -9,6 +9,7 @@
       class="pt-2"
       v-bind="{...style.inputStyle.value, ...props, ...attrs}"
 
+
     />
   </component>
 </template>

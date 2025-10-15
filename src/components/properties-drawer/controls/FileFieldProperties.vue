@@ -16,6 +16,16 @@
         v-model="model.fileLabel"
         :label="t('fileLabel')"
       />
+      <text-property-wrapper
+        v-model="model.fileAvailableExtensions"
+        :label="t('fileAvailableExtensions')"
+        :persistent-hint="true"
+        :hint="t('fileAvailableExtensionsHint')"
+      />
+      <number-property-wrapper
+        v-model="model.fileMaxSize"
+        :label="t('fileMaxSize')"
+      />
 
     </expansion-panel>
     <expansion-panel
@@ -33,6 +43,7 @@
       value="logic"
     >
       <if-property v-model="model.layout.if"/>
+      <read-only-property v-model="model.layout.props.readonly"/>
     </expansion-panel>
     <validation-configuration :active="panels.includes('validations')"/>
   </v-expansion-panels>
@@ -51,6 +62,8 @@ import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import {useI18n} from "vue-i18n";
+import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
+import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 
 
 const panels = ref<string[]>(["general"])
@@ -72,10 +85,16 @@ const model = computed({
 <i18n lang="json">
 {
   "pl": {
-    "fileLabel": "Etykieta pliku"
+    "fileLabel": "Etykieta pliku",
+    "fileAvailableExtensions": "Dostępne rozszerzenie",
+    "fileAvailableExtensionsHint": "Rozszerzenia rodzielone przecinkiem",
+    "fileMaxSize": "Max. rozmiar w MB"
   },
   "en": {
-    "fileLabel": "File label"
+    "fileLabel": "File label",
+    "fileAvailableExtensions": "Available extension",
+    "fileAvailableExtensionsHint": "Extensions separated by comma",
+    "fileMaxSize": "Max. size in MB"
   }
 }
 </i18n>
