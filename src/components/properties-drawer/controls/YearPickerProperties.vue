@@ -13,20 +13,7 @@
       <label-property v-model="model"/>
       <default-value-property/>
 
-      <v-label
-        class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('expression') }}
-      </v-label>
-      <tcn-code-editor
-        v-model="model.expression"
-        :codemirrorOptions="{
-          lineNumbers: 'off',
-           minimap: {
-            enabled: false
-          }
-        }"
-        height="150px"
-        language="text"
-      />
+      <expression-property v-model="model.expression"/>
 
     </expansion-panel>
     <expansion-panel
@@ -72,8 +59,8 @@ import ValidationConfiguration from "@/components/properties-drawer/atoms/Valida
 
 import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
-import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
 
 
 const panels = ref<string[]>(["general", "logic", "validations"])
