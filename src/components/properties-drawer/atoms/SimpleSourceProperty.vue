@@ -113,7 +113,7 @@
     persistent
     scrollable
     width="800px"
-    @acceptButton="closeConfigItemDialog"
+    @acceptButton="saveConfigAndClose"
     @closeButton="closeConfigItemDialog"
   >
     <template #title>
@@ -121,7 +121,7 @@
         {{ t('simpleSource.title') }}
       </v-card-title>
     </template>
-    <v-card-text>
+    <v-card-text class="px-0">
       <text-property-wrapper
         :label="t('simpleSource.value')"
         :model-value="currentConfiguredOption.value"
@@ -176,7 +176,7 @@ import Draggable from "@/vuedraggable/vuedraggable";
 
 const style = useStyle()
 const {t} = useI18n()
-
+const updateWhenSaveModel = ref(null)
 const computedItems = computed({
   get() {
     return modelValue.value.items
@@ -243,16 +243,26 @@ const {
 const currentConfiguredOption = ref<any>(null)
 const configOptionDialog = ref(false)
 
+
 function configOption(option: any) {
-  currentConfiguredOption.value = option
+  updateWhenSaveModel.value = option
+  currentConfiguredOption.value = {...option}
   currentConfiguredOption.value.isReference = typeof currentConfiguredOption.value.title != "string"
   configOptionDialog.value = true
 }
 
 function closeConfigItemDialog() {
+  updateWhenSaveModel.value = null
   configOptionDialog.value = false
   delete currentConfiguredOption.value.isReference
   currentConfiguredOption.value = null
+}
+
+function saveConfigAndClose() {
+  if (updateWhenSaveModel.value != null) {
+    Object.assign(updateWhenSaveModel.value, currentConfiguredOption.value)
+  }
+  closeConfigItemDialog()
 }
 
 const dynamicItemTitle = computed({
@@ -291,19 +301,19 @@ function referenceChangedItemTitle() {
   "en": {
     "simpleSource": {
       "title": "Options config",
-      "value": "Value",
-      "label": "Title",
+      "value": "Value Mapping",
+      "label": "Title Mapping",
       "addButton": "Add option",
-      "returnObject": "Return object"
+      "returnObject": "Save object"
     }
   },
   "pl": {
     "simpleSource": {
       "title": "Konfiguracja opcji",
-      "value": "ID",
-      "label": "Etykieta",
+      "value": "Mapowanie ID",
+      "label": "Mapowanie etykiety",
       "addButton": "Dodaj opcję",
-      "returnObject": "Zwracaj obiekt"
+      "returnObject": "Zapisz obiekt"
     }
   }
 }
