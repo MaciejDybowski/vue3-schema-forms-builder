@@ -109,7 +109,7 @@
     v-if="configOptionDialog"
     v-model="configOptionDialog"
     :acceptColor="style.primaryWhite.value"
-    :acceptText="t('common.save', 'Save')"
+    :acceptText="t('save')"
     persistent
     scrollable
     width="800px"
@@ -299,6 +299,7 @@ function referenceChangedItemTitle() {
 <i18n lang="json">
 {
   "en": {
+    "save": "Save",
     "simpleSource": {
       "title": "Options config",
       "value": "Value Mapping",
@@ -308,6 +309,7 @@ function referenceChangedItemTitle() {
     }
   },
   "pl": {
+    "save": "Zapisz",
     "simpleSource": {
       "title": "Konfiguracja opcji",
       "value": "Mapowanie ID",

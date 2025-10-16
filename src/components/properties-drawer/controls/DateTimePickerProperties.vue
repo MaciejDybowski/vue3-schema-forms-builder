@@ -103,10 +103,14 @@ const model = computed({
 <i18n lang="json">
 {
   "en": {
-    "formatInModel": "Format in model"
+    "formatInModel": "Format in model",
+    "hide": "Hidden",
+    "visible": "Visible"
   },
   "pl": {
-    "formatInModel": "Format w modelu"
+    "formatInModel": "Format w modelu",
+    "hide": "Ukryte",
+    "visible": "Widoczne"
   }
 }
 </i18n>

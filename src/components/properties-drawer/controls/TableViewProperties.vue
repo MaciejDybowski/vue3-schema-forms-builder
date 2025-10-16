@@ -12,7 +12,8 @@
       <key-property v-model="model.key"/>
       <text-property-wrapper
         v-model="model.ref"
-        label="Reference"/>
+        :label="t('useReference')"
+      />
     </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"
@@ -60,16 +61,16 @@
             <text-property-wrapper
               v-if="typeof element.title == 'string'"
               v-model="element.title"
+              :label="t('title')"
               class="px-1 mx-0"
-              label="Title"
             />
             <text-property-wrapper
               v-else
               v-model="element.title.$ref"
               :disabled="true"
+              :label="t('title')"
               class="px-1 mx-0"
-              label="Title"/>
-
+            />
             <v-btn
               class="mx-1"
               icon="mdi-cog"
@@ -100,7 +101,7 @@
         v-if="configHeaderDialog"
         v-model="configHeaderDialog"
         :acceptColor="style.primaryWhite.value"
-        acceptText="Save"
+        :acceptText="t('save')"
         persistent
         scrollable
         width="800px"
@@ -109,23 +110,23 @@
       >
         <template #title>
           <v-card-title>
-            Table header to configure: {{ currentConfiguredHeader.title }}
+            {{ t('dialogHeader', {val: currentConfiguredHeader.title}) }}
           </v-card-title>
         </template>
 
-        <v-card-text>
+        <v-card-text class="px-0">
           <text-property-wrapper
             v-model="dynamicHeaderTitle"
+            :label="t('title')"
             :prefix="currentConfiguredHeader.isReference? prefix: ''"
-            label="Title"
           />
 
           <v-switch
             v-model="currentConfiguredHeader.isReference"
+            :label="t('useReference')"
             class="mx-4"
             color="green"
             hide-details="auto"
-            label="Use Reference"
             @change="referenceChangedHeaderTitle"
           />
 
@@ -139,33 +140,35 @@
 
           <text-property-wrapper
             v-model="currentConfiguredHeader.key"
-            label="Key"/>
+            :label="t('key')"/>
+
           <text-property-wrapper
             v-model="currentConfiguredHeader.valueMapping"
-            label="Value mapping"/>
+            :label="t('valueMapping')"
+          />
           <text-property-wrapper
             v-model="currentConfiguredHeader.footerMapping"
-            label="Footer mapping"/>
+            :label="t('footerMapping')"/>
           <text-property-wrapper
             v-model="currentConfiguredHeader.color"
-            label="Color"/>
+            :label="t('color')"/>
           <select-general
             v-model="currentConfiguredHeader.type"
             :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}, {value: 'ALERT', title: 'Alert'}, {value: 'COLLECTION', title: 'Collection'}]"
+            :label="t('fieldType')"
             :return-object="false"
             clearable
-            label="Field type"
           />
           <boolean-switch-property-wrapper
             v-if="currentConfiguredHeader.type=='TEXT' || currentConfiguredHeader.type=='NUMBER'"
             v-model="currentConfiguredHeader.editable"
-            label="Editable"
+            :label="t('editable')"
           />
 
           <div v-if="currentConfiguredHeader.type == 'COLLECTION'">
 
             <v-card class="mx-4 my-2">
-              <v-card-title>Collection items definition</v-card-title>
+              <v-card-title>{{ t('collectionItemsDefinition')}}</v-card-title>
               <v-card-text>
                 <tcn-code-editor
                   :model-value="JSON.stringify(currentConfiguredHeader.items, null, 2)"
@@ -181,7 +184,7 @@
                   class="mx-4 my-2"
                   height="200px"
           >
-            <v-card-title>Header properties</v-card-title>
+            <v-card-title>{{t('headerProperties')}}</v-card-title>
             <v-card-text>
               <tcn-code-editor
                 :model-value="JSON.stringify(currentConfiguredHeader.properties, null, 2)"
@@ -206,9 +209,9 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
+                    :text="t('deleteAction')"
                     color="error"
                     density="compact"
-                    text="Delete action"
                     variant="elevated"
                     @click="currentConfiguredHeader.actions = currentConfiguredHeader.actions.filter((item, i) => i !== index)"
                   />
@@ -218,10 +221,10 @@
 
             </div>
             <v-btn
+              :text="t('addAction')"
               class="mx-4"
               color="primary"
               density="compact"
-              text="Add action"
               variant="elevated"
               @click="() => 'actions' in currentConfiguredHeader? currentConfiguredHeader.actions.push({}): currentConfiguredHeader['actions'] = [{}]"
             />
@@ -241,14 +244,16 @@
         <text-property-wrapper
           v-if="typeof button.label == 'string'"
           v-model="button.label"
-          label="Label"/>
+          :label="t('label')"
+        />
 
         <text-property-wrapper
           v-else
           v-model="button.label.$ref"
           :disabled="true"
+          :label="t('label')"
           class="px-1 mx-0"
-          label="Label"/>
+        />
 
         <v-btn
           class="mx-1"
@@ -271,7 +276,7 @@
         v-if="configButtonDialog"
         v-model="configButtonDialog"
         :acceptColor="style.primaryWhite.value"
-        acceptText="Save"
+        :acceptText="t('save')"
         persistent
         scrollable
         width="800px"
@@ -281,22 +286,22 @@
 
         <template #title>
           <v-card-title>
-            Table action to configure: {{ currentConfiguredButton.label }}
+            {{ t("dialogHeaderAction", {val: currentConfiguredButton.label}) }}
           </v-card-title>
         </template>
 
         <text-property-wrapper
           v-model="dynamicButtonLabel"
+          :label="t('label')"
           :prefix="currentConfiguredButton.isReference? prefix: ''"
-          label="Title"
         />
 
         <v-switch
           v-model="currentConfiguredButton.isReference"
+          :label="t('useReference')"
           class="mx-4"
           color="green"
           hide-details="auto"
-          label="Use Reference"
           @change="referenceChangedButtonLabel"
         />
 
@@ -311,18 +316,18 @@
         <select-general
           v-model="currentConfiguredButton.mode"
           :items="[{value: 'action', title: 'Action'}]"
+          :label="t('mode')"
           :return-object="false"
           clearable
-          label="Mode"
         />
 
         <v-card class="mx-4 my-2">
           <v-card-title>Button configuration</v-card-title>
           <v-card-text>
             <tcn-code-editor
+              :label="t('config')"
               :model-value="JSON.stringify(currentConfiguredButton.config, null, 2)"
               height="300px"
-              label="Config"
               language="json"
               @update:model-value="value => tryParseAsJsonButtonConfig(value, currentConfiguredButton,)"
             />
@@ -333,9 +338,9 @@
           <v-card-title>Button properties (Vuetify)</v-card-title>
           <v-card-text>
             <tcn-code-editor
+              :label="t('props')"
               :model-value="JSON.stringify(currentConfiguredButton.btnProps, null, 2)"
               height="300px"
-              label="Props"
               language="json"
               @update:model-value="value => tryParseAsJsonButtonProps(value, currentConfiguredButton,)"
             />
@@ -344,10 +349,10 @@
       </tcn-au-dialog>
 
       <v-btn
+        :text="t('add')"
         class="mx-4 my-2"
         color="primary"
         density="compact"
-        text="Add"
         @click="buttons.push({label: '', mode: null})"
       />
     </expansion-panel>
@@ -357,9 +362,9 @@
       value="actions"
     >
       <tcn-code-editor
+        :label="t('jsonObjectWithActions')"
         :model-value="JSON.stringify(model.actions, null, 2)"
         height="200px"
-        label="JSON Object with actions"
         language="json"
         @update:model-value="value => tryParseAsJsonActions(value)"
       />
@@ -387,7 +392,9 @@ import {useTranslateInput} from "@/composables/useTranslateInput";
 import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'logic', 'headers'])
 const useBuilderStateStore = useBuilderState()
@@ -578,3 +585,72 @@ function referenceChangedButtonLabel() {
 <style lang="scss" scoped>
 
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "dialogHeader": "Table header to configure: {val}",
+    "dialogHeaderAction": "Table action to configure: {val}",
+    "general": "General",
+    "layout": "Layout",
+    "logic": "Logic",
+    "source": "Source",
+    "headers": "Headers",
+    "buttons": "Buttons",
+    "actions": "Actions",
+    "save": "Save",
+    "add": "Add",
+    "title": "Title",
+    "key": "Key",
+    "valueMapping": "Value mapping",
+    "footerMapping": "Footer mapping",
+    "color": "Color",
+    "fieldType": "Field type",
+    "editable": "Editable",
+    "collectionItemsDefinition": "Collection items definition",
+    "headerProperties": "Header properties",
+    "headerActions": "Header actions",
+    "label": "Label",
+    "mode": "Mode",
+    "buttonConfiguration": "Button configuration",
+    "buttonPropertiesVuetify": "Button properties (Vuetify)",
+    "jsonObjectWithActions": "JSON Object with actions",
+    "dataURL": "Data URL",
+    "useReference": "Use Reference",
+    "deleteAction": "Delete action",
+    "addAction": "Add action"
+  },
+  "pl": {
+    "dialogHeader": "Nagłówek tabeli do konfiguracji: {val}",
+    "dialogHeaderAction": "Akcja tabeli do konfiguracji: {val}",
+    "general": "Ogólne",
+    "layout": "Układ",
+    "logic": "Logika",
+    "source": "Źródło",
+    "headers": "Nagłówki",
+    "buttons": "Przyciski",
+    "actions": "Akcje",
+    "save": "Zapisz",
+    "add": "Dodaj",
+    "title": "Tytuł",
+    "key": "Klucz",
+    "valueMapping": "Mapowanie wartości",
+    "footerMapping": "Mapowanie stopki",
+    "color": "Kolor",
+    "fieldType": "Typ pola",
+    "editable": "Edycyjne",
+    "collectionItemsDefinition": "Definicja elementów kolekcji",
+    "headerProperties": "Właściwości nagłówka",
+    "headerActions": "Akcje nagłówka",
+    "label": "Etykieta",
+    "mode": "Tryb",
+    "buttonConfiguration": "Konfiguracja przycisku",
+    "buttonPropertiesVuetify": "Właściwości przycisku (Vuetify)",
+    "jsonObjectWithActions": "Obiekt JSON z akcjami",
+    "dataURL": "URL danych",
+    "useReference": "Użyj referencji",
+    "deleteAction": "Usuń akcję",
+    "addAction": "Dodaj akcję"
+  }
+}
+</i18n>
