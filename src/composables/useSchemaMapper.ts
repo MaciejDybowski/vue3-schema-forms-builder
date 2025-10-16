@@ -51,13 +51,15 @@ export function useSchemaMapper() {
   }
 
   function mapDuplicatedSectionToSchema(schema: FormSchema, formElement: DraggableFormElement) {
-    const tempElement = copyObject(formElement)
+    const tempElement = {...formElement}
     const tempElementKey = tempElement.key
     tempElement.layout.schema.properties = {}
     tempElement.tempItems.forEach(element => {
       mapSingleElement(tempElement.layout.schema, element, schema)
     })
     removeDraggableFields(tempElement)
+    cleanJson(tempElement)
+
     schema.properties[tempElementKey] = tempElement
   }
 
