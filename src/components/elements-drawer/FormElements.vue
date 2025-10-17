@@ -188,11 +188,11 @@ function cloneControls(item: ElementDrawerFromElement) {
     layout: {
       cols: {
         xs: 12,
-        sm: 12,
-        md: 12,
-        lg: 12,
-        xl: 12,
-        xxl: 12
+        sm: 6,
+        md: 6,
+        lg: 4,
+        xl: 4,
+        xxl: 4
       },
       offset: {
         xs: 0,
@@ -202,7 +202,7 @@ function cloneControls(item: ElementDrawerFromElement) {
         xl: 0,
         xxl: 0
       },
-      fillRow: false,
+      fillRow: true,
       component: item.component,
       props: {}
     },
@@ -380,7 +380,25 @@ function cloneControls(item: ElementDrawerFromElement) {
       return {
         key: id,
         layout: {
-          ...schemaElement.layout,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+            xl: 12,
+            xxl: 12
+          },
+          offset: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+            xl: 0,
+            xxl: 0
+          },
+          fillRow: false,
+          component: item.component,
+          props: {}
         },
         source: {
           data: "",
