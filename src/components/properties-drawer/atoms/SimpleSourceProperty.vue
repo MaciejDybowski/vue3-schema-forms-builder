@@ -302,8 +302,8 @@ function referenceChangedItemTitle() {
     "save": "Save",
     "simpleSource": {
       "title": "Options config",
-      "value": "Value Mapping",
-      "label": "Title Mapping",
+      "value": "Value",
+      "label": "Title",
       "addButton": "Add option",
       "returnObject": "Save object"
     }
@@ -312,8 +312,8 @@ function referenceChangedItemTitle() {
     "save": "Zapisz",
     "simpleSource": {
       "title": "Konfiguracja opcji",
-      "value": "Mapowanie ID",
-      "label": "Mapowanie etykiety",
+      "value": "Wartość",
+      "label": "Etykieta",
       "addButton": "Dodaj opcję",
       "returnObject": "Zapisz obiekt"
     }

@@ -36,7 +36,7 @@ import {computed, ComputedRef, ref, Ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
 
 const style = useStyle()
-const { onDragStart, onDragEnd } = useDragDrop();
+const {onDragStart, onDragEnd} = useDragDrop();
 
 const props = defineProps<{
   query: string
@@ -165,7 +165,28 @@ function cloneStatic(item: ElementDrawerFromElement) {
       return {
         key: id,
         label: "Click me",
-        layout: base.layout,
+        layout: {
+          tag: item.tag,
+          component: item.component,
+          cols: {
+            xs: 12,
+            sm: 12,
+            md: 4,
+            lg: 4,
+            xl: 4,
+            xxl: 4
+          },
+          offset: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0,
+            xl: 0,
+            xxl: 0
+          },
+          props: {},
+          fillRow: true,
+        },
         options: {
           buttonProps: style.buttonStyle
         },
@@ -194,9 +215,20 @@ function cloneStatic(item: ElementDrawerFromElement) {
 }
 
 function generateKey(name: string): string {
-  return name.toLowerCase().split(" ").join("-") + "-" + Math.random().toString().substring(2, 5)
+  const camelCaseName = name
+    .toLowerCase()
+    .split(" ")
+    .map((word, index) =>
+      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join("")
+    .split("-")
+    .map((word, index) =>
+      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join("");
+  return camelCaseName + Math.random().toString().substring(2, 5);
 }
-
 
 </script>
 
