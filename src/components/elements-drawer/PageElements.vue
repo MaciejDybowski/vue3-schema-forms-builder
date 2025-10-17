@@ -170,8 +170,8 @@ function cloneStatic(item: ElementDrawerFromElement) {
           component: item.component,
           cols: {
             xs: 12,
-            sm: 12,
-            md: 4,
+            sm: 6,
+            md: 6,
             lg: 4,
             xl: 4,
             xxl: 4
