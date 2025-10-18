@@ -14,6 +14,7 @@
         <component :is='controlsProperties[component]'/>
       </template>
     </v-list>
+    <no-field-selected v-else/>
 
   </v-navigation-drawer>
 </template>
@@ -24,6 +25,7 @@ import {computed} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import RefProperties from "@/components/properties-drawer/controls/RefProperties.vue";
 import {controlsProperties} from "@/components/properties-drawer/controls";
+import NoFieldSelected from "@/components/properties-drawer/NoFieldSelected.vue";
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

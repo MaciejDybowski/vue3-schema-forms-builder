@@ -1,7 +1,7 @@
 <template>
   <div :class="fieldWrapperItemClass(element, isHovering)"
        :style="getStyleForBuilderField(element, isHovering)"
-       @click="configControl(element)"
+
        v-on="attrs"
   >
     <field-wrapper-toolbar
@@ -9,16 +9,19 @@
       :element="element"
     />
 
-    <!-- TODO zmienić tego ifa na markdown gdy markdown bedzie tez w trybie edycji -->
-    <div v-if="element.ref">
-      {{ element.ref }}
-    </div>
-    <div v-else-if="element.layout.component == 'markdown'">
-      Markdown content will be here
-    </div>
-    <form-node-mock v-else-if="!element.ref"
-                    :element="element"/>
+    <div @click="configControl(element)">
+      <!-- TODO zmienić tego ifa na markdown gdy markdown bedzie tez w trybie edycji -->
+      <div v-if="element.ref">
+        {{ element.ref }}
+      </div>
+      <div v-else-if="element.layout.component == 'markdown'">
+        Markdown content will be here
+      </div>
+      <form-node-mock v-else-if="!element.ref"
+                      :element="element"/>
 
+
+    </div>
 
   </div>
 </template>

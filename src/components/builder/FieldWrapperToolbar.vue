@@ -29,9 +29,9 @@
 
 import FieldWrapperToolbarLabel from "./FieldWrapperToolbarLabel.vue";
 import FieldWrapperToolbarBtn from "./FieldWrapperToolbarBtn.vue";
-import {useDrawers} from "../../composables/useDrawers";
+import {useDrawers} from "@/composables/useDrawers";
 
-import {useBuilderState} from "../../pinia/useBuilderState";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const props = defineProps<{
   element: any
@@ -46,10 +46,9 @@ function configControl() {
 }
 
 
-function deleteControl() {
+async function deleteControl() {
   useBuilderStateStore.deleteItem({key: props.element.key, sectionKey: props.element.sectionKey})
   useBuilderStateStore.setConfiguredField(null)
-  drawers.propertiesDrawer.value = false
 }
 
 function cloneControl() {
