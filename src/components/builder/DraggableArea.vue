@@ -7,6 +7,7 @@
     :group="{name: 'controls'}"
     :sort="true"
     class="d-flex flex-wrap v-row draggable-area"
+    handle=".handle"
     itemKey="key"
     @change="onChange"
     @end="onDragEnd"
@@ -56,6 +57,11 @@ if (props.sectionKey) {
   min-height: 100px;
   padding: 10px;
   position: relative;
+}
+
+.draggable-area > * {
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
 .draggable-area > *:first-child {

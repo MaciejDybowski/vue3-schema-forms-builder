@@ -9,7 +9,10 @@
       :element="element"
     />
 
-    <div @click="configControl(element)">
+    <div class="handle"
+         style="cursor: grab"
+         @click="configControl(element)"
+    >
       <!-- TODO zmienić tego ifa na markdown gdy markdown bedzie tez w trybie edycji -->
       <div v-if="element.ref">
         {{ element.ref }}

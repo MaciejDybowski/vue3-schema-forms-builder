@@ -1,7 +1,7 @@
 <template>
   <v-col
     :class="['px-0', `offset-${offsetSize(element)}`, `pb-0`]"
-    style="cursor: grab"
+
     :cols="cols"
     v-bind="attrs"
   >
