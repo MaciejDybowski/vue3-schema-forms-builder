@@ -2,18 +2,11 @@
   <draggable
     v-model="modelValue"
     :animation="400"
-    :drag-threshold="5"
     :empty-insert-threshold="200"
-    :fallback-tolerance="0"
     :force-fallback="true"
     :group="{name: 'controls'}"
     :sort="true"
-    :swap-threshold="0.6"
-    chosen-class="sortable-chosen-right"
     class="d-flex flex-wrap v-row draggable-area"
-    drag-class="sortable-drag"
-    fallback-class="sortable-fallback"
-    ghost-class="sortable-ghost"
     itemKey="key"
     @change="onChange"
     @end="onDragEnd"
@@ -65,19 +58,12 @@ if (props.sectionKey) {
   position: relative;
 }
 
-.draggable-area > * {
-  margin-bottom: 10px; /* większy odstęp między elementami */
-  margin-top: 10px; /* większy odstęp między elementami */
-  //background-color: lightgrey;
-}
-
-
 :deep(.sortable-ghost) {
   opacity: 1 !important;
   background: none !important;
   border: 1px dashed !important;
   box-sizing: border-box !important;
-  margin: 8px 0 !important;
+  margin: 20px 0 !important;
   height: 40px !important; /* większy ghost => łatwiej trafić */
   width: 100% !important;
   position: relative !important;
@@ -89,7 +75,6 @@ if (props.sectionKey) {
   display: none !important;
 }
 
-/* Uproszczone stany */
 :deep(.sortable-chosen-right) {
   opacity: 0.8;
 }
