@@ -2,7 +2,7 @@
   <draggable
     v-model="modelValue"
     :animation="400"
-    :empty-insert-threshold="200"
+    :empty-insert-threshold="props.emptyInsertThreshold"
     :force-fallback="true"
     :group="{name: 'controls'}"
     :sort="true"
@@ -56,6 +56,14 @@ if (props.sectionKey) {
   min-height: 100px;
   padding: 10px;
   position: relative;
+}
+
+.draggable-area > *:first-child {
+  margin-top: 10px;
+}
+
+.draggable-area > *:last-child {
+  margin-bottom: 10px;
 }
 
 :deep(.sortable-ghost) {

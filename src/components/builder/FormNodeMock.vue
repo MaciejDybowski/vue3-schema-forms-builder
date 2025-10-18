@@ -3,7 +3,6 @@
     <component
       :is='`node-${element.layout.component}`'
       v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
-      :key="renderKey"
       :class="['disabled-builder-field']"
       :model='{}'
       :schema='preparedElement'
@@ -12,9 +11,8 @@
 
     <div v-if="element.layout.component == 'duplicated-section'">
       <draggable-area
-        :key="element.tempItems.length"
         v-model="element.tempItems"
-        :empty-insert-threshold="30"
+        :empty-insert-threshold="100"
         :section-key="element.key"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
       />
@@ -37,9 +35,8 @@
 
     <div v-if="element.layout.component == 'fields-group'">
       <draggable-area
-        :key="element.tempItems.length"
         v-model="element.tempItems"
-        :empty-insert-threshold="30"
+        :empty-insert-threshold="100"
         :section-key="element.key"
         :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         class="pt-6"
@@ -54,10 +51,8 @@
 import DraggableArea from "./DraggableArea.vue";
 import {computed, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
-import {useColSizeMapper} from "@/composables/useColSizeMapper";
 import {cloneDeep} from "lodash";
 import {useStyle} from "@/main";
-import {useOffsetSizeMapper} from "@/composables/useOffsetSizeMapper";
 
 
 const props = defineProps<{
@@ -98,28 +93,13 @@ const duplicatedSectionStyle = computed(() => {
 const renderKey = ref(0)
 watch(props.element, () => {
   renderKey.value += 1
+  console.debug(renderKey.value)
 }, {deep: true})
 
-const {colSize} = useColSizeMapper()
-const {offsetSize} = useOffsetSizeMapper()
-
-/*
-function calcOffset(element: any) {
-  const offset = offsetSize(element) || 0;
-  const cols = colSize(element) as number
-
-  let cssString = '';
-  if (offset>0) {
-    cssString += `offset-${offset}`;
-  }
-  console.debug(cols, offset)
-  return cssString;
-}
-*/
 
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .disabled-builder-field {
   pointer-events: none; /* Disable all pointer events */
 }

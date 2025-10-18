@@ -17,9 +17,9 @@
               @preview="previewAi"
               @reject="reject"
             />
-            <MainCanvas :key="key"
-                        v-model="modelValue"
-                        class="stretch"/>
+            <MainCanvas
+              v-model="modelValue"
+              class="stretch"/>
           </v-col>
           <v-col class="main-container ma-2" cols="auto">
             <MainCanvasToolboxRight class="stretch"/>
@@ -27,9 +27,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <PropertiesDrawer :model-value="modelValue"
-                      @update:model-value="updateAndRerender"
-    />
+    <PropertiesDrawer/>
   </div>
 </template>
 
@@ -64,12 +62,7 @@ instance?.appContext.app.use(vueSchemaForms)
 
 const canvas = useCanvas();
 let modelValue = defineModel<FormSchema>()
-let key = ref(1)
 
-function updateAndRerender(val: any) {
-  modelValue.value = val
-  key.value++
-}
 
 const useBuilderStateStore = useBuilderState()
 onBeforeUnmount(() => {
@@ -103,7 +96,7 @@ const lastUserJsonModel = ref<any>(null)
 function previewAi(val: any) {
   lastUserJsonModel.value = modelValue.value
   modelValue.value = val
-  key.value++
+
 }
 
 function accept() {
@@ -113,7 +106,7 @@ function accept() {
 function reject() {
   modelValue.value = lastUserJsonModel.value
   lastUserJsonModel.value = null
-  key.value++
+
 }
 </script>
 

@@ -6,6 +6,7 @@
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
+      :key="key"
       v-model="controls"
       class="py-2"
     />
@@ -25,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onMounted, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 
 import DraggableArea from "../builder/DraggableArea.vue";
 
@@ -44,6 +45,7 @@ import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFor
 import {copyObject} from "@/utils/copy";
 
 
+const key = ref(1)
 let modelValue = defineModel<FormSchema>({
   default: () => {
     return {
@@ -85,6 +87,7 @@ const controls = computed({
 
 watch(controls, () => {
   modelValue.value = mapDraggableToSchema(copyObject(controls.value))
+  key.value++
 
 }, {deep: true})
 
