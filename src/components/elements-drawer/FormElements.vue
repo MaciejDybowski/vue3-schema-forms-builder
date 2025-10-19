@@ -34,21 +34,19 @@ import draggable from "../../vuedraggable/vuedraggable";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ComputedRef, ref, Ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
+import {useI18n} from "vue-i18n";
 
 const props = defineProps<{
   query: string
 }>();
+
+const {t} = useI18n()
 
 const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-format-letter-matches",
     label: "Pole tekstowe",
     component: "text-field"
-  },
-  {
-    icon: "mdi-text-box-edit-outline",
-    label: "Pole tekstowe [text->input]",
-    component: "text-switch-field"
   },
   {
     icon: "mdi-numeric-1-box-outline",
@@ -58,37 +56,43 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-format-letter-ends-with",
     label: "Obszar tekstowy",
-    component: "text-area"
+    component: "text-area",
+    subtitle: "Textarea",
   },
-  {
-    icon: "mdi-order-bool-descending",
-    label: "Pole wyboru (R)",
-    subtitle: "Radio",
-    component: "radio-button"
-  },
-  {
-    icon: "mdi-order-bool-descending-variant",
-    label: "Pole wyboru (C)",
-    subtitle: "Checkbox",
-    component: "checkbox"
-  },
+  /*  {
+      icon: "mdi-order-bool-descending",
+      label: "Pole wyboru (R)",
+      subtitle: "Radio",
+      component: "radio-button"
+    },
+    {
+      icon: "mdi-order-bool-descending-variant",
+      label: "Pole wyboru (C)",
+      subtitle: "Checkbox",
+      component: "checkbox"
+    },*/
   {
     icon: "mdi-order-alphabetical-ascending",
-    label: "Pole wyboru (S)",
-    subtitle: "Select",
+    label: "Pole wyboru",
+    subtitle: "Select / Radio / Checkbox",
     component: "select"
   },
   {
     icon: "mdi-order-alphabetical-ascending",
-    label: "Pole słownikowe (A)",
-    subtitle: "Autocomplete",
+    label: "Pole słownikowe",
+    subtitle: "Autocomplete / Combobox",
     component: "dictionary"
   },
+  /*  {
+      icon: "mdi-order-alphabetical-ascending",
+      label: "Pole słownikowe (C)",
+      subtitle: "Combobox",
+      component: "combobox"
+    },*/
   {
-    icon: "mdi-order-alphabetical-ascending",
-    label: "Pole słownikowe (C)",
-    subtitle: "Combobox",
-    component: "combobox"
+    icon: "mdi-account",
+    label: "Użytkownik",
+    component: "user-input"
   },
   {
     icon: "mdi-toggle-switch-off-outline",
@@ -111,6 +115,17 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     component: "date-time-picker"
   },
   {
+    icon: "mdi-content-copy",
+    label: "Sekcja powielana",
+    component: "duplicated-section",
+  },
+  {
+    icon: "mdi-format-list-group",
+    label: "Grupa pól",
+    subtitle: "Wizualne grupowanie pól",
+    component: "fields-group"
+  },
+  {
     icon: "mdi-calendar-filter",
     label: "Rok",
     component: "year-picker"
@@ -125,27 +140,19 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
     label: "Pole adresowe",
     component: "address"
   },
-  {
-    icon: "mdi-account",
-    label: "Użytkownik",
-    component: "user-input"
-  },
+
   {
     icon: "mdi-image",
     label: "Zdjęcie",
     component: "image"
   },
   {
-    icon: "mdi-content-copy",
-    label: "Sekcja powielana",
-    component: "duplicated-section"
+    icon: "mdi-text-box-edit-outline",
+    label: "Pole tekst ➞ input",
+    subtitle: "Naciśnij tekst, aby edytować",
+    component: "text-switch-field"
   },
-  {
-    icon: "mdi-format-list-group",
-    label: "Grupa pól",
-    subtitle: "Wizualne grupowanie pól",
-    component: "fields-group"
-  },
+
   {
     icon: "mdi-table",
     label: "Tabela",
@@ -155,7 +162,7 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   {
     icon: "mdi-language-markdown-outline",
     label: "Markdown",
-    subtitle: "Pole markdown",
+    subtitle: "Pole Markdown",
     component: "markdown"
   },
   {
@@ -165,7 +172,7 @@ const controls: Ref<ElementDrawerFromElement[]> = ref([
   },
   {
     icon: "mdi-translate-variant",
-    label: "Multi Language Field",
+    label: "Pole wielojęzyczne",
     component: "multi-language-control"
   }
 ]);
@@ -459,3 +466,6 @@ const {onDragStart, onDragEnd} = useDragDrop();
   display: none !important;
 }
 </style>
+
+<i18n lang="json">
+</i18n>

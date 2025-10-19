@@ -6,10 +6,14 @@
     multiple
   >
     <expansion-panel
-      :active="panels.includes('conversion')"
-      title="Conversion"
-      value="conversion"
+      :active="panels.includes('general')"
+      title="General"
+      value="general"
     >
+      <key-property v-model="model.key"/>
+      <label-property v-model="model"/>
+      <default-value-property/>
+
       <select-general
         v-model="model.layout.component"
         :items="[
@@ -21,16 +25,6 @@
         label="Component"
         :clearable="false"
       />
-
-    </expansion-panel>
-    <expansion-panel
-      :active="panels.includes('general')"
-      title="General"
-      value="general"
-    >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-      <default-value-property/>
 
     </expansion-panel>
 

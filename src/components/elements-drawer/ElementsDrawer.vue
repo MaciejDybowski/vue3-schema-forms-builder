@@ -1,5 +1,4 @@
 <template>
-  <!--    style="top: 65px; height: 100%"-->
   <v-navigation-drawer
     v-model="drawers.elementsDrawer.value"
     :style="!storybook ? `top: 65px; min-height: calc(100vh - 65px)` : ``"
@@ -9,16 +8,7 @@
     scrim="transparent"
     width="300"
   >
-
-    <!--    style="top: 65px; min-height: calc(100vh - 65px)"-->
-    <v-text-field
-      v-model="query"
-      class="mx-2 pt-2"
-      density="compact"
-      label="Search"
-      prepend-inner-icon="mdi-magnify"
-      variant="outlined"
-    />
+    <tcn-au-query v-model="query"/>
     <v-tabs
       v-model="tab"
       :items="tabs"
@@ -88,11 +78,13 @@ const storybook = computed(() => {
 {
   "en": {
     "fields": "Fields",
-    "page": "Page"
+    "page": "Page",
+    "search": "Search"
   },
   "pl": {
     "fields": "Pola",
-    "page": "Elementy"
+    "page": "Elementy",
+    "search": "Szukaj"
   }
 }
 </i18n>
