@@ -1,5 +1,4 @@
 <template>
-  <v-divider class="mt-2"/>
   <text-property-wrapper
     :label="t('defaultValue')"
     :model-value="defaultValueModel"
@@ -36,7 +35,7 @@ onMounted(() => {
 })
 
 function mapDefaultValue(val: string) {
-  if(val == ""){
+  if (val == "") {
     model.value['defaultValue'] = null
     defaultValueModel.value = val
     return

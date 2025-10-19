@@ -4,37 +4,33 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
-      :active="panels.includes('conversion')"
-      title="Conversion"
-      value="conversion"
-    >
+    <conversion-panel :active="panels.includes('conversion')">
       <select-general
         v-model="model.layout.component"
         :clearable="false"
         :items="[
-          {value: 'text-field', title: 'Text-field'},
-          {value: 'text-area', title: 'Textarea'},
-          {value: 'text-switch-field', title:'Text-Paragraph'}
+          {value: 'text-field', title: t('conversion.text')},
+          {value: 'text-area', title: t('conversion.textarea')},
+          {value: 'text-switch-field', title:t('conversion.textSwitch')},
        ]"
+        :label="t('conversion.label')"
         :return-object="false"
-        label="Component"
       />
-    </expansion-panel>
+    </conversion-panel>
 
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <content-propery v-model="model"/>
 
-      <content-propery v-model="model"/>
+        <default-value-property/>
+      </template>
+    </general-panel>
 
-      <label-property v-model="model"/>
-      <default-value-property/>
 
-    </expansion-panel>
     <expansion-panel
       :active="panels.includes('layout')"
       title="Layout"
@@ -133,6 +129,8 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
+import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
@@ -167,6 +165,12 @@ function updateExpressionPersistentHint(val: string) {
 <i18n lang="json">
 {
   "en": {
+    "conversion": {
+      "label": "Field",
+      "text": "Text field",
+      "textarea": "Text area",
+      "textSwitch": "Text ➞ input field"
+    },
     "calculation": "Calculation",
     "hint": "Hint",
     "persistentHint": "Is the hint always visible?",
@@ -181,6 +185,12 @@ function updateExpressionPersistentHint(val: string) {
     "onChangeLabel": "On value change"
   },
   "pl": {
+    "conversion": {
+      "label": "Pole",
+      "text": "Pole tekstowe",
+      "textarea": "Obszar tekstowy",
+      "textSwitch": "Pole tekst ➞ input"
+    },
     "calculation": "Obliczenia",
     "hint": "Podpowiedź",
     "persistentHint": "Czy hint zawsze widoczny?",

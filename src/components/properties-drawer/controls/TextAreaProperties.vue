@@ -4,32 +4,31 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
-      :active="panels.includes('conversion')"
-      title="Conversion"
-      value="conversion"
-    >
+    <conversion-panel :active="panels.includes('conversion')">
       <select-general
         v-model="model.layout.component"
-        :items="[
-          {value: 'text-field', title: 'Text-field'},
-          {value: 'text-area', title: 'Textarea'},
-       ]"
-        :return-object="false"
-        label="Component"
         :clearable="false"
+        :items="[
+          {value: 'text-field', title: t('conversion.text')},
+          {value: 'text-area', title: t('conversion.textarea')},
+          {value: 'text-switch-field', title:t('conversion.textSwitch')},
+       ]"
+        :label="t('conversion.label')"
+        :return-object="false"
       />
-    </expansion-panel>
+    </conversion-panel>
 
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-      <default-value-property/>
-    </expansion-panel>
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
+      </template>
+    </general-panel>
+
+
     <expansion-panel
       :active="panels.includes('layout')"
       title="Layout"
@@ -80,6 +79,8 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 const {t} = useI18n()
@@ -103,10 +104,22 @@ const model = computed({
 <i18n lang="json">
 {
   "en": {
+    "conversion": {
+      "label": "Field",
+      "text": "Text field",
+      "textarea": "Text area",
+      "textSwitch": "Text ➞ input field"
+    },
     "validations": "Validations",
     "counter": "Counter of letters"
   },
   "pl": {
+    "conversion": {
+      "label": "Pole",
+      "text": "Pole tekstowe",
+      "textarea": "Obszar tekstowy",
+      "textSwitch": "Pole tekst ➞ input"
+    },
     "validations": "Walidacje",
     "counter": "Licznik liter"
   }

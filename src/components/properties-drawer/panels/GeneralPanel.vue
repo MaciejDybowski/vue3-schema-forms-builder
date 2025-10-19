@@ -1,0 +1,40 @@
+<template>
+  <expansion-panel
+    :active="active"
+    :title="t('general.title')"
+    value="general"
+  >
+    <key-property v-model="model.key"/>
+    <slot name="afterKey"></slot>
+  </expansion-panel>
+</template>
+
+<script lang="ts" setup>
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import {useI18n} from "vue-i18n";
+import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
+
+const {t} = useI18n();
+const {active} = defineProps<{
+  active: boolean;
+}>()
+const model = defineModel<any>()
+</script>
+
+<style lang="scss" scoped>
+</style>
+
+<i18n lang="json">
+{
+  "en": {
+    "general": {
+      "title": "General properties"
+    }
+  },
+  "pl": {
+    "general": {
+      "title": "Ogólne właściwości"
+    }
+  }
+}
+</i18n>

@@ -3,9 +3,12 @@
     <v-checkbox
       v-model="modelValue"
       :label="label"
-      hide-details="auto"
       v-bind="style.inputStyle.value"
-    />
+    >
+      <template #append>
+        <slot name="append"></slot>
+      </template>
+    </v-checkbox>
   </v-list-item>
 </template>
 

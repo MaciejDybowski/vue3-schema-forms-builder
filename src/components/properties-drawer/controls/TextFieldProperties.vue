@@ -4,33 +4,31 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
-      :active="panels.includes('conversion')"
-      title="Conversion"
-      value="conversion"
-    >
+    <conversion-panel :active="panels.includes('conversion')">
       <select-general
         v-model="model.layout.component"
         :clearable="false"
         :items="[
-          {value: 'text-field', title: 'Textfield'},
-          {value: 'text-area', title: 'Textarea'},
-          {value: 'text-switch-field', title:'Text ➞ input field'}
+          {value: 'text-field', title: t('conversion.text')},
+          {value: 'text-area', title: t('conversion.textarea')},
+          {value: 'text-switch-field', title:t('conversion.textSwitch')},
        ]"
+        :label="t('conversion.label')"
         :return-object="false"
-        label="Component"
       />
-    </expansion-panel>
+    </conversion-panel>
 
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-      <default-value-property/>
-    </expansion-panel>
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
+      </template>
+    </general-panel>
+
+
     <expansion-panel
       :active="panels.includes('layout')"
       title="Layout"
@@ -41,6 +39,7 @@
       <fill-row-property v-model="model.layout.fillRow"/>
       <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
     </expansion-panel>
+
     <expansion-panel
       :active="panels.includes('logic')"
       title="Logic"
@@ -101,7 +100,6 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
@@ -122,6 +120,8 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import PrefixProperty from "@/components/properties-drawer/atoms/PrefixProperty.vue";
 import SuffixProperty from "@/components/properties-drawer/atoms/SuffixProperty.vue";
 import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
+import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
@@ -156,6 +156,12 @@ function updateExpressionPersistentHint(val: string) {
 <i18n lang="json">
 {
   "en": {
+    "conversion": {
+      "label": "Field",
+      "text": "Text field",
+      "textarea": "Text area",
+      "textSwitch": "Text ➞ input field"
+    },
     "calculation": "Calculation",
     "hint": "Hint",
     "persistentHint": "Is the hint always visible?",
@@ -172,6 +178,12 @@ function updateExpressionPersistentHint(val: string) {
     "prefix": "Prefix"
   },
   "pl": {
+    "conversion": {
+      "label": "Pole",
+      "text": "Pole tekstowe",
+      "textarea": "Obszar tekstowy",
+      "textSwitch": "Pole tekst ➞ input"
+    },
     "calculation": "Obliczenia",
     "hint": "Podpowiedź",
     "persistentHint": "Czy hint zawsze widoczny?",
