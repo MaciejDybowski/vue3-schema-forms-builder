@@ -1,29 +1,21 @@
 <template>
   <draggable
     :clone="cloneStatic"
-    :fallback-tolerance="0"
     :force-fallback="true"
     :group="{ name: 'controls', pull: 'clone', put: false }"
     :list="filteredStaticContent"
     :sort="false"
-    chosen-class="sortable-chosen-left"
-    class="elements-list"
-    drag-class="sortable-drag"
-    fallback-class="sortable-fallback"
-    ghost-class="sortable-ghost"
     itemKey="id"
     @end="onDragEnd"
     @start="onDragStart"
   >
-    <template #item="{element}">
-      <div>
-        <v-list-item link>
-          <template #prepend>
-            <v-icon>{{ element.icon }}</v-icon>
-          </template>
-          <v-list-item-title>{{ element.label }}</v-list-item-title>
-        </v-list-item>
-      </div>
+    <template #item="{ element }">
+      <v-list-item link>
+        <template #prepend>
+          <v-icon>{{ element.icon }}</v-icon>
+        </template>
+        <v-list-item-title>{{ t(element.label) }}</v-list-item-title>
+      </v-list-item>
     </template>
   </draggable>
 </template>
@@ -32,204 +24,113 @@
 import draggable from "../../vuedraggable/vuedraggable";
 import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
-import {computed, ComputedRef, ref, Ref} from "vue";
+import {computed, ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
+import {useI18n} from "vue-i18n";
 
-const style = useStyle()
+const {t} = useI18n();
+const style = useStyle();
 const {onDragStart, onDragEnd} = useDragDrop();
 
-const props = defineProps<{
-  query: string
-}>()
+const props = defineProps<{ query: string }>();
 
-const staticContent: Ref<ElementDrawerFromElement[]> = ref([
-  {
-    icon: "mdi-format-header-1",
-    label: "Nagłowek 1",
-    component: "static-content",
-    tag: "h1",
-  },
-  {
-    icon: "mdi-format-header-2",
-    label: "Nagłowek 2",
-    component: "static-content",
-    tag: "h2",
-  },
-  {
-    icon: "mdi-format-header-3",
-    label: "Nagłowek 3",
-    component: "static-content",
-    tag: "h3",
-  },
-  {
-    icon: "mdi-format-paragraph",
-    label: "Paragraf",
-    component: "static-content",
-    tag: "p",
-  },
-  {
-    icon: "mdi-format-text",
-    label: "Zwykły tekst",
-    component: "static-content",
-    tag: "span",
-  },
-  {
-    icon: "mdi-alert-box-outline",
-    label: "Alert",
-    component: "alert",
-  },
-  {
-    icon: "mdi-minus",
-    label: "Rozdzielacz",
-    component: "divider"
-  },
-  {
-    icon: "mdi-read",
-    label: "Pole odczytu",
-    component: "data-viewer"
-  },
-  {
-    icon: "mdi-card-outline",
-    label: "Przycisk",
-    component: "button"
-  },
-  {
-    icon: "mdi-list-box-outline",
-    label: "Lista klucz-wartość",
-    component: "key-value-list"
-  }
-])
+const staticContent = ref<ElementDrawerFromElement[]>([
+  {icon: "mdi-format-header-1", label: "static.h1", component: "static-content", tag: "h1"},
+  {icon: "mdi-format-header-2", label: "static.h2", component: "static-content", tag: "h2"},
+  {icon: "mdi-format-header-3", label: "static.h3", component: "static-content", tag: "h3"},
+  {icon: "mdi-format-paragraph", label: "static.paragraph", component: "static-content", tag: "p"},
+  {icon: "mdi-format-text", label: "static.text", component: "static-content", tag: "span"},
+  {icon: "mdi-alert-box-outline", label: "static.alert", component: "alert"},
+  {icon: "mdi-minus", label: "static.divider", component: "divider"},
+  {icon: "mdi-read", label: "static.dataViewer", component: "data-viewer"},
+  {icon: "mdi-card-outline", label: "static.button", component: "button"},
+  {icon: "mdi-list-box-outline", label: "static.keyValueList", component: "key-value-list"}
+]);
 
-const filteredStaticContent: ComputedRef<ElementDrawerFromElement[]> = computed(() => {
-  return staticContent.value.filter((item: ElementDrawerFromElement) => {
-    if (props.query) {
-      return item.label.toLowerCase().includes(props.query.toLowerCase())
-    } else {
-      return item
-    }
-  })
-})
+const filteredStaticContent = computed(() =>
+  staticContent.value.filter((item) =>
+    props.query ? t(item.label).toLowerCase().includes(props.query.toLowerCase()) : true
+  )
+);
 
+function generateKey(name: string): string {
+  const camelCase = name
+    .toLowerCase()
+    .split(/[\s-]+/)
+    .map((w, i) => (i === 0 ? w : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join("");
+  return `${camelCase}${Math.random().toString().substring(2, 5)}`;
+}
+
+function makeCols(value = 12) {
+  return Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, value]));
+}
 
 function cloneStatic(item: ElementDrawerFromElement) {
-  const id = generateKey(item.component)
+  const id = generateKey(item.component);
 
-  const base = {
-    layout: {
-      tag: item.tag,
-      component: item.component,
-      cols: {
-        xs: 12,
-        sm: 12,
-        md: 12,
-        lg: 12,
-        xl: 12,
-        xxl: 12
-      },
-      offset: {
-        xs: 0,
-        sm: 0,
-        md: 0,
-        lg: 0,
-        xl: 0,
-        xxl: 0
-      },
-      props: {},
-    },
-  }
+  const baseLayout = {
+    tag: item.tag,
+    component: item.component,
+    cols: makeCols(12),
+    offset: makeCols(0),
+    props: {}
+  };
 
   switch (item.component) {
-    case "alert": {
+    case "alert":
       return {
         key: id,
         memorable: false,
-        content: "Change it",
-        layout: base.layout
-      }
-    }
-    case "static-content": {
+        content: t("common.changeIt"),
+        layout: baseLayout
+      };
+
+    case "static-content":
       return {
         key: id,
-        content: "Change it",
-        layout: base.layout
-      }
-    }
-    case "data-viewer": {
+        content: t("common.changeIt"),
+        layout: baseLayout
+      };
+
+    case "data-viewer":
       return {
         key: id,
-        label: "Item-" + id,
-        layout: base.layout
-      }
-    }
-    case "button": {
+        label: `Item-${id}`,
+        layout: baseLayout
+      };
+
+    case "button":
       return {
         key: id,
-        label: "Click me",
+        label: t("common.clickMe"),
         layout: {
-          tag: item.tag,
-          component: item.component,
-          cols: {
-            xs: 12,
-            sm: 6,
-            md: 6,
-            lg: 4,
-            xl: 4,
-            xxl: 4
-          },
-          offset: {
-            xs: 0,
-            sm: 0,
-            md: 0,
-            lg: 0,
-            xl: 0,
-            xxl: 0
-          },
-          props: {},
-          fillRow: true,
+          ...baseLayout,
+          cols: makeCols(6),
+          fillRow: true
         },
         options: {
           buttonProps: style.buttonStyle
         },
         mode: "",
         config: {}
-      }
-    }
-    case "divider": {
-      return {
-        key: id,
-        layout: base.layout
-      }
-    }
-    case "key-value-list": {
+      };
+
+    case "divider":
+      return {key: id, layout: baseLayout};
+
+    case "key-value-list":
       return {
         key: id,
         label: "",
         config: [
-          {title: "Key", valueMapping: "Key"},
-          {title: "Value", valueMapping: "Value"}
+          {title: t("static.key"), valueMapping: "Key"},
+          {title: t("static.value"), valueMapping: "Value"}
         ],
-        layout: base.layout
-      }
-    }
+        layout: baseLayout
+      };
   }
 }
-
-function generateKey(name: string): string {
-  const camelCaseName = name
-    .toLowerCase()
-    .split(" ")
-    .map((word, index) =>
-      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
-    )
-    .join("")
-    .split("-")
-    .map((word, index) =>
-      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
-    )
-    .join("");
-  return camelCaseName + Math.random().toString().substring(2, 5);
-}
-
 </script>
 
 <style lang="scss" scoped>
@@ -250,3 +151,48 @@ function generateKey(name: string): string {
   display: none !important;
 }
 </style>
+
+<i18n lang="json">
+{
+  "pl": {
+    "static": {
+      "h1": "Nagłówek 1",
+      "h2": "Nagłówek 2",
+      "h3": "Nagłówek 3",
+      "paragraph": "Paragraf",
+      "text": "Zwykły tekst",
+      "alert": "Alert",
+      "divider": "Rozdzielacz",
+      "dataViewer": "Pole odczytu",
+      "button": "Przycisk",
+      "keyValueList": "Lista klucz-wartość",
+      "key": "Klucz",
+      "value": "Wartość"
+    },
+    "common": {
+      "changeIt": "Zmień to",
+      "clickMe": "Kliknij mnie"
+    }
+  },
+  "en": {
+    "static": {
+      "h1": "Header 1",
+      "h2": "Header 2",
+      "h3": "Header 3",
+      "paragraph": "Paragraph",
+      "text": "Plain text",
+      "alert": "Alert",
+      "divider": "Divider",
+      "dataViewer": "Read-only field",
+      "button": "Button",
+      "keyValueList": "Key-value list",
+      "key": "Key",
+      "value": "Value"
+    },
+    "common": {
+      "changeIt": "Change it",
+      "clickMe": "Click me"
+    }
+  }
+}
+</i18n>
