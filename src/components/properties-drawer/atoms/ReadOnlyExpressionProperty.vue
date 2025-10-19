@@ -103,13 +103,13 @@ function save() {
 {
   "en": {
     "advancedConfiguration": "Advanced configuration",
-    "readonlyExpression": "Readonly expression",
+    "readonlyExpression": "Readonly field (expression)",
     "readonlyExpressionInfo": "You can define a JSONATA expression for the readonly property that controls whether this field is editable. Open the advanced editor for more complex expressions.",
     "save": "Save"
   },
   "pl": {
     "advancedConfiguration": "Konfiguracja zaawansowana",
-    "readonlyExpression": "Wyrażenie readonly",
+    "readonlyExpression": "Pole tylko do odczytu (wyrażenie)",
     "readonlyExpressionInfo": "Możesz zdefiniować wyrażenie JSONATA dla właściwości readonly, które kontroluje, czy to pole jest edytowalne. Otwórz zaawansowany edytor dla bardziej złożonych wyrażeń.",
     "save": "Zapisz"
   }

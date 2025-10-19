@@ -44,7 +44,6 @@
       v-model="model"
       :active="panels.includes('logic')"
       :show-read-only-control="false"
-      :show-read-only-expression-control="false"
     />
 
 

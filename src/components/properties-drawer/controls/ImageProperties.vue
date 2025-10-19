@@ -5,57 +5,31 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
-      :active="panels.includes('general')"
-      title="General"
-      value="general"
-    >
-      <key-property v-model="model.key"/>
-    </expansion-panel>
-    <expansion-panel
-      :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
-    <expansion-panel
-      :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-    </expansion-panel>
-    <expansion-panel
-      :active="panels.includes('fieldProps')"
-      title="Properties"
-      value="fieldProps"
-    >
-      <text-property-wrapper
-        v-model="model.src"
-        label="Scieżka"
-      />
 
-      <text-property-wrapper
-        v-model="model.layout.props['aspect-ratio']"
-        label="Aspect ratio"
-      />
-      <text-property-wrapper
-        v-model="model.layout.props['width']"
-        label="Width"
-      />
-      <text-property-wrapper
-        v-model="model.layout.props['height']"
-        label="Height"
-      />
-      <boolean-switch-property-wrapper
-        v-model="model.layout.props['cover']"
-        label="Cover"
-      />
-    </expansion-panel>
+    <general-panel
+      v-model="model"
+      :active="panels.includes('general')"
+    >
+    </general-panel>
+
+
+    <layout-panel
+      v-model="model"
+      :active="panels.includes('layout')"
+    />
+
+    <logic-panel
+      v-model="model"
+      :active="panels.includes('logic')"
+      :show-read-only-control="false"
+    />
+
+    <image-properties-panel
+      v-model="model"
+      :active="panels.includes('fieldProps')"
+    />
+
+
   </v-expansion-panels>
 
 
@@ -65,14 +39,10 @@
 
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import ImagePropertiesPanel from "@/components/properties-drawer/panels/ImagePropertiesPanel.vue";
 
 const panels = ref<string[]>(["general", "fieldProps"])
 const useBuilderStateStore = useBuilderState()

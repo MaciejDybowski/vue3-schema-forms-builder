@@ -1,0 +1,198 @@
+<template>
+  <expansion-panel
+    :active="active"
+    :title="t('fieldProps.title')"
+    value="fieldProps"
+  >
+    <duplicated-section-button-property v-model="model.layout.options"/>
+
+    <select-general
+      v-model="model.layout.options.addBtnMode"
+      :items="[
+        { value: 'add', title: t('addClearNode') },
+        { value: 'copy', title: t('copyNode') },
+        { value: 'action', title: t('actionCall') }
+      ]"
+      :label="t('addBtnMode')"
+      :return-object="false"
+      clearable
+    >
+      <template #append-inner>
+        <v-tooltip location="left" width="280">
+          <template #activator="{ props }">
+            <v-icon v-bind="props">mdi-information-outline</v-icon>
+          </template>
+          <span>{{ t('addBtnModeInfo') }}</span>
+        </v-tooltip>
+      </template>
+    </select-general>
+
+    <!-- Action code -->
+    <text-property-wrapper
+      v-if="model.layout.options.addBtnMode === 'action'"
+      v-model="actionCode"
+      :label="t('actionCodeLabel')"
+      @update:model-value="updateActionCode"
+    >
+      <template #append-inner>
+        <v-tooltip location="left" width="280">
+          <template #activator="{ props }">
+            <v-icon v-bind="props">mdi-information-outline</v-icon>
+          </template>
+          <span>{{ t('actionCodeInfo') }}</span>
+        </v-tooltip>
+      </template>
+    </text-property-wrapper>
+
+    <!-- Divider toggle -->
+    <boolean-checkbox-property-wrapper
+      v-model="model.layout.options.showDivider"
+      :label="t('duplicatedSectionShowDivider')"
+    />
+
+    <!-- Editable -->
+    <boolean-checkbox-property-wrapper
+      v-model="model.editable"
+      :label="t('editable')"
+    />
+
+    <!-- Show elements -->
+    <boolean-checkbox-property-wrapper
+      v-model="model.showElements"
+      :label="t('showElements')"
+    >
+      <template #append>
+        <v-tooltip location="left" width="280">
+          <template #activator="{ props }">
+            <v-icon v-bind="props">mdi-information-outline</v-icon>
+          </template>
+          <span>{{ t('showElementsInfo') }}</span>
+        </v-tooltip>
+      </template>
+    </boolean-checkbox-property-wrapper>
+
+    <!-- Ordinal number -->
+    <boolean-checkbox-property-wrapper
+      v-model="model.layout.options.ordinalNumberInModel"
+      :label="t('ordinalNumberInModel')"
+    >
+      <template #append>
+        <v-tooltip location="left" width="280">
+          <template #activator="{ props }">
+            <v-icon v-bind="props">mdi-information-outline</v-icon>
+          </template>
+          <span>{{ t('ordinalNumberInModelInfo') }}</span>
+        </v-tooltip>
+      </template>
+    </boolean-checkbox-property-wrapper>
+
+    <!-- Show first row -->
+    <boolean-checkbox-property-wrapper
+      v-model="model.layout.options.showFirstInitRow"
+      :label="t('showFirstInitRow')"
+    >
+      <template #append>
+        <v-tooltip location="left" width="280">
+          <template #activator="{ props }">
+            <v-icon v-bind="props">mdi-information-outline</v-icon>
+          </template>
+          <span>{{ t('showFirstInitRowInfo') }}</span>
+        </v-tooltip>
+      </template>
+    </boolean-checkbox-property-wrapper>
+  </expansion-panel>
+</template>
+
+
+<script lang="ts" setup>
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import DuplicatedSectionButtonProperty from "@/components/properties-drawer/atoms/DuplicatedSectionButtonProperty.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import {onMounted, ref} from "vue";
+import {useI18n} from "vue-i18n";
+
+const {t} = useI18n();
+const model = defineModel<any>();
+const {active} = defineProps<{
+  active: boolean;
+}>();
+
+const actionCode = ref<string | null>(null);
+
+function updateActionCode(val: string) {
+  if (!model.value.layout.options.action) {
+    model.value.layout.options.action = {};
+  }
+  model.value.layout.options.action.code = val;
+}
+
+onMounted(() => {
+  if (model.value.layout.options.addBtnMode === "action") {
+    actionCode.value = model.value.layout.options.action?.code ?? "";
+  }
+});
+</script>
+
+<style lang="scss" scoped>
+.append-inner-column {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.v-icon.clickable {
+  cursor: pointer;
+}
+</style>
+
+<i18n lang="json">
+{
+  "en": {
+    "fieldProps": {
+      "title": "Field properties"
+    },
+    "editable": "Allow section editing (readonly)",
+    "showElements": "Show contextual elements",
+    "showElementsInfo": "When enabled, elements such as the button, row actions, or item sorting will be visible.",
+    "ordinalNumberInModel": "Add ordinal number",
+    "ordinalNumberInModelInfo": "If enabled, each duplicated section will include its ordinal number in the model. Variable: ordinalNumber",
+    "addBtnMode": "Button mode",
+    "addBtnModeInfo": "Select what happens when the button is clicked: add a new item, copy previous, or trigger an action.",
+    "addClearNode": "Add clear",
+    "copyNode": "Copy above",
+    "actionCall": "Call action",
+    "actionCodeLabel": "Action code",
+    "actionCodeInfo": "Provide the JavaScript code or function name to execute when the action button is pressed.",
+    "showFirstInitRow": "Show empty first line",
+    "showFirstInitRowInfo": "When enabled, the form initializes with one empty section.",
+    "duplicatedSectionShowDivider": "Show divider between sections",
+    "hide": "Hide",
+    "visible": "Visible"
+  },
+  "pl": {
+    "fieldProps": {
+      "title": "Właściwości pola"
+    },
+    "editable": "Dozwolona edycja sekcji (readonly)",
+    "showElements": "Pokazuj elementy kontekstowe",
+    "showElementsInfo": "Gdy włączone, elementy takie jak przycisk, akcje wiersza, czy możliwość sortowania elementów będą widoczne.",
+    "ordinalNumberInModel": "Dodaj numer porządkowy (Lp.)",
+    "ordinalNumberInModelInfo": "Jeśli włączone, każda powielona sekcja będzie zawierać swój numer porządkowy w modelu. Zmienna: ordinalNumber",
+    "addBtnMode": "Tryb przycisku",
+    "addBtnModeInfo": "Określ działanie przycisku: dodanie nowego elementu, kopiowanie poprzedniego lub wywołanie akcji.",
+    "addClearNode": "Dodawanie",
+    "copyNode": "Kopiowanie powyższego",
+    "actionCall": "Wywołaj akcję",
+    "actionCodeLabel": "Kod akcji",
+    "actionCodeInfo": "Podaj kod JavaScript lub nazwę funkcji, która ma zostać uruchomiona po kliknięciu przycisku akcji.",
+    "showFirstInitRow": "Pokazuj pusty pierwszy wiersz",
+    "showFirstInitRowInfo": "Gdy włączone, formularz inicjalizuje się z jedną pustą sekcją.",
+    "duplicatedSectionShowDivider": "Pokazuj rozdzielacz między sekcjami",
+    "hide": "Ukryte",
+    "visible": "Widoczne"
+  }
+}
+</i18n>

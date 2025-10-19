@@ -177,7 +177,8 @@ function cloneControls(item: ElementDrawerFromElement) {
           component: item.component,
           cols: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 12])),
           offset: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 0])),
-          schema: {type: "object", properties: {}}
+          schema: {type: "object", properties: {}},
+          props: {}
         }
       };
 

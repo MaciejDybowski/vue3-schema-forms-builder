@@ -7,15 +7,22 @@
     <if-property
       v-if="showIfControl"
       v-model="model.layout.if"/>
-    <visible-property
+    <hide-property
       v-if="showHideControl"
       v-model="model.layout.hide"/>
+
+    <hide-property-expression
+      v-if="showHideControl"
+      :model-value="model.layout.hide"
+      @update:model-value="updateExpressionHide"
+    />
+
     <read-only-property
       v-if="showReadOnlyControl"
       v-model="model.layout.props.readonly"
     />
     <read-only-expression-property
-      v-if="showReadOnlyExpressionControl"
+      v-if="showReadOnlyControl"
       :model-value="model.layout.props.readonly"
       @update:model-value="updateExpressionReadonly"
     />
@@ -27,23 +34,24 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {useI18n} from "vue-i18n";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import VisibleProperty from "@/components/properties-drawer/atoms/VisibleProperty.vue";
 import ReadOnlyExpressionProperty from "@/components/properties-drawer/atoms/ReadOnlyExpressionProperty.vue";
+import HideProperty from "@/components/properties-drawer/atoms/HideProperty.vue";
+import HidePropertyExpression from "@/components/properties-drawer/atoms/HidePropertyExpression.vue";
 
 const {t} = useI18n();
-const {
-  active = false,
-  showIfControl = true,
-  showHideControl = true,
-  showReadOnlyControl = true,
-  showReadOnlyExpressionControl = true
-} = defineProps<{
-  active: boolean,
-  showIfControl: boolean,
-  showHideControl: boolean,
-  showReadOnlyControl: boolean,
-  showReadOnlyExpressionControl: boolean
-}>()
+const props = withDefaults(defineProps<{
+  active?: boolean
+  showIfControl?: boolean
+  showHideControl?: boolean
+  showReadOnlyControl?: boolean
+}>(), {
+  active: false,
+  showIfControl: true,
+  showHideControl: true,
+  showReadOnlyControl: true,
+})
+
+const {active, showIfControl, showHideControl, showReadOnlyControl} = props
 
 const model = defineModel<any>()
 
@@ -52,6 +60,14 @@ function updateExpressionReadonly(val: string) {
     model.value.layout.props['readonly'] = false
   } else {
     model.value.layout.props['readonly'] = val
+  }
+}
+
+function updateExpressionHide(val: string) {
+  if (!val) {
+    model.value.layout.props['hide'] = false
+  } else {
+    model.value.layout.props['hide'] = val
   }
 }
 </script>
