@@ -8,9 +8,11 @@
       :rows="rows"
       class="pt-2"
       v-bind="{...style.inputStyle.value, ...props, ...attrs}"
-
-
-    />
+    >
+      <template #append-inner>
+        <slot name="append-inner"/>
+      </template>
+    </v-textarea>
   </component>
 </template>
 

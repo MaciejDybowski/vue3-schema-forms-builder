@@ -29,29 +29,17 @@
     </general-panel>
 
 
-    <expansion-panel
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
+    />
 
-    <expansion-panel
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-      <read-only-property v-model="model.layout.props.readonly"/>
-      <boolean-switch-property-wrapper
-        v-model="model.layout.hide"
-        :label="model.layout.hide ? t('hide') : t('visible')"
-      />
-    </expansion-panel>
+    />
+
+
     <expansion-panel
       :active="panels.includes('expressions')"
       title="Expressions"
@@ -102,11 +90,6 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import {useI18n} from "vue-i18n";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
@@ -115,13 +98,14 @@ import HintProperty from "@/components/properties-drawer/atoms/HintProperty.vue"
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import PrefixProperty from "@/components/properties-drawer/atoms/PrefixProperty.vue";
 import SuffixProperty from "@/components/properties-drawer/atoms/SuffixProperty.vue";
 import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
 import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

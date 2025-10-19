@@ -21,10 +21,10 @@ const {t} = useI18n()
 <i18n lang="json">
 {
   "en": {
-    "readOnlyProperty": "Read only"
+    "readOnlyProperty": "Read-only property"
   },
   "pl": {
-    "readOnlyProperty": "Pole do odczytu"
+    "readOnlyProperty": "Pole tylko do odczytu"
   }
 }
 </i18n>

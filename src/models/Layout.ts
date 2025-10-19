@@ -5,7 +5,7 @@ export interface Layout {
   component: FromElementComponent
   schema: FormSchema
   cols: object
+  offset: object
   fillRow: boolean
-  offset: number
   props: any
 }
