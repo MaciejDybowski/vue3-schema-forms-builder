@@ -4,10 +4,18 @@
     :title="t('logic.title')"
     value="logic"
   >
-    <if-property v-model="model.layout.if"/>
-    <visible-property v-model="model.layout.hide"/>
-    <read-only-property v-model="model.layout.props.readonly"/>
+    <if-property
+      v-if="showIfControl"
+      v-model="model.layout.if"/>
+    <visible-property
+      v-if="showHideControl"
+      v-model="model.layout.hide"/>
+    <read-only-property
+      v-if="showReadOnlyControl"
+      v-model="model.layout.props.readonly"
+    />
     <read-only-expression-property
+      v-if="showReadOnlyExpressionControl"
       :model-value="model.layout.props.readonly"
       @update:model-value="updateExpressionReadonly"
     />
@@ -23,9 +31,20 @@ import VisibleProperty from "@/components/properties-drawer/atoms/VisiblePropert
 import ReadOnlyExpressionProperty from "@/components/properties-drawer/atoms/ReadOnlyExpressionProperty.vue";
 
 const {t} = useI18n();
-const {active} = defineProps<{
-  active: boolean;
+const {
+  active = false,
+  showIfControl = true,
+  showHideControl = true,
+  showReadOnlyControl = true,
+  showReadOnlyExpressionControl = true
+} = defineProps<{
+  active: boolean,
+  showIfControl: boolean,
+  showHideControl: boolean,
+  showReadOnlyControl: boolean,
+  showReadOnlyExpressionControl: boolean
 }>()
+
 const model = defineModel<any>()
 
 function updateExpressionReadonly(val: string) {

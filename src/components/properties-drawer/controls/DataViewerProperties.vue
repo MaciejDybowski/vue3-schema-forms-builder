@@ -5,57 +5,48 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
+
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
+        <select-general
+          v-model="model.type"
+          :items="items"
+          :label="t('typeProperty')"
+          :return-object="false"
+          clearable
+        />
+
+        <text-property-wrapper
+          v-model="model.valueMapping"
+          :label="t('typeOptions.valueMapping')"
+        />
 
 
-      <select-general
-        v-model="model.type"
-        :items="items"
-        :label="t('typeProperty')"
-        :return-object="false"
-        clearable
-      />
-
-      <text-property-wrapper
-        v-model="model.valueMapping"
-        :label="t('valueMapping')"
-      />
+        <source-property
+          v-if="model.type=='dictionary'"
+          v-model="source"
+        />
+      </template>
+    </general-panel>
 
 
-      <source-property
-        v-if="model.type=='dictionary'"
-        v-model="source"
-      />
-    </expansion-panel>
-    <expansion-panel
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
+    />
 
-    <expansion-panel
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic">
-      <read-only-property v-model="model.layout.props.readonly"/>
+      :show-read-only-control="false"
+      :show-read-only-expression-control="false"
+    />
 
-      <if-property v-model="model.layout.if"/>
-      <boolean-switch-property-wrapper
-        v-model="model.layout.hide"
-        :label="model.layout.hide ? t('hide') : t('visible')"
-      />
-    </expansion-panel>
 
     <expansion-panel
       :active="panels.includes('expressions')"
@@ -73,20 +64,17 @@
 
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import {useI18n} from "vue-i18n";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general"])
@@ -131,8 +119,6 @@ const items = ref([
 <i18n lang="json">
 {
   "en": {
-    "hide": "Hide",
-    "visible": "Visible",
     "typeProperty": "Type of data",
     "typeOptions": {
       "text": "Text",
@@ -145,8 +131,6 @@ const items = ref([
     }
   },
   "pl": {
-    "hide": "Ukryte",
-    "visible": "Widoczne",
     "typeProperty": "Typ danych",
     "typeOptions": {
       "text": "Tekst",

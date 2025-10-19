@@ -112,12 +112,12 @@ function cloneStatic(item: ElementDrawerFromElement) {
         options: {
           buttonProps: style.buttonStyle
         },
-        mode: "",
+        mode: "action",
         config: {}
       };
 
     case "divider":
-      return {key: id, layout: baseLayout};
+      return {key: id, thickness: 5, layout: baseLayout};
 
     case "key-value-list":
       return {

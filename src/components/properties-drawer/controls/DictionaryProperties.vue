@@ -4,50 +4,46 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-      <default-value-property/>
-      <select-general
-        v-model="model.layout.component"
-        :clearable="false"
-        :items="[
-       {value: 'dictionary', title: 'Autocomplete'},
-       {value:'combobox', title: 'Combobox'},
-       ]"
-        :return-object="false"
-        label="Component"
-      />
-    </expansion-panel>
-    <expansion-panel
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
+
+        <select-general
+          v-model="model.layout.component"
+          :clearable="false"
+          :items="[
+          {
+            value: 'dictionary',
+            title: t('componentOptions.autocompleteTitle'),
+            subtitle: t('componentOptions.autocompleteSubtitle')
+          },
+          {
+            value: 'combobox',
+            title: t('componentOptions.comboboxTitle'),
+            subtitle: t('componentOptions.comboboxSubtitle')
+          }
+        ]"
+          :label="t('componentOptions.label')"
+          :return-object="false"
+        />
+      </template>
+    </general-panel>
+
+
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
+    />
 
-    <expansion-panel
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <read-only-property v-model="model.layout.props.readonly"/>
-      <text-property-wrapper
-        :label="t('readonlyIfExpression')"
-        :model-value="model.layout.props.readonly"
-        @update:model-value="updateExpressionReadonly"
-      />
+    />
 
-      <if-property v-model="model.layout.if"/>
-    </expansion-panel>
 
     <expansion-panel
       :active="panels.includes('source')"
@@ -70,14 +66,8 @@
 
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
@@ -85,8 +75,10 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
 import {useI18n} from "vue-i18n";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general", "logic", "source"])
@@ -113,13 +105,6 @@ const source = computed({
   }
 })
 
-function updateExpressionReadonly(val: string) {
-  if (!val) {
-    model.value.layout.props['readonly'] = false
-  } else {
-    model.value.layout.props['readonly'] = val
-  }
-}
 
 </script>
 
@@ -129,7 +114,23 @@ function updateExpressionReadonly(val: string) {
 
 <i18n lang="json">
 {
-  "en": {},
-  "pl": {}
+  "en": {
+    "componentOptions": {
+      "label": "Component type",
+      "autocompleteTitle": "Autocomplete",
+      "autocompleteSubtitle": "Allows selecting only values returned from the service.",
+      "comboboxTitle": "Combobox",
+      "comboboxSubtitle": "Allows the user to enter a value outside of the predefined set."
+    }
+  },
+  "pl": {
+    "componentOptions": {
+      "label": "Typ komponentu",
+      "autocompleteTitle": "Autocomplete",
+      "autocompleteSubtitle": "Pozwala na wybór wartości tylko ze zwracanych danych z usługi.",
+      "comboboxTitle": "Combobox",
+      "comboboxSubtitle": "Pozwala na wpisanie wartości spoza dostępnego zbioru przez użytkownika."
+    }
+  }
 }
 </i18n>
