@@ -8,7 +8,9 @@
     scrim="transparent"
     width="350"
   >
-    <v-list v-if="useBuilderStateStore.getConfiguredField !== null">
+    <v-list v-if="useBuilderStateStore.getConfiguredField !== null"
+            class="py-0"
+    >
       <ref-properties v-if="model.ref"/>
       <template v-else-if="model.layout">
         <component :is='controlsProperties[component]'/>

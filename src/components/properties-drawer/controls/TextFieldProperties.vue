@@ -13,9 +13,9 @@
         v-model="model.layout.component"
         :clearable="false"
         :items="[
-          {value: 'text-field', title: 'Text-field'},
+          {value: 'text-field', title: 'Textfield'},
           {value: 'text-area', title: 'Textarea'},
-          {value: 'text-switch-field', title:'Text-Paragraph'}
+          {value: 'text-switch-field', title:'Text ➞ input field'}
        ]"
         :return-object="false"
         label="Component"

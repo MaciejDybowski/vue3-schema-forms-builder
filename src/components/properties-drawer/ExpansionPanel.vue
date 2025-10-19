@@ -1,25 +1,27 @@
 <template>
   <v-expansion-panel
-    class="tcn-expansion-panel"
     :value="value"
+    class="tcn-expansion-panel"
   >
-    <v-divider v-if="active"/>
+    <div v-show="active" class="panel-divider"/>
     <v-expansion-panel-title
       collapse-icon="mdi-minus"
-      expand-icon="mdi-plus">
+      expand-icon="mdi-plus"
+    >
       {{ title }}
     </v-expansion-panel-title>
-    <v-divider v-if="active"/>
+
+    <v-divider v-show="active"/>
+
     <v-expansion-panel-text class="mb-2">
-      <slot name="default">
-      </slot>
+      <slot/>
     </v-expansion-panel-text>
-    <v-divider v-if="active"/>
+
+    <v-divider v-show="active"/>
   </v-expansion-panel>
 </template>
 
 <script lang="ts" setup>
-
 const props = defineProps<{
   title: string,
   value: string,
@@ -32,11 +34,12 @@ const props = defineProps<{
   padding: 0 0;
 }
 
-:deep(.tcn-expansion-panel hr){
+:deep(.tcn-expansion-panel hr) {
   display: none;
 }
 
-.v-expansion-panel--active:not(:first-child), .v-expansion-panel--active + .v-expansion-panel {
+.v-expansion-panel--active:not(:first-child),
+.v-expansion-panel--active + .v-expansion-panel {
   margin-top: 0;
 }
 
@@ -46,5 +49,16 @@ const props = defineProps<{
 
 .v-expansion-panel {
   border-radius: 0;
+  position: relative;
+}
+
+.panel-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(var(--v-theme-on-surface), 0.12);
+  pointer-events: none;
 }
 </style>
