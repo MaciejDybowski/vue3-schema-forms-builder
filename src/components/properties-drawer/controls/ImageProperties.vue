@@ -28,11 +28,7 @@
       v-model="model"
       :active="panels.includes('fieldProps')"
     />
-
-
   </v-expansion-panels>
-
-
 </template>
 
 <script lang="ts" setup>

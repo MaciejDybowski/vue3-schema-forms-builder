@@ -5,7 +5,6 @@
     multiple
   >
 
-    <!-- Panel konwersji -->
     <conversion-panel :active="panels.includes('conversion')">
       <select-general
         v-model="model.layout.component"

@@ -1,6 +1,7 @@
 <template>
   <v-list-item v-bind="attrs">
     <v-checkbox
+      class="mr-3"
       v-model="modelValue"
       :label="label"
       v-bind="style.inputStyle.value"

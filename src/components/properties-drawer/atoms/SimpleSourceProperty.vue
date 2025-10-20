@@ -1,22 +1,25 @@
 <template>
+  <!-- Przełącznik zwracania obiektu -->
   <boolean-switch-property-wrapper
     v-model="modelValue.returnObject"
     :label="t('simpleSource.returnObject')"
   />
 
-
+  <!-- Lista opcji -->
   <draggable
     v-model="computedItems"
+    :animation="250"
+    :group="'controls'"
     :sort="true"
     class="d-flex flex-wrap v-row pl-3"
+    ghost-class="ghost"
     handle=".draggable-icon"
-    item-key=""
-    v-bind="dragOptions">
-    <template #item="{element}">
+    item-key="value"
+  >
+    <template #item="{ element }">
       <div>
-
         <v-row class="pa-0 ma-0 align-center" dense>
-
+          <!-- Wartość -->
           <v-col class="pa-0 ma-0" cols="4">
             <text-property-wrapper
               :grow-enabled="false"
@@ -26,6 +29,8 @@
               @update:model-value="(val) => parseValue(element, val)"
             />
           </v-col>
+
+          <!-- Etykieta -->
           <v-col class="pa-0 ma-0" cols="5">
             <text-property-wrapper
               v-if="typeof element.title === 'string'"
@@ -43,7 +48,9 @@
               class="pl-1 pr-1"
             />
           </v-col>
-          <v-col class="pa-0 ma-0" cols="3">
+
+          <!-- Akcje -->
+          <v-col class="pa-0 ma-0 d-flex justify-end" cols="3">
             <v-btn
               density="compact"
               flat
@@ -58,15 +65,13 @@
               size="small"
               @click="deleteOption(element)"
             />
-            <v-icon
-              class="draggable-icon cursor-grab"
-              size="small"
-            >
+            <v-icon class="draggable-icon cursor-grab" size="small">
               mdi-drag-vertical
             </v-icon>
           </v-col>
         </v-row>
 
+        <!-- Warunek disabled (checkboxy) -->
         <v-row
           v-if="field.layout.component === 'checkbox'"
           class="pa-0 ma-0"
@@ -74,16 +79,18 @@
         >
           <v-col class="pa-0 ma-0" cols="12">
             <v-card-subtitle
-              v-if="element.disabledCondition == null || element.disabledCondition == undefined"
+              v-if="!element.disabledCondition"
               class="link cursor-pointer"
               @click="element.disabledCondition = 'changeMe'"
-            >Click and define a disabled condition
+            >
+              {{ t('simpleSource.addDisabledCondition') }}
             </v-card-subtitle>
+
             <text-property-wrapper
               v-else
               v-model="element.disabledCondition"
+              :label="t('simpleSource.disabledCondition')"
               class="mt-1 mr-4"
-              label="Disabled condition"
             />
           </v-col>
         </v-row>
@@ -91,7 +98,7 @@
     </template>
   </draggable>
 
-
+  <!-- Przycisk dodawania -->
   <v-list-item>
     <v-btn
       class="mt-4"
@@ -104,7 +111,7 @@
     </v-btn>
   </v-list-item>
 
-
+  <!-- Dialog konfiguracji opcji -->
   <tcn-au-dialog
     v-if="configOptionDialog"
     v-model="configOptionDialog"
@@ -117,10 +124,9 @@
     @closeButton="closeConfigItemDialog"
   >
     <template #title>
-      <v-card-title>
-        {{ t('simpleSource.title') }}
-      </v-card-title>
+      <v-card-title>{{ t('simpleSource.title') }}</v-card-title>
     </template>
+
     <v-card-text class="px-0">
       <text-property-wrapper
         :label="t('simpleSource.value')"
@@ -132,12 +138,28 @@
         :label="t('simpleSource.label')"
         :prefix="currentConfiguredOption.isReference ? prefix : ''"
       />
-      <boolean-switch-property-wrapper
+      <boolean-checkbox-property-wrapper
         v-model="currentConfiguredOption.isReference"
-        color="green"
-        label="Use Reference"
+        :label="t('simpleSource.useReference')"
         @change="referenceChangedItemTitle"
-      />
+      >
+        <template #append>
+          <v-tooltip
+            location="left"
+            width="300"
+          >
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props">
+                mdi-information-outline
+              </v-icon>
+            </template>
+            <span>{{ t('simpleSource.useReferenceInfo') }}</span>
+          </v-tooltip>
+        </template>
+      </boolean-checkbox-property-wrapper>
+
+      <!-- Warunek disabled -->
       <v-row
         v-if="field.layout.component === 'checkbox'"
         class="pa-0 ma-0"
@@ -145,16 +167,18 @@
       >
         <v-col class="pa-0 ma-0" cols="12">
           <v-card-subtitle
-            v-if="currentConfiguredOption.disabledCondition == null || currentConfiguredOption.disabledCondition == undefined"
+            v-if="!currentConfiguredOption.disabledCondition"
             class="link cursor-pointer"
             @click="currentConfiguredOption.disabledCondition = 'changeMe'"
-          >Click and define a disabled condition
+          >
+            {{ t('simpleSource.addDisabledCondition') }}
           </v-card-subtitle>
+
           <text-property-wrapper
             v-else
             v-model="currentConfiguredOption.disabledCondition"
+            :label="t('simpleSource.disabledCondition')"
             class="mt-1"
-            label="Disabled condition"
           />
         </v-col>
       </v-row>
@@ -162,150 +186,136 @@
   </tcn-au-dialog>
 </template>
 
-
 <script lang="ts" setup>
+import {computed, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
-import {computed, ref} from "vue";
-
-import {useTranslateInput} from "@/composables/useTranslateInput";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
+import {useTranslateInput} from "@/composables/useTranslateInput";
 import Draggable from "@/vuedraggable/vuedraggable";
 
-const style = useStyle()
-const {t} = useI18n()
-const updateWhenSaveModel = ref(null)
-const computedItems = computed({
-  get() {
-    return modelValue.value.items
-  },
-  set(val) {
-    modelValue.value.items = val
-  }
-})
-const dragOptions = {
-  animation: 250,
-  group: "controls",
-  ghostClass: "ghost"
-};
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
+const {t} = useI18n();
+const style = useStyle();
+const {prefix, toCamelCase} = useTranslateInput();
 
-const useBuilderStateStore = useBuilderState()
+const useBuilderStateStore = useBuilderState();
 const field = computed({
-  get() {
-    return useBuilderStateStore.getConfiguredField
-  },
-  set(val) {
-    useBuilderStateStore.setConfiguredField(val)
-  }
-})
-
+  get: () => useBuilderStateStore.getConfiguredField,
+  set: (val) => useBuilderStateStore.setConfiguredField(val),
+});
 
 const modelValue = defineModel<{
-  items: Array<any>,
-  returnObject: boolean
+  items: Array<any>;
+  returnObject: boolean;
 }>({
-    default: () => {
-      return {
-        items: [],
-        returnObject: false,
-      }
-    }
-  }
-)
+  default: () => ({
+    items: [],
+    returnObject: false,
+  }),
+});
 
+const computedItems = computed({
+  get: () => modelValue.value.items,
+  set: (val) => (modelValue.value.items = val),
+});
+
+// Funkcje
 function addOption() {
-  modelValue.value.items.push({
-    value: "changeMe",
-    title: "changeMe"
-  })
+  modelValue.value.items.push({value: "changeMe", title: "changeMe"});
 }
 
 function parseValue(item, val: any) {
-  if (val === "true" || val === "false") {
-    item.value = val === "true"
-  } else {
-    item.value = val
-  }
+  if (val === "true" || val === "false") item.value = val === "true";
+  else item.value = val;
 }
 
 function deleteOption(obj: any) {
-  computedItems.value = computedItems.value.filter((item) => item.value !== obj.value)
+  computedItems.value = computedItems.value.filter(
+    (item) => item.value !== obj.value
+  );
 }
 
-
-const {
-  prefix,
-  toCamelCase
-} = useTranslateInput()
-const currentConfiguredOption = ref<any>(null)
-const configOptionDialog = ref(false)
-
+// Dialog konfiguracji
+const currentConfiguredOption = ref<any>(null);
+const configOptionDialog = ref(false);
+const updateWhenSaveModel = ref<any>(null);
 
 function configOption(option: any) {
-  updateWhenSaveModel.value = option
-  currentConfiguredOption.value = {...option}
-  currentConfiguredOption.value.isReference = typeof currentConfiguredOption.value.title != "string"
-  configOptionDialog.value = true
+  updateWhenSaveModel.value = option;
+  currentConfiguredOption.value = {...option};
+  currentConfiguredOption.value.isReference =
+    typeof currentConfiguredOption.value.title !== "string";
+  configOptionDialog.value = true;
 }
 
 function closeConfigItemDialog() {
-  updateWhenSaveModel.value = null
-  configOptionDialog.value = false
-  delete currentConfiguredOption.value.isReference
-  currentConfiguredOption.value = null
+  updateWhenSaveModel.value = null;
+  configOptionDialog.value = false;
+  currentConfiguredOption.value = null;
 }
 
 function saveConfigAndClose() {
-  if (updateWhenSaveModel.value != null) {
-    Object.assign(updateWhenSaveModel.value, currentConfiguredOption.value)
-  }
-  closeConfigItemDialog()
+  if (updateWhenSaveModel.value)
+    Object.assign(updateWhenSaveModel.value, currentConfiguredOption.value);
+  closeConfigItemDialog();
 }
 
+// Zmiana tytułu dynamicznego
 const dynamicItemTitle = computed({
-  get: () => {
-    if (typeof currentConfiguredOption.value.title === 'string') {
-      return currentConfiguredOption.value.title;
-    } else {
-      return currentConfiguredOption.value.title.$ref.replace(prefix, '');
-    }
-  },
+  get: () =>
+    typeof currentConfiguredOption.value?.title === "string"
+      ? currentConfiguredOption.value.title
+      : currentConfiguredOption.value?.title?.$ref?.replace(prefix, "") ?? "",
   set: (value: string) => {
-    if (value == null) {
-      currentConfiguredOption.value.title = "";
-    }
-    currentConfiguredOption.value.title = currentConfiguredOption.value.isReference ? {$ref: prefix + value.trim()} : value;
-  }
+    currentConfiguredOption.value.title = currentConfiguredOption.value
+      .isReference
+      ? {$ref: prefix + value.trim()}
+      : value;
+  },
 });
 
 function referenceChangedItemTitle() {
+  if (!currentConfiguredOption.value) return;
   if (currentConfiguredOption.value.isReference) {
-    currentConfiguredOption.value.title = {$ref: prefix + toCamelCase(currentConfiguredOption.value.title)}
+    currentConfiguredOption.value.title = {
+      $ref: prefix + toCamelCase(currentConfiguredOption.value.title),
+    };
   } else {
-    currentConfiguredOption.value.title = currentConfiguredOption.value.title.$ref.replace(prefix, '')
+    currentConfiguredOption.value.title =
+      currentConfiguredOption.value.title?.$ref?.replace(prefix, "") || "";
   }
 }
-
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+.link {
+  color: var(--v-theme-primary);
+  font-size: 0.9rem;
+}
 
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>
-
 
 <i18n lang="json">
 {
   "en": {
     "save": "Save",
     "simpleSource": {
-      "title": "Options config",
+      "title": "Option configuration",
       "value": "Value",
-      "label": "Title",
+      "label": "Label",
       "addButton": "Add option",
-      "returnObject": "Save object"
+      "returnObject": "Return object",
+      "useReference": "Use reference",
+      "disabledCondition": "Disabled condition",
+      "addDisabledCondition": "Click to define a disabled condition",
+      "useReferenceInfo": "This option allows you to use the reference mechanism for translating form fields. These translations should be properly prepared on the service side that handles the given form."
     }
   },
   "pl": {
@@ -315,9 +325,12 @@ function referenceChangedItemTitle() {
       "value": "Wartość",
       "label": "Etykieta",
       "addButton": "Dodaj opcję",
-      "returnObject": "Zapisz obiekt"
+      "returnObject": "Zwracaj obiekt",
+      "useReference": "Użyj referencji",
+      "disabledCondition": "Warunek wyłączenia",
+      "addDisabledCondition": "Kliknij, aby zdefiniować warunek wyłączenia",
+      "useReferenceInfo": "Opcja ta umożliwia na użycie mechanizmu referencji to tłumaczeń pól formularza. Tłumaczenia te powinny zostać przygotowane w odpowiedni sposób po stronie usługi, która obsługuje dany formularz."
     }
   }
 }
 </i18n>
-

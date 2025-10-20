@@ -66,15 +66,15 @@
       />
     </expansion-panel>
 
-
     <validations-panel
       v-model="model"
       :active="panels.includes('validations')"
       :show-counter="true"
     />
 
-
-    <event-configuration :active="panels.includes('events')"/>
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
   </v-expansion-panels>
 
 
@@ -86,7 +86,6 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import {useI18n} from "vue-i18n";
-import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
@@ -101,6 +100,7 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

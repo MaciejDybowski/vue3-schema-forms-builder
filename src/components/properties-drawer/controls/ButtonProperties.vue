@@ -43,13 +43,12 @@
           @acceptButton="configButtonDialog = false"
           @closeButton="configButtonDialog = false"
         >
-          <v-card class="mx-4 my-2">
+          <v-card class="mx-4 my-2" elevation="0">
             <v-card-title>{{ t('buttonConfiguration') }}</v-card-title>
             <v-card-text>
               <tcn-code-editor
                 :model-value="JSON.stringify(model.config, null, 2)"
                 height="300px"
-                label="Config"
                 language="json"
                 @update:model-value="value => tryParseAsJsonButtonConfig(value)"
               />
@@ -62,8 +61,6 @@
           :text="t('dialogSchema')"
           append-icon="mdi-cog"
           class="mx-4 my-4"
-          color="primary"
-          size="small"
           @click="configButtonDialogSchema = true"
         />
 
@@ -76,13 +73,12 @@
           @acceptButton="configButtonDialogSchema = false"
           @closeButton="configButtonDialogSchema = false"
         >
-          <v-card class="mx-4 my-2">
+          <v-card class="mx-4 my-2" elevation="0">
             <v-card-title>{{ t('internalJsonSchema') }}</v-card-title>
             <v-card-text>
               <tcn-code-editor
                 :model-value="JSON.stringify(model.schema, null, 2)"
                 height="300px"
-                label="JSON Schema"
                 language="json"
                 @update:model-value="value => tryParseAsButtonSchema(value)"
               />
@@ -162,7 +158,7 @@ function tryParseAsButtonSchema(value: string) {
     "modeCopy": "Copy",
     "modeFormAndAction": "Form and action",
     "modeApiCall": "API Call",
-    "configuration": "Configuration",
+    "configuration": "Advanced configuration",
     "buttonConfiguration": "Button configuration",
     "dialogSchema": "Dialog schema",
     "internalJsonSchema": "Internal JSON Schema",
@@ -174,7 +170,7 @@ function tryParseAsButtonSchema(value: string) {
     "modeCopy": "Kopiuj",
     "modeFormAndAction": "Formularz i akcja",
     "modeApiCall": "Wywołanie API",
-    "configuration": "Konfiguracja",
+    "configuration": "Konfiguracja zaawansowana",
     "buttonConfiguration": "Konfiguracja przycisku",
     "dialogSchema": "Schemat okna dialogowego",
     "internalJsonSchema": "Wewnętrzny schemat JSON",

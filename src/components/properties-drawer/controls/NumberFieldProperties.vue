@@ -61,40 +61,19 @@
       :active="panels.includes('expressions')"
     />
 
-    <expansion-panel
+    <vuetify-input-props
+      v-model="model"
       :active="panels.includes('fieldProps')"
-      title="Field properties"
-      value="fieldProps"
-    >
-      <text-property-wrapper
-        v-model="model.layout.props['hint']"
-        :label="t('hint')"
-      />
-      <text-property-wrapper
-        v-model="model.layout.props['prefix']"
-        :label="t('prefix')"
-      />
-      <text-property-wrapper
-        v-model="model.layout.props['suffix']"
-        :label="t('suffix')"
-      />
-      <text-property-wrapper
-        :label="t('persistentHintIfExpression')"
-        :model-value="model.layout.props['persistent-hint']"
-        @update:model-value="updateExpressionPersistentHint"
-      />
-      <boolean-checkbox-property-wrapper
-        v-model="model.layout.props['persistent-hint']"
-        :label="t('persistentHint')"
-      />
-    </expansion-panel>
+    />
 
     <validations-panel
       v-model="model"
       :active="panels.includes('validations')"
     />
 
-    <event-configuration :active="panels.includes('events')"/>
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
   </v-expansion-panels>
 </template>
 
@@ -107,15 +86,14 @@ import {useI18n} from "vue-i18n";
 
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
-import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
+import VuetifyInputProps from "@/components/properties-drawer/panels/VuetifyInputProps.vue";
 
 const panels = ref<string[]>(["general", "logic", "expressions"])
 const useBuilderStateStore = useBuilderState()
@@ -129,22 +107,6 @@ const model = computed({
 })
 
 const {t} = useI18n()
-
-function updateExpressionPersistentHint(val: string) {
-  if (!val) {
-    model.value.layout.props['persistent-hint'] = false
-  } else {
-    model.value.layout.props['persistent-hint'] = val
-  }
-}
-
-function updateExpressionReadonly(val: string) {
-  if (!val) {
-    model.value.layout.props['readonly'] = false
-  } else {
-    model.value.layout.props['readonly'] = val
-  }
-}
 </script>
 
 <style lang="scss" scoped>

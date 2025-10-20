@@ -26,7 +26,6 @@
           :label="t('typeOptions.valueMapping')"
         />
 
-
         <source-property
           v-if="model.type=='dictionary'"
           v-model="source"

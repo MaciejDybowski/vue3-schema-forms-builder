@@ -13,7 +13,7 @@
         <label-property v-model="model"/>
         <text-property-wrapper
           v-model="model.sourcePath"
-          label="Source path (dependencies)"
+          :label="t('sourcePathLabel')"
         />
       </template>
     </general-panel>
@@ -55,7 +55,7 @@ import KeyValueListHeadersPanel from "@/components/properties-drawer/panels/KeyV
 const panels = ref<string[]>(["general", "logic", "headers"])
 
 const useBuilderStateStore = useBuilderState()
-
+const {t} = useI18n()
 
 const model = computed({
   get() {
@@ -69,6 +69,16 @@ const model = computed({
 
 </script>
 
+<i18n lang="json">
+{
+  "en": {
+    "sourcePathLabel": "Source path (dependencies)"
+  },
+  "pl": {
+    "sourcePathLabel": "Ścieżka źródłowa (zależności)"
+  }
+}
+</i18n>
 
 
 

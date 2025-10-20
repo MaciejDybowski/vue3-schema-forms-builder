@@ -38,34 +38,17 @@
       :active="panels.includes('logic')"
     />
 
-    <expansion-panel
-      v-if="component !='select'"
+    <select-radio-checkbox-props-panel
+      v-model="model"
       :active="panels.includes('fieldProps')"
-      title="Field properties"
-      value="fieldProps"
-    >
+      :component="component"
+    />
 
-
-      <boolean-checkbox-property-wrapper
-        v-model="model.layout.props.inline"
-        :label="t('horizontalLayout')"
-      />
-
-
-      <boolean-checkbox-property-wrapper
-        v-if="component == 'checkbox'"
-        v-model="model.layout.props.multiple"
-        :label="t('multipleProps')"
-      />
-    </expansion-panel>
-
-    <expansion-panel
+    <source-panel
+      v-model="model"
       :active="panels.includes('source')"
-      title="Source"
-      value="source"
-    >
-      <simple-source-property v-model="source"/>
-    </expansion-panel>
+      :component="component"
+    />
 
 
     <validations-panel
@@ -73,7 +56,10 @@
       :active="panels.includes('validations')"
     />
 
-    <event-configuration :active="panels.includes('events')"/>
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
+
 
   </v-expansion-panels>
 
@@ -84,18 +70,17 @@
 import {computed, ComputedRef, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
 import {FromElementComponent} from "@/models/FromElementComponent";
 import {useI18n} from "vue-i18n";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
-import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
+import SelectRadioCheckboxPropsPanel from "@/components/properties-drawer/panels/SelectRadioCheckboxPropsPanel.vue";
+import SourcePanel from "@/components/properties-drawer/panels/SourcePanel.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()
