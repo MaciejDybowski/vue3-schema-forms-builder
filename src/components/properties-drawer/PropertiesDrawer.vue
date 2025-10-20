@@ -6,7 +6,7 @@
     order="3"
     permament
     scrim="transparent"
-    width="350"
+    width="370"
   >
     <v-list v-if="useBuilderStateStore.getConfiguredField !== null"
             class="py-0"

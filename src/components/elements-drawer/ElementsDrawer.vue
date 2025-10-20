@@ -2,13 +2,15 @@
   <v-navigation-drawer
     v-model="drawers.elementsDrawer.value"
     :style="!storybook ? `top: 65px; min-height: calc(100vh - 65px)` : ``"
-    class="element-drawer"
+    class="element-drawer pt-2"
     order="3"
     permament
     scrim="transparent"
     width="300"
   >
-    <tcn-au-query v-model="query"/>
+    <tcn-au-query
+      class="px-1"
+      v-model="query"/>
     <v-tabs
       v-model="tab"
       :items="tabs"
