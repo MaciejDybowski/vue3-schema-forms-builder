@@ -23,7 +23,7 @@
        {value:'select', title: 'Select'}
        ]"
           :return-object="false"
-          label="Component"
+          :label="t('componentType')"
         />
       </template>
     </general-panel>
@@ -121,10 +121,12 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
 <i18n lang="json">
 {
   "en": {
+    "componentType": "Component",
     "horizontalLayout": "Set horizontal",
     "multipleProps": "Multiple values"
   },
   "pl": {
+    "componentType": "Typ pola",
     "horizontalLayout": "Ułóż horyzontalnie",
     "multipleProps": "Dozwolone wiele wartości"
   }
