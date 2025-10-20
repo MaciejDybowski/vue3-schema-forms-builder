@@ -5,7 +5,7 @@
     value="conversion"
   >
     <v-alert
-      class="conversion-alert mx-4"
+      class="forms-builder-smaller-alert mx-4"
       density="compact"
       elevation="0"
       type="info"
@@ -30,8 +30,8 @@ const {active} = defineProps<{
 }>()
 </script>
 
-<style lang="scss" scoped>
-.conversion-alert {
+<style lang="scss">
+.forms-builder-smaller-alert {
   font-size: 0.8rem;
   line-height: 1.3;
   padding: 6px 10px;

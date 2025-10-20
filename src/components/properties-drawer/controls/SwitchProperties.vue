@@ -1,120 +1,90 @@
 <template>
-
   <v-expansion-panels
     v-model="panels"
     elevation="0"
     multiple
   >
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
 
-      <boolean-switch-property-wrapper
-        v-model="model.mode"
-        :items="[{value: 'visibility', title: t('visibility')}]"
-        :return-object="false"
-        label="Switch Mode"
-      />
-      <v-alert
-        icon="mdi-information-outline"
-        v-if="model.mode=='visibility'"
-        variant="outlined"
-        text="Value of switch is internal"
-        color="info"
-        density="compact"
-        class="mx-4"
-      />
+        <select-general
+          v-model="model.mode"
+          :items="[{ value: 'visibility', title: t('visibility') }]"
+          :label="t('switchMode')"
+          :return-object="false"
+        />
 
-    </expansion-panel>
-    <expansion-panel
+        <v-alert
+          v-if="model.mode === 'visibility'"
+          :text="t('visibilityInfo')"
+          class="forms-builder-smaller-alert mx-4"
+          density="compact"
+          elevation="0"
+          type="info"
+        />
+      </template>
+    </general-panel>
+
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
-    <expansion-panel
+    />
+
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-      <read-only-property v-model="model.layout.props.readonly"/>
-    </expansion-panel>
-    <expansion-panel
+    />
+
+    <swtich-props-panel
+      v-model="model"
       :active="panels.includes('fieldProps')"
-      title="Properties"
-      value="fieldProps"
-    >
-      <text-property-wrapper
-        v-model="model.layout.props['color']"
-        :label="t('color')"
-      />
-
-      <false-value-mapping v-model="model.layout.props['false-value']"/>
-      <true-value-mapping v-model="model.layout.props['true-value']"/>
-    </expansion-panel>
-
+    />
   </v-expansion-panels>
-
 </template>
 
 <script lang="ts" setup>
-
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import {useI18n} from "vue-i18n";
-import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMapping.vue";
-import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
+import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import SwtichPropsPanel from "@/components/properties-drawer/panels/SwtichPropsPanel.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
-
-const useBuilderStateStore = useBuilderState()
-const {t} = useI18n()
-const panels = ref<string[]>(["general", "logic", "fieldProps"])
+const useBuilderStateStore = useBuilderState();
+const {t} = useI18n();
+const panels = ref<string[]>(["general", "logic", "fieldProps"]);
 const model = computed({
   get() {
-    return useBuilderStateStore.getConfiguredField
+    return useBuilderStateStore.getConfiguredField;
   },
   set(val) {
-    useBuilderStateStore.setConfiguredField(val)
+    useBuilderStateStore.setConfiguredField(val);
   }
-})
-
+});
 </script>
 
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
 
 <i18n lang="json">
 {
   "en": {
-    "color": "Color",
-    "valueMapping": "Value mapping",
-    "visibility": "Visibility"
+    "switchMode": "Switch mode",
+    "visibility": "Visibility",
+    "visibilityInfo": "Value of switch is internal"
   },
   "pl": {
-    "color": "Kolor",
-    "valueMapping": "Mapowanie wartości",
-    "visibility": "Tylko widoczność"
+    "switchMode": "Tryb przełącznika",
+    "visibility": "Widoczność",
+    "visibilityInfo": "Wartość przełącznika jest wewnętrzna (nie zapisuje się w modelu formularza)"
   }
 }
 </i18n>

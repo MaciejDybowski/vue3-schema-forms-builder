@@ -5,30 +5,25 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
+
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-    </expansion-panel>
-    <expansion-panel
+      <template #afterKey>
+        <label-property v-model="model"/>
+      </template>
+    </general-panel>
+
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
-    <expansion-panel
+    />
+
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-    </expansion-panel>
+    />
   </v-expansion-panels>
 </template>
 
@@ -37,12 +32,9 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 
 const panels = ref<string[]>(["general", "logic"])
 const useBuilderStateStore = useBuilderState()

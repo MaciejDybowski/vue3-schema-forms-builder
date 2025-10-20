@@ -5,39 +5,38 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
-      :active="panels.includes('general')"
-      title="General"
-      value="general"
-    >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-      <default-value-property/>
 
-      <select-general
-        v-model="model.layout.component"
-        :items="[
+    <general-panel
+      v-model="model"
+      :active="panels.includes('general')"
+    >
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
+
+        <select-general
+          v-model="model.layout.component"
+          :clearable="false"
+          :items="[
        {value: 'radio-button', title: 'Radio'},
        {value:'checkbox', title: 'Checkbox'},
        {value:'select', title: 'Select'}
        ]"
-        :return-object="false"
-        label="Component"
-        :clearable="false"
-      />
+          :return-object="false"
+          label="Component"
+        />
+      </template>
+    </general-panel>
 
-    </expansion-panel>
-
-    <expansion-panel
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
+    />
+
+    <logic-panel
+      v-model="model"
+      :active="panels.includes('logic')"
+    />
 
     <expansion-panel
       v-if="component !='select'"
@@ -60,17 +59,6 @@
       />
     </expansion-panel>
 
-
-    <expansion-panel
-      :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-
-      <read-only-property v-model="model.layout.props.readonly"/>
-    </expansion-panel>
-
     <expansion-panel
       :active="panels.includes('source')"
       title="Source"
@@ -78,8 +66,11 @@
     >
       <simple-source-property v-model="source"/>
     </expansion-panel>
+
     <validation-configuration :active="panels.includes('validations')"/>
+
     <event-configuration :active="panels.includes('events')"/>
+
   </v-expansion-panels>
 
 </template>
@@ -89,14 +80,8 @@
 import {computed, ComputedRef, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import {FromElementComponent} from "@/models/FromElementComponent";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import {useI18n} from "vue-i18n";
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
@@ -104,7 +89,9 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()

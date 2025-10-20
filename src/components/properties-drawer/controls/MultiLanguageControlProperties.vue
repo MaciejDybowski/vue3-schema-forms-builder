@@ -4,37 +4,26 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
+
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <label-property v-model="model"/>
-      <default-value-property/>
-    </expansion-panel>
-    <expansion-panel
+      <template #afterKey>
+        <label-property v-model="model"/>
+        <default-value-property/>
+      </template>
+    </general-panel>
+
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
-    <expansion-panel
+    />
+
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-      <read-only-property v-model="model.layout.props.readonly"/>
-      <boolean-switch-property-wrapper
-        v-model="model.layout.hide"
-        :label="model.layout.hide ? t('hide') : t('visible')"
-      />
-    </expansion-panel>
+    />
 
     <validation-configuration :active="panels.includes('validations')">
       <template #afterRequired>
@@ -54,22 +43,15 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import {useI18n} from "vue-i18n";
-
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
-import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 
 import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 
 
 const panels = ref<string[]>(["general", "logic", "validations"])

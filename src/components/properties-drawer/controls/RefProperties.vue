@@ -4,17 +4,16 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <text-property-wrapper
-        v-model="model.ref"
-        label="Reference"/>
-    </expansion-panel>
-
+      <template #afterKey>
+        <text-property-wrapper
+          v-model="model.ref"
+          :label="t('reference')"/>
+      </template>
+    </general-panel>
   </v-expansion-panels>
 </template>
 
@@ -22,12 +21,13 @@
 
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import {useI18n} from "vue-i18n";
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
+const {t} = useI18n()
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -47,12 +47,10 @@ const model = computed({
 <i18n lang="json">
 {
   "en": {
-    "validations": "Validations",
-    "counter": "Counter of letters"
+    "reference": "Reference"
   },
   "pl": {
-    "validations": "Walidacje",
-    "counter": "Licznik liter"
+    "reference": "Odwołanie"
   }
 }
 </i18n>

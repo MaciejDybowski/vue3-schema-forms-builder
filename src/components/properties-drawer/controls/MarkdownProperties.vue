@@ -4,57 +4,37 @@
     elevation="0"
     multiple
   >
-    <expansion-panel
+    <general-panel
+      v-model="model"
       :active="panels.includes('general')"
-      title="General"
-      value="general"
     >
-      <key-property v-model="model.key"/>
-      <default-value-property/>
-    </expansion-panel>
-    <expansion-panel
+      <template #afterKey>
+        <default-value-property/>
+      </template>
+    </general-panel>
+
+    <layout-panel
+      v-model="model"
       :active="panels.includes('layout')"
-      title="Layout"
-      value="layout"
-    >
-      <col-property v-model="model.layout.cols"/>
-      <offset-property v-model="model.layout.offset"/>
-      <fill-row-property v-model="model.layout.fillRow"/>
-      <text-property-wrapper v-model="model.layout.cellClass" label="Cell CSS classes"/>
-    </expansion-panel>
-    <expansion-panel
+    />
+
+    <logic-panel
+      v-model="model"
       :active="panels.includes('logic')"
-      title="Logic"
-      value="logic"
-    >
-      <if-property v-model="model.layout.if"/>
-      <boolean-switch-property-wrapper
-        v-model="model.layout.hide"
-        :label="model.layout.hide ? t('hide') : t('visible')"
-      />
-    </expansion-panel>
-
+      :show-read-only-control="false"
+    />
   </v-expansion-panels>
-
-
 </template>
 
 <script lang="ts" setup>
 
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
-import {useI18n} from "vue-i18n";
-import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
-import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
-import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
-
-import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
-import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 
@@ -67,8 +47,6 @@ const model = computed({
     useBuilderStateStore.setConfiguredField(val)
   }
 })
-
-const {t} = useI18n()
 </script>
 
 <style lang="scss" scoped>
@@ -76,36 +54,3 @@ const {t} = useI18n()
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "calculation": "Calculation",
-    "hint": "Hint",
-    "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression",
-    "hide": "Hide",
-    "visible": "Visible",
-    "expression": "Expression",
-    "validations": "Validations",
-    "counter": "Counter of letters",
-    "eventType": "Event type",
-    "events": "Events",
-    "onChangeLabel": "On value change"
-  },
-  "pl": {
-    "calculation": "Obliczenia",
-    "hint": "Podpowiedź",
-    "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek",
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "expression": "Wyrażenie",
-    "validations": "Walidacje",
-    "counter": "Licznik liter",
-    "eventType": "Rodzaj zdarzenia",
-    "events": "Zdarzenia",
-    "onChangeLabel": "Zmiana wartości"
-  }
-}
-</i18n>
