@@ -50,6 +50,7 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import KeyValueListHeadersPanel from "@/components/properties-drawer/panels/KeyValueListHeadersPanel.vue";
+import {useI18n} from "vue-i18n";
 
 
 const panels = ref<string[]>(["general", "logic", "headers"])
