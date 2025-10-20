@@ -37,7 +37,10 @@
       :active="panels.includes('logic')"
     />
 
-    <validation-configuration :active="panels.includes('validations')"/>
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+    />
   </v-expansion-panels>
 </template>
 
@@ -47,12 +50,13 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationConfiguration from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import {useI18n} from "vue-i18n";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 
 
 const panels = ref<string[]>(["general"])

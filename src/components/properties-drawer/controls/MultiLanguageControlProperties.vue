@@ -25,14 +25,13 @@
       :active="panels.includes('logic')"
     />
 
-    <validation-configuration :active="panels.includes('validations')">
-      <template #afterRequired>
-        <number-property-wrapper
-          v-model="model.layout.props['counter']"
-          :label="t('counter')"
-        />
-      </template>
-    </validation-configuration>
+
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+      :show-counter="true"
+    />
+
   </v-expansion-panels>
 
 
@@ -46,9 +45,8 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import {useI18n} from "vue-i18n";
 
 
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
-import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";

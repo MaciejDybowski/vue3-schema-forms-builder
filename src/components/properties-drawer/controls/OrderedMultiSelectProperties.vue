@@ -38,7 +38,12 @@
     >
       <source-property v-model="source"/>
     </expansion-panel>
-    <validation-configuration :active="panels.includes('validations')"/>
+
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+    />
+
   </v-expansion-panels>
 </template>
 
@@ -52,7 +57,7 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 import {useI18n} from "vue-i18n";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";

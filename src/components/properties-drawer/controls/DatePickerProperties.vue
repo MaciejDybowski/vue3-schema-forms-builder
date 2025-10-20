@@ -43,8 +43,8 @@
       :active="panels.includes('logic')"
     />
 
-    <!-- Walidacje -->
-    <validation-configuration
+    <validations-panel
+      v-model="model"
       :active="panels.includes('validations')"
     />
   </v-expansion-panels>
@@ -56,7 +56,7 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 import {useI18n} from "vue-i18n";
 
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";

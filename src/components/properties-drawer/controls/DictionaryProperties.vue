@@ -54,8 +54,12 @@
     </expansion-panel>
 
 
-    <validation-configuration :active="panels.includes('validations')"
+
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
     />
+
     <event-configuration :active="panels.includes('events')"/>
 
 
@@ -69,7 +73,7 @@ import {computed, ref} from "vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationConfiguration from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
@@ -79,6 +83,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general", "logic", "source"])

@@ -49,7 +49,10 @@
       <user-url-source v-model="source"/>
     </expansion-panel>
 
-    <validation-configuration :active="panels.includes('validations')"/>
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+    />
   </v-expansion-panels>
 
 
@@ -63,7 +66,7 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import {useI18n} from "vue-i18n";
 import MultipleProperty from "@/components/properties-drawer/atoms/MultipleProperty.vue";
 import UserUrlSource from "@/components/properties-drawer/atoms/UserUrlSource.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";

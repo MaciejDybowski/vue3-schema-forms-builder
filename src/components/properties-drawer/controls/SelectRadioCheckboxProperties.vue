@@ -67,7 +67,11 @@
       <simple-source-property v-model="source"/>
     </expansion-panel>
 
-    <validation-configuration :active="panels.includes('validations')"/>
+
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+    />
 
     <event-configuration :active="panels.includes('events')"/>
 
@@ -83,7 +87,7 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
 import {FromElementComponent} from "@/models/FromElementComponent";
 import {useI18n} from "vue-i18n";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";

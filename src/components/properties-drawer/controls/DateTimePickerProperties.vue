@@ -19,7 +19,6 @@
       />
     </conversion-panel>
 
-    <!-- Panel ogólny -->
     <general-panel
       v-model="model"
       :active="panels.includes('general')"
@@ -34,22 +33,21 @@
       </template>
     </general-panel>
 
-    <!-- Układ -->
     <layout-panel
       v-model="model"
       :active="panels.includes('layout')"
     />
 
-    <!-- Logika -->
     <logic-panel
       v-model="model"
       :active="panels.includes('logic')"
     />
 
-    <!-- Walidacje -->
-    <validation-configuration
+    <validations-panel
+      v-model="model"
       :active="panels.includes('validations')"
     />
+
   </v-expansion-panels>
 </template>
 
@@ -59,7 +57,7 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 import {useI18n} from "vue-i18n";
 
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";

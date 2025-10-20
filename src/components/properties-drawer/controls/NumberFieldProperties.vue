@@ -89,7 +89,10 @@
       />
     </expansion-panel>
 
-    <validation-configuration :active="panels.includes('validations')"/>
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+    />
 
     <event-configuration :active="panels.includes('events')"/>
   </v-expansion-panels>
@@ -103,7 +106,7 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import {useI18n} from "vue-i18n";
 
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";

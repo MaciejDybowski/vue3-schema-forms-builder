@@ -65,14 +65,15 @@
         :label="t('persistentHint')"
       />
     </expansion-panel>
-    <validation-configuration :active="panels.includes('validations')">
-      <template #afterRequired>
-        <number-property-wrapper
-          v-model="model.layout.props['counter']"
-          :label="t('counter')"
-        />
-      </template>
-    </validation-configuration>
+
+
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+      :show-counter="true"
+    />
+
+
     <event-configuration :active="panels.includes('events')"/>
   </v-expansion-panels>
 
@@ -87,11 +88,10 @@ import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vu
 import {useI18n} from "vue-i18n";
 import EventConfiguration from "@/components/properties-drawer/atoms/EventConfiguration.vue";
 
-import ValidationConfiguration from "@/components/properties-drawer/atoms/ValidationConfiguration.vue";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import HintProperty from "@/components/properties-drawer/atoms/HintProperty.vue";
-import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
