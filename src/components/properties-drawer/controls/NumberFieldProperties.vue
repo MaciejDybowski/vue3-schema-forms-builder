@@ -56,16 +56,10 @@
       :active="panels.includes('logic')"
     />
 
-    <expansion-panel
+    <expressions-panel
+      v-model="model"
       :active="panels.includes('expressions')"
-      title="Expressions"
-      value="expressions"
-    >
-      <expression-property v-model="model.expression"/>
-
-      <calculatiuon-property v-model="model.calculation"/>
-
-    </expansion-panel>
+    />
 
     <expansion-panel
       :active="panels.includes('fieldProps')"
@@ -115,11 +109,10 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
-import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "expressions"])
 const useBuilderStateStore = useBuilderState()

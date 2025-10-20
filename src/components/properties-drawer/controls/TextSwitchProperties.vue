@@ -41,26 +41,12 @@
     />
 
 
-    <expansion-panel
+    <expressions-panel
+      v-model="model"
       :active="panels.includes('expressions')"
-      title="Expressions"
-      value="expressions"
-    >
-      <v-label
-        class="text-subtitle-2  text-wrap mx-4 pb-2">{{ t('expression') }}
-      </v-label>
-      <tcn-code-editor
-        v-model="model.expression"
-        :codemirrorOptions="{
-          lineNumbers: 'off',
-           minimap: {
-            enabled: false
-          }
-        }"
-        height="150px"
-        language="text"
-      />
-    </expansion-panel>
+      :show-calculation="false"
+    />
+
     <expansion-panel
       :active="panels.includes('fieldProps')"
       title="Field properties"
@@ -114,6 +100,7 @@ import ConversionPanel from "@/components/properties-drawer/panels/ConversionPan
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

@@ -40,15 +40,13 @@
     />
 
 
-    <expansion-panel
+    <expressions-panel
+      v-model="model"
       :active="panels.includes('expressions')"
-      title="Expressions"
-      value="expressions"
-    >
+      :show-calculation="false"
+    />
 
-      <expression-property v-model="model.expression"/>
 
-    </expansion-panel>
     <expansion-panel
       :active="panels.includes('fieldProps')"
       title="Field properties"
@@ -106,6 +104,7 @@ import ConversionPanel from "@/components/properties-drawer/panels/ConversionPan
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
 

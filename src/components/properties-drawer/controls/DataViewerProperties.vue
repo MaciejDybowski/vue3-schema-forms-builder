@@ -46,14 +46,11 @@
       :show-read-only-control="false"
     />
 
-
-    <expansion-panel
+    <expressions-panel
+      v-model="model"
       :active="panels.includes('expressions')"
-      title="Expressions"
-      value="expressions"
-    >
-      <calculatiuon-property v-model="model.calculation"/>
-    </expansion-panel>
+      :show-expression="false"
+    />
 
   </v-expansion-panels>
 
@@ -65,8 +62,6 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import SourceProperty from "@/components/properties-drawer/atoms/SourceProperty.vue";
-import CalculatiuonProperty from "@/components/properties-drawer/atoms/CalculatiuonProperty.vue";
-import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {useI18n} from "vue-i18n";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
@@ -74,6 +69,7 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general"])
