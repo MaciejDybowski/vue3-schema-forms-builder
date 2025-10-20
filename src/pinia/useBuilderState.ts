@@ -17,16 +17,9 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const draggableModel: Ref<DraggableFormElement[]> = ref([])
   const getDraggableModel = computed(() => draggableModel.value)
 
-  function updateDraggableModel(value: DraggableFormElement[], stackInvoker: boolean = false) {
-    draggableModel.value = value
-
-
-    if (!stackInvoker) {
-      history.value.push(cloneDeep(draggableModel.value))
-      historyPointer.value++
-      // console.debug("stan stosu", history.value)
-      // console.debug("wskaznik = ", historyPointer.value)
-    }
+  function updateDraggableModel(value: DraggableFormElement[], saveToHistory = true) {
+    draggableModel.value = cloneDeep(value)
+    if (saveToHistory) pushHistory()
   }
 
   function deleteItem(event: ToolbarEvent, model = null) {
@@ -160,15 +153,29 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   }
 
   function undo() {
+    if (!isUndoAvailable.value) return
     historyPointer.value--
-    updateDraggableModel(history.value[historyPointer.value], true)
-    // console.debug("stan stosu", history.value)
-    // console.debug("wskaznik = ", historyPointer.value)
+    draggableModel.value = cloneDeep(history.value[historyPointer.value])
   }
 
   function redo() {
+    if (!isRedoAvailable.value) return
     historyPointer.value++
-    updateDraggableModel(history.value[historyPointer.value], true)
+    draggableModel.value = cloneDeep(history.value[historyPointer.value])
+  }
+
+  function pushHistory() {
+    if (historyPointer.value + 1 < history.value.length) {
+      history.value.splice(historyPointer.value + 1)
+    }
+    history.value.push(cloneDeep(draggableModel.value))
+    historyPointer.value++
+
+    const HISTORY_LIMIT = 50
+    if (history.value.length > HISTORY_LIMIT) {
+      history.value.shift()
+      historyPointer.value--
+    }
   }
 
 

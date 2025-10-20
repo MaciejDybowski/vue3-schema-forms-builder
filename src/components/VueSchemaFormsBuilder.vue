@@ -106,8 +106,19 @@ function accept() {
 function reject() {
   modelValue.value = lastUserJsonModel.value
   lastUserJsonModel.value = null
-
 }
+
+function undo() {
+  useBuilderStateStore.undo()
+}
+function redo() {
+  useBuilderStateStore.redo()
+}
+
+defineExpose({
+  undo,
+  redo
+});
 </script>
 
 <style lang="scss" scoped>

@@ -36,6 +36,21 @@
         </v-btn-toggle>
       </div>
 
+      <div v-if="storybook"
+           class="d-flex flex-column elevation-2 rounded my-4"
+      >
+        <v-btn-toggle
+          class="d-flex flex-column"
+          style="height: 60px">
+          <v-btn size="30" value="MOBILE" @click="undo">
+            <v-icon size="small">mdi-undo</v-icon>
+          </v-btn>
+          <v-btn size="30" value="TABLET" @click="redo">
+            <v-icon size="small">mdi-redo</v-icon>
+          </v-btn>
+        </v-btn-toggle>
+      </div>
+
 
     </v-col>
     <v-spacer></v-spacer>
@@ -59,10 +74,21 @@
 import {useCanvas} from "@/composables/useCanvas";
 import {useDrawers} from "@/composables/useDrawers";
 import {useMainCanvas} from "@/composables/useMainCanvas";
+import {computed} from "vue";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const mainCanvas = useMainCanvas()
 const canvas = useCanvas()
 const drawers = useDrawers();
+
+const {undo, redo} = useBuilderState()
+
+const storybook = computed(() => {
+  const host = window.location.hostname
+  const port = window.location.port
+  return host === 'localhost' && port === "6006"
+})
+
 
 </script>
 
