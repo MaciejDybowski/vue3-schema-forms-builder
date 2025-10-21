@@ -1,7 +1,6 @@
 <template>
   <div :class="fieldWrapperItemClass(element, isHovering)"
        :style="getStyleForBuilderField(element, isHovering)"
-
        v-on="attrs"
   >
     <field-wrapper-toolbar
@@ -11,7 +10,6 @@
 
     <div class="handle"
          style="cursor: grab"
-         @click="configControl(element)"
     >
       <!-- TODO zmienić tego ifa na markdown gdy markdown bedzie tez w trybie edycji -->
       <div v-if="element.ref">
@@ -98,17 +96,6 @@ function getStyleForBuilderField(element: any, hover: any) {
   }
   return "" // No style applied for other items
 }
-
-
-async function configControl(element: any) {
-  if (element.ref || element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
-    useBuilderStateStore.setConfiguredField(null)
-    await new Promise((r) => setTimeout(r, 10));
-    useBuilderStateStore.setConfiguredField(element)
-    drawers.propertiesDrawer.value = true
-  }
-}
-
 </script>
 
 

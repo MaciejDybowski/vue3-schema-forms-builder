@@ -1,7 +1,7 @@
 <template>
   <v-col
     :class="['px-0', `offset-${offsetSize(element)}`, `pb-0`]"
-
+    @click="configControl(element)"
     :cols="cols"
     v-bind="attrs"
   >
@@ -23,11 +23,15 @@ import FieldWrapperItem from "./FieldWrapperItem.vue";
 import {useColSizeMapper} from "@/composables/useColSizeMapper";
 import {computed, useAttrs} from "vue";
 import {useOffsetSizeMapper} from "@/composables/useOffsetSizeMapper";
+import {useDrawers} from "@/composables/useDrawers";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const props = defineProps<{
   element: any,
 }>()
 const attrs = useAttrs()
+const drawers = useDrawers();
+const useBuilderStateStore = useBuilderState()
 
 const {colSize} = useColSizeMapper()
 const {offsetSize} = useOffsetSizeMapper()
@@ -38,6 +42,16 @@ const fillRow = computed(() => {
 const cols = computed(() => {
   return colSize(props.element) //+ offsetSize(props.element)
 })
+
+async function configControl(element: any) {
+  if (element.ref || element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
+    useBuilderStateStore.setConfiguredField(null)
+    await new Promise((r) => setTimeout(r, 10));
+    useBuilderStateStore.setConfiguredField(element)
+    drawers.propertiesDrawer.value = true
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>
