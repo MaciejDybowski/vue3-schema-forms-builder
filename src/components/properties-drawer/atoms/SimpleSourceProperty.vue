@@ -5,113 +5,94 @@
     :label="t('simpleSource.returnObject')"
   />
 
-  <!-- Lista opcji -->
-  <draggable
-    v-model="computedItems"
-    :animation="250"
-    :group="'controls'"
-    :sort="true"
-    class="d-flex flex-wrap v-row pl-3"
-    ghost-class="ghost"
-    handle=".draggable-icon"
-    item-key="value"
+  <!-- Kompaktowa tabela -->
+  <v-data-table
+    :headers="headers"
+    :items="computedItems"
+    class="elevation-0 border-sm rounded mx-2"
+    density="compact"
+    hide-default-footer
+    style="max-width: 355px"
   >
-    <template #item="{ element }">
-      <div>
-        <v-row class="pa-0 ma-0 align-center" dense>
-          <!-- Wartość -->
-          <v-col class="pa-0 ma-0" cols="4">
-            <text-property-wrapper
-              :grow-enabled="false"
-              :label="t('simpleSource.value')"
-              :model-value="element.value"
-              class="pr-1"
-              @update:model-value="(val) => parseValue(element, val)"
-            />
-          </v-col>
-
-          <!-- Etykieta -->
-          <v-col class="pa-0 ma-0" cols="5">
-            <text-property-wrapper
-              v-if="typeof element.title === 'string'"
-              v-model="element.title"
-              :grow-enabled="false"
-              :label="t('simpleSource.label')"
-              class="pl-1 pr-1"
-            />
-            <text-property-wrapper
-              v-else
-              v-model="element.title.$ref"
-              :disabled="true"
-              :grow-enabled="false"
-              :label="t('simpleSource.label')"
-              class="pl-1 pr-1"
-            />
-          </v-col>
-
-          <!-- Akcje -->
-          <v-col class="pa-0 ma-0 d-flex justify-end" cols="3">
-            <v-btn
-              density="compact"
-              flat
-              icon="mdi-cog"
-              size="small"
-              @click="configOption(element)"
-            />
-            <v-btn
-              density="compact"
-              flat
-              icon="mdi-delete"
-              size="small"
-              @click="deleteOption(element)"
-            />
-            <v-icon class="draggable-icon cursor-grab" size="small">
-              mdi-drag-vertical
-            </v-icon>
-          </v-col>
-        </v-row>
-
-        <!-- Warunek disabled (checkboxy) -->
-        <v-row
-          v-if="field.layout.component === 'checkbox'"
-          class="pa-0 ma-0"
-          dense
-        >
-          <v-col class="pa-0 ma-0" cols="12">
-            <v-card-subtitle
-              v-if="!element.disabledCondition"
-              class="link cursor-pointer"
-              @click="element.disabledCondition = 'changeMe'"
-            >
-              {{ t('simpleSource.addDisabledCondition') }}
-            </v-card-subtitle>
-
-            <text-property-wrapper
-              v-else
-              v-model="element.disabledCondition"
-              :label="t('simpleSource.disabledCondition')"
-              class="mt-1 mr-4"
-            />
-          </v-col>
-        </v-row>
-      </div>
+    <!-- Wartość -->
+    <template #item.value="{ item }">
+      <v-text-field
+        v-model="item.value"
+        class="table-input"
+        density="compact"
+        hide-details
+        variant="outlined"
+        @update:model-value="(val) => parseValue(item, val)"
+      />
     </template>
-  </draggable>
 
-  <!-- Przycisk dodawania -->
-  <v-list-item>
-    <v-btn
-      class="mt-4"
-      color="primary"
-      prepend-icon="mdi-plus"
-      size="small"
-      @click="addOption"
-    >
-      {{ t('simpleSource.addButton') }}
-    </v-btn>
-  </v-list-item>
+    <!-- Etykieta -->
+    <template #item.title="{ item }">
+      <v-text-field
+        v-if="typeof item.title === 'string'"
+        v-model="item.title"
+        class="table-input"
+        density="compact"
+        hide-details
+        variant="outlined"
+      />
+      <v-text-field
+        v-else
+        v-model="item.title.$ref"
+        class="table-input"
+        density="compact"
+        disabled
+        hide-details
+        variant="outlined"
+      />
+    </template>
 
-  <!-- Dialog konfiguracji opcji -->
+    <!-- Akcje (menu 3 kropki) -->
+    <template #item.actions="{ item }">
+      <v-menu location="bottom end" transition="scale-transition">
+        <template #activator="{ props }">
+          <v-btn
+            density="compact"
+            icon="mdi-dots-vertical"
+            size="small"
+            v-bind="props"
+            variant="text"
+          />
+        </template>
+        <v-list density="compact">
+          <v-list-item @click="configOption(item)">
+            <template #prepend>
+              <v-icon size="small">mdi-cog-outline</v-icon>
+            </template>
+            <v-list-item-title>{{ t("simpleSource.title") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="deleteOption(item)">
+            <template #prepend>
+              <v-icon color="error" size="small">mdi-delete-outline</v-icon>
+            </template>
+            <v-list-item-title class="text-error">
+              {{ t("delete") }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </template>
+  </v-data-table>
+
+  <!-- Przycisk dodania -->
+  <v-btn
+    block
+    class="mt-2"
+    color="primary"
+    prepend-icon="mdi-plus"
+    size="small"
+    variant="tonal"
+    @click="addOption"
+  >
+    {{ t("simpleSource.addButton") }}
+  </v-btn>
+
+  <!-- Dialog konfiguracji (bez zmian) -->
   <tcn-au-dialog
     v-if="configOptionDialog"
     v-model="configOptionDialog"
@@ -124,7 +105,7 @@
     @closeButton="closeConfigItemDialog"
   >
     <template #title>
-      <v-card-title>{{ t('simpleSource.title') }}</v-card-title>
+      <v-card-title>{{ t("simpleSource.title") }}</v-card-title>
     </template>
 
     <v-card-text class="px-0">
@@ -138,50 +119,40 @@
         :label="t('simpleSource.label')"
         :prefix="currentConfiguredOption.isReference ? prefix : ''"
       />
+
+
+      <template v-if="field.layout.component == 'checkbox'">
+        <v-card-subtitle
+          v-if="!currentConfiguredOption.disabledCondition"
+          class="link cursor-pointer mt-4"
+          @click="currentConfiguredOption.disabledCondition = 'changeMe'"
+        >
+          {{ t('simpleSource.addDisabledCondition') }}
+        </v-card-subtitle>
+
+        <text-property-wrapper
+          v-else
+          v-model="currentConfiguredOption.disabledCondition"
+          :label="t('simpleSource.disabledCondition')"
+          class="mt-1 mr-4"
+        />
+      </template>
+
+
       <boolean-checkbox-property-wrapper
         v-model="currentConfiguredOption.isReference"
         :label="t('simpleSource.useReference')"
         @change="referenceChangedItemTitle"
       >
         <template #append>
-          <v-tooltip
-            location="left"
-            width="300"
-          >
+          <v-tooltip location="left" width="300">
             <template #activator="{ props }">
-              <v-icon
-                v-bind="props">
-                mdi-information-outline
-              </v-icon>
+              <v-icon v-bind="props">mdi-information-outline</v-icon>
             </template>
             <span>{{ t('simpleSource.useReferenceInfo') }}</span>
           </v-tooltip>
         </template>
       </boolean-checkbox-property-wrapper>
-
-      <!-- Warunek disabled -->
-      <v-row
-        v-if="field.layout.component === 'checkbox'"
-        class="pa-0 ma-0"
-        dense
-      >
-        <v-col class="pa-0 ma-0" cols="12">
-          <v-card-subtitle
-            v-if="!currentConfiguredOption.disabledCondition"
-            class="link cursor-pointer"
-            @click="currentConfiguredOption.disabledCondition = 'changeMe'"
-          >
-            {{ t('simpleSource.addDisabledCondition') }}
-          </v-card-subtitle>
-
-          <text-property-wrapper
-            v-else
-            v-model="currentConfiguredOption.disabledCondition"
-            :label="t('simpleSource.disabledCondition')"
-            class="mt-1"
-          />
-        </v-col>
-      </v-row>
     </v-card-text>
   </tcn-au-dialog>
 </template>
@@ -192,8 +163,6 @@ import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {useTranslateInput} from "@/composables/useTranslateInput";
-import Draggable from "@/vuedraggable/vuedraggable";
-
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
@@ -223,7 +192,12 @@ const computedItems = computed({
   set: (val) => (modelValue.value.items = val),
 });
 
-// Funkcje
+const headers = [
+  {title: t("simpleSource.value"), key: "value"},
+  {title: t("simpleSource.label"), key: "title"},
+  {title: "", key: "actions", sortable: false, align: "end", width: 36},
+];
+
 function addOption() {
   modelValue.value.items.push({value: "changeMe", title: "changeMe"});
 }
@@ -264,7 +238,7 @@ function saveConfigAndClose() {
   closeConfigItemDialog();
 }
 
-// Zmiana tytułu dynamicznego
+// Dynamiczny tytuł
 const dynamicItemTitle = computed({
   get: () =>
     typeof currentConfiguredOption.value?.title === "string"
@@ -291,21 +265,24 @@ function referenceChangedItemTitle() {
 }
 </script>
 
-<style lang="scss" scoped>
-.link {
-  color: var(--v-theme-primary);
-  font-size: 0.9rem;
+<style scoped>
+.table-input {
+  max-width: 120px;
+  font-size: 0.8rem;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+.v-data-table {
+  --v-table-header-height: 32px;
+  font-size: 0.85rem;
 }
 </style>
+
 
 <i18n lang="json">
 {
   "en": {
     "save": "Save",
+    "delete": "Delete",
     "simpleSource": {
       "title": "Option configuration",
       "value": "Value",
@@ -320,6 +297,7 @@ function referenceChangedItemTitle() {
   },
   "pl": {
     "save": "Zapisz",
+    "delete": "Usuń",
     "simpleSource": {
       "title": "Konfiguracja opcji",
       "value": "Wartość",
