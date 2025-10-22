@@ -178,6 +178,41 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     }
   }
 
+  function findPath(
+    items: any[],
+    targetKey: string,
+    currentPath: string[] = []
+  ): string[] | null {
+    for (const item of items) {
+      if (item.key === targetKey) {
+        return [...currentPath, item.key];
+      }
+
+      if (item.tempItems?.length) {
+        let newPath = [...currentPath];
+
+        if (item.layout?.component === "duplicated-section") {
+          // dodajemy [] po nazwie sekcji
+          newPath.push(`${item.key}[]`);
+        } else if (item.layout?.component !== "fields-group") {
+          // inne sekcje pomijamy
+          newPath.push(item.key);
+        }
+        const found = findPath(item.tempItems, targetKey, newPath);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+
+  const getConfiguredFieldPath = computed(() => {
+    if (!configuredField.value) return null;
+    const targetKey = configuredField.value.key;
+    const pathArray = findPath(draggableModel.value, targetKey);
+    return pathArray ? pathArray.join('.') : null;
+  });
+
 
   return {
     getDraggableModel,
@@ -196,6 +231,8 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     setKeyInConfiguredField,
     getWorkspaceId,
     setWorkspaceId,
+    findPath,
+    getConfiguredFieldPath
   }
 })
 

@@ -5,7 +5,6 @@
     :label="t('simpleSource.returnObject')"
   />
 
-  <!-- Kompaktowa tabela -->
   <v-data-table
     :headers="headers"
     :items="computedItems"
@@ -47,46 +46,64 @@
       />
     </template>
 
-    <!-- Akcje (menu 3 kropki) -->
-    <template #item.actions="{ item }">
-      <v-menu location="bottom end" transition="scale-transition">
-        <template #activator="{ props }">
-          <v-btn
-            density="compact"
-            icon="mdi-dots-vertical"
-            size="small"
-            v-bind="props"
-            variant="text"
-          />
-        </template>
-        <v-list density="compact">
-          <v-list-item @click="configOption(item)">
-            <template #prepend>
-              <v-icon size="small">mdi-cog-outline</v-icon>
-            </template>
-            <v-list-item-title>{{ t("simpleSource.title") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="deleteOption(item)">
-            <template #prepend>
-              <v-icon color="error" size="small">mdi-delete-outline</v-icon>
-            </template>
-            <v-list-item-title class="text-error">
-              {{ t("delete") }}
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+    <!-- Strzałki i menu -->
+    <template #item.actions="{ item, index }">
+      <div class="d-flex align-center justify-end ga-1">
+        <!-- Strzałki -->
+        <v-btn
+          :disabled="index === 0"
+          density="compact"
+          icon="mdi-chevron-up"
+          size="small"
+          variant="text"
+          @click="moveItem(index, index - 1)"
+        />
+        <v-btn
+          :disabled="index === computedItems.length - 1"
+          density="compact"
+          icon="mdi-chevron-down"
+          size="small"
+          variant="text"
+          @click="moveItem(index, index + 1)"
+        />
+
+        <!-- Menu 3 kropki -->
+        <v-menu location="bottom end" transition="scale-transition">
+          <template #activator="{ props }">
+            <v-btn
+              density="compact"
+              icon="mdi-dots-vertical"
+              size="small"
+              v-bind="props"
+              variant="text"
+            />
+          </template>
+          <v-list density="compact">
+            <v-list-item @click="configOption(item)">
+              <template #prepend>
+                <v-icon size="small">mdi-cog-outline</v-icon>
+              </template>
+              <v-list-item-title>{{ t("simpleSource.title") }}</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="deleteOption(item)">
+              <template #prepend>
+                <v-icon color="error" size="small">mdi-delete-outline</v-icon>
+              </template>
+              <v-list-item-title class="text-error">{{ t("delete") }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </template>
   </v-data-table>
 
   <!-- Przycisk dodania -->
   <v-btn
-    block
-    class="mt-2"
+    class="mt-2 mx-2"
     color="primary"
     prepend-icon="mdi-plus"
     size="small"
-    variant="tonal"
+    width="355px"
     @click="addOption"
   >
     {{ t("simpleSource.addButton") }}
@@ -166,6 +183,7 @@ import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import draggable from "../../../vuedraggable/vuedraggable";
 
 const {t} = useI18n();
 const style = useStyle();
@@ -193,10 +211,17 @@ const computedItems = computed({
 });
 
 const headers = [
-  {title: t("simpleSource.value"), key: "value"},
-  {title: t("simpleSource.label"), key: "title"},
-  {title: "", key: "actions", sortable: false, align: "end", width: 36},
-];
+  { title: t("simpleSource.value"), key: "value" },
+  { title: t("simpleSource.label"), key: "title" },
+  { title: "", key: "actions", sortable: false, align: "end", width: 100 },
+] as any;
+
+function moveItem(from: number, to: number) {
+  const items = [...computedItems.value];
+  const item = items.splice(from, 1)[0];
+  items.splice(to, 0, item);
+  computedItems.value = items;
+}
 
 function addOption() {
   modelValue.value.items.push({value: "changeMe", title: "changeMe"});

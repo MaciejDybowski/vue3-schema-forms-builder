@@ -65,11 +65,12 @@
   </v-expansion-panels>
 
 
+
 </template>
 
 <script lang="ts" setup>
 
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import {useI18n} from "vue-i18n";
@@ -95,6 +96,10 @@ const model = computed({
   set(val) {
     useBuilderStateStore.setConfiguredField(val)
   }
+})
+
+watch(() => useBuilderStateStore.getConfiguredFieldPath, (newPath) => {
+  console.log("Aktualna ścieżka:", newPath)
 })
 
 const {t} = useI18n()
