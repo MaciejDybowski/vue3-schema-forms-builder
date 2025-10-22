@@ -84,7 +84,7 @@ onMounted(() => {
   "pl": {
     "layout": {
       "title": "Układ pola",
-      "offsetConfiguration": "Konfiguracja offsetu",
+      "offsetConfiguration": "Konfiguracja przesunięcia",
       "showOffsetInfo": "Opcja ta pozwala na ustawienie przesunięcia pola w siatce układu wzlędem lewej krawędzi w zależności od rozmiaru ekranu."
     }
   }
