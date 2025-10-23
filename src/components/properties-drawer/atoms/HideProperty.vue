@@ -29,7 +29,7 @@ const modelValue = defineModel();
 {
   "en": {
     "hide": "Field hidden",
-    "visible": "Field hvisible",
+    "visible": "Field visible",
     "hideInfo": "If checked, the form field will be hidden (not visible to the user) but expressions, calculations, or other auxiliary operations will still be executed."
   },
   "pl": {

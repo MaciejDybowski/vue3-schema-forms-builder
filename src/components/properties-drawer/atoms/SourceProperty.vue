@@ -4,63 +4,65 @@
     :label="t('urlKey')"
   />
 
-  <template class="d-flex align-center">
-    <boolean-checkbox-property-wrapper
-      v-model="modelValue.returnObject"
-      :label="t('returnObject')"
-      class="pr-2"
-    />
-    <v-tooltip
-      :text="t('returnObjectTooltip')"
-      location="start"
-      width="300"
-    >
-      <template v-slot:activator="{ props }">
-        <v-icon v-bind="props">
-          mdi-information-outline
-        </v-icon>
-      </template>
-    </v-tooltip>
-  </template>
+
+  <boolean-checkbox-property-wrapper
+    v-model="modelValue.returnObject"
+    :label="t('returnObject')"
+  >
+    <template #append>
+      <v-tooltip
+        :text="t('returnObjectTooltip')"
+        location="start"
+        width="300"
+      >
+        <template v-slot:activator="{ props }">
+          <v-icon v-bind="props">
+            mdi-information-outline
+          </v-icon>
+        </template>
+      </v-tooltip>
+    </template>
+  </boolean-checkbox-property-wrapper>
 
 
-  <template class="d-flex align-center">
-    <boolean-checkbox-property-wrapper
-      v-model="modelValue.singleOptionAutoSelect"
-      :label="t('singleOptionAutoSelect')"
-      class="pr-2"
-    />
-    <v-tooltip
-      :text="t('autoSelectTooltip')"
-      location="start"
-      width="300"
-    >
-      <template v-slot:activator="{ props }">
-        <v-icon v-bind="props">
-          mdi-information-outline
-        </v-icon>
-      </template>
-    </v-tooltip>
-  </template>
+  <boolean-checkbox-property-wrapper
+    v-model="modelValue.singleOptionAutoSelect"
+    :label="t('singleOptionAutoSelect')"
+  >
+    <template #append>
+      <v-tooltip
+        :text="t('autoSelectTooltip')"
+        location="start"
+        width="300"
+      >
+        <template v-slot:activator="{ props }">
+          <v-icon v-bind="props">
+            mdi-information-outline
+          </v-icon>
+        </template>
+      </v-tooltip>
+    </template>
+  </boolean-checkbox-property-wrapper>
 
-  <template class="d-flex align-center">
-    <boolean-checkbox-property-wrapper
-      v-model="modelValue.multiple"
-      :label="t('multiple')"
-      class="pr-2"
-    />
-    <v-tooltip
-      :text="t('multipleTooltip')"
-      location="start"
-      width="300"
-    >
-      <template v-slot:activator="{ props }">
-        <v-icon v-bind="props">
-          mdi-information-outline
-        </v-icon>
-      </template>
-    </v-tooltip>
-  </template>
+
+  <boolean-checkbox-property-wrapper
+    v-model="modelValue.multiple"
+    :label="t('multiple')"
+  >
+    <template #append>
+      <v-tooltip
+        :text="t('multipleTooltip')"
+        location="start"
+        width="300"
+      >
+        <template v-slot:activator="{ props }">
+          <v-icon v-bind="props">
+            mdi-information-outline
+          </v-icon>
+        </template>
+      </v-tooltip>
+    </template>
+  </boolean-checkbox-property-wrapper>
 
 
   <number-property-wrapper

@@ -5,6 +5,7 @@
       v-model="modelValue"
       :label="label"
       v-bind="style.inputStyle.value"
+      hide-details
     >
       <template #append>
         <slot name="append"></slot>
