@@ -1,89 +1,63 @@
 <template>
-  <!-- Przełącznik zwracania obiektu -->
-  <boolean-switch-property-wrapper
+  <boolean-checkbox-property-wrapper
     v-model="modelValue.returnObject"
     :label="t('simpleSource.returnObject')"
-  />
-
-  <v-data-table
-    :headers="headers"
-    :items="computedItems"
-    class="elevation-0 border-sm rounded mx-2"
-    density="compact"
-    hide-default-footer
-    style="max-width: 355px"
   >
-    <!-- Wartość -->
-    <template #item.value="{ item }">
-      <v-text-field
-        v-model="item.value"
-        class="table-input"
-        density="compact"
-        hide-details
-        variant="outlined"
-        @update:model-value="(val) => parseValue(item, val)"
-      />
+    <template #append>
+      <v-tooltip
+        :text="t('simpleSource.returnObjectTooltip')"
+        location="start"
+        width="300"
+      >
+        <template v-slot:activator="{ props }">
+          <v-icon v-bind="props">
+            mdi-information-outline
+          </v-icon>
+        </template>
+      </v-tooltip>
     </template>
+  </boolean-checkbox-property-wrapper>
 
-    <!-- Etykieta -->
-    <template #item.title="{ item }">
-      <v-text-field
-        v-if="typeof item.title === 'string'"
-        v-model="item.title"
-        class="table-input"
-        density="compact"
-        hide-details
-        variant="outlined"
-      />
-      <v-text-field
-        v-else
-        v-model="item.title.$ref"
-        class="table-input"
-        density="compact"
-        disabled
-        hide-details
-        variant="outlined"
-      />
-    </template>
+  <v-btn
+    class="mt-2 mx-2"
+    color="primary"
+    prepend-icon="mdi-tune"
+    size="small"
+    width="355px"
+    @click="advancedConfigDialog = true"
+  >
+    {{ t("simpleSource.showAdvanced") }}
+  </v-btn>
 
-    <!-- Strzałki i menu -->
-    <template #item.actions="{ item, index }">
-      <div class="d-flex align-center justify-end ga-1">
-        <!-- Strzałki -->
-        <v-btn
-          :disabled="index === 0"
-          density="compact"
-          icon="mdi-chevron-up"
-          size="small"
-          variant="text"
-          @click="moveItem(index, index - 1)"
-        />
-        <v-btn
-          :disabled="index === computedItems.length - 1"
-          density="compact"
-          icon="mdi-chevron-down"
-          size="small"
-          variant="text"
-          @click="moveItem(index, index + 1)"
-        />
 
-        <!-- Menu 3 kropki -->
+  <div class="d-flex flex-column ga-2 mt-2 mx-2" style="max-width: 355px">
+    <v-card
+      v-for="(item, index) in computedItems"
+      :key="index"
+      class="pa-2 border-sm rounded"
+      density="compact"
+      elevation="0"
+    >
+      <div class="d-flex justify-space-between align-center mb-1">
+        <strong>{{ t('simpleSource.option') }} {{ index + 1 }}</strong>
+
+        <!-- Menu akcji -->
         <v-menu location="bottom end" transition="scale-transition">
           <template #activator="{ props }">
-            <v-btn
-              density="compact"
-              icon="mdi-dots-vertical"
-              size="small"
-              v-bind="props"
-              variant="text"
-            />
+            <v-btn density="compact" icon="mdi-dots-vertical" size="small" v-bind="props" variant="text"/>
           </template>
           <v-list density="compact">
-            <v-list-item @click="configOption(item)">
+            <v-list-item :disabled="index === 0" @click="moveItem(index, index - 1)">
               <template #prepend>
-                <v-icon size="small">mdi-cog-outline</v-icon>
+                <v-icon size="small">mdi-chevron-up</v-icon>
               </template>
-              <v-list-item-title>{{ t("simpleSource.title") }}</v-list-item-title>
+              <v-list-item-title>{{ t('moveUp') }}</v-list-item-title>
+            </v-list-item>
+            <v-list-item :disabled="index === computedItems.length - 1" @click="moveItem(index, index + 1)">
+              <template #prepend>
+                <v-icon size="small">mdi-chevron-down</v-icon>
+              </template>
+              <v-list-item-title>{{ t('moveDown') }}</v-list-item-title>
             </v-list-item>
             <v-list-item @click="deleteOption(item)">
               <template #prepend>
@@ -94,10 +68,39 @@
           </v-list>
         </v-menu>
       </div>
-    </template>
-  </v-data-table>
 
-  <!-- Przycisk dodania -->
+      <!-- Pola value i title -->
+      <v-text-field
+        v-model="item.value"
+        :label="t('simpleSource.value')"
+        class="mb-2"
+        density="compact"
+        hide-details
+        variant="outlined"
+        @update:model-value="(val) => parseValue(item, val)"
+      />
+
+      <v-text-field
+        v-if="typeof item.title === 'string'"
+        v-model="item.title"
+        :label="t('simpleSource.label')"
+        density="compact"
+        hide-details
+        variant="outlined"
+      />
+      <v-text-field
+        v-else
+        v-model="item.title.$ref"
+        :label="t('simpleSource.label')"
+        density="compact"
+        disabled
+        hide-details
+        variant="outlined"
+      />
+    </v-card>
+  </div>
+
+
   <v-btn
     class="mt-2 mx-2"
     color="primary"
@@ -109,69 +112,130 @@
     {{ t("simpleSource.addButton") }}
   </v-btn>
 
-  <!-- Dialog konfiguracji (bez zmian) -->
   <tcn-au-dialog
-    v-if="configOptionDialog"
-    v-model="configOptionDialog"
+    v-if="advancedConfigDialog"
+    v-model="advancedConfigDialog"
     :acceptColor="style.primaryWhite.value"
-    :acceptText="t('save')"
+    :acceptText="t('close')"
     persistent
     scrollable
-    width="800px"
-    @acceptButton="saveConfigAndClose"
-    @closeButton="closeConfigItemDialog"
+    width="1000px"
+    @acceptButton="advancedConfigDialog = false"
   >
     <template #title>
-      <v-card-title>{{ t("simpleSource.title") }}</v-card-title>
+      <v-card-title>{{ t("simpleSource.advancedConfigTitle") }}</v-card-title>
     </template>
 
-    <v-card-text class="px-0">
-      <text-property-wrapper
-        :label="t('simpleSource.value')"
-        :model-value="currentConfiguredOption.value"
-        @update:model-value="(val) => parseValue(currentConfiguredOption, val)"
-      />
-      <text-property-wrapper
-        v-model="dynamicItemTitle"
-        :label="t('simpleSource.label')"
-        :prefix="currentConfiguredOption.isReference ? prefix : ''"
-      />
-
-
-      <template v-if="field.layout.component == 'checkbox'">
-        <v-card-subtitle
-          v-if="!currentConfiguredOption.disabledCondition"
-          class="link cursor-pointer mt-4"
-          @click="currentConfiguredOption.disabledCondition = 'changeMe'"
+    <v-card-text class="px-4">
+      <div class="d-flex flex-column ga-2">
+        <div
+          v-for="(item, index) in computedItems"
+          :key="index"
+          class="border-sm rounded pa-3 text-sm"
         >
-          {{ t('simpleSource.addDisabledCondition') }}
-        </v-card-subtitle>
+          <!-- Główna linia -->
+          <v-row align="center" dense>
+            <v-col cols="4">
+              <v-text-field
+                v-model="item.value"
+                :label="t('simpleSource.value')"
+                class="tiny-label"
+                density="compact"
+                hide-details
+                variant="outlined"
+                @update:model-value="(val) => parseValue(item, val)"
+              />
+            </v-col>
 
-        <text-property-wrapper
-          v-else
-          v-model="currentConfiguredOption.disabledCondition"
-          :label="t('simpleSource.disabledCondition')"
-          class="mt-1 mr-4"
-        />
-      </template>
+            <v-col cols="4">
+              <text-property-wrapper
+                v-if="typeof item.title === 'string'"
+                v-model="item.title"
+                :label="t('simpleSource.label')"
+                class="tiny-label"
+              />
+              <text-property-wrapper
+                v-else
+                v-model="item.title.$ref"
+                :label="t('simpleSource.label')"
+                class="tiny-label"
+                disabled
+              />
+            </v-col>
 
+            <v-col class="d-flex align-center justify-center" cols="3">
+              <boolean-checkbox-property-wrapper
+                v-model="item.isReference"
+                :label="t('simpleSource.useReference')"
+                class="tiny-label"
+                @change="() => handleReferenceChange(item)"
+              />
+            </v-col>
 
-      <boolean-checkbox-property-wrapper
-        v-model="currentConfiguredOption.isReference"
-        :label="t('simpleSource.useReference')"
-        @change="referenceChangedItemTitle"
+            <v-col class="d-flex justify-end ga-1" cols="1">
+              <v-btn
+                :disabled="index === 0"
+                icon="mdi-chevron-up"
+                size="small"
+                variant="text"
+                @click="moveItem(index, index - 1)"
+              />
+              <v-btn
+                :disabled="index === computedItems.length - 1"
+                icon="mdi-chevron-down"
+                size="small"
+                variant="text"
+                @click="moveItem(index, index + 1)"
+              />
+              <v-btn
+                color="error"
+                icon="mdi-delete-outline"
+                size="small"
+                variant="text"
+                @click="deleteOption(item)"
+              />
+            </v-col>
+          </v-row>
+
+          <!-- Sekcja dla checkbox -->
+          <div
+            v-if="field.layout.component === 'checkbox'"
+            class="mt-1"
+          >
+            <v-card-subtitle
+              v-if="!item.disabledCondition"
+              class="link cursor-pointer text-primary text-sm pa-0 ma-0"
+              @click="item.disabledCondition = 'changeMe'"
+            >
+              {{ t('simpleSource.addDisabledCondition') }}
+            </v-card-subtitle>
+
+            <text-property-wrapper
+              v-else
+              v-model="item.disabledCondition"
+              :label="t('simpleSource.disabledCondition')"
+              class="tiny-label pa-0 ma-0"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Przycisk dodania -->
+      <v-btn
+        block
+        class="mt-4"
+        color="primary"
+        prepend-icon="mdi-plus"
+        size="small"
+        @click="addOption"
       >
-        <template #append>
-          <v-tooltip location="left" width="300">
-            <template #activator="{ props }">
-              <v-icon v-bind="props">mdi-information-outline</v-icon>
-            </template>
-            <span>{{ t('simpleSource.useReferenceInfo') }}</span>
-          </v-tooltip>
-        </template>
-      </boolean-checkbox-property-wrapper>
+        {{ t('simpleSource.addButton') }}
+      </v-btn>
     </v-card-text>
+
+
   </tcn-au-dialog>
+
 </template>
 
 <script lang="ts" setup>
@@ -181,13 +245,13 @@ import {useStyle} from "@/main";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
-import draggable from "../../../vuedraggable/vuedraggable";
 
 const {t} = useI18n();
 const style = useStyle();
 const {prefix, toCamelCase} = useTranslateInput();
+const advancedConfigDialog = ref(false);
+const expandedRows = ref<any[]>([]);
 
 const useBuilderStateStore = useBuilderState();
 const field = computed({
@@ -211,9 +275,10 @@ const computedItems = computed({
 });
 
 const headers = [
-  { title: t("simpleSource.value"), key: "value" },
-  { title: t("simpleSource.label"), key: "title" },
-  { title: "", key: "actions", sortable: false, align: "end", width: 100 },
+  {title: t("simpleSource.value"), key: "value"},
+  {title: t("simpleSource.label"), key: "title"},
+  {title: t("simpleSource.useReference"), key: "isReference", align: "center", width: 120},
+  {title: "", key: "actions", sortable: false, align: "end", width: 100},
 ] as any;
 
 function moveItem(from: number, to: number) {
@@ -263,6 +328,15 @@ function saveConfigAndClose() {
   closeConfigItemDialog();
 }
 
+function handleReferenceChange(item: any) {
+  if (item.isReference) {
+    item.title = {$ref: prefix + toCamelCase(item.title)};
+  } else {
+    item.title = item.title?.$ref?.replace(prefix, "") || "";
+  }
+}
+
+
 // Dynamiczny tytuł
 const dynamicItemTitle = computed({
   get: () =>
@@ -291,15 +365,28 @@ function referenceChangedItemTitle() {
 </script>
 
 <style scoped>
-.table-input {
-  max-width: 120px;
-  font-size: 0.8rem;
+.tiny-label :deep(.v-label) {
+  font-size: 0.75rem !important;
+  line-height: 1.1 !important;
 }
 
-.v-data-table {
-  --v-table-header-height: 32px;
+.tiny-label :deep(input),
+.tiny-label :deep(textarea) {
+  font-size: 0.8rem !important;
+}
+
+.text-sm {
   font-size: 0.85rem;
 }
+
+.pa-0 {
+  padding: 0 !important;
+}
+
+.ma-0 {
+  margin: 0 !important;
+}
+
 </style>
 
 
@@ -308,12 +395,19 @@ function referenceChangedItemTitle() {
   "en": {
     "save": "Save",
     "delete": "Delete",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "close": "Close",
     "simpleSource": {
+      "showAdvanced": "Show advanced configuration",
+      "advancedConfigTitle": "Advanced configuration",
+      "option": "Option",
       "title": "Option configuration",
       "value": "Value",
       "label": "Label",
       "addButton": "Add option",
-      "returnObject": "Return object",
+      "returnObject": "Save object",
+      "returnObjectTooltip": "If enabled, the entire object containing, for example, the identifier and label will be saved in the form model. If disabled, only the valueMapping defined in the dictionary URL will be saved in the model.",
       "useReference": "Use reference",
       "disabledCondition": "Disabled condition",
       "addDisabledCondition": "Click to define a disabled condition",
@@ -323,12 +417,19 @@ function referenceChangedItemTitle() {
   "pl": {
     "save": "Zapisz",
     "delete": "Usuń",
+    "moveUp": "Przesuń w górę",
+    "moveDown": "Przesuń w dół",
+    "close": "Zamknij",
     "simpleSource": {
+      "showAdvanced": "Pokaż konfigurację zaawansowaną",
+      "advancedConfigTitle": "Konfiguracja zaawansowana",
+      "option": "Opcja",
       "title": "Konfiguracja opcji",
       "value": "Wartość",
       "label": "Etykieta",
       "addButton": "Dodaj opcję",
       "returnObject": "Zwracaj obiekt",
+      "returnObjectTooltip": "Jeżeli opcja jest włączona, w modelu formularza zapisywany będzie cały obiekt, zawierający na przykład identyfikator oraz etykietę. Gdy opcja jest wyłączona, w modelu zapisywane będzie wyłącznie valueMapping zdefiniowane w adresie URL słownika",
       "useReference": "Użyj referencji",
       "disabledCondition": "Warunek wyłączenia",
       "addDisabledCondition": "Kliknij, aby zdefiniować warunek wyłączenia",
