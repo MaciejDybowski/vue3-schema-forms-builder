@@ -285,10 +285,6 @@ function moveItemInDialog(from: number, to: number) {
   tempItems.value = items
 }
 
-function addOptionInDialog() {
-  tempItems.value.push({value: "changeMe", title: "changeMe"})
-}
-
 function deleteOptionInDialog(obj: any) {
   tempItems.value = tempItems.value.filter((item) => item.value !== obj.value)
 }
@@ -301,8 +297,25 @@ function moveItem(from: number, to: number) {
 }
 
 function addOption() {
-  modelValue.value.items.push({value: "changeMe", title: "changeMe"});
+  modelValue.value.items.push({
+    value: "changeMe",
+    title: isReferenceForAll.value
+      ? {$ref: prefix + toCamelCase("changeMe")}
+      : "changeMe",
+    isReference: isReferenceForAll.value
+  });
 }
+
+function addOptionInDialog() {
+  tempItems.value.push({
+    value: "changeMe",
+    title: isReferenceForAll.value
+      ? {$ref: prefix + toCamelCase("changeMe")}
+      : "changeMe",
+    isReference: isReferenceForAll.value
+  });
+}
+
 
 function parseValue(item, val: any) {
   if (val === "true" || val === "false") item.value = val === "true";
@@ -338,8 +351,8 @@ const tempItems = ref<any[]>([])
 function openOptionEditor() {
   tempItems.value = JSON.parse(JSON.stringify(computedItems.value))
   isReferenceForAll.value = tempItems.value.every(
-    (item) => item.isReference
-  )
+    (item) => typeof item.title === "object" && !!item.title.$ref
+  );
   advancedConfigDialog.value = true
 }
 
