@@ -88,10 +88,11 @@
       />
       <v-text-field
         v-else
-        v-model="item.title.$ref"
+        v-model="dynamicTitle(item).value"
         :label="t('simpleSource.label')"
+        :prefix="item.isReference ? prefix : undefined"
+        class="tiny-label"
         density="compact"
-
         hide-details
         variant="outlined"
       />
@@ -168,8 +169,9 @@
               />
               <v-text-field
                 v-else
-                v-model="item.title.$ref"
+                v-model="dynamicTitle(item).value"
                 :label="t('simpleSource.label')"
+                :prefix="item.isReference ? prefix : undefined"
                 class="tiny-label"
                 density="compact"
                 hide-details
@@ -349,6 +351,28 @@ function saveConfigAndClose() {
 function cancelConfigAndClose() {
   advancedConfigDialog.value = false
 }
+
+function dynamicTitle(item: any) {
+  return computed({
+    get: () => {
+      if (typeof item.title === "string") {
+        return item.title;
+      } else if (item.title?.$ref) {
+        return item.title.$ref.replace(prefix, "");
+      } else {
+        return "";
+      }
+    },
+    set: (val: string) => {
+      if (item.isReference) {
+        item.title = {$ref: prefix + toCamelCase(val.trim())};
+      } else {
+        item.title = val;
+      }
+    },
+  });
+}
+
 </script>
 
 <style scoped>
