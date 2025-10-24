@@ -5,7 +5,6 @@
     :label="t('ifProperty')"
     :rows="3"
   >
-    <!-- Ikony w append-inner ustawione pionowo -->
     <template #append-inner>
       <div class="append-inner-column">
         <v-tooltip
@@ -22,7 +21,7 @@
 
         <v-icon
           class="clickable"
-          @click="openAdvancedDialog"
+          @click="openAdvancedDialog(modelValue)"
         >
           mdi-cog
         </v-icon>
@@ -30,59 +29,32 @@
     </template>
   </text-property-wrapper>
 
-  <tcn-au-dialog
-    v-if="showAdvancedDialog"
-    v-model="showAdvancedDialog"
-    :acceptColor="style.primaryWhite.value"
-    :acceptText="t('save')"
-    persistent
-    scrollable
-    width="800px"
-    @acceptButton="save"
-    @closeButton="cancel"
-  >
-    <template #title>
-      <v-card-title>
-        {{ t('advancedConfiguration') }}
-      </v-card-title>
-    </template>
-    <v-card-text class="px-0">
-      <tcn-code-editor
-        v-model="modelInDialog"
-        :codemirrorOptions="{}"
-        height="300px"
-        language="text"
-      />
-    </v-card-text>
-  </tcn-au-dialog>
+  <CodeEditorDialog
+    v-model="modelInDialog"
+    v-model:show="showAdvancedDialog"
+    :codemirrorOptions="{}"
+    @close="closeDialog"
+    @save="() => modelValue = saveContent()"
+  />
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
-import {ref} from "vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
+import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 
-const showAdvancedDialog = ref(false);
-
-function openAdvancedDialog() {
-  modelInDialog.value = modelValue.value;
-  showAdvancedDialog.value = true;
-}
-
-const modelValue = defineModel();
-const style = useStyle();
-const modelInDialog = ref<any>(null);
 const {t} = useI18n();
+const modelValue = defineModel();
 
-function cancel() {
-  showAdvancedDialog.value = false;
-}
+const {
+  modelInDialog,
+  showAdvancedDialog,
+  openAdvancedDialog,
+  saveContent,
+  closeDialog
+} = useCodeEditorDialog()
 
-function save() {
-  modelValue.value = modelInDialog.value;
-  showAdvancedDialog.value = false;
-}
 </script>
 
 <style lang="scss" scoped>
@@ -103,15 +75,11 @@ function save() {
 {
   "en": {
     "ifProperty": "Display condition",
-    "ifPropertyInfo": "You can define a JSONATA condition that controls the visibility (rendering) of this element or open the advanced editor for more complex expressions.",
-    "advancedConfiguration": "Advanced configuration",
-    "save": "Save"
+    "ifPropertyInfo": "You can define a JSONATA condition that controls the visibility (rendering) of this element or open the advanced editor for more complex expressions."
   },
   "pl": {
     "ifProperty": "Warunek wyświetlania",
-    "ifPropertyInfo": "Możesz zdefiniować warunek JSONATA, który kontroluje widoczność (renderowanie) tego elementu lub otwórz zaawansowany edytor dla bardziej złożonych wyrażeń.",
-    "advancedConfiguration": "Konfiguracja zaawansowana",
-    "save": "Zapisz"
+    "ifPropertyInfo": "Możesz zdefiniować warunek JSONATA, który kontroluje widoczność (renderowanie) tego elementu lub otwórz zaawansowany edytor dla bardziej złożonych wyrażeń."
   }
 }
 </i18n>

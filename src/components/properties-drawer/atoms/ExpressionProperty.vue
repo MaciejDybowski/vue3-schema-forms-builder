@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <text-property-wrapper
       v-model="model"
@@ -7,70 +6,48 @@
       :label="t('expression')"
       :rows="5"
       append-inner-icon="mdi-cog"
-      @click:append-inner="openAdvancedDialog"
+      @click:append-inner="openAdvancedDialog(model)"
     />
-    <tcn-au-dialog
-      v-if="showAdvancedDialog"
-      v-model="showAdvancedDialog"
-      :acceptColor="style.primaryWhite.value"
-      :acceptText="t('save')"
-      persistent
-      scrollable
-      width="800px"
-      @acceptButton="save"
-      @closeButton="cancel"
-    >
-      <template #title>
-        <v-card-title>
-          {{ t('advancedConfiguration') }}
-        </v-card-title>
-      </template>
-      <v-card-text class="px-0">
 
-        <tcn-code-editor
-          v-model="modelInDialog"
-          :codemirrorOptions="{}"
-          height="300px"
-          language="text"
-        />
-      </v-card-text>
-    </tcn-au-dialog>
+    <CodeEditorDialog
+      v-model="modelInDialog"
+      v-model:show="showAdvancedDialog"
+      :codemirrorOptions="{}"
+      @close="closeDialog"
+      @save="() => model = saveContent()"
+    />
   </div>
-
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import {ref} from "vue";
-import {useStyle} from "@/main";
+import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
+import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 
-const {t} = useI18n()
-const model = defineModel()
-const style = useStyle()
+const {t} = useI18n();
 
-const showAdvancedDialog = ref(false)
 
-const modelInDialog = ref<any>(null)
+const model = defineModel<any>();
+const {
+  modelInDialog,
+  showAdvancedDialog,
+  openAdvancedDialog,
+  saveContent,
+  closeDialog
+} = useCodeEditorDialog()
 
-function openAdvancedDialog() {
-  modelInDialog.value = model.value
-  showAdvancedDialog.value = true
-}
-
-function cancel() {
-  showAdvancedDialog.value = false
-}
-
-function save() {
-  model.value = modelInDialog.value
-  showAdvancedDialog.value = false
-}
 
 </script>
 
 <style lang="scss" scoped>
-
+.resizeable {
+  resize: both;
+  min-height: 200px;
+  min-width: 600px;
+  overflow: hidden;
+  border-radius: 0.3em;
+}
 </style>
 
 <i18n lang="json">

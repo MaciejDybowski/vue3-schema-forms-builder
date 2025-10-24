@@ -2,65 +2,39 @@
   <div>
     <text-property-wrapper
       v-model="modelValue"
-      :label="t('calculationProperty')"
-      append-inner-icon="mdi-cog"
-      @click:append-inner="openAdvancedDialog"
-      :rows="3"
       :grow-enabled="false"
+      :label="t('calculationProperty')"
+      :rows="3"
+      append-inner-icon="mdi-cog"
+      @click:append-inner="openAdvancedDialog(modelValue)"
     />
-    <tcn-au-dialog
-      v-if="showAdvancedDialog"
-      v-model="showAdvancedDialog"
-      :acceptColor="style.primaryWhite.value"
-      :acceptText="t('save')"
-      persistent
-      scrollable
-      width="800px"
-      @acceptButton="save"
-      @closeButton="cancel"
-    >
-      <template #title>
-        <v-card-title>
-          {{ t('advancedConfiguration') }}
-        </v-card-title>
-      </template>
-      <v-card-text class="px-0">
 
-        <tcn-code-editor
-          v-model="modelInDialog"
-          :codemirrorOptions="{}"
-          height="300px"
-          language="text"
-        />
-      </v-card-text>
-    </tcn-au-dialog>
+    <CodeEditorDialog
+      v-model="modelInDialog"
+      v-model:show="showAdvancedDialog"
+      :codemirrorOptions="{}"
+      @close="closeDialog"
+      @save="() => modelValue = saveContent()"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
-import {useStyle} from "@/main";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import {ref} from "vue";
+import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
+import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 
 
 const modelValue = defineModel()
-const style = useStyle();
-const modelInDialog = ref<any>(null)
-const showAdvancedDialog = ref(false)
+const {
+  modelInDialog,
+  showAdvancedDialog,
+  openAdvancedDialog,
+  saveContent,
+  closeDialog
+} = useCodeEditorDialog()
 
-function openAdvancedDialog() {
-  modelInDialog.value = modelValue.value
-  showAdvancedDialog.value = true
-}
-function cancel() {
-  showAdvancedDialog.value = false
-}
-
-function save() {
-  modelValue.value = modelInDialog.value
-  showAdvancedDialog.value = false
-}
 
 const {t} = useI18n()
 </script>
@@ -72,14 +46,10 @@ const {t} = useI18n()
 <i18n lang="json">
 {
   "en": {
-    "advancedConfiguration": "Advanced configuration",
-    "calculationProperty": "Calculation",
-    "save": "Save"
+    "calculationProperty": "Calculation"
   },
   "pl": {
-    "advancedConfiguration": "Konfiguracja zaawansowana",
-    "calculationProperty": "Obliczenia",
-    "save": "Zapisz"
+    "calculationProperty": "Obliczenia"
   }
 }
 </i18n>
