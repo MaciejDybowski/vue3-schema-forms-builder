@@ -314,7 +314,7 @@ function deleteOption(obj: any) {
 }
 
 function handleReferenceChangeForAll() {
-  computedItems.value.forEach((item) => {
+  tempItems.value.forEach((item) => {
     item.isReference = isReferenceForAll.value;
     handleReferenceChange(item);
   });
