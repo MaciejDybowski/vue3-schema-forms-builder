@@ -90,7 +90,7 @@
         v-else
         v-model="dynamicTitle(item).value"
         :label="t('simpleSource.label')"
-        :prefix="item.isReference ? prefix : undefined"
+        :prefix="isReference(item) ? prefix : undefined"
         class="tiny-label"
         density="compact"
         hide-details
@@ -171,7 +171,7 @@
                 v-else
                 v-model="dynamicTitle(item).value"
                 :label="t('simpleSource.label')"
-                :prefix="item.isReference ? prefix : undefined"
+                :prefix="isReference(item) ? prefix : undefined"
                 class="tiny-label"
                 density="compact"
                 hide-details
@@ -244,6 +244,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import {computed, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useStyle} from "@/main";
@@ -278,93 +279,15 @@ const computedItems = computed({
   set: (val) => (modelValue.value.items = val),
 });
 
-function moveItemInDialog(from: number, to: number) {
-  const items = [...tempItems.value]
-  const item = items.splice(from, 1)[0]
-  items.splice(to, 0, item)
-  tempItems.value = items
+const tempItems = ref<any[]>([]);
+const isReferenceForAll = ref(false);
+
+// 🔹 dynamiczne sprawdzenie, czy item ma referencję
+function isReference(item: any) {
+  return typeof item.title === "object" && !!item.title.$ref;
 }
 
-function deleteOptionInDialog(obj: any) {
-  tempItems.value = tempItems.value.filter((item) => item.value !== obj.value)
-}
-
-function moveItem(from: number, to: number) {
-  const items = [...computedItems.value];
-  const item = items.splice(from, 1)[0];
-  items.splice(to, 0, item);
-  computedItems.value = items;
-}
-
-function addOption() {
-  modelValue.value.items.push({
-    value: "changeMe",
-    title: isReferenceForAll.value
-      ? {$ref: prefix + toCamelCase("changeMe")}
-      : "changeMe",
-    isReference: isReferenceForAll.value
-  });
-}
-
-function addOptionInDialog() {
-  tempItems.value.push({
-    value: "changeMe",
-    title: isReferenceForAll.value
-      ? {$ref: prefix + toCamelCase("changeMe")}
-      : "changeMe",
-    isReference: isReferenceForAll.value
-  });
-}
-
-
-function parseValue(item, val: any) {
-  if (val === "true" || val === "false") item.value = val === "true";
-  else item.value = val;
-}
-
-function deleteOption(obj: any) {
-  computedItems.value = computedItems.value.filter(
-    (item) => item.value !== obj.value
-  );
-}
-
-function handleReferenceChangeForAll() {
-  tempItems.value.forEach((item) => {
-    item.isReference = isReferenceForAll.value;
-    handleReferenceChange(item);
-  });
-}
-
-function handleReferenceChange(item: any) {
-  if (item.isReference) {
-    item.title = {$ref: prefix + toCamelCase(item.title)};
-  } else {
-    item.title = item.title?.$ref?.replace(prefix, "") || "";
-  }
-}
-
-const isReferenceForAll = ref(false)
-
-
-const tempItems = ref<any[]>([])
-
-function openOptionEditor() {
-  tempItems.value = JSON.parse(JSON.stringify(computedItems.value))
-  isReferenceForAll.value = tempItems.value.every(
-    (item) => typeof item.title === "object" && !!item.title.$ref
-  );
-  advancedConfigDialog.value = true
-}
-
-function saveConfigAndClose() {
-  computedItems.value = JSON.parse(JSON.stringify(tempItems.value))
-  advancedConfigDialog.value = false
-}
-
-function cancelConfigAndClose() {
-  advancedConfigDialog.value = false
-}
-
+// 🔹 getter/setter dynamiczny dla title
 function dynamicTitle(item: any) {
   return computed({
     get: () => {
@@ -377,7 +300,7 @@ function dynamicTitle(item: any) {
       }
     },
     set: (val: string) => {
-      if (item.isReference) {
+      if (isReference(item)) {
         item.title = {$ref: prefix + toCamelCase(val.trim())};
       } else {
         item.title = val;
@@ -385,6 +308,85 @@ function dynamicTitle(item: any) {
     },
   });
 }
+
+function addOption() {
+  modelValue.value.items.push({
+    value: "changeMe",
+    title: isReferenceForAll.value
+      ? {$ref: prefix + toCamelCase("changeMe")}
+      : "changeMe",
+  });
+}
+
+function addOptionInDialog() {
+  tempItems.value.push({
+    value: "changeMe",
+    title: isReferenceForAll.value
+      ? {$ref: prefix + toCamelCase("changeMe")}
+      : "changeMe",
+  });
+}
+
+function parseValue(item, val: any) {
+  if (val === "true" || val === "false") item.value = val === "true";
+  else item.value = val;
+}
+
+function moveItem(from: number, to: number) {
+  const items = [...computedItems.value];
+  const item = items.splice(from, 1)[0];
+  items.splice(to, 0, item);
+  computedItems.value = items;
+}
+
+function moveItemInDialog(from: number, to: number) {
+  const items = [...tempItems.value];
+  const item = items.splice(from, 1)[0];
+  items.splice(to, 0, item);
+  tempItems.value = items;
+}
+
+function deleteOption(obj: any) {
+  computedItems.value = computedItems.value.filter(
+    (item) => item.value !== obj.value
+  );
+}
+
+function deleteOptionInDialog(obj: any) {
+  tempItems.value = tempItems.value.filter((item) => item.value !== obj.value);
+}
+
+function handleReferenceChangeForAll() {
+  tempItems.value.forEach((item) => handleReferenceChange(item, isReferenceForAll.value));
+}
+
+function handleReferenceChange(item: any, makeRef: boolean) {
+  if (makeRef) {
+    if (typeof item.title === "string") {
+      item.title = {$ref: prefix + toCamelCase(item.title.trim())};
+    }
+  } else {
+    if (typeof item.title === "object" && item.title?.$ref) {
+      item.title = item.title.$ref.replace(prefix, "");
+    }
+  }
+}
+
+function openOptionEditor() {
+  tempItems.value = JSON.parse(JSON.stringify(computedItems.value));
+  isReferenceForAll.value = tempItems.value.every(isReference);
+  advancedConfigDialog.value = true;
+}
+
+function saveConfigAndClose() {
+  computedItems.value = JSON.parse(JSON.stringify(tempItems.value));
+  advancedConfigDialog.value = false;
+}
+
+function cancelConfigAndClose() {
+  advancedConfigDialog.value = false;
+}
+
 
 </script>
 
