@@ -24,22 +24,21 @@
     prepend-icon="mdi-tune"
     size="small"
     width="355px"
-    @click="advancedConfigDialog = true"
+    @click="openOptionEditor"
   >
-    {{ t("simpleSource.showAdvanced") }}
+    {{ t("simpleSource.openOptionEditor") }}
   </v-btn>
 
 
   <div class="d-flex flex-column ga-2 mt-2 mx-2" style="max-width: 355px">
-    <v-card
+    <div
       v-for="(item, index) in computedItems"
       :key="index"
-      class="pa-2 border-sm rounded"
-      density="compact"
-      elevation="0"
+      class="option-row py-2 px-1"
     >
       <div class="d-flex justify-space-between align-center mb-1">
-        <strong>{{ t('simpleSource.option') }} {{ index + 1 }}</strong>
+        <strong class="option-title">{{ t('simpleSource.option') }} {{ index + 1 }}</strong>
+
 
         <!-- Menu akcji -->
         <v-menu location="bottom end" transition="scale-transition">
@@ -69,7 +68,6 @@
         </v-menu>
       </div>
 
-      <!-- Pola value i title -->
       <v-text-field
         v-model="item.value"
         :label="t('simpleSource.value')"
@@ -93,11 +91,11 @@
         v-model="item.title.$ref"
         :label="t('simpleSource.label')"
         density="compact"
-        disabled
+
         hide-details
         variant="outlined"
       />
-    </v-card>
+    </div>
   </div>
 
 
@@ -116,26 +114,37 @@
     v-if="advancedConfigDialog"
     v-model="advancedConfigDialog"
     :acceptColor="style.primaryWhite.value"
-    :acceptText="t('close')"
+    :acceptText="t('save')"
+    :cancelText="t('close')"
     persistent
     scrollable
     width="1000px"
-    @acceptButton="advancedConfigDialog = false"
+    @acceptButton="saveConfigAndClose"
+    @cancelButton="cancelConfigAndClose"
   >
     <template #title>
       <v-card-title>{{ t("simpleSource.advancedConfigTitle") }}</v-card-title>
     </template>
 
-    <v-card-text class="px-4">
-      <div class="d-flex flex-column ga-2">
+    <v-card-text class="px-4 pt-0">
+      <v-row dense no-gutters>
+        <v-col class="px-0" cols="3">
+          <boolean-checkbox-property-wrapper
+            v-model="isReferenceForAll"
+            :label="t('simpleSource.useReference')"
+            class="tiny-label px-0"
+            @change="() => handleReferenceChangeForAll()"
+          />
+        </v-col>
+      </v-row>
+      <div class="d-flex flex-column">
         <div
-          v-for="(item, index) in computedItems"
+          v-for="(item, index) in tempItems"
           :key="index"
-          class="border-sm rounded pa-3 text-sm"
+          class="pa-1 text-sm"
         >
-          <!-- Główna linia -->
-          <v-row align="center" dense>
-            <v-col cols="4">
+          <v-row align="center">
+            <v-col cols="3">
               <v-text-field
                 v-model="item.value"
                 :label="t('simpleSource.value')"
@@ -147,57 +156,52 @@
               />
             </v-col>
 
-            <v-col cols="4">
-              <text-property-wrapper
+            <v-col cols="7">
+              <v-text-field
                 v-if="typeof item.title === 'string'"
                 v-model="item.title"
                 :label="t('simpleSource.label')"
                 class="tiny-label"
+                density="compact"
+                hide-details
+                variant="outlined"
               />
-              <text-property-wrapper
+              <v-text-field
                 v-else
                 v-model="item.title.$ref"
                 :label="t('simpleSource.label')"
                 class="tiny-label"
-                disabled
+                density="compact"
+                hide-details
+                variant="outlined"
               />
             </v-col>
 
-            <v-col class="d-flex align-center justify-center" cols="3">
-              <boolean-checkbox-property-wrapper
-                v-model="item.isReference"
-                :label="t('simpleSource.useReference')"
-                class="tiny-label"
-                @change="() => handleReferenceChange(item)"
-              />
-            </v-col>
-
-            <v-col class="d-flex justify-end ga-1" cols="1">
+            <v-col class="d-flex justify-end ga-1" cols="2">
               <v-btn
                 :disabled="index === 0"
                 icon="mdi-chevron-up"
                 size="small"
                 variant="text"
-                @click="moveItem(index, index - 1)"
+                @click="moveItemInDialog(index, index - 1)"
               />
               <v-btn
                 :disabled="index === computedItems.length - 1"
                 icon="mdi-chevron-down"
                 size="small"
                 variant="text"
-                @click="moveItem(index, index + 1)"
+                @click="moveItemInDialog(index, index + 1)"
               />
               <v-btn
                 color="error"
                 icon="mdi-delete-outline"
                 size="small"
                 variant="text"
-                @click="deleteOption(item)"
+                @click="deleteOptionInDialog(item)"
               />
             </v-col>
           </v-row>
 
-          <!-- Sekcja dla checkbox -->
           <div
             v-if="field.layout.component === 'checkbox'"
             class="mt-1"
@@ -220,14 +224,13 @@
         </div>
       </div>
 
-      <!-- Przycisk dodania -->
       <v-btn
         block
         class="mt-4"
         color="primary"
         prepend-icon="mdi-plus"
         size="small"
-        @click="addOption"
+        @click="addOptionInDialog"
       >
         {{ t('simpleSource.addButton') }}
       </v-btn>
@@ -251,7 +254,6 @@ const {t} = useI18n();
 const style = useStyle();
 const {prefix, toCamelCase} = useTranslateInput();
 const advancedConfigDialog = ref(false);
-const expandedRows = ref<any[]>([]);
 
 const useBuilderStateStore = useBuilderState();
 const field = computed({
@@ -274,12 +276,20 @@ const computedItems = computed({
   set: (val) => (modelValue.value.items = val),
 });
 
-const headers = [
-  {title: t("simpleSource.value"), key: "value"},
-  {title: t("simpleSource.label"), key: "title"},
-  {title: t("simpleSource.useReference"), key: "isReference", align: "center", width: 120},
-  {title: "", key: "actions", sortable: false, align: "end", width: 100},
-] as any;
+function moveItemInDialog(from: number, to: number) {
+  const items = [...tempItems.value]
+  const item = items.splice(from, 1)[0]
+  items.splice(to, 0, item)
+  tempItems.value = items
+}
+
+function addOptionInDialog() {
+  tempItems.value.push({value: "changeMe", title: "changeMe"})
+}
+
+function deleteOptionInDialog(obj: any) {
+  tempItems.value = tempItems.value.filter((item) => item.value !== obj.value)
+}
 
 function moveItem(from: number, to: number) {
   const items = [...computedItems.value];
@@ -303,29 +313,11 @@ function deleteOption(obj: any) {
   );
 }
 
-// Dialog konfiguracji
-const currentConfiguredOption = ref<any>(null);
-const configOptionDialog = ref(false);
-const updateWhenSaveModel = ref<any>(null);
-
-function configOption(option: any) {
-  updateWhenSaveModel.value = option;
-  currentConfiguredOption.value = {...option};
-  currentConfiguredOption.value.isReference =
-    typeof currentConfiguredOption.value.title !== "string";
-  configOptionDialog.value = true;
-}
-
-function closeConfigItemDialog() {
-  updateWhenSaveModel.value = null;
-  configOptionDialog.value = false;
-  currentConfiguredOption.value = null;
-}
-
-function saveConfigAndClose() {
-  if (updateWhenSaveModel.value)
-    Object.assign(updateWhenSaveModel.value, currentConfiguredOption.value);
-  closeConfigItemDialog();
+function handleReferenceChangeForAll() {
+  computedItems.value.forEach((item) => {
+    item.isReference = isReferenceForAll.value;
+    handleReferenceChange(item);
+  });
 }
 
 function handleReferenceChange(item: any) {
@@ -336,31 +328,26 @@ function handleReferenceChange(item: any) {
   }
 }
 
+const isReferenceForAll = ref(false)
 
-// Dynamiczny tytuł
-const dynamicItemTitle = computed({
-  get: () =>
-    typeof currentConfiguredOption.value?.title === "string"
-      ? currentConfiguredOption.value.title
-      : currentConfiguredOption.value?.title?.$ref?.replace(prefix, "") ?? "",
-  set: (value: string) => {
-    currentConfiguredOption.value.title = currentConfiguredOption.value
-      .isReference
-      ? {$ref: prefix + value.trim()}
-      : value;
-  },
-});
 
-function referenceChangedItemTitle() {
-  if (!currentConfiguredOption.value) return;
-  if (currentConfiguredOption.value.isReference) {
-    currentConfiguredOption.value.title = {
-      $ref: prefix + toCamelCase(currentConfiguredOption.value.title),
-    };
-  } else {
-    currentConfiguredOption.value.title =
-      currentConfiguredOption.value.title?.$ref?.replace(prefix, "") || "";
-  }
+const tempItems = ref<any[]>([])
+
+function openOptionEditor() {
+  tempItems.value = JSON.parse(JSON.stringify(computedItems.value))
+  isReferenceForAll.value = tempItems.value.every(
+    (item) => item.isReference
+  )
+  advancedConfigDialog.value = true
+}
+
+function saveConfigAndClose() {
+  computedItems.value = JSON.parse(JSON.stringify(tempItems.value))
+  advancedConfigDialog.value = false
+}
+
+function cancelConfigAndClose() {
+  advancedConfigDialog.value = false
 }
 </script>
 
@@ -387,6 +374,20 @@ function referenceChangedItemTitle() {
   margin: 0 !important;
 }
 
+
+.option-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.option-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
 </style>
 
 
@@ -399,6 +400,7 @@ function referenceChangedItemTitle() {
     "moveDown": "Move down",
     "close": "Close",
     "simpleSource": {
+      "openOptionEditor": "Open option editor",
       "showAdvanced": "Show advanced configuration",
       "advancedConfigTitle": "Advanced configuration",
       "option": "Option",
@@ -421,6 +423,7 @@ function referenceChangedItemTitle() {
     "moveDown": "Przesuń w dół",
     "close": "Zamknij",
     "simpleSource": {
+      "openOptionEditor": "Otwórz edytor opcji",
       "showAdvanced": "Pokaż konfigurację zaawansowaną",
       "advancedConfigTitle": "Konfiguracja zaawansowana",
       "option": "Opcja",
