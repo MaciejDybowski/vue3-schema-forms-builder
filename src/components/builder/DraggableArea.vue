@@ -6,7 +6,7 @@
     :force-fallback="true"
     :group="{name: 'controls'}"
     :sort="true"
-    class="d-flex flex-wrap v-row draggable-area"
+    class="d-flex flex-wrap v-row draggable-area align-center"
     handle=".handle"
     itemKey="key"
     @change="onChange"
@@ -60,17 +60,11 @@ if (props.sectionKey) {
 }
 
 .draggable-area > * {
-  margin-bottom: 2px;
-  margin-top: 2px;
+  margin-bottom: 3px;
+  margin-top: 3px;
 }
 
-.draggable-area > *:first-child {
-  margin-top: 10px;
-}
 
-.draggable-area > *:last-child {
-  margin-bottom: 10px;
-}
 
 :deep(.sortable-ghost) {
   opacity: 1 !important;
