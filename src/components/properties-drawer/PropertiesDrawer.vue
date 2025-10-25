@@ -57,7 +57,8 @@ const component = computed(() => {
 const optionsComponent = computed(() => {
   return model.value.layout.component == 'select' ||
     model.value.layout.component == 'radio-button' ||
-    model.value.layout.component == 'checkbox'
+    model.value.layout.component == 'checkbox' ||
+    model.value.layout.component == 'bookmark'
 })
 
 const storybook = computed(() => {

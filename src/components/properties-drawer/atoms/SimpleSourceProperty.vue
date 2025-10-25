@@ -96,6 +96,29 @@
         hide-details
         variant="outlined"
       />
+
+      <v-combobox
+        v-if="field.layout.component === 'bookmark'"
+        v-model="item.icon"
+        :items="mdiIcons"
+        :label="t('simpleSource.icon')"
+        class="tiny-label mt-2"
+        clearable
+        density="compact"
+        hide-details
+        variant="outlined"
+      >
+        <template #prepend-inner>
+          <v-icon v-if="item.icon" size="small">{{ item.icon }}</v-icon>
+        </template>
+        <template #item="{ props, item: iconItem }">
+          <v-list-item v-bind="props">
+            <template #prepend>
+              <v-icon size="small">{{ iconItem.value }}</v-icon>
+            </template>
+          </v-list-item>
+        </template>
+      </v-combobox>
     </div>
   </div>
 
@@ -145,7 +168,7 @@
           class="pa-1 text-sm"
         >
           <v-row align="center">
-            <v-col cols="3">
+            <v-col cols="2">
               <v-text-field
                 v-model="item.value"
                 :label="t('simpleSource.value')"
@@ -157,7 +180,7 @@
               />
             </v-col>
 
-            <v-col cols="7">
+            <v-col :cols="field.layout.component === 'bookmark' ? 5: 8">
               <v-text-field
                 v-if="typeof item.title === 'string'"
                 v-model="item.title"
@@ -177,6 +200,30 @@
                 hide-details
                 variant="outlined"
               />
+            </v-col>
+
+
+            <v-col v-if="field.layout.component === 'bookmark'" cols="3">
+              <v-combobox
+                v-model="item.icon"
+                :items="mdiIcons"
+                :label="t('simpleSource.icon')"
+                clearable
+                density="compact"
+                hide-details
+                variant="outlined"
+              >
+                <template #selection="{ item }">
+                  <v-icon size="small">{{ item.title }}</v-icon>
+                </template>
+                <template #item="{ props, item: iconItem }">
+                  <v-list-item v-bind="props">
+                    <template #prepend>
+                      <v-icon size="small">{{ iconItem.value }}</v-icon>
+                    </template>
+                  </v-list-item>
+                </template>
+              </v-combobox>
             </v-col>
 
             <v-col class="d-flex justify-end ga-1" cols="2">
@@ -387,6 +434,72 @@ function cancelConfigAndClose() {
   advancedConfigDialog.value = false;
 }
 
+const mdiIcons = ref([
+  'mdi-home',
+  'mdi-account',
+  'mdi-star',
+  'mdi-heart',
+  'mdi-bookmark',
+  'mdi-bookmark-outline',
+  'mdi-settings',
+  'mdi-cog',
+  'mdi-bell',
+  'mdi-email',
+  'mdi-phone',
+  'mdi-calendar',
+  'mdi-clock',
+  'mdi-map-marker',
+  'mdi-file',
+  'mdi-folder',
+  'mdi-image',
+  'mdi-video',
+  'mdi-music',
+  'mdi-cart',
+  'mdi-shopping',
+  'mdi-credit-card',
+  'mdi-wallet',
+  'mdi-chart-line',
+  'mdi-chart-bar',
+  'mdi-database',
+  'mdi-server',
+  'mdi-cloud',
+  'mdi-download',
+  'mdi-upload',
+  'mdi-share',
+  'mdi-link',
+  'mdi-paperclip',
+  'mdi-printer',
+  'mdi-delete',
+  'mdi-trash-can',
+  'mdi-pencil',
+  'mdi-pen',
+  'mdi-plus',
+  'mdi-minus',
+  'mdi-check',
+  'mdi-close',
+  'mdi-alert',
+  'mdi-information',
+  'mdi-help',
+  'mdi-magnify',
+  'mdi-filter',
+  'mdi-menu',
+  'mdi-dots-vertical',
+  'mdi-dots-horizontal',
+  'mdi-chevron-up',
+  'mdi-chevron-down',
+  'mdi-chevron-left',
+  'mdi-chevron-right',
+  'mdi-arrow-up',
+  'mdi-arrow-down',
+  'mdi-arrow-left',
+  'mdi-arrow-right',
+  'mdi-lock',
+  'mdi-lock-open',
+  'mdi-eye',
+  'mdi-eye-off',
+  'mdi-thumb-up',
+  'mdi-thumb-down',
+]);
 
 </script>
 
@@ -446,6 +559,7 @@ function cancelConfigAndClose() {
       "title": "Option configuration",
       "value": "Value",
       "label": "Label",
+      "icon": "Icon",
       "addButton": "Add option",
       "returnObject": "Save object",
       "returnObjectTooltip": "If enabled, the entire object containing, for example, the identifier and label will be saved in the form model. If disabled, only the valueMapping defined in the dictionary URL will be saved in the model.",
@@ -469,6 +583,7 @@ function cancelConfigAndClose() {
       "title": "Konfiguracja opcji",
       "value": "Wartość",
       "label": "Etykieta",
+      "icon": "Ikona",
       "addButton": "Dodaj opcję",
       "returnObject": "Zwracaj obiekt",
       "returnObjectTooltip": "Jeżeli opcja jest włączona, w modelu formularza zapisywany będzie cały obiekt, zawierający na przykład identyfikator oraz etykietę. Gdy opcja jest wyłączona, w modelu zapisywane będzie wyłącznie valueMapping zdefiniowane w adresie URL słownika",

@@ -18,12 +18,13 @@
           v-model="model.layout.component"
           :clearable="false"
           :items="[
-       {value: 'radio-button', title: 'Radio'},
-       {value:'checkbox', title: 'Checkbox'},
-       {value:'select', title: 'Select'}
-       ]"
-          :return-object="false"
+            { value: 'radio-button', title: t('componentOptions.radio-button') },
+            { value: 'checkbox', title: t('componentOptions.checkbox') },
+            { value: 'select', title: t('componentOptions.select') },
+            { value: 'bookmark', title: t('componentOptions.bookmark') }
+          ]"
           :label="t('componentType')"
+          :return-object="false"
         />
       </template>
     </general-panel>
@@ -123,12 +124,24 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
   "en": {
     "componentType": "Component",
     "horizontalLayout": "Set horizontal",
-    "multipleProps": "Multiple values"
+    "multipleProps": "Multiple values",
+    "componentOptions": {
+      "radio-button": "Radio Button",
+      "checkbox": "Checkbox",
+      "select": "Select",
+      "bookmark": "Bookmark"
+    }
   },
   "pl": {
     "componentType": "Typ pola",
     "horizontalLayout": "Ułóż horyzontalnie",
-    "multipleProps": "Dozwolone wiele wartości"
+    "multipleProps": "Dozwolone wiele wartości",
+    "componentOptions": {
+      "radio-button": "Przycisk radio",
+      "checkbox": "Pole wyboru",
+      "select": "Lista rozwijana",
+      "bookmark": "Zakładka"
+    }
   }
 }
 </i18n>
