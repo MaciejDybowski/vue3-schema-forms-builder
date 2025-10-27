@@ -22,20 +22,7 @@ export const Story1: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-        "select": {
-          "label": "Select",
-          "layout": {
-            "cols": {"xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4},
-            "fillRow": true,
-            "component": "select"
-          },
-          "source": {
-            "items": [{"value": 1, "title": "Option 1"}, {"value": 2, "title": "Option 2"}, {
-              "value": 3,
-              "title": "Option 3"
-            }]
-          }
-        }
+
       }
     }
   }

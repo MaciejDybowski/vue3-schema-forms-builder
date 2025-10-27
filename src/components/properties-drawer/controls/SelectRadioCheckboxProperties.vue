@@ -129,7 +129,7 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
       "radio-button": "Radio Button",
       "checkbox": "Checkbox",
       "select": "Select",
-      "bookmark": "Bookmark"
+      "bookmark": "Bookmarks"
     }
   },
   "pl": {
@@ -140,7 +140,7 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
       "radio-button": "Przycisk radio",
       "checkbox": "Pole wyboru",
       "select": "Lista rozwijana",
-      "bookmark": "Zakładka"
+      "bookmark": "Zakładki"
     }
   }
 }

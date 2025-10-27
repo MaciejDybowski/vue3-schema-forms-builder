@@ -84,6 +84,12 @@ const controls = ref<ElementDrawerFromElement[]>([
     subtitle: "controls.markdownSubtitle",
     component: "markdown"
   },
+  {
+    icon: "mdi-file-document-outline",
+    label: "controls.textEditor",
+    subtitle: "controls.textEditorSubtitle",
+    component: "text-editor"
+  },
   {icon: "mdi-format-list-numbered", label: "controls.orderedList", component: "ordered-multi-select"},
   {icon: "mdi-translate-variant", label: "controls.multiLang", component: "multi-language-control"},
 ]);
@@ -178,6 +184,18 @@ function cloneControls(item: ElementDrawerFromElement) {
           cols: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 12])),
           offset: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 0])),
           schema: {type: "object", properties: {}},
+          props: {}
+        }
+      };
+
+    case "text-editor":
+      return {
+        key: id,
+        contentType: 'html',
+        layout: {
+          component: item.component,
+          cols: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 12])),
+          offset: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 0])),
           props: {}
         }
       };
@@ -299,6 +317,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "tableSubtitle": "Dane zew. z edycją poj. wiersza",
       "markdown": "Markdown",
       "markdownSubtitle": "Pole Markdown",
+      "textEditor": "Edytor tekst",
+      "textEditorSubtitle": "Zapis w HTML / JSON / Markdown",
       "orderedList": "Lista uporządkowana",
       "multiLang": "Pole wielojęzyczne"
     }
@@ -331,6 +351,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "tableSubtitle": "External data with row editing",
       "markdown": "Markdown",
       "markdownSubtitle": "Markdown field",
+      "textEditor": "Text editor",
+      "textEditorSubtitle": "Saved as HTML / JSON / Markdown",
       "orderedList": "Ordered list",
       "multiLang": "Multi-language field"
     }

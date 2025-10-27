@@ -30,3 +30,4 @@ export type FromElementComponent =
   | "year-picker"
   | "text-switch-field"
   | "file-field"
+  | "text-editor"
