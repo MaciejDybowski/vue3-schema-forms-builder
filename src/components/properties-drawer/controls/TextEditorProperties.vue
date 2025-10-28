@@ -8,6 +8,19 @@
       v-model="model"
       :active="panels.includes('general')"
     >
+    <template #afterKey>
+      <select-general
+        v-model="model.contentType"
+        :clearable="false"
+        :items="[
+            { value: 'html', title: t('htmlType') },
+            { value: 'json', title: t('jsonType') },
+          ]"
+        :label="t('contentType')"
+        :return-object="false"
+      />
+    </template>
+
     </general-panel>
 
     <layout-panel
@@ -28,6 +41,8 @@ import {computed, ref} from "vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import {useI18n} from "vue-i18n";
 
 ;
 
@@ -42,9 +57,25 @@ const model = computed({
   }
 })
 
+const {t} = useI18n()
 </script>
 
 
 <style lang="scss" scoped>
 
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "contentType": "Content saved type",
+    "htmlType": "HTML",
+    "jsonType": "JSON"
+  },
+  "pl": {
+    "contentType": "Typ zapisywanej treści",
+    "htmlType": "HTML",
+    "jsonType": "JSON"
+  }
+}
+</i18n>

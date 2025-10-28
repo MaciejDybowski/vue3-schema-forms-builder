@@ -317,8 +317,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "tableSubtitle": "Dane zew. z edycją poj. wiersza",
       "markdown": "Markdown",
       "markdownSubtitle": "Pole Markdown",
-      "textEditor": "Edytor tekst",
-      "textEditorSubtitle": "Zapis w HTML / JSON / Markdown",
+      "textEditor": "Edytor tekstu",
+      "textEditorSubtitle": "Zapis w HTML / JSON",
       "orderedList": "Lista uporządkowana",
       "multiLang": "Pole wielojęzyczne"
     }
@@ -352,7 +352,7 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "markdown": "Markdown",
       "markdownSubtitle": "Markdown field",
       "textEditor": "Text editor",
-      "textEditorSubtitle": "Saved as HTML / JSON / Markdown",
+      "textEditorSubtitle": "Saved as HTML / JSON",
       "orderedList": "Ordered list",
       "multiLang": "Multi-language field"
     }
