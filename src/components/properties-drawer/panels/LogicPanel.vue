@@ -65,9 +65,9 @@ function updateExpressionReadonly(val: string) {
 
 function updateExpressionHide(val: string) {
   if (!val) {
-    model.value.layout.props['hide'] = false
+    model.value.layout.hide = false
   } else {
-    model.value.layout.props['hide'] = val
+    model.value.layout.hide = val
   }
 }
 </script>
