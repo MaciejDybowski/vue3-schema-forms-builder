@@ -178,7 +178,6 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "expansion-panels":
       return {
         key: id,
-        //tempItems: [],
         layout: {
           component: item.component,
           cols: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 12])),

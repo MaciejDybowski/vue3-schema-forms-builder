@@ -22,18 +22,43 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     if (saveToHistory) pushHistory()
   }
 
-  function deleteItem(event: ToolbarEvent, model = null) {
-    const source = model ? model : draggableModel.value
+  function deleteItem(event: ToolbarEvent, model: any[] | null = null) {
+    const source = model ? model : draggableModel.value;
+
     draggableModel.value = source.filter((c: any) => {
-      if ("tempItems" in c) {
-        if (c.key == event.sectionKey) {
-          c.tempItems = c.tempItems.filter((nc: any) => nc.key !== event.key)
+      // jeśli element ma pola tymczasowe
+      if ("tempItems" in c && Array.isArray(c.tempItems)) {
+        if (c.key === event.sectionKey) {
+          c.tempItems = c.tempItems.filter((nc: any) => nc.key !== event.key);
         } else {
-          deleteItem(event, c.tempItems)
+          deleteItem(event, c.tempItems);
         }
       }
-      return c.key !== event.key
-    })
+
+      // jeśli element jest expansion-panels
+      if (c.layout?.component === "expansion-panels" && Array.isArray(c.panels)) {
+        for (const panel of c.panels) {
+          // obsługa tempItems w panelu
+          if (Array.isArray(panel.tempItems)) {
+            panel.tempItems = panel.tempItems.filter((nc: any) => nc.key !== event.key);
+            deleteItem(event, panel.tempItems);
+          }
+
+          // obsługa schema.properties w panelu
+          if (panel.schema?.properties) {
+            for (const [propKey, propVal] of Object.entries(panel.schema?.properties) as [string, any][]) {
+              if (propKey === event.key) {
+                delete panel.schema.properties[propKey];
+              } else if (propVal.tempItems) {
+                deleteItem(event, propVal.tempItems);
+              }
+            }
+          }
+        }
+      }
+
+      return c.key !== event.key;
+    });
   }
 
 
@@ -51,54 +76,6 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     }
 
     return cloned;
-  }
-
-  function findAndCloneRecursive(
-    items: any[],
-    event: ToolbarEvent,
-    parentKey: string | null = null
-  ): { clonedControl: any, parentKey: string | null, index: number } | null {
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-
-      if (item.key === event.key) {
-        return {
-          clonedControl: deepCloneWithNewKeys(item),
-          parentKey,
-          index: i
-        };
-      }
-
-      if (Array.isArray(item.tempItems)) {
-        const result = findAndCloneRecursive(item.tempItems, event, item.key);
-        if (result) return result;
-      }
-    }
-
-    return null;
-  }
-
-  function insertClonedItemRecursive(
-    items: any[],
-    parentKey: string,
-    clonedControl: any,
-    index: number
-  ): boolean {
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-
-      if (item.key === parentKey && Array.isArray(item.tempItems)) {
-        item.tempItems.splice(index + 1, 0, clonedControl);
-        return true;
-      }
-
-      if (Array.isArray(item.tempItems)) {
-        const inserted = insertClonedItemRecursive(item.tempItems, parentKey, clonedControl, index);
-        if (inserted) return true;
-      }
-    }
-
-    return false;
   }
 
   function cloneItem(event: ToolbarEvent) {
@@ -119,6 +96,87 @@ export const useBuilderState = defineStore("useBuilderState", () => {
       console.warn("Nie znaleziono elementu do sklonowania.");
     }
   }
+
+
+  function findAndCloneRecursive(
+    items: any[],
+    event: ToolbarEvent,
+    parentKey: string | null = null
+  ): { clonedControl: any; parentKey: string | null; index: number } | null {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      if (item.key === event.key) {
+        return {
+          clonedControl: deepCloneWithNewKeys(item),
+          parentKey,
+          index: i,
+        };
+      }
+
+      // standardowe tempItems
+      if (Array.isArray(item.tempItems)) {
+        const result = findAndCloneRecursive(item.tempItems, event, item.key);
+        if (result) return result;
+      }
+
+      // --- NOWE: obsługa expansion-panels ---
+      if (item.layout?.component === "expansion-panels") {
+        for (const [index, { tempItems }] of item.panels?.entries() || []) {
+          if (!Array.isArray(tempItems)) continue;
+          const result = findAndCloneRecursive(tempItems, event, `${item.key}::panel-${index}`);
+          if (result) return result;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function insertClonedItemRecursive(
+    items: any[],
+    parentKey: string,
+    clonedControl: any,
+    index: number
+  ): boolean {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      // standardowa ścieżka
+      if (item.key === parentKey && Array.isArray(item.tempItems)) {
+        item.tempItems.splice(index + 1, 0, clonedControl);
+        return true;
+      }
+
+      // rekurencja po zwykłych tempItems
+      if (Array.isArray(item.tempItems)) {
+        const inserted = insertClonedItemRecursive(item.tempItems, parentKey, clonedControl, index);
+        if (inserted) return true;
+      }
+
+      // --- NOWE: obsługa expansion-panels ---
+      if (item.layout?.component === "expansion-panels" && Array.isArray(item.panels)) {
+        for (let p = 0; p < item.panels.length; p++) {
+          const panel = item.panels[p];
+          const virtualParentKey = item.key + "::panel-" + p;
+
+          if (virtualParentKey === parentKey && Array.isArray(panel.tempItems)) {
+            panel.tempItems.splice(index + 1, 0, clonedControl);
+            return true;
+          }
+
+          // schodzimy rekurencyjnie niżej
+          if (Array.isArray(panel.tempItems)) {
+            const inserted = insertClonedItemRecursive(panel.tempItems, parentKey, clonedControl, index);
+            if (inserted) return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
 
   // configured field
   const configuredField: Ref<any> = ref(null)
@@ -184,24 +242,55 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     currentPath: string[] = []
   ): string[] | null {
     for (const item of items) {
+      // Jeśli to właściwe pole
       if (item.key === targetKey) {
         return [...currentPath, item.key];
       }
 
+      // Jeśli ma dzieci
       if (item.tempItems?.length) {
         let newPath = [...currentPath];
 
-        if (item.layout?.component === "duplicated-section") {
-          // dodajemy [] po nazwie sekcji
+        const component = item.layout?.component;
+
+        if (component === "duplicated-section") {
+          // Sekcje powtarzalne → dodajemy "[]"
           newPath.push(`${item.key}[]`);
-        } else if (item.layout?.component !== "fields-group" || item.layout?.component === "expansion-panels") {
-          // inne sekcje pomijamy
+        } else if (
+          component !== "fields-group" &&
+          component !== "expansion-panels"
+        ) {
+          // Normalne sekcje → dodajemy nazwę do ścieżki
           newPath.push(item.key);
         }
+        // rekurencja
         const found = findPath(item.tempItems, targetKey, newPath);
         if (found) return found;
       }
+
+      // Dodatkowo: obsługa layoutu "expansion-panels" z kluczem "panels"
+      if (item.layout?.component === "expansion-panels" && item.panels?.length) {
+        for (const panel of item.panels) {
+          if (panel.schema?.properties) {
+            const panelItems = Object.entries(panel.schema.properties).map(
+              ([key, val]: [string, any]) => ({
+                key,
+                layout: val.layout,
+                tempItems: val.tempItems || [],
+              })
+            );
+            const found = findPath(panelItems, targetKey, currentPath);
+            if (found) return found;
+          }
+
+          if (panel.tempItems?.length) {
+            const found = findPath(panel.tempItems, targetKey, currentPath);
+            if (found) return found;
+          }
+        }
+      }
     }
+
     return null;
   }
 
