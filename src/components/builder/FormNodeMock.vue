@@ -2,11 +2,14 @@
   <div>
     <component
       :is='`node-${element.layout.component}`'
-      v-if="element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group'"
+      v-if="element.layout.component !== 'duplicated-section'
+      && element.layout.component !== 'fields-group'
+      && element.layout.component !== 'expansion-panels'
+"
       :class="['disabled-builder-field']"
       :model='{}'
       :schema='preparedElement'
-      v-bind="{readonly:true}"
+      v-bind="{readonly:true, hide:false}"
     />
 
     <div v-if="element.layout.component == 'duplicated-section'">
@@ -43,13 +46,39 @@
       />
     </div>
 
+    <div v-if="element.layout.component == 'expansion-panels'">
+      <v-expansion-panels
+        v-model="activePanels"
+        elevation="0"
+        flat
+        multiple
+        variant="accordion"
+      >
+        <v-expansion-panel
+          v-for="(panel, index) in element.panels"
+          :key="index"
+        >
+          <v-expansion-panel-title>
+            {{ panel.title }}
+          </v-expansion-panel-title>
+          <v-expansion-panel-text>
+            <draggable-area
+              v-model="panel.tempItems"
+              :empty-insert-threshold="100"
+              :style="panel.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
+            />
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </div>
+
   </div>
 </template>
 
 <script lang="ts" setup>
 
 import DraggableArea from "./DraggableArea.vue";
-import {computed, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
 import {cloneDeep} from "lodash";
 import {useStyle} from "@/main";
@@ -61,10 +90,21 @@ const props = defineProps<{
 
 const style = useStyle()
 
+const activePanels = ref<number[]>([]);
+
+onMounted(() => {
+  if (props.element.layout.component === 'expansion-panels') {
+    activePanels.value = props.element.panels.map((_, i) => i);
+  }
+})
+
+
 const preparedElement = computed(() => {
   const temp = cloneDeep(props.element)
   // remove props for mock because engine modify this to null after set to model
   delete temp.defaultValue
+  delete temp.layout.props.hide
+  delete temp.layout.props.readonly
 
   temp.options = {
     ...temp.options,
@@ -93,7 +133,6 @@ const duplicatedSectionStyle = computed(() => {
 const renderKey = ref(0)
 watch(props.element, () => {
   renderKey.value += 1
-  console.debug(renderKey.value)
 }, {deep: true})
 
 
