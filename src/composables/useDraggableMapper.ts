@@ -51,6 +51,16 @@ export function useDraggableMapper() {
       schemaElement.layout.schema = {"type": "object", "properties": {}}
     }
 
+    if(schemaElement.panels){
+      schemaElement.panels.forEach(panel => {
+        panel.tempItems  = mapSchemaToDraggable(panel.schema, formOptions).map((item) => {
+          item["sectionKey"] = key
+          return item
+        })
+        panel.schema = {"type": "object", "properties": {}}
+      })
+    }
+
       const draggableElement = {
         key: key,
         ...schemaElement as object,

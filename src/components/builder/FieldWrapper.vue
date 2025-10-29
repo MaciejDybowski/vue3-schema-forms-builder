@@ -1,9 +1,9 @@
 <template>
   <v-col
     :class="['px-0', `offset-${offsetSize(element)}`, `pb-0`]"
-    @click="configControl(element)"
     :cols="cols"
     v-bind="attrs"
+    @click="configControl(element)"
   >
     <v-hover>
       <template v-slot:default="{ isHovering, props }">
@@ -44,7 +44,9 @@ const cols = computed(() => {
 })
 
 async function configControl(element: any) {
-  if (element.ref || element.layout.component !== 'duplicated-section' && element.layout.component !== "fields-group") {
+  if (element.ref || element.layout.component !== 'duplicated-section'
+    && element.layout.component !== "fields-group"
+    && element.layout.component !== "expansion-panels") {
     useBuilderStateStore.setConfiguredField(null)
     await new Promise((r) => setTimeout(r, 10));
     useBuilderStateStore.setConfiguredField(element)

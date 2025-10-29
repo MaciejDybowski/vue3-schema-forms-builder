@@ -194,7 +194,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
         if (item.layout?.component === "duplicated-section") {
           // dodajemy [] po nazwie sekcji
           newPath.push(`${item.key}[]`);
-        } else if (item.layout?.component !== "fields-group") {
+        } else if (item.layout?.component !== "fields-group" || item.layout?.component === "expansion-panels") {
           // inne sekcje pomijamy
           newPath.push(item.key);
         }

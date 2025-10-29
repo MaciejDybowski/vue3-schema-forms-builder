@@ -92,6 +92,7 @@ const controls = ref<ElementDrawerFromElement[]>([
   },
   {icon: "mdi-format-list-numbered", label: "controls.orderedList", component: "ordered-multi-select"},
   {icon: "mdi-translate-variant", label: "controls.multiLang", component: "multi-language-control"},
+  {icon: "mdi-chevron-triple-down", label: "controls.expansionPanels", component: "expansion-panels"},
 ]);
 
 const filteredControls = computed(() =>
@@ -172,6 +173,27 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         editable: true,
         showElements: true
+      };
+
+    case "expansion-panels":
+      return {
+        key: id,
+        //tempItems: [],
+        layout: {
+          component: item.component,
+          cols: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 12])),
+          offset: Object.fromEntries(["xs", "sm", "md", "lg", "xl", "xxl"].map((k) => [k, 0])),
+          props: {}
+        },
+        panels: [
+          {
+            title: "Change me",
+            schema: {
+              properties: {}
+            },
+            tempItems: []
+          }
+        ]
       };
 
     case "fields-group":
@@ -320,7 +342,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "textEditor": "Edytor tekstu",
       "textEditorSubtitle": "Zapis w HTML / JSON",
       "orderedList": "Lista uporządkowana",
-      "multiLang": "Pole wielojęzyczne"
+      "multiLang": "Pole wielojęzyczne",
+      "expansionPanels": "Sekcje zwijalne"
     }
   },
   "en": {
@@ -354,7 +377,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "textEditor": "Text editor",
       "textEditorSubtitle": "Saved as HTML / JSON",
       "orderedList": "Ordered list",
-      "multiLang": "Multi-language field"
+      "multiLang": "Multi-language field",
+      "expansionPanels": "Expansion panels"
     }
   }
 }

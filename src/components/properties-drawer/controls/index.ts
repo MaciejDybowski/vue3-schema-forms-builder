@@ -26,6 +26,7 @@ import PhoneProperties from "@/components/properties-drawer/controls/PhoneProper
 import TextSwitchProperties from "@/components/properties-drawer/controls/TextSwitchProperties.vue";
 import FileFieldProperties from "@/components/properties-drawer/controls/FileFieldProperties.vue";
 import TextEditorProperties from "@/components/properties-drawer/controls/TextEditorProperties.vue";
+import ExpansionPanelsProperties from "@/components/properties-drawer/controls/ExpansionPanelsProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -55,5 +56,6 @@ export const controlsProperties = {
   "year-picker-properties": YearPickerProperties,
   "text-switch-field-properties": TextSwitchProperties,
   "file-field-properties": FileFieldProperties,
-  "text-editor-properties": TextEditorProperties
+  "text-editor-properties": TextEditorProperties,
+  "expansion-panels-properties": ExpansionPanelsProperties
 };

@@ -1,4 +1,5 @@
 import {Layout} from "@/models/Layout";
+import {Panel} from "@/components/properties-drawer/panels/ExpansionPanels.vue";
 
 export interface DraggableFormElement {
   on: any
@@ -21,4 +22,5 @@ export interface DraggableFormElement {
   i18n?: Record<any, any>
   label?: string | any
   content?: any
+  panels?: Panel[]
 }

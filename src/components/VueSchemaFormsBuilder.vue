@@ -42,10 +42,10 @@ import {computed, FunctionPlugin, getCurrentInstance, onBeforeUnmount, ref} from
 import {FormSchema} from "@/models/FormSchema";
 
 
-/*import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "../../../aurea-forms";
-import "../../../aurea-forms/dist/style.css"*/
-import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "vue3-schema-forms";
-import "vue3-schema-forms/dist/style.css"
+import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "../../../aurea-forms";
+import "../../../aurea-forms/dist/style.css"
+//import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "vue3-schema-forms";
+//import "vue3-schema-forms/dist/style.css"
 import {useBuilderState} from "@/pinia/useBuilderState";
 import ChatWithAI from "@/components/builder/ChatWithAI.vue";
 

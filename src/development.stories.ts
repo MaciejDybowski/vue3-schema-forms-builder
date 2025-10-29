@@ -22,7 +22,67 @@ export const Story1: Story = {
     modelValue: {
       "type": "object",
       "properties": {
-
+        "panels": {
+          "layout": {"component": "expansion-panels"},
+          "panels": [{
+            "title": "Change me",
+            "schema": {
+              "properties": {
+                "textField": {
+                  "label": "textField",
+                  "layout": {
+                    "cols": {"xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4},
+                    "fillRow": true,
+                    "component": "text-field"
+                  }
+                },
+                "duplicatedSection": {
+                  "layout": {
+                    "component": "duplicated-section",
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "textArea": {
+                          "label": "textArea",
+                          "layout": {
+                            "cols": {"xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4},
+                            "fillRow": true,
+                            "component": "text-area"
+                          }
+                        }
+                      }
+                    },
+                    "options": {
+                      "addBtnText": "Add element",
+                      "showDivider": false,
+                      "ordinalNumberInModel": false,
+                      "showFirstInitRow": true
+                    }
+                  }, "editable": true, "showElements": true
+                },
+                "fieldsGroup": {
+                  "layout": {
+                    "component": "fields-group",
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "label": "number",
+                          "layout": {
+                            "cols": {"xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4},
+                            "fillRow": true,
+                            "component": "number-field"
+                          },
+                          "type": "int"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }]
+        }
       }
     }
   }

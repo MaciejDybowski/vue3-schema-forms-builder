@@ -31,3 +31,4 @@ export type FromElementComponent =
   | "text-switch-field"
   | "file-field"
   | "text-editor"
+  | "expansion-panels"

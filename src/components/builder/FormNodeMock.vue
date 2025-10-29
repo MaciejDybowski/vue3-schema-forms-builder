@@ -94,6 +94,7 @@ const activePanels = ref<number[]>([]);
 
 onMounted(() => {
   if (props.element.layout.component === 'expansion-panels') {
+
     activePanels.value = props.element.panels.map((_, i) => i);
   }
 })

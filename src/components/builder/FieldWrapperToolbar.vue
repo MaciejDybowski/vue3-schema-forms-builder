@@ -5,14 +5,14 @@
 
 
   <field-wrapper-toolbar-btn
-    v-if="!element.ref && ( element .layout.component === 'duplicated-section' || element.layout.component === 'fields-group')"
+    v-if="!element.ref && showCog"
     class="config-field-btn"
     icon="mdi-cog"
     @click="configControl"
   />
 
   <field-wrapper-toolbar-btn
-    v-if="!element.ref && (element.layout.component !== 'duplicated-section' && element.layout.component !== 'fields-group')"
+    v-if="!element.ref && showContentCopy"
     class="clone-field-btn"
     icon="mdi-content-copy"
     @click="cloneControl"
@@ -32,10 +32,20 @@ import FieldWrapperToolbarBtn from "./FieldWrapperToolbarBtn.vue";
 import {useDrawers} from "@/composables/useDrawers";
 
 import {useBuilderState} from "@/pinia/useBuilderState";
+import {computed} from "vue";
 
 const props = defineProps<{
   element: any
 }>()
+
+const showContentCopy = computed(() => {
+  return props.element.layout.component !== 'duplicated-section' && props.element.layout.component !== 'fields-group'
+    && props.element.layout.component !== 'expansion-panels';
+})
+
+const showCog = computed(() => {
+  return props.element.layout.component === 'duplicated-section' || props.element.layout.component === 'fields-group' || props.element.layout.component === 'expansion-panels';
+})
 
 const drawers = useDrawers();
 const useBuilderStateStore = useBuilderState()

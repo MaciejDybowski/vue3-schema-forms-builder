@@ -37,6 +37,8 @@ export function useSchemaMapper() {
   function mapSingleElement(schema: FormSchema, formElement: DraggableFormElement, globalSchema: any = null) {
     if (elementIsDuplicatedSection(formElement)) {
       mapDuplicatedSectionToSchema(schema, formElement)
+    } else if (elementIsExpansionPanel(formElement)) {
+      mapExpansionPanels(schema, formElement)
     } else {
       mapOthersElements(schema, formElement, globalSchema);
     }
@@ -50,6 +52,10 @@ export function useSchemaMapper() {
     return Array.isArray(formElement.tempItems);
   }
 
+  function elementIsExpansionPanel(formElement: DraggableFormElement) {
+    return "panels" in formElement && Array.isArray(formElement.panels);
+  }
+
   function mapDuplicatedSectionToSchema(schema: FormSchema, formElement: DraggableFormElement) {
     const tempElement = {...formElement}
     const tempElementKey = tempElement.key
@@ -61,6 +67,33 @@ export function useSchemaMapper() {
     cleanJson(tempElement)
 
     schema.properties[tempElementKey] = tempElement
+  }
+
+  function mapExpansionPanels(schema: FormSchema, formElement: DraggableFormElement) {
+    const tempElement = {...formElement}
+    const tempElementKey = tempElement.key
+
+    mapExpansionPanel(tempElement)
+    removeDraggableFields(tempElement)
+    cleanJson(tempElement)
+
+    schema.properties[tempElementKey] = tempElement
+
+  }
+
+  function mapExpansionPanel(tempElement: DraggableFormElement) {
+    if (tempElement.panels) {
+      tempElement.panels.forEach(panel => {
+        panel.tempItems.forEach(element => {
+          mapSingleElement(panel.schema, element, schema)
+        })
+        delete panel.tempItems
+      })
+
+      tempElement.panels.forEach(panel => {
+
+      })
+    }
   }
 
   function removeDraggableFields(formElement: Partial<DraggableFormElement>) {
