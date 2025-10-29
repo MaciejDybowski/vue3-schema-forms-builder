@@ -65,12 +65,11 @@
   </v-expansion-panels>
 
 
-
 </template>
 
 <script lang="ts" setup>
 
-import {computed, ref, watch} from "vue";
+import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import {useI18n} from "vue-i18n";
@@ -98,19 +97,7 @@ const model = computed({
   }
 })
 
-watch(() => useBuilderStateStore.getConfiguredFieldPath, (newPath) => {
-  console.log("Aktualna ścieżka:", newPath)
-})
-
 const {t} = useI18n()
-
-function updateExpressionPersistentHint(val: string) {
-  const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
-  const matches = val.match(regex)
-  if (matches) {
-    model.value.layout.props['persistent-hint'] = val
-  }
-}
 
 </script>
 

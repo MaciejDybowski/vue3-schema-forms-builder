@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {computed, Ref, ref} from "vue";
+import {computed, Ref, ref, toRaw} from "vue";
 import {cloneDeep} from "lodash";
 import set from 'lodash/set';
 import {DraggableFormElement} from "@/models/DraggableFormElement";
@@ -18,7 +18,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const getDraggableModel = computed(() => draggableModel.value)
 
   function updateDraggableModel(value: DraggableFormElement[], saveToHistory = true) {
-    draggableModel.value = cloneDeep(value)
+    draggableModel.value = value//cloneDeep(toRaw(value)) // TODO MaxRecursive on MainCanvas
     if (saveToHistory) pushHistory()
   }
 
@@ -122,7 +122,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
 
       // --- NOWE: obsługa expansion-panels ---
       if (item.layout?.component === "expansion-panels") {
-        for (const [index, { tempItems }] of item.panels?.entries() || []) {
+        for (const [index, {tempItems}] of item.panels?.entries() || []) {
           if (!Array.isArray(tempItems)) continue;
           const result = findAndCloneRecursive(tempItems, event, `${item.key}::panel-${index}`);
           if (result) return result;
@@ -226,7 +226,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     if (historyPointer.value + 1 < history.value.length) {
       history.value.splice(historyPointer.value + 1)
     }
-    history.value.push(cloneDeep(draggableModel.value))
+    history.value.push(cloneDeep(toRaw(draggableModel.value)))
     historyPointer.value++
 
     const HISTORY_LIMIT = 50

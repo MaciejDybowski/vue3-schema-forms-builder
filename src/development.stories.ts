@@ -16,6 +16,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Empty: Story = {
+  args: {
+    workspaceId: "bm",
+    modelValue: {
+      properties: {
+
+      }
+    }
+  }
+}
+
 export const Story1: Story = {
   args: {
     workspaceId: "bm",
