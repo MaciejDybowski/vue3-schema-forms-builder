@@ -87,7 +87,7 @@ const controls = computed({
 
 watch(controls, () => {
   modelValue.value = mapDraggableToSchema(copyObject(controls.value))
-  key.value++
+  key.value++ // TODO - to rozwiązuje problem przy przeciąganiu z jednego draggable do drugiego ale rozwala działanie
 
 }, {deep: true})
 
