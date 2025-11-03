@@ -45,7 +45,6 @@ import {useI18n} from "vue-i18n";
 import {toast} from "vue3-toastify";
 import {useStyle} from "@/main";
 import {onMounted, ref, watch} from "vue";
-import {useKeyboardShortcuts} from "@/composables/useKeyboardShortcuts";
 
 const props = defineProps<{
   schema: object
@@ -55,7 +54,6 @@ const emit = defineEmits<{
   (e: "manualUpdateSchema", schema: any): void;
 }>();
 
-const keyboard = useKeyboardShortcuts();
 const referenceSchema = ref()
 const editedSchema = ref()
 const saveSchema = ref()
@@ -74,25 +72,13 @@ function saveEditedSchema() {
   emit("manualUpdateSchema", editedSchema.value)
 }
 
-function registerShortcuts() {
-  keyboard.shortcuts.add({
-    shortcut: "CmdOrCtrl+S",
-    handler: () => {
-      if (isSaveBtnShouldBeVisible.value) {
-        saveEditedSchema()
-      }
-    },
-  });
-}
-
 
 onMounted(() => {
-  registerShortcuts()
   referenceSchema.value = JSON.stringify(props.schema, null, 2)
   editedSchema.value = JSON.stringify(props.schema, null, 2)
 
   watch(() => editedSchema.value, (value, oldValue, onCleanup) => {
-    isSaveBtnShouldBeVisible.value = value !== referenceSchema.value;
+    emit("manualUpdateSchema", editedSchema.value)
 
   }, {deep: true})
 })
