@@ -12,49 +12,40 @@
           />
         </div>
         <v-spacer/>
-        <div>
+        <div v-if="isSaveBtnShouldBeVisible">
           <v-btn
-            v-if="editSchema"
-            :color="style.primaryWhite.value"
-            v-bind="style.buttonStyle.value"
-            :text="t('save')"
-            :hide-details="true"
             v-model="saveSchema"
+            :color="style.primaryWhite.value"
+            :hide-details="true"
+            :text="t('save')"
             class="mx-2"
+            v-bind="style.buttonStyle.value"
             @click="saveEditedSchema"
           />
         </div>
-        <div>
-          <v-switch
-            :color="style.primaryWhite.value"
-            :label="t('edit')"
-            :hide-details="true"
-            v-model="editSchema"
-            @change="copySchema"
-          />
-        </div>
+
       </div>
-      <vue-json-pretty
-        v-if="!editSchema"
-        :data="schema as any"
-      />
-      <v-textarea
-        v-if="editSchema"
+
+      <tcn-code-editor
         v-model="editedSchema"
-        v-bind="style.inputStyle.value"
-        :label="t('editSchema')"
-        rows="20"
+        :codemirrorOptions="{
+           minimap: {
+             enabled:false
+           }
+        }"
+        height="80vh"
+        language="text"
       />
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts" setup>
-import VueJsonPretty from "vue-json-pretty";
 import {useI18n} from "vue-i18n";
 import {toast} from "vue3-toastify";
 import {useStyle} from "@/main";
-import {ref} from "vue";
+import {onMounted, ref, watch} from "vue";
+import {useKeyboardShortcuts} from "@/composables/useKeyboardShortcuts";
 
 const props = defineProps<{
   schema: object
@@ -64,9 +55,12 @@ const emit = defineEmits<{
   (e: "manualUpdateSchema", schema: any): void;
 }>();
 
-const editSchema = ref(false)
+const keyboard = useKeyboardShortcuts();
+const referenceSchema = ref()
 const editedSchema = ref()
 const saveSchema = ref()
+const isSaveBtnShouldBeVisible = ref(false)
+
 
 const {t} = useI18n()
 const style = useStyle();
@@ -76,13 +70,32 @@ function contextCopy() {
   toast.success(t('copied'))
 }
 
-function copySchema() {
-  editedSchema.value = JSON.stringify(props.schema)
-}
-
 function saveEditedSchema() {
   emit("manualUpdateSchema", editedSchema.value)
 }
+
+function registerShortcuts() {
+  keyboard.shortcuts.add({
+    shortcut: "CmdOrCtrl+S",
+    handler: () => {
+      if (isSaveBtnShouldBeVisible.value) {
+        saveEditedSchema()
+      }
+    },
+  });
+}
+
+
+onMounted(() => {
+  registerShortcuts()
+  referenceSchema.value = JSON.stringify(props.schema, null, 2)
+  editedSchema.value = JSON.stringify(props.schema, null, 2)
+
+  watch(() => editedSchema.value, (value, oldValue, onCleanup) => {
+    isSaveBtnShouldBeVisible.value = value !== referenceSchema.value;
+
+  }, {deep: true})
+})
 </script>
 
 <style lang="scss" scoped>
