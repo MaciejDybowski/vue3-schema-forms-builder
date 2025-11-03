@@ -90,7 +90,10 @@ export function useDraggableMapper() {
 
     // funkcja uzupełnia wszystkie mapowania potrzebne do działania prawego panelu mapowania kontrolek na JSON Scheme
     function fillSchemaForBuilderPurpose(schemaElement: SchemaFormElement) {
-      if (!schemaElement.layout.props) {
+      if (!schemaElement?.layout?.props) {
+        if(!schemaElement.layout) {
+          schemaElement.layout = {}
+        }
         schemaElement.layout.props = {}
       }
       if (schemaElement.layout.schema && !schemaElement.layout.options) {

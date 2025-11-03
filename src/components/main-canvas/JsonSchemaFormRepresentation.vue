@@ -34,7 +34,7 @@
            }
         }"
         height="80vh"
-        language="text"
+        language="json-custom"
       />
     </v-col>
   </v-row>
@@ -78,7 +78,14 @@ onMounted(() => {
   editedSchema.value = JSON.stringify(props.schema, null, 2)
 
   watch(() => editedSchema.value, (value, oldValue, onCleanup) => {
-    emit("manualUpdateSchema", editedSchema.value)
+    try {
+      const temp = JSON.parse(value);
+      // @ts-ignore
+      emit("manualUpdateSchema", value)
+    } catch (e) {
+      console.warn("JSON parsing error...");
+    }
+
 
   }, {deep: true})
 })
