@@ -98,7 +98,6 @@ onMounted(() => {
     JSON.stringify(props.schema).includes(type)
   )
 
-  console.debug(showForm.value, schemaContainUrlElements.value)
   if (schemaContainUrlElements.value && workspaceId.value) {
     showForm.value = false
   }

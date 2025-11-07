@@ -6,7 +6,6 @@
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
-      :key="key"
       v-model="controls"
       class="py-2"
     />
@@ -43,9 +42,9 @@ import {FormOptions} from "@/models/FormOptions";
 import DemoForm from "@/components/main-canvas/DemoForm.vue";
 import JsonSchemaFormRepresentation from "@/components/main-canvas/JsonSchemaFormRepresentation.vue";
 import {copyObject} from "@/utils/copy";
+import debounce from "lodash/debounce";
 
 
-const key = ref(1)
 let modelValue = defineModel<FormSchema>({
   default: () => {
     return {
@@ -85,18 +84,14 @@ const controls = computed({
 })
 
 
-
-
-
 onMounted(() => {
   useBuilderStateStore.resetState()
   controls.value = mapSchemaToDraggable(copyObject(modelValue.value), formOptions)
 
-
-
   watch(() => controls.value, () => {
-    modelValue.value = mapDraggableToSchema(copyObject(controls.value))
-    key.value++ // TODO - to rozwiązuje problem przy przeciąganiu z jednego draggable do drugiego ale rozwala działanie
+    debounce(() => {
+      modelValue.value = mapDraggableToSchema(copyObject(controls.value))
+    }, 300)()
   }, {deep: true})
 })
 

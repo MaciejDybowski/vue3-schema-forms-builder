@@ -6,6 +6,7 @@
       && element.layout.component !== 'fields-group'
       && element.layout.component !== 'expansion-panels'
 "
+      :key="renderKey"
       :class="['disabled-builder-field']"
       :model='{}'
       :schema='preparedElement'
