@@ -145,3 +145,62 @@ watch(props.element, () => {
   pointer-events: none; /* Disable all pointer events */
 }
 </style>
+
+<style lang="scss" scoped>
+:deep(.v-expansion-panel) {
+  position: relative;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+  border-bottom: 1px solid rgba(var(--v-theme-primary), 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  /* Pasek po lewej dla wszystkich paneli */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgba(var(--v-theme-primary), 0.3); // domyślny pasek
+    transition: background-color 0.2s ease;
+  }
+
+  /* Panel zamknięty */
+  &:not(.v-expansion-panel--active) {
+    background-color: rgba(var(--v-theme-primary), 0.05);
+
+    &:hover {
+      background-color: rgba(var(--v-theme-primary), 0.1);
+      cursor: pointer;
+
+      &::before {
+        background-color: rgba(var(--v-theme-primary), 0.5); // intensywniejszy pasek przy hover
+      }
+    }
+  }
+
+  /* Panel rozwinięty */
+  &.v-expansion-panel--active {
+    background-color: transparent; // brak tła dla rozwiniętego panelu
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+
+    &::before {
+      background-color: rgb(var(--v-theme-primary)); // pełny pasek
+    }
+  }
+}
+
+/* Minimalna wysokość tytułu panelu */
+.v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
+  min-height: 48px;
+}
+
+</style>
