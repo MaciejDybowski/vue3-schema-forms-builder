@@ -1,4 +1,15 @@
 <template>
+
+
+  <boolean-checkbox-property-wrapper
+    v-if="field.layout.component === 'select'"
+    v-model="modelValue.multiple"
+    :label="t('simpleSource.multiple')"
+  >
+
+  </boolean-checkbox-property-wrapper>
+
+
   <boolean-checkbox-property-wrapper
     v-model="modelValue.returnObject"
     :label="t('simpleSource.returnObject')"
@@ -314,10 +325,12 @@ const field = computed({
 const modelValue = defineModel<{
   items: Array<any>;
   returnObject: boolean;
+  multiple: boolean;
 }>({
   default: () => ({
     items: [],
     returnObject: false,
+    multiple: false
   }),
 });
 
@@ -566,7 +579,8 @@ const mdiIcons = ref([
       "useReference": "Use reference",
       "disabledCondition": "Disabled condition",
       "addDisabledCondition": "Click to define a disabled condition",
-      "useReferenceInfo": "This option allows you to use the reference mechanism for translating form fields. These translations should be properly prepared on the service side that handles the given form."
+      "useReferenceInfo": "This option allows you to use the reference mechanism for translating form fields. These translations should be properly prepared on the service side that handles the given form.",
+      "multiple": "Allow values"
     }
   },
   "pl": {
@@ -590,7 +604,8 @@ const mdiIcons = ref([
       "useReference": "Użyj referencji",
       "disabledCondition": "Warunek wyłączenia",
       "addDisabledCondition": "Kliknij, aby zdefiniować warunek wyłączenia",
-      "useReferenceInfo": "Opcja ta umożliwia na użycie mechanizmu referencji to tłumaczeń pól formularza. Tłumaczenia te powinny zostać przygotowane w odpowiedni sposób po stronie usługi, która obsługuje dany formularz."
+      "useReferenceInfo": "Opcja ta umożliwia na użycie mechanizmu referencji to tłumaczeń pól formularza. Tłumaczenia te powinny zostać przygotowane w odpowiedni sposób po stronie usługi, która obsługuje dany formularz.",
+      "multiple": "Dozwolone wiele wartości"
     }
   }
 }
