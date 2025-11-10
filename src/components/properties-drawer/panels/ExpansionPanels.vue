@@ -1,7 +1,7 @@
 <template>
   <expansion-panel
     :active="active"
-    title="Ustawienia sekcji"
+    :title="t('title')"
     value="fieldProps"
   >
     <div
@@ -9,10 +9,12 @@
       :key="index"
       class="d-flex align-center"
     >
-      <text-property-wrapper
-        v-model="panel.title"
-        :label="t('section.title')"
-      />
+      <div style="width: 85%">
+        <text-property-wrapper
+          v-model="panel.title"
+          :label="t('section.title')"
+        />
+      </div>
       <v-btn
         color="error"
         icon="mdi-delete-outline"
@@ -69,7 +71,6 @@ function addPanel() {
   emit("update:panels", [...props.panels, newPanel]);
 }
 
-// --- USUWANIE SEKcji ---
 function removePanel(index: number) {
   const updated = props.panels.filter((_, i) => i !== index);
   emit("update:panels", updated);
@@ -80,14 +81,16 @@ function removePanel(index: number) {
 
 <i18n lang="json">
 {
-  "en": {
+  "pl": {
+    "title": "Ustawienia sekcji",
     "section": {
       "title": "Tytuł sekcji",
       "add": "Dodaj sekcję",
       "newTitle": "Nowa sekcja"
     }
   },
-  "pl": {
+  "en": {
+    "title": "Section properties",
     "section": {
       "title": "Section title",
       "add": "Add section",

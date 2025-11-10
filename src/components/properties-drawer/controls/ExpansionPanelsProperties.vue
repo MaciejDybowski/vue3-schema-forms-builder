@@ -38,7 +38,7 @@ const model = computed({
   }
 })
 
-const panels = ref<string[]>(["general"])
+const panels = ref<string[]>(["general", "fieldProps"])
 const {t} = useI18n()
 
 </script>
