@@ -32,6 +32,10 @@
       v-model="model"
       :active="panels.includes('logic')"
     />
+    <validations-panel
+      v-model="model"
+      :active="panels.includes('validations')"
+    />
   </v-expansion-panels>
 </template>
 
@@ -43,6 +47,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import {useI18n} from "vue-i18n";
+import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 
 ;
 
