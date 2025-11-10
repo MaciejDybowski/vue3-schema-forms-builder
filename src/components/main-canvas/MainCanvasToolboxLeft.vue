@@ -1,7 +1,6 @@
 <template>
   <v-row class="flex-column" no-gutters>
-    <v-col class="pa-0" cols="auto">
-
+    <v-col class="pa-0 sticky-sidebar" cols="auto">
       <div class="d-flex flex-column elevation-2 rounded">
         <v-btn-toggle
           v-model="mainCanvas.mainCanvasMode.value"
@@ -92,7 +91,16 @@ const storybook = computed(() => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sticky-sidebar {
+  position: sticky;
+  top: 0px;
+  align-self: flex-start;
+  z-index: 5;
+  margin-bottom: 20px;
+}
+
+</style>
 <i18n lang="json">
 {
   "en": {},
