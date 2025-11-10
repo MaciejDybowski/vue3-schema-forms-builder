@@ -94,7 +94,7 @@ const storybook = computed(() => {
 <style lang="scss" scoped>
 .sticky-sidebar {
   position: sticky;
-  top: 0px;
+  top: 80px;
   align-self: flex-start;
   z-index: 5;
   margin-bottom: 20px;
