@@ -27,6 +27,7 @@
       </div>
 
       <tcn-code-editor
+        ref="codeEditorRef"
         v-model="editedSchema"
         :codemirrorOptions="{
            minimap: {
@@ -59,6 +60,11 @@ const editedSchema = ref()
 const saveSchema = ref()
 const isSaveBtnShouldBeVisible = ref(false)
 
+
+const codeEditorRef = ref<any>();
+defineExpose({
+  codeEditorRef
+});
 
 const {t} = useI18n()
 const style = useStyle();

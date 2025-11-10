@@ -18,7 +18,7 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   const getDraggableModel = computed(() => draggableModel.value)
 
   function updateDraggableModel(value: DraggableFormElement[], saveToHistory = true) {
-    draggableModel.value = value//cloneDeep(toRaw(value)) // TODO MaxRecursive on MainCanvas
+    draggableModel.value = value
     if (saveToHistory) pushHistory()
   }
 
@@ -195,46 +195,52 @@ export const useBuilderState = defineStore("useBuilderState", () => {
   // memento pattern
   const history: Ref<Array<any>> = ref([])
   const historyPointer = ref(-1);
-  const isUndoAvailable = computed(() => history.value.length > 1 && historyPointer.value > 0)
-  const isRedoAvailable = computed(() => historyPointer.value + 1 < history.value.length)
+  const isUndoAvailable = computed(() => historyPointer.value > 0);
+  const isRedoAvailable = computed(() => historyPointer.value < history.value.length - 1);
 
-  function saveState(value) {
-    history.value.push(value)
-    historyPointer.value++
-    // console.debug("stan stosu", history.value)
-    // console.debug("wskaznik = ", historyPointer.value)
-  }
 
   function resetState() {
     history.value = []
     historyPointer.value = -1;
   }
 
+
+  function pushHistory() {
+    // Cut off future states if undo was used
+    if (historyPointer.value + 1 < history.value.length) {
+      history.value.splice(historyPointer.value + 1);
+    }
+
+    // Push current state
+    history.value.push(cloneDeep(toRaw(draggableModel.value)));
+    historyPointer.value++;
+
+    // Limit history length
+    const HISTORY_LIMIT = 50;
+    if (history.value.length > HISTORY_LIMIT) {
+      history.value.shift();
+      historyPointer.value--;
+    }
+  }
+
   function undo() {
-    if (!isUndoAvailable.value) return
-    historyPointer.value--
-    draggableModel.value = cloneDeep(history.value[historyPointer.value])
+    if (!isUndoAvailable.value) return;
+    historyPointer.value--;
+    draggableModel.value = cloneDeep(history.value[historyPointer.value]);
   }
 
   function redo() {
-    if (!isRedoAvailable.value) return
-    historyPointer.value++
-    draggableModel.value = cloneDeep(history.value[historyPointer.value])
+    if (!isRedoAvailable.value) return;
+
+    historyPointer.value++;
+    draggableModel.value = cloneDeep(history.value[historyPointer.value]);
   }
 
-  function pushHistory() {
-    if (historyPointer.value + 1 < history.value.length) {
-      history.value.splice(historyPointer.value + 1)
-    }
-    history.value.push(cloneDeep(toRaw(draggableModel.value)))
-    historyPointer.value++
-
-    const HISTORY_LIMIT = 50
-    if (history.value.length > HISTORY_LIMIT) {
-      history.value.shift()
-      historyPointer.value--
-    }
+  function initHistory() {
+    history.value = [cloneDeep(toRaw(draggableModel.value))];
+    historyPointer.value = 0;
   }
+
 
   function findPath(
     items: any[],
@@ -308,7 +314,6 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     updateDraggableModel,
     deleteItem,
     cloneItem,
-    saveState,
     undo,
     redo,
     isRedoAvailable,
@@ -320,8 +325,8 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     setKeyInConfiguredField,
     getWorkspaceId,
     setWorkspaceId,
-    findPath,
-    getConfiguredFieldPath
+    getConfiguredFieldPath,
+    initHistory
   }
 })
 

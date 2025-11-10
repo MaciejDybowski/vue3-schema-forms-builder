@@ -1,6 +1,6 @@
 {
   "name": "vue3-schema-forms-builder",
-  "version": "0.4.30",
+  "version": "0.4.31",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
   "publishConfig": {
@@ -35,7 +35,7 @@
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
-    "tecna-vue-shared": "^3.1.25",
+    "tecna-vue-shared": "^3.1.26",
     "vue": "^3.4.27",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.3",

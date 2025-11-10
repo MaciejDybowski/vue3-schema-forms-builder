@@ -18,8 +18,10 @@
               @reject="reject"
             />
             <MainCanvas
+              ref="mainCanvasRef"
               v-model="modelValue"
-              class="stretch"/>
+              class="stretch"
+            />
           </v-col>
           <v-col class="main-container ma-2" cols="auto">
             <MainCanvasToolboxRight class="stretch"/>
@@ -48,6 +50,7 @@ import {createVueSchemaForms, provideFormModel, provideGeneratorCache} from "vue
 import "vue3-schema-forms/dist/style.css"
 import {useBuilderState} from "@/pinia/useBuilderState";
 import ChatWithAI from "@/components/builder/ChatWithAI.vue";
+import {useMainCanvas} from "@/composables/useMainCanvas";
 
 const instance = getCurrentInstance();
 
@@ -61,6 +64,7 @@ instance?.appContext.app.use(vueSchemaForms)
 
 
 const canvas = useCanvas();
+const mainCanvas = useMainCanvas()
 let modelValue = defineModel<FormSchema>()
 
 
@@ -91,6 +95,8 @@ const canvasColumnsMaxWidth = computed(() => {
   }
 });
 
+const mainCanvasRef = ref<any>();
+
 const lastUserJsonModel = ref<any>(null)
 
 function previewAi(val: any) {
@@ -108,11 +114,24 @@ function reject() {
   lastUserJsonModel.value = null
 }
 
+
+const codeEditor = ref(null);
+
 function undo() {
-  useBuilderStateStore.undo()
+  if (mainCanvas.mainCanvasMode.value === 'BUILDER') {
+    useBuilderStateStore.undo()
+  } else if (mainCanvas.mainCanvasMode.value === 'CODE') {
+    mainCanvasRef.value?.undo();
+  }
+
 }
+
 function redo() {
-  useBuilderStateStore.redo()
+  if (mainCanvas.mainCanvasMode.value === 'BUILDER') {
+    useBuilderStateStore.redo()
+  } else if (mainCanvas.mainCanvasMode.value === 'CODE') {
+    mainCanvasRef.value?.redo();
+  }
 }
 
 defineExpose({

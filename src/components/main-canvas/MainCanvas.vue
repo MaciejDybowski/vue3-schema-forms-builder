@@ -14,6 +14,7 @@
       v-if="mainCanvas.mainCanvasMode.value === 'CODE'"
       :schema="modelValue"
       @manual-update-schema="updateSchema"
+      ref="jsonFormRef"
     />
 
     <demo-form
@@ -83,6 +84,17 @@ const controls = computed({
   }
 })
 
+const jsonFormRef = ref<any>();
+
+function undo() {
+  jsonFormRef.value?.codeEditorRef?.undo();
+}
+
+function redo() {
+  jsonFormRef.value?.codeEditorRef?.redo();
+}
+
+defineExpose({ undo, redo });
 
 onMounted(() => {
   useBuilderStateStore.resetState()
@@ -98,6 +110,7 @@ onMounted(() => {
 function updateSchema(schema: string) {
   useBuilderStateStore.resetState()
   controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions)
+  useBuilderStateStore.initHistory();
 }
 
 </script>
