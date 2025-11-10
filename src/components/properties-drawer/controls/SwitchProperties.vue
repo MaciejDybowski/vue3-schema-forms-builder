@@ -44,6 +44,10 @@
       v-model="model"
       :active="panels.includes('fieldProps')"
     />
+
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
   </v-expansion-panels>
 </template>
 
@@ -58,6 +62,7 @@ import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import SwtichPropsPanel from "@/components/properties-drawer/panels/SwtichPropsPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const useBuilderStateStore = useBuilderState();
 const {t} = useI18n();
