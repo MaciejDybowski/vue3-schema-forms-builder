@@ -110,7 +110,7 @@
 import {useI18n} from "vue-i18n";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const modelValue = defineModel<any>({
@@ -120,6 +120,13 @@ const modelValue = defineModel<any>({
 
 const showAdvancedConfiguration = ref(false)
 
+onMounted(() => {
+
+
+  if (modelValue.value.title !== "label" || modelValue.value.value !== "id" || modelValue.value.description !== "description") {
+    showAdvancedConfiguration.value = true;
+  }
+})
 
 const {t} = useI18n()
 
