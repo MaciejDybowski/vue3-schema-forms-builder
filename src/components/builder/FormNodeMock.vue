@@ -15,6 +15,7 @@
 
     <div v-if="element.layout.component == 'duplicated-section'">
       <draggable-area
+        :key="element.tempItems.length"
         v-model="element.tempItems"
         :empty-insert-threshold="100"
         :section-key="element.key"
@@ -39,6 +40,7 @@
 
     <div v-if="element.layout.component == 'fields-group'">
       <draggable-area
+        :key="element.tempItems.length"
         v-model="element.tempItems"
         :empty-insert-threshold="100"
         :section-key="element.key"
@@ -62,6 +64,7 @@
           <v-expansion-panel-title v-html=" panel.title"/>
           <v-expansion-panel-text>
             <draggable-area
+              :key="element.tempItems.length"
               v-model="panel.tempItems"
               :empty-insert-threshold="100"
               :style="panel.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
