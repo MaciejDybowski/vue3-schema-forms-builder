@@ -202,5 +202,7 @@ watch(props.element, () => {
 .v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
   min-height: 48px;
 }
-
+:deep(.v-expansion-panel-title) {
+  justify-content: flex-start;
+}
 </style>
