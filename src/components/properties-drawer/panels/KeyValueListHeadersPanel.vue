@@ -145,7 +145,7 @@ const {t} = useI18n();
 
 const dragOptions = {
   animation: 250,
-  group: "controls",
+  group: "key-value-list-headers",
   ghostClass: "ghost"
 };
 

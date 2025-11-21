@@ -417,7 +417,7 @@ function updateHeaders(val) {
 
 const dragOptions = {
   animation: 250,
-  group: "controls",
+  group: "table-headers",
   ghostClass: "ghost"
 };
 

@@ -59,9 +59,7 @@
           v-for="(panel, index) in element.panels"
           :key="index"
         >
-          <v-expansion-panel-title>
-            {{ panel.title }}
-          </v-expansion-panel-title>
+          <v-expansion-panel-title v-html=" panel.title"/>
           <v-expansion-panel-text>
             <draggable-area
               v-model="panel.tempItems"
@@ -202,6 +200,7 @@ watch(props.element, () => {
 .v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
   min-height: 48px;
 }
+
 :deep(.v-expansion-panel-title) {
   justify-content: flex-start;
 }
