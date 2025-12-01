@@ -37,15 +37,50 @@
     </v-col>
   </v-row>
 
-  <vue-schema-forms
-    v-else
-    ref="myForm"
-    v-model="model"
-    :default-form-actions="true"
-    :options="options"
-    :schema="schema"
-    :validation-behaviour="'messages'"
-  />
+  <template
+    v-else>
+    <vue-schema-forms
+
+      ref="myForm"
+      v-model="model"
+      :default-form-actions="true"
+      :options="options"
+      :schema="schema"
+      :validation-behaviour="'messages'"
+    />
+
+    <div class="d-block align-center justify-center mt-4">
+      <v-btn
+
+        color="primary"
+        width="200"
+        @click="showModelPayload = !showModelPayload"
+      >
+        Show payload
+      </v-btn>
+
+
+      <v-btn
+        class="mx-2"
+        density="compact"
+        icon="mdi-content-copy"
+        variant="text"
+        @click="copy"
+      />
+
+    </div>
+
+
+    <tcn-code-editor
+      v-if="showModelPayload"
+      :codemirrorOptions="{}"
+      :model-value="JSON.stringify(model, null, 2)"
+      class="mt-4"
+      height="300px"
+      language="text"
+    />
+  </template>
+
 </template>
 
 <script lang="ts" setup>
@@ -56,7 +91,9 @@ import {useDrawers} from "@/composables/useDrawers";
 import {useI18n} from "vue-i18n";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import axios from "axios";
+import {toast} from "vue3-toastify";
 
+const showModelPayload = ref(false);
 const {t} = useI18n()
 const model = ref({});
 const props = defineProps<{
@@ -81,6 +118,11 @@ const workspaceId = computed({
     useBuilderStateStore.setWorkspaceId(value)
   }
 })
+
+function copy() {
+  navigator.clipboard.writeText(JSON.stringify(model.value, null, 2));
+  toast.success("Copied")
+}
 
 function setWorkspaceIdHeader() {
   //@ts-ignore
