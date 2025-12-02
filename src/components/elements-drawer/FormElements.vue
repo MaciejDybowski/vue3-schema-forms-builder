@@ -272,7 +272,7 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         source: {
           data: "",
-          headers: Array(3).fill({title: "Change me"}),
+          headers: [...Array(3)].map(() => ({ title: "Change me" })),
           buttons: []
         },
         actions: {}
