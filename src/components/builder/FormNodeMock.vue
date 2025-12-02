@@ -64,7 +64,7 @@
           <v-expansion-panel-title v-html=" panel.title"/>
           <v-expansion-panel-text>
             <draggable-area
-              :key="element.tempItems.length"
+              :key="element.tempItems?.length"
               v-model="panel.tempItems"
               :empty-insert-threshold="100"
               :style="panel.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
