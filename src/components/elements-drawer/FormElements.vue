@@ -187,6 +187,8 @@ function cloneControls(item: ElementDrawerFromElement) {
         panels: [
           {
             title: "Change me",
+            titleIcon: "mdi-home",
+            titleIconSize: 20,
             schema: {
               properties: {}
             },

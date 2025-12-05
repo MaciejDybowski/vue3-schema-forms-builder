@@ -61,7 +61,22 @@
           v-for="(panel, index) in element.panels"
           :key="index"
         >
-          <v-expansion-panel-title v-html=" panel.title"/>
+
+          <v-expansion-panel-title>
+            <v-icon
+              v-if="panel.titleIcon"
+              :size="panel.titleIconSize ? panel.titleIconSize : 18"
+              class="mr-2"
+            >
+              {{ panel.titleIcon }}
+            </v-icon>
+
+            <div
+              :class="panel.titleCssDecorator ? [panel.titleCssDecorator] : ''"
+              v-html="panel.title"
+            />
+          </v-expansion-panel-title>
+
           <v-expansion-panel-text>
             <draggable-area
               :key="element.tempItems?.length"
