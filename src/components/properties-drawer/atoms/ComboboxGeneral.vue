@@ -15,19 +15,12 @@
         <v-list-item
           v-bind="props"
           :title="item.title || item.value"
-          :subtitle="item.subtitle"
         />
       </template>
 
       <template #selection="{ item }">
         <div class="d-flex flex-column">
           <span>{{ item.title || item.value }}</span>
-          <small
-            v-if="item.subtitle"
-            class="text-caption text-medium-emphasis"
-          >
-            {{ item.subtitle }}
-          </small>
         </div>
       </template>
     </v-combobox>
