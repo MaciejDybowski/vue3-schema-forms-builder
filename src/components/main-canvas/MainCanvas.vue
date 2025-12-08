@@ -12,9 +12,9 @@
 
     <json-schema-form-representation
       v-if="mainCanvas.mainCanvasMode.value === 'CODE'"
+      ref="jsonFormRef"
       :schema="modelValue"
       @manual-update-schema="updateSchema"
-      ref="jsonFormRef"
     />
 
     <demo-form
@@ -94,7 +94,7 @@ function redo() {
   jsonFormRef.value?.codeEditorRef?.redo();
 }
 
-defineExpose({ undo, redo });
+defineExpose({undo, redo});
 
 onMounted(() => {
   useBuilderStateStore.resetState()
@@ -108,6 +108,7 @@ onMounted(() => {
 })
 
 function updateSchema(schema: string) {
+  console.debug("[Aurea Forms Builder, manual edited schema is equal", JSON.parse(schema))
   useBuilderStateStore.resetState()
   controls.value = mapSchemaToDraggable(copyObject(JSON.parse(schema)), formOptions)
   useBuilderStateStore.initHistory();
