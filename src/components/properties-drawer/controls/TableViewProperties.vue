@@ -171,7 +171,7 @@
               <v-card-title>{{ t('collectionItemsDefinition')}}</v-card-title>
               <v-card-text>
                 <tcn-code-editor
-                  :model-value="JSON.stringify(currentConfiguredHeader.items, null, 2)"
+                  :model-value="JSON.stringify(currentConfiguredHeader.editable, null, 2)"
                   height="150px"
                   language="json"
                   @update:model-value="value => tryParseAsJsonItemsInCollection(value, currentConfiguredHeader)"
@@ -452,7 +452,7 @@ function configButton(button: any) {
 function tryParseAsJsonItemsInCollection(value: string, currentConfiguredHeader) {
   try {
     const temp = JSON.parse(value)
-    currentConfiguredHeader.items = temp
+    currentConfiguredHeader.editable = temp
   } catch (e) {
     console.warn("Parsing error")
   }
