@@ -154,13 +154,13 @@
             :label="t('color')"/>
           <select-general
             v-model="currentConfiguredHeader.type"
-            :items="[{value: 'TEXT', title: 'Text'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}, {value: 'ALERT', title: 'Alert'}, {value: 'COLLECTION', title: 'Collection'}]"
+            :items="[{value: 'TEXT', title: 'Text'}, {value: 'TEXTAREA', title: 'Textarea'}, {value: 'NUMBER', title: 'Number'}, {value: 'ICON', title: 'Icon'}, {value: 'IMAGE', title: 'Image'}, {value: 'ALERT', title: 'Alert'}, {value: 'COLLECTION', title: 'Collection'}]"
             :label="t('fieldType')"
             :return-object="false"
             clearable
           />
           <boolean-switch-property-wrapper
-            v-if="currentConfiguredHeader.type=='TEXT' || currentConfiguredHeader.type=='NUMBER'"
+            v-if="currentConfiguredHeader.type=='TEXT' || currentConfiguredHeader.type=='NUMBER' || currentConfiguredHeader.type=='TEXTAREA'"
             v-model="currentConfiguredHeader.editable"
             :label="t('editable')"
           />
