@@ -23,6 +23,12 @@
       <col-property v-model="model.layout.cols"/>
     </expansion-panel>
 
+
+    <logic-panel
+      v-model="model"
+      :active="panels.includes('logic')"
+    />
+
     <expansion-panel
       :active="panels.includes('logic')"
       title="Logic"
@@ -168,7 +174,7 @@
           <div v-if="currentConfiguredHeader.type == 'COLLECTION'">
 
             <v-card class="mx-4 my-2">
-              <v-card-title>{{ t('collectionItemsDefinition')}}</v-card-title>
+              <v-card-title>{{ t('collectionItemsDefinition') }}</v-card-title>
               <v-card-text>
                 <tcn-code-editor
                   :model-value="JSON.stringify(currentConfiguredHeader.editable, null, 2)"
@@ -184,7 +190,7 @@
                   class="mx-4 my-2"
                   height="200px"
           >
-            <v-card-title>{{t('headerProperties')}}</v-card-title>
+            <v-card-title>{{ t('headerProperties') }}</v-card-title>
             <v-card-text>
               <tcn-code-editor
                 :model-value="JSON.stringify(currentConfiguredHeader.properties, null, 2)"
@@ -393,6 +399,7 @@ import TranslationInput from "@/components/properties-drawer/atoms/TranslationIn
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import {useI18n} from "vue-i18n";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const {t} = useI18n()
 const style = useStyle()
