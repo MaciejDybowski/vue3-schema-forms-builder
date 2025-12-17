@@ -9,6 +9,16 @@
     >
       {{ t('changeWorkspaceId') }}: {{ workspaceId }}
     </span>
+    <v-spacer/>
+    <v-switch
+      v-if="!showForm"
+      v-model="options.fieldProps.readonly"
+      :hide-details="true"
+      :label="options.fieldProps.readonly? 'Read Only Mode' : 'Editable Mode'"
+      color="primary"
+      density="compact"
+      @change="() => rerenderKey++"
+    ></v-switch>
   </div>
   <v-divider class="mb-4"/>
 
@@ -40,7 +50,7 @@
   <template
     v-else>
     <vue-schema-forms
-
+      :key="rerenderKey"
       ref="myForm"
       v-model="model"
       :default-form-actions="true"
@@ -101,8 +111,13 @@ const props = defineProps<{
 }>()
 
 const style = useStyle()
+const rerenderKey = ref(0)
+
 const options = ref({
-  fieldProps: style.inputStyle,
+  fieldProps: {
+    ...style.inputStyle.value,
+    readonly: false,
+  },
   buttonProps: style.buttonStyle
 })
 const drawers = useDrawers();
