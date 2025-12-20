@@ -7,10 +7,10 @@
         :style="`max-width: ${canvasColumnsMaxWidth}`"
       >
         <v-row dense>
-          <v-col class="main-container ma-2" cols="auto">
+          <v-col class="main-container ma-2" cols="1">
             <MainCanvasToolboxLeft class="stretch"/>
           </v-col>
-          <v-col class="main-container" cols="">
+          <v-col class="main-container" cols="10">
             <chat-with-a-i
               :schema="modelValue"
               @accept="accept"
@@ -23,7 +23,7 @@
               class="stretch"
             />
           </v-col>
-          <v-col class="main-container ma-2" cols="auto">
+          <v-col class="main-container ma-2" cols="1">
             <MainCanvasToolboxRight class="stretch"/>
           </v-col>
         </v-row>
