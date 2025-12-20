@@ -1,0 +1,79 @@
+<template>
+  <v-expansion-panels
+    v-model="panels"
+    elevation="0"
+    multiple
+  >
+
+
+    <general-panel
+      v-model="model"
+      :active="panels.includes('general')"
+    >
+      <template #afterKey>
+        <label-property v-model="model"/>
+      </template>
+    </general-panel>
+
+
+    <layout-panel
+      v-model="model"
+      :active="panels.includes('layout')"
+    />
+
+    <logic-panel
+      v-model="model"
+      :active="panels.includes('logic')"
+    />
+
+    <scheduler-grid-panel
+      v-model="model.legend"
+      :active="panels.includes('legend')"
+    />
+
+
+  </v-expansion-panels>
+
+
+</template>
+
+<script lang="ts" setup>
+
+import {computed, ref} from "vue";
+import {useBuilderState} from "@/pinia/useBuilderState";
+import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
+import {useI18n} from "vue-i18n";
+import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
+import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
+import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import SchedulerGridPanel from "@/components/properties-drawer/panels/SchedulerGridPanel.vue";
+
+const panels = ref<string[]>(["general", "logic", "legend"])
+
+const useBuilderStateStore = useBuilderState()
+const model = computed({
+  get() {
+    return useBuilderStateStore.getConfiguredField
+  },
+  set(val) {
+    useBuilderStateStore.setConfiguredField(val)
+  }
+})
+
+const {t} = useI18n()
+
+</script>
+
+<style lang="scss" scoped>
+:deep(.v-expansion-panel-text__wrapper) {
+  padding: 8px 2px;
+}
+</style>
+
+<i18n lang="json">
+{
+  "en": {
+  },
+  "pl": {}
+}
+</i18n>

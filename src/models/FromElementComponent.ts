@@ -32,3 +32,4 @@ export type FromElementComponent =
   | "file-field"
   | "text-editor"
   | "expansion-panels"
+  | "scheduler-grid"

@@ -27,6 +27,7 @@ import TextSwitchProperties from "@/components/properties-drawer/controls/TextSw
 import FileFieldProperties from "@/components/properties-drawer/controls/FileFieldProperties.vue";
 import TextEditorProperties from "@/components/properties-drawer/controls/TextEditorProperties.vue";
 import ExpansionPanelsProperties from "@/components/properties-drawer/controls/ExpansionPanelsProperties.vue";
+import SchedulerGridProperties from "@/components/properties-drawer/controls/SchedulerGridProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -57,5 +58,6 @@ export const controlsProperties = {
   "text-switch-field-properties": TextSwitchProperties,
   "file-field-properties": FileFieldProperties,
   "text-editor-properties": TextEditorProperties,
-  "expansion-panels-properties": ExpansionPanelsProperties
+  "expansion-panels-properties": ExpansionPanelsProperties,
+  "scheduler-grid-properties": SchedulerGridProperties
 };

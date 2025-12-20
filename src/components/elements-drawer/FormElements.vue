@@ -93,6 +93,7 @@ const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-format-list-numbered", label: "controls.orderedList", component: "ordered-multi-select"},
   {icon: "mdi-translate-variant", label: "controls.multiLang", component: "multi-language-control"},
   {icon: "mdi-chevron-triple-down", label: "controls.expansionPanels", component: "expansion-panels"},
+  {icon: "mdi-timetable", label: "controls.schedulerGrid", component: "scheduler-grid"}
 ]);
 
 const filteredControls = computed(() =>
@@ -274,7 +275,7 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         source: {
           data: "",
-          headers: [...Array(3)].map(() => ({ title: "Change me" })),
+          headers: [...Array(3)].map(() => ({title: "Change me"})),
           buttons: []
         },
         actions: {}
@@ -284,6 +285,55 @@ function cloneControls(item: ElementDrawerFromElement) {
       return {
         ...schemaElement,
         options: {availableLocales: [{code: "en-GB", name: "English"}]}
+      };
+
+    case "scheduler-grid":
+      return {
+        ...schemaElement,
+        layout: {
+          cols: {xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12},
+          offset: {xs: 0, sm: 0, md: 0, lg: 0, xl: 0, xxl: 0},
+          fillRow: true,
+          component: item.component,
+          props: {}
+        },
+        legend: [
+          {
+            statusKey: 'PRESENT',
+            label: 'In Office',
+            colors: {light: '#C8E6C9', dark: '#1B5E20'},
+          },
+          {
+            statusKey: 'WFH',
+            label: 'Work From Home',
+            colors: {light: '#BBDEFB', dark: '#0D47A1'},
+          },
+          {
+            statusKey: 'PTO',
+            label: 'Paid Time Off',
+            colors: {light: '#FFE082', dark: '#E65100'},
+          },
+          {
+            statusKey: 'SICK',
+            label: 'Sick Leave',
+            colors: {light: '#FFCDD2', dark: '#B71C1C'},
+          },
+          {
+            statusKey: 'WEEKEND',
+            label: 'Weekend',
+            colors: {light: '#EEEEEE', dark: '#121212'},
+          },
+          {
+            statusKey: 'HOLIDAY',
+            label: 'Public Holiday',
+            colors: {light: '#E1BEE7', dark: '#4A148C'},
+          },
+          {
+            statusKey: 'HALF_DAY',
+            label: 'Part Time',
+            colors: {light: '#FFCC80', dark: '#BF360C'},
+          },
+        ],
       };
   }
 }
@@ -344,7 +394,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "textEditorSubtitle": "Zapis w HTML / JSON",
       "orderedList": "Lista uporządkowana",
       "multiLang": "Pole wielojęzyczne",
-      "expansionPanels": "Sekcje zwijalne"
+      "expansionPanels": "Sekcje zwijalne",
+      "schedulerGrid": "Haromonogram"
     }
   },
   "en": {
@@ -379,7 +430,8 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "textEditorSubtitle": "Saved as HTML / JSON",
       "orderedList": "Ordered list",
       "multiLang": "Multi-language field",
-      "expansionPanels": "Expansion panels"
+      "expansionPanels": "Expansion panels",
+      "schedulerGrid": "Scheduler"
     }
   }
 }
