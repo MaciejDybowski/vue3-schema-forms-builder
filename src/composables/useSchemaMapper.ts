@@ -180,6 +180,7 @@ export function useSchemaMapper() {
       || (formElement.layout.component == "user-input" && formElement.source)
       || formElement.layout.component == 'combobox'
       || formElement.layout.component == 'ordered-multi-select'
+      || formElement.layout.component == 'calendar-autocomplete'
     ) {
       const copied = "builder_url" in formElement.source ? copyObject(formElement.source.builder_url) : "";
       delete formElement.source.builder_url;

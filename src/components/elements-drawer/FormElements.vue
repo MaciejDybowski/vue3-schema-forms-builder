@@ -58,8 +58,12 @@ const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-account", label: "controls.user", component: "user-input"},
   {icon: "mdi-toggle-switch-off-outline", label: "controls.switch", component: "switch"},
   {icon: "mdi-file", label: "controls.file", component: "file-field"},
+
   {icon: "mdi-calendar-blank", label: "controls.date", component: "date-picker"},
   {icon: "mdi-calendar-clock", label: "controls.datetime", component: "date-time-picker"},
+  {icon: "mdi-calendar-filter", label: "controls.year", component: "year-picker"},
+  {icon: "mdi-calendar-outline", label: "controls.yearMonth", component: "year-month"},
+
   {icon: "mdi-content-copy", label: "controls.duplicatedSection", component: "duplicated-section"},
   {
     icon: "mdi-format-list-group",
@@ -67,7 +71,7 @@ const controls = ref<ElementDrawerFromElement[]>([
     subtitle: "controls.fieldsGroupSubtitle",
     component: "fields-group"
   },
-  {icon: "mdi-calendar-filter", label: "controls.year", component: "year-picker"},
+
   {icon: "mdi-phone", label: "controls.phone", component: "phone"},
   {icon: "mdi-home", label: "controls.address", component: "address"},
   {icon: "mdi-image", label: "controls.image", component: "image"},
@@ -93,7 +97,10 @@ const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-format-list-numbered", label: "controls.orderedList", component: "ordered-multi-select"},
   {icon: "mdi-translate-variant", label: "controls.multiLang", component: "multi-language-control"},
   {icon: "mdi-chevron-triple-down", label: "controls.expansionPanels", component: "expansion-panels"},
-  {icon: "mdi-timetable", label: "controls.schedulerGrid", component: "scheduler-grid"}
+  {icon: "mdi-timetable", label: "controls.schedulerGrid", component: "scheduler-grid"},
+
+  {icon: "mdi-calendar-blank", label: "controls.calendarAutocomplete", component: "calendar-autocomplete"},
+
 ]);
 
 const filteredControls = computed(() =>
@@ -132,6 +139,7 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "date-picker":
     case "date-time-picker":
     case "year-picker":
+    case "year-month":
     case "address":
     case "switch":
     case "file-field":
@@ -335,6 +343,17 @@ function cloneControls(item: ElementDrawerFromElement) {
           },
         ],
       };
+    case "calendar-autocomplete":
+      return {
+        ...schemaElement,
+        source: {
+          builder_url: "/api/v1/calendars/my",
+          title: "label",
+          value: "id",
+          returnObject: true,
+          multiple: false
+        }
+      };
   }
 }
 
@@ -395,7 +414,9 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "orderedList": "Lista uporządkowana",
       "multiLang": "Pole wielojęzyczne",
       "expansionPanels": "Sekcje zwijalne",
-      "schedulerGrid": "Haromonogram"
+      "schedulerGrid": "Haromonogram",
+      "calendarAutocomplete": "Wybór kalendarza",
+      "yearMonth": "Rok i miesiąc"
     }
   },
   "en": {
@@ -431,7 +452,9 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "orderedList": "Ordered list",
       "multiLang": "Multi-language field",
       "expansionPanels": "Expansion panels",
-      "schedulerGrid": "Scheduler"
+      "schedulerGrid": "Scheduler",
+      "calendarAutocomplete": "Calendar selection",
+      "yearMonth": "Year and month"
     }
   }
 }

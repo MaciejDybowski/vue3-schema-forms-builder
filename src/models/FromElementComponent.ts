@@ -33,3 +33,5 @@ export type FromElementComponent =
   | "text-editor"
   | "expansion-panels"
   | "scheduler-grid"
+  | "calendar-autocomplete"
+  | "year-month"

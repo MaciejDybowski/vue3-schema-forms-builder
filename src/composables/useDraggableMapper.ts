@@ -77,6 +77,7 @@ export function useDraggableMapper() {
         || (draggableElement.layout.component == 'user-input' && draggableElement.source)
         || draggableElement.layout.component == 'combobox'
         || draggableElement.layout.component == 'ordered-multi-select'
+        || draggableElement.layout.component == 'calendar-autocomplete'
       ) {
         const copy = draggableElement.source.url
         draggableElement.source.url = ""

@@ -28,6 +28,8 @@ import FileFieldProperties from "@/components/properties-drawer/controls/FileFie
 import TextEditorProperties from "@/components/properties-drawer/controls/TextEditorProperties.vue";
 import ExpansionPanelsProperties from "@/components/properties-drawer/controls/ExpansionPanelsProperties.vue";
 import SchedulerGridProperties from "@/components/properties-drawer/controls/SchedulerGridProperties.vue";
+import YearMonthProperties from "@/components/properties-drawer/controls/YearMonthProperties.vue";
+import CalendarAutocompleteProperties from "@/components/properties-drawer/controls/CalendarAutocompleteProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -59,5 +61,7 @@ export const controlsProperties = {
   "file-field-properties": FileFieldProperties,
   "text-editor-properties": TextEditorProperties,
   "expansion-panels-properties": ExpansionPanelsProperties,
-  "scheduler-grid-properties": SchedulerGridProperties
+  "scheduler-grid-properties": SchedulerGridProperties,
+  "year-month-properties": YearMonthProperties,
+  "calendar-autocomplete-properties": CalendarAutocompleteProperties,
 };
