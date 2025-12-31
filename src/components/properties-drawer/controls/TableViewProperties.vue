@@ -4,6 +4,19 @@
     elevation="0"
     multiple
   >
+    <conversion-panel :active="panels.includes('conversion')">
+      <select-general
+        v-model="model.layout.component"
+        :clearable="false"
+        :items="[
+          {value: 'table-view', title: t('conversion.tableView')},
+          {value: 'table-internal', title: t('conversion.tableInternal')}
+       ]"
+        :label="t('conversion.label')"
+        :return-object="false"
+      />
+    </conversion-panel>
+
     <expansion-panel
       :active="panels.includes('general')"
       title="General"
@@ -23,12 +36,6 @@
       <col-property v-model="model.layout.cols"/>
     </expansion-panel>
 
-
-    <logic-panel
-      v-model="model"
-      :active="panels.includes('logic')"
-    />
-
     <expansion-panel
       :active="panels.includes('logic')"
       title="Logic"
@@ -38,6 +45,7 @@
     </expansion-panel>
 
     <expansion-panel
+      v-if="model.layout.component.includes('view')"
       :active="panels.includes('source')"
       title="Source"
       value="source"
@@ -400,6 +408,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import {useI18n} from "vue-i18n";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
 
 const {t} = useI18n()
 const style = useStyle()
@@ -596,6 +605,10 @@ function referenceChangedButtonLabel() {
 <i18n lang="json">
 {
   "en": {
+    "conversion": {
+      "tableView": "Table: source API",
+      "tableInternal": "Table: source model"
+    },
     "dialogHeader": "Table header to configure: {val}",
     "dialogHeaderAction": "Table action to configure: {val}",
     "general": "General",
@@ -628,6 +641,10 @@ function referenceChangedButtonLabel() {
     "addAction": "Add action"
   },
   "pl": {
+    "conversion": {
+      "tableView": "Tabela: źródło API",
+      "tableInternal": "Tabela: źródło model"
+    },
     "dialogHeader": "Nagłówek tabeli do konfiguracji: {val}",
     "dialogHeaderAction": "Akcja tabeli do konfiguracji: {val}",
     "general": "Ogólne",

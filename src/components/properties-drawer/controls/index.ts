@@ -53,6 +53,7 @@ export const controlsProperties = {
   "static-content-properties": StaticContentProperties,
   "switch-properties": SwitchProperties,
   "table-view-properties": TableViewProperties,
+  "table-internal-properties": TableViewProperties,
   "text-area-properties": TextAreaProperties,
   "text-field-properties": TextFieldProperties,
   "user-input-properties": UserInputProperties,
