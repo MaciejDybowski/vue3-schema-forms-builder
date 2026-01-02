@@ -46,6 +46,7 @@ import {useI18n} from "vue-i18n";
 import {toast} from "vue3-toastify";
 import {useStyle} from "@/main";
 import {onMounted, ref, watch} from "vue";
+import debounce from "lodash/debounce";
 
 const props = defineProps<{
   schema: object
@@ -78,6 +79,21 @@ function saveEditedSchema() {
   emit("manualUpdateSchema", editedSchema.value)
 }
 
+function showWarningAboutParsingJson() {
+  toast.warning("Wystąpił błąd podczas pasowania JSON")
+}
+
+function showSuccessAboutParsingJson() {
+  if (!lastJSONWasInvalid.value) {
+    toast.success("JSON został sparsowany poprawnie")
+  }
+}
+
+const debounced = {
+  showWarningAboutParsingJson: debounce(showWarningAboutParsingJson, 1500),
+  showSuccessAboutParsingJson: debounce(showSuccessAboutParsingJson, 1500)
+}
+const lastJSONWasInvalid = ref(false)
 
 onMounted(() => {
   referenceSchema.value = JSON.stringify(props.schema, null, 2)
@@ -88,10 +104,17 @@ onMounted(() => {
       const temp = JSON.parse(value);
       // @ts-ignore
       emit("manualUpdateSchema", value)
+      if (lastJSONWasInvalid.value) {
+        lastJSONWasInvalid.value = false
+        debounced.showWarningAboutParsingJson.cancel()
+        debounced.showSuccessAboutParsingJson()
+      }
     } catch (e) {
       console.warn("JSON parsing error...");
+      debounced.showSuccessAboutParsingJson.cancel()
+      debounced.showWarningAboutParsingJson()
+      lastJSONWasInvalid.value = true
     }
-
 
   }, {deep: true})
 })
