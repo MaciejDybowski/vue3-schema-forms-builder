@@ -19,14 +19,50 @@ type Story = StoryObj<typeof meta>;
 export const Empty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {"type":"object","properties":{"textEditor723":{"contentType":"html","layout":{"component":"text-editor"},"editorFeatures":["bold","italic","strike"]}}}
+    modelValue: {
+      "type": "object",
+      "properties": {
+        "dict": {
+          "label": "Dict",
+          "layout": {
+            "cols": {"xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 4, "xxl": 4},
+            "fillRow": true,
+            "component": "dictionary"
+          },
+          "source": {
+            "url": "",
+            "title": "label",
+            "value": "id",
+            "description": "description",
+            "returnObject": false,
+            "lazy": true,
+            "singleOptionAutoSelect": false,
+            "multiple": false,
+            "maxSelection": 0
+          }
+        }
+      }
+    }
   }
 }
 
 export const Story1: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {"type":"object","properties":{"tableView351":{"layout":{"component":"table-view"},"source":{"data":"","headers":[{"title":"Change me"},{"title":"Change me"},{"title":"Change me"}],"buttons":[]},"actions":{}}}}
+    modelValue: {
+      "type": "object",
+      "properties": {
+        "tableView351": {
+          "layout": {"component": "table-view"},
+          "source": {
+            "data": "",
+            "headers": [{"title": "Change me"}, {"title": "Change me"}, {"title": "Change me"}],
+            "buttons": []
+          },
+          "actions": {}
+        }
+      }
+    }
   }
 }
 
