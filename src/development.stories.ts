@@ -19,11 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Empty: Story = {
   args: {
     workspaceId: "bm",
-    modelValue: {
-      properties: {
-
-      }
-    }
+    modelValue: {"type":"object","properties":{"textEditor723":{"contentType":"html","layout":{"component":"text-editor"},"editorFeatures":["bold","italic","strike"]}}}
   }
 }
 

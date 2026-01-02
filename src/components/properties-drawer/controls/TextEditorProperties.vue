@@ -8,20 +8,26 @@
       v-model="model"
       :active="panels.includes('general')"
     >
-    <template #afterKey>
-      <select-general
-        v-model="model.contentType"
-        :clearable="false"
-        :items="[
+      <template #afterKey>
+        <select-general
+          v-model="model.contentType"
+          :clearable="false"
+          :items="[
             { value: 'html', title: t('htmlType') },
             { value: 'json', title: t('jsonType') },
           ]"
-        :label="t('contentType')"
-        :return-object="false"
-      />
-    </template>
+          :label="t('contentType')"
+          :return-object="false"
+        />
+      </template>
 
     </general-panel>
+
+
+    <text-editor-props-panel
+      v-model="model"
+      :active="panels.includes('textEditorProps')"
+    />
 
     <layout-panel
       v-model="model"
@@ -48,6 +54,7 @@ import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import {useI18n} from "vue-i18n";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
+import TextEditorPropsPanel from "@/components/properties-drawer/panels/TextEditorPropsPanel.vue";
 
 ;
 
