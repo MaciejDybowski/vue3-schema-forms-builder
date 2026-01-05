@@ -273,14 +273,14 @@
           class="mx-1"
           icon="mdi-cog"
           size="x-small"
-          @click="configButton(button)"
+          @click="configButton(button, index)"
         />
 
         <v-btn
           class="mx-1"
           icon="mdi-delete"
           size="x-small"
-          @click="buttons = buttons.filter((item, i) => i !== index)"
+          @click="removeButton(index)"
         />
 
         <v-divider class="mt-2 mx-4"/>
@@ -294,7 +294,7 @@
         persistent
         scrollable
         width="800px"
-        @acceptButton="closeConfigButtonDialog"
+        @acceptButton="saveConfigButtonDialog"
         @closeButton="closeConfigButtonDialog"
       >
 
@@ -367,7 +367,7 @@
         class="mx-4 my-2"
         color="primary"
         density="compact"
-        @click="buttons.push({label: '', mode: null})"
+        @click="addButton"
       />
     </expansion-panel>
     <expansion-panel
@@ -444,7 +444,7 @@ function removeHeader(index: number) {
 const configHeaderDialog = ref(false)
 const currentConfiguredHeader = ref<any>(null)
 
-
+const originalButtonIndex = ref<number>(0)
 const configButtonDialog = ref(false)
 const currentConfiguredButton = ref<any>(null)
 const originalHeaderIndex = ref<number>(0)
@@ -458,12 +458,33 @@ function configHeader(header: any, index: number) {
   configHeaderDialog.value = true
 }
 
-function configButton(button: any) {
-  currentConfiguredButton.value = button
+function configButton(button: any, index: number) {
+  originalButtonIndex.value = index
+  currentConfiguredButton.value = {...button}  // lokalna kopia
   const localIsReference = typeof currentConfiguredButton.value.label != "string"
   currentConfiguredButton.value.isReference = localIsReference
-  currentConfiguredButton.value.i18nInputKey = !localIsReference ? toCamelCase(currentConfiguredButton.value.label) : currentConfiguredButton.value.label.$ref.split("/").pop()
+  currentConfiguredButton.value.i18nInputKey = !localIsReference
+    ? toCamelCase(currentConfiguredButton.value.label)
+    : currentConfiguredButton.value.label.$ref.split("/").pop()
   configButtonDialog.value = true
+}
+
+function saveConfigButtonDialog() {
+  delete currentConfiguredButton.value.isReference
+  delete currentConfiguredButton.value.i18nInputKey
+  buttons.value[originalButtonIndex.value] = {...currentConfiguredButton.value}
+  model.value.source.buttons = buttons.value  // zapis do store
+  closeConfigButtonDialog()
+}
+
+function removeButton(index: number) {
+  buttons.value = buttons.value.filter((item, i) => i !== index)
+  model.value.source.buttons = buttons.value
+}
+
+function addButton() {
+  buttons.value.push({label: '', mode: null})
+  model.value.source.buttons = buttons.value
 }
 
 function tryParseAsJsonItemsInCollection(value: string, currentConfiguredHeader) {
