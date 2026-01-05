@@ -329,7 +329,7 @@
 
         <select-general
           v-model="currentConfiguredButton.mode"
-          :items="[{value: 'action', title: 'Action'}]"
+          :items="[{value: 'action', title: t('action')}, {value: 'internal', title: t('internal')}]"
           :label="t('mode')"
           :return-object="false"
           clearable
@@ -648,7 +648,9 @@ function referenceChangedButtonLabel() {
     "dataURL": "Data URL",
     "useReference": "Use Reference",
     "deleteAction": "Delete action",
-    "addAction": "Add action"
+    "addAction": "Add action",
+    "action": "Action",
+    "internal": "Internal"
   },
   "pl": {
     "conversion": {
@@ -684,7 +686,9 @@ function referenceChangedButtonLabel() {
     "dataURL": "URL danych",
     "useReference": "Użyj referencji",
     "deleteAction": "Usuń akcję",
-    "addAction": "Dodaj akcję"
+    "addAction": "Dodaj akcję",
+    "action": "Akcja",
+    "internal": "Wew. działanie"
   }
 }
 </i18n>
