@@ -89,7 +89,7 @@
               class="mx-1"
               icon="mdi-cog"
               size="x-small"
-              @click="configHeader(element)"
+              @click="configHeader(element, index)"
             />
 
             <v-btn
@@ -119,7 +119,7 @@
         persistent
         scrollable
         width="800px"
-        @acceptButton="closeConfigHeaderDialog"
+        @acceptButton="saveConfigHeaderDialog"
         @closeButton="closeConfigHeaderDialog"
       >
         <template #title>
@@ -407,7 +407,6 @@ import TranslationInput from "@/components/properties-drawer/atoms/TranslationIn
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import {useI18n} from "vue-i18n";
-import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
 
 const {t} = useI18n()
@@ -448,9 +447,11 @@ const currentConfiguredHeader = ref<any>(null)
 
 const configButtonDialog = ref(false)
 const currentConfiguredButton = ref<any>(null)
+const originalHeaderIndex = ref<number>(0)
 
-function configHeader(header: any) {
-  currentConfiguredHeader.value = header
+function configHeader(header: any, index: number) {
+  originalHeaderIndex.value = index
+  currentConfiguredHeader.value = {...header}
   const localIsReference = typeof currentConfiguredHeader.value.title != "string"
   currentConfiguredHeader.value.isReference = localIsReference
   currentConfiguredHeader.value.i18nInputKey = !localIsReference ? toCamelCase(header.title) : currentConfiguredHeader.value.title.$ref.split("/").pop()
@@ -518,6 +519,15 @@ function tryParseAsJsonButtonConfig(value: string, currentConfiguredButton) {
     console.warn("Parsing error")
   }
 }
+
+function saveConfigHeaderDialog() {
+  delete currentConfiguredHeader.value.isReference
+  delete currentConfiguredHeader.value.i18nInputKey
+  headers.value[originalHeaderIndex.value] = {...currentConfiguredHeader.value}
+  closeConfigHeaderDialog()
+
+}
+
 
 function closeConfigHeaderDialog() {
   configHeaderDialog.value = false
