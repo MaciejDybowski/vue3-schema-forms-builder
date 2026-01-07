@@ -195,7 +195,7 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         panels: [
           {
-            title: "Change me",
+            title: t('panelTitle'),
             titleIcon: "mdi-home",
             titleIconSize: 20,
             schema: {
@@ -283,7 +283,7 @@ function cloneControls(item: ElementDrawerFromElement) {
         },
         source: {
           data: "",
-          headers: [...Array(3)].map(() => ({title: "Change me"})),
+          headers: [...Array(3)].map(() => ({title: t('tableHeader')})),
           buttons: []
         },
         actions: {}
@@ -417,7 +417,9 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "schedulerGrid": "Haromonogram",
       "calendarAutocomplete": "Wybór kalendarza",
       "yearMonth": "Rok i miesiąc"
-    }
+    },
+    "tableHeader": "Nagłówek",
+    "panelTitle": "Tytuł sekcji"
   },
   "en": {
     "controls": {
@@ -455,7 +457,9 @@ const {onDragStart, onDragEnd} = useDragDrop();
       "schedulerGrid": "Scheduler",
       "calendarAutocomplete": "Calendar selection",
       "yearMonth": "Year and month"
-    }
+    },
+    "tableHeader": "Header",
+    "panelTitle": "Panel title"
   }
 }
 </i18n>

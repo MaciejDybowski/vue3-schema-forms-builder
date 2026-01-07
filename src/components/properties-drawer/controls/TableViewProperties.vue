@@ -93,7 +93,7 @@
             />
 
             <v-btn
-              :disabled="index==0"
+              :disabled="headers.length == 1"
               class="mx-1"
               icon="mdi-delete"
               size="x-small"
