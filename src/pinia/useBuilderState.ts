@@ -191,6 +191,84 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     set(configuredField.value, key, value);
   }
 
+  // Znajduje parentKey (może być null dla root) i index elementu o kluczu targetKey
+  function findParentKeyAndIndex(items: any[], targetKey: string, parentKey: string | null = null): {
+    parentKey: string | null;
+    index: number
+  } | null {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.key === targetKey) {
+        return {parentKey, index: i};
+      }
+
+      if (Array.isArray(item.tempItems)) {
+        const found = findParentKeyAndIndex(item.tempItems, targetKey, item.key);
+        if (found) return found;
+      }
+
+      if (item.layout?.component === "expansion-panels" && Array.isArray(item.panels)) {
+        for (let p = 0; p < item.panels.length; p++) {
+          const panel = item.panels[p];
+          if (Array.isArray(panel.tempItems)) {
+            const found = findParentKeyAndIndex(panel.tempItems, targetKey, `${item.key}::panel-${p}`);
+            if (found) return found;
+          }
+          // panel.schema.properties mogą zawierać pola z kluczami
+          if (panel.schema?.properties) {
+            for (const [propKey, propVal] of Object.entries(panel.schema.properties) as [string, any][]) {
+              if (propKey === targetKey) {
+                return {
+                  parentKey: `${item.key}::panel-${p}`,
+                  index: Object.keys(panel.schema.properties).indexOf(propKey)
+                };
+              }
+              if (propVal.tempItems) {
+                const found = findParentKeyAndIndex(propVal.tempItems, targetKey, `${item.key}::panel-${p}`);
+                if (found) return found;
+              }
+            }
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  // Wstawia dostarczony control po aktualnie skonfigurowanym polu (configuredField)
+  function insertControlAtConfiguredField(control: any, saveToHistory = true) {
+    const targetKey = configuredField.value?.key;
+    if (!targetKey) {
+      // brak zaznaczenia → na koniec
+      draggableModel.value.push(control);
+      if (saveToHistory) pushHistory();
+      return;
+    }
+
+    const found = findParentKeyAndIndex(draggableModel.value, targetKey);
+    if (!found) {
+      // fallback: na koniec
+      draggableModel.value.push(control);
+      if (saveToHistory) pushHistory();
+      return;
+    }
+
+    const {parentKey, index} = found;
+    if (parentKey === null) {
+      // top-level
+      draggableModel.value.splice(index + 1, 0, control);
+    } else {
+      // użyj istniejącej funkcji do wstawiania w zagnieżdżonych strukturach (obsługa expansion-panels, tempItems itp.)
+      const inserted = insertClonedItemRecursive(draggableModel.value, parentKey, control, index);
+      if (!inserted) {
+        // jeśli coś pójdzie nie tak, dodaj na koniec
+        draggableModel.value.push(control);
+      }
+    }
+
+    if (saveToHistory) pushHistory();
+  }
+
 
   // memento pattern
   const history: Ref<Array<any>> = ref([])
@@ -326,7 +404,8 @@ export const useBuilderState = defineStore("useBuilderState", () => {
     getWorkspaceId,
     setWorkspaceId,
     getConfiguredFieldPath,
-    initHistory
+    initHistory,
+    insertControlAtConfiguredField
   }
 })
 

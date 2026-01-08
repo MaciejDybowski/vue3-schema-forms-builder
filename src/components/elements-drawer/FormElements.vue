@@ -11,7 +11,10 @@
     @start="onDragStart"
   >
     <template #item="{ element }">
-      <v-list-item link>
+      <v-list-item
+        link
+        @dblclick="onItemDblClick(element)"
+      >
         <template #prepend>
           <v-icon>{{ element.icon }}</v-icon>
         </template>
@@ -30,9 +33,11 @@ import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
 import {useI18n} from "vue-i18n";
+import {useBuilderState} from "@/pinia/useBuilderState";
 
 const props = defineProps<{ query: string }>();
 const {t} = useI18n();
+const builder = useBuilderState();
 
 const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-format-letter-matches", label: "controls.text", component: "text-field"},
@@ -102,6 +107,12 @@ const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-calendar-blank", label: "controls.calendarAutocomplete", component: "calendar-autocomplete"},
 
 ]);
+
+function onItemDblClick(item: ElementDrawerFromElement) {
+  const schema = cloneControls(item);
+  // wstaw po aktualnie zaznaczonym polu (albo na koniec)
+  builder.insertControlAtConfiguredField(schema);
+}
 
 const filteredControls = computed(() =>
   controls.value.filter((item) =>
