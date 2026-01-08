@@ -3,6 +3,10 @@
     v-model="contentValue"
     :label="t('contentProperty')"
     :prefix="isReference? prefix: ''"
+    append-inner-icon="mdi-cog"
+    rows="2"
+    :growEnabled="false"
+
   />
   <boolean-checkbox-property-wrapper
     v-model="isReference"

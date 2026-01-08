@@ -20,8 +20,7 @@ export const Empty: Story = {
   args: {
     workspaceId: "bm",
     modelValue: {
-      "type": "object",
-      "properties": {
+      "type": "object", "properties": {
         "dict": {
           "label": "Dict",
           "layout": {
@@ -30,7 +29,7 @@ export const Empty: Story = {
             "component": "dictionary"
           },
           "source": {
-            "url": "",
+            "url": "/api/dictionaries?feature-id=rodzaje-kosztu-pozycji-faktury&lm=nazwa&vm=kod&processId={tech.processId}&aureaSectionId={pozycjeDokumentu[].aureaSectionId}&customAttributes=aktualnieDostepne%2C%7BaktualnieDostepne%7D%2CczyPoleCelSpotkania%2C%7BczyPoleCelSpotkania%7D%2CczyPoleNazwaKlienta%2C%7BczyPoleNazwaKlienta%7D%2CczyPoleLiczbaOsob%2C%7BczyPoleLiczbaOsob%7D%2CczyPoleOpisDokumentu%2C%7BczyPoleOpisDokumentu%7D%2CczyPoleDataPrzyjeciaPrzyjazdu%2C%7BczyPoleDataPrzyjeciaPrzyjazdu%7D%2CczyPoleAkronim%2C%7BczyPoleAkronim%7D%2CczyPoleNrRejestracyjny%2C%7BczyPoleNrRejestracyjny%7D%2CczyPoleNosnik%2C%7BczyPoleNosnik%7D%2CczyPoleRodzinaEl4%2C%7BczyPoleRodzinaEl4%7D%2CczyPoleRodzinaEl5%2C%7BczyPoleRodzinaEl5%7D%2CczyPoleDealDbs%2C%7BczyPoleDealDbs%7D%2CczyPoleNrProjektu%2C%7BczyPoleNrProjektu%7D%2CczyPoleNrZleceniaSerwisowegoDbs%2C%7BczyPoleNrZleceniaSerwisowegoDbs%7D%2CczyPoleOsobaDoRefaktury%2C%7BczyPoleOsobaDoRefaktury%7D%2CczyPowiadomicDzialZakupow%2C%7BczyPowiadomicDzialZakupow%7D%2CpowiadomienieDzialZakupowProgKowtyPln%2C%7BpowiadomienieDzialZakupowProgKowtyPln%7D%2Clabels%2Cexpression%3AaureaSectionId%20%21%3D%20null%20%3F%20%22bm-ai-prediction%22%20%3A%20%22%22&filter=aktualnieDostepne%3D%3Dtrue",
             "title": "label",
             "value": "id",
             "description": "description",

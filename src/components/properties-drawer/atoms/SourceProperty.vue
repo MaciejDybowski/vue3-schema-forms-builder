@@ -1,7 +1,10 @@
 <template>
-  <text-property-wrapper
+  <source-url-configurator
     v-model="modelValue.builder_url"
     :label="t('urlKey')"
+    :grow-enabled="false"
+    :rows="2"
+    append-inner-icon="mdi-cog"
   />
 
 
@@ -112,6 +115,7 @@ import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPr
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {onMounted, ref} from "vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import SourceUrlConfigurator from "@/components/properties-drawer/atoms/SourceUrlConfigurator.vue";
 
 const modelValue = defineModel<any>({
   default: () => {
