@@ -10,7 +10,7 @@
       {{ t('changeWorkspaceId') }}: {{ workspaceId }}
     </span>
     <v-spacer/>
-    <v-switch
+<!--    <v-switch
       v-if="!showForm"
       v-model="options.fieldProps.readonly"
       :hide-details="true"
@@ -18,7 +18,7 @@
       color="primary"
       density="compact"
       @change="() => rerenderKey++"
-    ></v-switch>
+    ></v-switch>-->
   </div>
   <v-divider class="mb-4"/>
 
