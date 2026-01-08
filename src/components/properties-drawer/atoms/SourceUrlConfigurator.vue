@@ -81,13 +81,10 @@ const props = withDefaults(defineProps<{
 const attrs = useAttrs();
 const dialog = ref(false);
 
-/**
- * Enkoduje tekst podobnie jak w narzędziu do URL słownika:
- * - segmenty wewnątrz { } są enkodowane wewnątrz (z zachowaniem []),
- * - segmenty poza { } są całkowicie encodeURIComponent
- */
+// Zastąp obecną implementację tymi funkcjami
+
 function encodeWithoutBraces(str: string | null | undefined): string | null {
-  if (str == null) return str;
+  if (str == null) return null;
   return str
     .replace(/\{([^}]+)\}/g, (match, group) => {
       const safe = group.replace(/\[/g, "___SAFE_L___").replace(/\]/g, "___SAFE_R___");
@@ -99,23 +96,13 @@ function encodeWithoutBraces(str: string | null | undefined): string | null {
     });
 }
 
-/**
- * Dekoduje odwrotnie: dzieli na tokeny {..} i pozostałe,
- * dekoduje tokeny poza nawiasami i wnętrze nawiasów przywraca decodeURIComponent
- * z obsługą zachowanych nawiasów kwadratowych.
- */
 function decodeWithoutBraces(str: string | null | undefined): string | null {
-  if (str == null) return str;
-  // dopasuj tokeny: {..} albo fragmenty bez nawiasów
+  if (str == null) return null;
   const tokens = str.match(/\{[^}]*\}|[^{}]+/g) || [];
   return tokens
     .map((token) => {
       if (token.startsWith("{") && token.endsWith("}")) {
         const inner = token.slice(1, -1);
-        // we wcześniejszym enkodowaniu [] zamieniane były na zwykne znaki, tutaj przyjmujemy,
-        // że decodeURIComponent poprawnie zdekoduje, więc najpierw zastąp placeholdery (jeśli są)
-        // a potem decodeURIComponent; w praktyce enkodowanie zapisywało [] bez placeholderów,
-        // więc zachowujemy bezpieczną próbę dekodowania.
         const temp = inner.replace(/\[/g, "___SAFE_L___").replace(/\]/g, "___SAFE_R___");
         try {
           const decodedInner = decodeURIComponent(temp);
@@ -131,8 +118,9 @@ function decodeWithoutBraces(str: string | null | undefined): string | null {
         }
       }
     })
-    .join("");// zamień istniejące funkcje na poniższe
+    .join("");
 }
+
 
 /**
  * computed z getterem/setter:

@@ -4,7 +4,7 @@
     :label="t('contentProperty')"
     :prefix="isReference? prefix: ''"
     append-inner-icon="mdi-cog"
-    rows="2"
+    :rows="2"
     :growEnabled="false"
 
   />
