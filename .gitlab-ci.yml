@@ -37,6 +37,9 @@ npm-publish:
   image: docker.tecna.pl/node:lts
   script:
     - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
+    - git fetch origin master
+    - git checkout master
+    - git pull origin master
     - npm run install-registry
     - npm run build
     - npm run publish:nexus
