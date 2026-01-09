@@ -14,6 +14,7 @@ variables:
   VUE_FORMS_VERSION: $VUE_FORMS_VERSION
 
 stages:
+  - prepare
   - publish
 
 npm-publish:
@@ -24,3 +25,21 @@ npm-publish:
     - npm run install-registry
     - npm run build
     - npm run publish:nexus --tag next
+    - ./get-version.sh
+  artifacts:
+    reports:
+      dotenv: version.env
+
+
+update-aurea-forms-dep:
+  stage: prepare
+  image: node:lts
+  rules:
+    - if: '$RUN_UPDATE_FORMS == "true"'
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y jq
+    - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
+  script:
+    - chmod +x update-forms.sh
+    - ./update-forms.sh
