@@ -18,6 +18,8 @@ npm install --package-lock-only --registry=https://nexus3.tecna.pl/repository/np
 git config user.email "ci@gitlab"
 git config user.name "GitLab CI"
 
+git remote set-url origin "https://oauth2:${GITLAB_TOKEN}@gitlab.tecna.pl/${CI_PROJECT_PATH}.git"
+
 git add package.json package-lock.json
 
 if git diff --staged --quiet; then
