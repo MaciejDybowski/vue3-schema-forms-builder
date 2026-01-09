@@ -18,20 +18,6 @@ stages:
   - publish
   - triggers
 
-npm-publish:
-  stage: publish
-  image: docker.tecna.pl/node:lts
-  script:
-    - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
-    - npm run install-registry
-    - npm run build
-    - npm run publish:nexus --tag next
-    - ./get-version.sh
-  artifacts:
-    reports:
-      dotenv: version.env
-
-
 update-aurea-forms-dep:
   stage: prepare
   image: node:lts
@@ -44,6 +30,22 @@ update-aurea-forms-dep:
   script:
     - chmod +x update-forms.sh
     - ./update-forms.sh
+
+
+npm-publish:
+  stage: publish
+  image: docker.tecna.pl/node:lts
+  script:
+    - echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
+    - npm run install-registry
+    - npm run build
+    - npm run publish:nexus
+    - ./get-version.sh
+  artifacts:
+    reports:
+      dotenv: version.env
+
+
 
 
 aurea-modeler-update:

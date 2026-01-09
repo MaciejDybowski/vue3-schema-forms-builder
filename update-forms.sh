@@ -6,32 +6,24 @@ if [[ -z "$UPDATED_AUREA_FORMS_VERSION" ]]; then
   exit 0
 fi
 
-echo "Bumping vue-schema-forms to $UPDATED_AUREA_FORMS_VERSION"
+echo "Updating vue3-schema-forms to $UPDATED_AUREA_FORMS_VERSION"
 
-echo "$NPM_REGISTRY_CONFIG" > ~/.npmrc
+jq '.dependencies["vue3-schema-forms"] = env.UPDATED_AUREA_FORMS_VERSION' \
+  package.json > tmp.json && mv tmp.json package.json
 
-jq ".dependencies[\"vue3-schema-forms\"] = \"$UPDATED_AUREA_FORMS_VERSION\"" package.json > tmp.json && mv tmp.json package.json
+npm version patch --no-git-tag-version
 
-git config user.email "noreply@gitlab.tecna.pl"
+npm install --package-lock-only --registry=https://nexus3.tecna.pl/repository/npm-private
+
+git config user.email "ci@gitlab"
 git config user.name "GitLab CI"
-
-npm install --registry=https://nexus3.tecna.pl/repository/npm-private/
-npm version patch --force --no-git-tag-version
-
-
-
-# Autoryzacja CI_JOB_TOKEN
-# Należy wygenerować token (AccessToken) z odpowiednimi uprawnieniami i dodać go jako zmienną środowiskową GITLAB_TOKEN w ustawieniach CI/CD projektu
-git remote set-url origin "https://oauth2:${GITLAB_TOKEN}@gitlab.tecna.pl/${CI_PROJECT_PATH}.git"
 
 git add package.json package-lock.json
 
 if git diff --staged --quiet; then
-  echo "No changes to commit"
+  echo "No changes"
   exit 0
 fi
 
-## Gitlab CI wie, że jak w commit message jest [skip ci], to nie musi uruchamiać kolejnych pipeline'ów
-git commit -m "Update aurea-forms to $UPDATED_AUREA_FORMS_VERSION [skip ci]"
-
+git commit -m "Update vue3-schema-forms to $UPDATED_AUREA_FORMS_VERSION [skip ci]"
 git push origin HEAD:master
