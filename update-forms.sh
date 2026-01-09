@@ -16,7 +16,7 @@ git config user.email "noreply@gitlab.tecna.pl"
 git config user.name "GitLab CI"
 
 npm install --registry=https://nexus3.tecna.pl/repository/npm-private/
-npm version patch --force
+npm version patch --force --no-git-tag-version
 
 
 
