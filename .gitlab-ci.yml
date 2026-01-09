@@ -16,6 +16,7 @@ variables:
 stages:
   - prepare
   - publish
+  - triggers
 
 npm-publish:
   stage: publish
@@ -43,3 +44,16 @@ update-aurea-forms-dep:
   script:
     - chmod +x update-forms.sh
     - ./update-forms.sh
+
+
+aurea-dashboards:
+  stage: triggers
+  trigger:
+    project: aurea/aurea-modeler
+    branch: master
+    strategy: depend
+  variables:
+    UPDATED_AUREA_FORMS_BUILDER_VERSION: "$FORM_VERSION"
+    UPSTREAM_PROJECT: "$CI_PROJECT_PATH"
+    UPSTREAM_COMMIT: "$CI_COMMIT_SHA"
+    RUN_UPDATE_FORMS: "true"
