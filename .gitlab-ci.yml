@@ -46,7 +46,7 @@ update-aurea-forms-dep:
     - ./update-forms.sh
 
 
-aurea-dashboards:
+aurea-modeler-update:
   stage: triggers
   trigger:
     project: aurea/aurea-modeler
