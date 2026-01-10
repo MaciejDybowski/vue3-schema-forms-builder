@@ -62,3 +62,4 @@ aurea-modeler-update:
     UPSTREAM_PROJECT: "$CI_PROJECT_PATH"
     UPSTREAM_COMMIT: "$CI_COMMIT_SHA"
     RUN_UPDATE_FORMS: "true"
+    SERVICE_NAME: "aurea-modeler-v2"
