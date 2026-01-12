@@ -39,14 +39,14 @@
           />
 
 
-          <v-textarea
+<!--          <v-textarea
             v-model="dictUrl"
             :label="label"
             :prefix="prefix"
             auto-grow
             rows="5"
             v-bind="{...style.inputStyle.value}"
-          />
+          />-->
         </v-card-text>
         <v-card-actions>
           <v-spacer/>
