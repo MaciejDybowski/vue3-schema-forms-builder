@@ -6,7 +6,7 @@
     value="fieldProps"
   >
     <boolean-checkbox-property-wrapper
-      v-if="component === 'checkbox' || component === 'radio'"
+      v-if="component === 'checkbox' || component === 'radio-button'"
       v-model="model.layout.props.inline"
       :label="t('horizontalLayout')"
     />

@@ -50,14 +50,14 @@ npm-publish:
 
 
 
-aurea-modeler-update:
-  stage: triggers
-  trigger:
-    project: aurea/aurea-modeler
-    branch: master
-    strategy: depend
-  variables:
-    UPDATED_AUREA_FORMS_BUILDER_VERSION: "$FORM_BUILDER_VERSION"
-    UPSTREAM_PROJECT: "$CI_PROJECT_PATH"
-    UPSTREAM_COMMIT: "$CI_COMMIT_SHA"
-    RUN_UPDATE_FORMS: "true"
+#aurea-modeler-update:
+#  stage: triggers
+#  trigger:
+#    project: aurea/aurea-modeler
+ #   branch: master
+ #   strategy: depend
+ # variables:
+ #   UPDATED_AUREA_FORMS_BUILDER_VERSION: "$FORM_BUILDER_VERSION"
+ #   UPSTREAM_PROJECT: "$CI_PROJECT_PATH"
+ #   UPSTREAM_COMMIT: "$CI_COMMIT_SHA"
+ #   RUN_UPDATE_FORMS: "true"
