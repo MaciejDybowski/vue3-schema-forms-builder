@@ -13,7 +13,8 @@
     <template #item="{ element }">
       <v-list-item
         link
-        @dblclick="onItemDblClick(element)"
+        @click="handleClick(element)"
+        @touchend.prevent="handleClick(element)"
       >
         <template #prepend>
           <v-icon>{{ element.icon }}</v-icon>
@@ -27,6 +28,7 @@
   </draggable>
 </template>
 
+
 <script lang="ts" setup>
 import draggable from "../../vuedraggable/vuedraggable";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
@@ -38,81 +40,55 @@ import {useBuilderState} from "@/pinia/useBuilderState";
 const props = defineProps<{ query: string }>();
 const {t} = useI18n();
 const builder = useBuilderState();
+const { onDragStart, onDragEnd } = useDragDrop();
 
+// --- Double-tap / double-click logic ---
+let lastTap = 0;
+function handleClick(element: ElementDrawerFromElement) {
+
+  const now = Date.now();
+  if (now - lastTap < 300) {
+    // double-tap / double-click
+    onItemDblClick(element);
+  }
+  lastTap = now;
+}
+
+// --- Clone / insert logic ---
+function onItemDblClick(item: ElementDrawerFromElement) {
+  const schema = cloneControls(item);
+  builder.insertControlAtConfiguredField(schema);
+}
+
+// --- Filter ---
 const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-format-letter-matches", label: "controls.text", component: "text-field"},
   {icon: "mdi-numeric-1-box-outline", label: "controls.number", component: "number-field"},
-  {
-    icon: "mdi-format-letter-ends-with",
-    label: "controls.textarea",
-    component: "text-area",
-    subtitle: "controls.textareaSubtitle"
-  },
-  {
-    icon: "mdi-order-alphabetical-ascending",
-    label: "controls.select",
-    subtitle: "controls.selectSubtitle",
-    component: "select"
-  },
-  {
-    icon: "mdi-order-alphabetical-ascending",
-    label: "controls.dictionary",
-    subtitle: "controls.dictionarySubtitle",
-    component: "dictionary"
-  },
+  {icon: "mdi-format-letter-ends-with", label: "controls.textarea", component: "text-area", subtitle: "controls.textareaSubtitle"},
+  {icon: "mdi-order-alphabetical-ascending", label: "controls.select", subtitle: "controls.selectSubtitle", component: "select"},
+  {icon: "mdi-order-alphabetical-ascending", label: "controls.dictionary", subtitle: "controls.dictionarySubtitle", component: "dictionary"},
   {icon: "mdi-account", label: "controls.user", component: "user-input"},
   {icon: "mdi-toggle-switch-off-outline", label: "controls.switch", component: "switch"},
   {icon: "mdi-file", label: "controls.file", component: "file-field"},
-
   {icon: "mdi-calendar-blank", label: "controls.date", component: "date-picker"},
   {icon: "mdi-calendar-clock", label: "controls.datetime", component: "date-time-picker"},
   {icon: "mdi-calendar-filter", label: "controls.year", component: "year-picker"},
   {icon: "mdi-calendar-outline", label: "controls.yearMonth", component: "year-month"},
-
   {icon: "mdi-content-copy", label: "controls.duplicatedSection", component: "duplicated-section"},
-  {
-    icon: "mdi-format-list-group",
-    label: "controls.fieldsGroup",
-    subtitle: "controls.fieldsGroupSubtitle",
-    component: "fields-group"
-  },
-
+  {icon: "mdi-format-list-group", label: "controls.fieldsGroup", subtitle: "controls.fieldsGroupSubtitle", component: "fields-group"},
   {icon: "mdi-phone", label: "controls.phone", component: "phone"},
   {icon: "mdi-home", label: "controls.address", component: "address"},
   {icon: "mdi-image", label: "controls.image", component: "image"},
-  {
-    icon: "mdi-text-box-edit-outline",
-    label: "controls.textSwitch",
-    subtitle: "controls.textSwitchSubtitle",
-    component: "text-switch-field"
-  },
+  {icon: "mdi-text-box-edit-outline", label: "controls.textSwitch", subtitle: "controls.textSwitchSubtitle", component: "text-switch-field"},
   {icon: "mdi-table", label: "controls.table", subtitle: "controls.tableSubtitle", component: "table-view"},
-  {
-    icon: "mdi-language-markdown-outline",
-    label: "controls.markdown",
-    subtitle: "controls.markdownSubtitle",
-    component: "markdown"
-  },
-  {
-    icon: "mdi-file-document-outline",
-    label: "controls.textEditor",
-    subtitle: "controls.textEditorSubtitle",
-    component: "text-editor"
-  },
+  {icon: "mdi-language-markdown-outline", label: "controls.markdown", subtitle: "controls.markdownSubtitle", component: "markdown"},
+  {icon: "mdi-file-document-outline", label: "controls.textEditor", subtitle: "controls.textEditorSubtitle", component: "text-editor"},
   {icon: "mdi-format-list-numbered", label: "controls.orderedList", component: "ordered-multi-select"},
   {icon: "mdi-translate-variant", label: "controls.multiLang", component: "multi-language-control"},
   {icon: "mdi-chevron-triple-down", label: "controls.expansionPanels", component: "expansion-panels"},
   {icon: "mdi-timetable", label: "controls.schedulerGrid", component: "scheduler-grid"},
-
   {icon: "mdi-calendar-blank", label: "controls.calendarAutocomplete", component: "calendar-autocomplete"},
-
 ]);
-
-function onItemDblClick(item: ElementDrawerFromElement) {
-  const schema = cloneControls(item);
-  // wstaw po aktualnie zaznaczonym polu (albo na koniec)
-  builder.insertControlAtConfiguredField(schema);
-}
 
 const filteredControls = computed(() =>
   controls.value.filter((item) =>
@@ -368,7 +344,7 @@ function cloneControls(item: ElementDrawerFromElement) {
   }
 }
 
-const {onDragStart, onDragEnd} = useDragDrop();
+
 </script>
 
 <style lang="scss" scoped>
