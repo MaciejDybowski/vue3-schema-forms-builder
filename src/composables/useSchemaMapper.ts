@@ -176,11 +176,12 @@ export function useSchemaMapper() {
   }
 
   function mapUrlInDictionary(formElement: DraggableFormElement) {
-    if (formElement.layout.component == 'dictionary'
-      || (formElement.layout.component == "user-input" && formElement.source)
+    if ((formElement.layout.component == 'dictionary'
+      || formElement.layout.component == "user-input"
       || formElement.layout.component == 'combobox'
       || formElement.layout.component == 'ordered-multi-select'
       || formElement.layout.component == 'calendar-autocomplete'
+      || formElement.layout.component == 'scheduler-grid') && formElement.source
     ) {
       const copied = "builder_url" in formElement.source ? copyObject(formElement.source.builder_url) : "";
       delete formElement.source.builder_url;
@@ -247,6 +248,15 @@ export function useSchemaMapper() {
 
     if (!formElement.formatInModel) {
       delete formElement.formatInModel
+    }
+
+
+    // scheduler grid clean defaults
+    if (formElement.showUserColumn != undefined && formElement.showUserColumn == true) {
+      delete formElement.showUserColumn
+    }
+    if (formElement.showLabel != undefined && formElement.showLabel == true) {
+      delete formElement.showLabel
     }
   }
 

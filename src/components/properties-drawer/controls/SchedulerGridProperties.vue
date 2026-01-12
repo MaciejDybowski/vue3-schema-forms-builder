@@ -12,6 +12,16 @@
     >
       <template #afterKey>
         <label-property v-model="model"/>
+
+        <boolean-checkbox-property-wrapper
+          v-model="model.showLabel"
+          :label="t('showLabel')"
+        />
+
+        <boolean-checkbox-property-wrapper
+          v-model="model.showUserColumn"
+          :label="t('showUserColumn')"
+        />
       </template>
     </general-panel>
 
@@ -26,6 +36,17 @@
       :active="panels.includes('logic')"
     />
 
+
+    <expansion-panel
+      :active="panels.includes('source')"
+      :title="t('source')"
+      value="source"
+    >
+      <text-property-wrapper
+        v-model="urlComputed"
+        :label="t('sourceUrl')"/>
+    </expansion-panel>
+
     <scheduler-grid-panel
       v-model="model.legend"
       :active="panels.includes('legend')"
@@ -39,7 +60,7 @@
 
 <script lang="ts" setup>
 
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import {useI18n} from "vue-i18n";
@@ -47,6 +68,9 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import SchedulerGridPanel from "@/components/properties-drawer/panels/SchedulerGridPanel.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
+import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
+import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "legend"])
 
@@ -60,7 +84,28 @@ const model = computed({
   }
 })
 
+const urlComputed = computed({
+  get(){
+    return model.value?.source?.builder_url || null
+  },
+  set(val) {
+    if(!model.value.source){
+      model.value.source = {}
+    }
+    model.value.source.builder_url = val
+  }
+})
+
 const {t} = useI18n()
+
+onMounted(() => {
+  if (model.value['showLabel'] == undefined) {
+    model.value['showLabel'] = true
+  }
+  if (model.value['showUserColumn'] == undefined) {
+    model.value['showUserColumn'] = true
+  }
+})
 
 </script>
 
@@ -73,7 +118,16 @@ const {t} = useI18n()
 <i18n lang="json">
 {
   "en": {
+    "showLabel": "Show field label",
+    "showUserColumn": "Show user column",
+    "source": "Data source",
+    "sourceUrl": "URL for external data"
   },
-  "pl": {}
+  "pl": {
+    "showLabel": "Pokazuj etykietę pola",
+    "showUserColumn": "Pokazuj kolumnę użytkownika",
+    "source": "Źródło danych",
+    "sourceUrl": "URL dla zew. danych"
+  }
 }
 </i18n>

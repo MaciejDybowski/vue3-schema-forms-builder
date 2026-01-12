@@ -4,6 +4,13 @@
     :title="t('fieldProps.title')"
     value="fieldProps"
   >
+    <text-property-wrapper
+      v-model="model.rowVisibilityCondition"
+      :label="t('rowVisibilityCondition')"
+      :hint="t('rowVisibilityConditionHint')"
+    />
+
+
     <duplicated-section-button-property v-model="model.layout.options"/>
 
     <select-general
@@ -170,7 +177,9 @@ onMounted(() => {
     "showFirstInitRowInfo": "When enabled, the form initializes with one empty section.",
     "duplicatedSectionShowDivider": "Show divider between sections",
     "hide": "Hide",
-    "visible": "Visible"
+    "visible": "Visible",
+    "rowVisibilityCondition": "Expression for section visibility",
+    "rowVisibilityConditionHint": "It is recommended to use $boolean(expr)"
   },
   "pl": {
     "fieldProps": {
@@ -192,7 +201,9 @@ onMounted(() => {
     "showFirstInitRowInfo": "Gdy włączone, formularz inicjalizuje się z jedną pustą sekcją.",
     "duplicatedSectionShowDivider": "Pokazuj rozdzielacz między sekcjami",
     "hide": "Ukryte",
-    "visible": "Widoczne"
+    "visible": "Widoczne",
+    "rowVisibilityCondition": "Warunek widoczności sekcji",
+    "rowVisibilityConditionHint": "Rekomendowane użycie $boolean(expr)"
   }
 }
 </i18n>
