@@ -5,7 +5,7 @@
     value="fieldProps"
   >
     <text-property-wrapper
-      v-model="model.rowVisibilityCondition"
+      v-model="model.layout.options.rowVisibilityCondition"
       :label="t('rowVisibilityCondition')"
       :hint="t('rowVisibilityConditionHint')"
     />
