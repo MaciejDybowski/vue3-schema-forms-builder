@@ -23,4 +23,7 @@ export interface DraggableFormElement {
   label?: string | any
   content?: any
   panels?: Panel[]
+
+  showLabel?:boolean
+  showUserColumn?:boolean
 }
