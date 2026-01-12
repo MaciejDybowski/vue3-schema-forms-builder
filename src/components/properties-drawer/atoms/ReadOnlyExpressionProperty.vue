@@ -21,7 +21,7 @@
           </v-tooltip>
           <v-icon
             class="clickable"
-            @click="openAdvancedDialog"
+            @click.stop="openAdvancedDialog(model)"
           >
             mdi-cog
           </v-icon>

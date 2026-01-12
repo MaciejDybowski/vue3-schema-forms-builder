@@ -77,7 +77,6 @@ const emit = defineEmits(['update:modelValue', 'update:show', 'save'])
 
 //const localValue = ref<any>(props.modelValue)
 watch(() => localValue.value, val => {
-  console.log(val)
   localValue.value = val
 }, {deep: true})
 watch(() => props.show, val => showDialog.value = val)
