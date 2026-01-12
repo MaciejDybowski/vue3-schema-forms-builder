@@ -51,9 +51,9 @@ export function useDraggableMapper() {
       schemaElement.layout.schema = {"type": "object", "properties": {}}
     }
 
-    if(schemaElement.panels){
+    if (schemaElement.panels) {
       schemaElement.panels.forEach(panel => {
-        panel.tempItems  = mapSchemaToDraggable(panel.schema, formOptions).map((item) => {
+        panel.tempItems = mapSchemaToDraggable(panel.schema, formOptions).map((item) => {
           item["sectionKey"] = key
           return item
         })
@@ -61,90 +61,90 @@ export function useDraggableMapper() {
       })
     }
 
-      const draggableElement = {
-        key: key,
-        ...schemaElement as object,
-        required: formSchema.required?.includes(key) || false as boolean,
-      } as DraggableFormElement
+    const draggableElement = {
+      key: key,
+      ...schemaElement as object,
+      required: formSchema.required?.includes(key) || false as boolean,
+    } as DraggableFormElement
 
-      dictionarySourceBuilderMapping(draggableElement)
+    dictionarySourceBuilderMapping(draggableElement)
 
-      draggableElements.value.push(draggableElement)
-    }
-
-    function dictionarySourceBuilderMapping(draggableElement: DraggableFormElement) {
-      if (draggableElement.layout.component == 'dictionary'
-        || (draggableElement.layout.component == 'user-input' && draggableElement.source)
-        || draggableElement.layout.component == 'combobox'
-        || draggableElement.layout.component == 'ordered-multi-select'
-        || draggableElement.layout.component == 'calendar-autocomplete'
-        || draggableElement.layout.component == 'scheduler-grid'
-      ) {
-        const copy = draggableElement.source.url
-        draggableElement.source.url = ""
-        draggableElement.source.builder_url = copy
-      }
-    }
-
-    function isNestedFields(schemaElement: SchemaFormElement) {
-      return "properties" in schemaElement;
-    }
-
-    // funkcja uzupełnia wszystkie mapowania potrzebne do działania prawego panelu mapowania kontrolek na JSON Scheme
-    function fillSchemaForBuilderPurpose(schemaElement: SchemaFormElement) {
-      if (!schemaElement?.layout?.props) {
-        if(!schemaElement.layout) {
-          schemaElement.layout = {}
-        }
-        schemaElement.layout.props = {}
-      }
-      if (schemaElement.layout.schema && !schemaElement.layout.options) {
-        schemaElement.layout.options = {
-          showDivider: false,
-          addBtnText: "Add"
-        }
-      }
-      if (isNumber(schemaElement.layout.cols)) {
-        schemaElement.layout.cols = {
-          xs: schemaElement.layout.cols,
-          sm: schemaElement.layout.cols,
-          md: schemaElement.layout.cols,
-          lg: schemaElement.layout.cols,
-          xl: schemaElement.layout.cols,
-          xxl: schemaElement.layout.cols,
-        }
-      }
-      if (schemaElement.layout.cols === undefined) {
-        schemaElement.layout.cols = {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12,
-          xl: 12,
-          xxl: 12
-        }
-      }
-      if (schemaElement.layout.offset === undefined) {
-        schemaElement.layout.offset = {
-          xs: 0,
-          sm: 0,
-          md: 0,
-          lg: 0,
-          xl: 0,
-          xxl: 0
-        }
-      }
-      if ('lg' in schemaElement.layout.cols) {
-        schemaElement.layout.cols = {
-          xs: schemaElement.layout.cols.xs,
-          sm: schemaElement.layout.cols.sm,
-          md: schemaElement.layout.cols.sm,
-          lg: schemaElement.layout.cols.lg,
-          xl: schemaElement.layout.cols.lg,
-          xxl: schemaElement.layout.cols.lg,
-        }
-      }
-    }
-
-    return {mapSchemaToDraggable}
+    draggableElements.value.push(draggableElement)
   }
+
+  function dictionarySourceBuilderMapping(draggableElement: DraggableFormElement) {
+    if ((draggableElement.layout.component == 'dictionary'
+      || draggableElement.layout.component == 'user-input'
+      || draggableElement.layout.component == 'combobox'
+      || draggableElement.layout.component == 'ordered-multi-select'
+      || draggableElement.layout.component == 'calendar-autocomplete'
+      || draggableElement.layout.component == 'scheduler-grid') && draggableElement.source
+    ) {
+      const copy = draggableElement.source.url
+      draggableElement.source.url = ""
+      draggableElement.source.builder_url = copy
+    }
+  }
+
+  function isNestedFields(schemaElement: SchemaFormElement) {
+    return "properties" in schemaElement;
+  }
+
+  // funkcja uzupełnia wszystkie mapowania potrzebne do działania prawego panelu mapowania kontrolek na JSON Scheme
+  function fillSchemaForBuilderPurpose(schemaElement: SchemaFormElement) {
+    if (!schemaElement?.layout?.props) {
+      if (!schemaElement.layout) {
+        schemaElement.layout = {}
+      }
+      schemaElement.layout.props = {}
+    }
+    if (schemaElement.layout.schema && !schemaElement.layout.options) {
+      schemaElement.layout.options = {
+        showDivider: false,
+        addBtnText: "Add"
+      }
+    }
+    if (isNumber(schemaElement.layout.cols)) {
+      schemaElement.layout.cols = {
+        xs: schemaElement.layout.cols,
+        sm: schemaElement.layout.cols,
+        md: schemaElement.layout.cols,
+        lg: schemaElement.layout.cols,
+        xl: schemaElement.layout.cols,
+        xxl: schemaElement.layout.cols,
+      }
+    }
+    if (schemaElement.layout.cols === undefined) {
+      schemaElement.layout.cols = {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12,
+        xxl: 12
+      }
+    }
+    if (schemaElement.layout.offset === undefined) {
+      schemaElement.layout.offset = {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
+        xl: 0,
+        xxl: 0
+      }
+    }
+    if ('lg' in schemaElement.layout.cols) {
+      schemaElement.layout.cols = {
+        xs: schemaElement.layout.cols.xs,
+        sm: schemaElement.layout.cols.sm,
+        md: schemaElement.layout.cols.sm,
+        lg: schemaElement.layout.cols.lg,
+        xl: schemaElement.layout.cols.lg,
+        xxl: schemaElement.layout.cols.lg,
+      }
+    }
+  }
+
+  return {mapSchemaToDraggable}
+}
