@@ -13,8 +13,9 @@
     <template #item="{ element }">
       <v-list-item
         link
-        @click="handleClick(element)"
-        @touchend.prevent="handleClick(element)"
+        @click="handleClick(element, $event)"
+        @dblclick.stop="onItemDblClick(element)"
+        @touchend="handleTouchEnd(element, $event)"
       >
         <template #prepend>
           <v-icon>{{ element.icon }}</v-icon>
@@ -42,25 +43,78 @@ const {t} = useI18n();
 const builder = useBuilderState();
 const { onDragStart, onDragEnd } = useDragDrop();
 
-// --- Double-tap / double-click logic ---
 let lastTap = 0;
-function handleClick(element: ElementDrawerFromElement) {
+let lastTapTarget = null as string | null;
+let suppressedClick = false;
+let suppressTimer: number | null = null;
+const DOUBLE_TAP_THRESHOLD = 300; // ms
 
-  const now = Date.now();
-  if (now - lastTap < 300) {
-    // double-tap / double-click
-    onItemDblClick(element);
+/***
+ * Copilot-generated function to handle touchend event for double-tap detection.
+ */
+function handleClick(element: ElementDrawerFromElement, ev?: Event) {
+  // If a touch double-tap was just handled, ignore the synthetic click
+  if (ev && ev.type === 'click' && suppressedClick) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    return;
   }
+
+  // Some browsers/devices increment detail on multiple clicks; handle quick double clicks as fallback
+  // But we primarily rely on @dblclick for mouse.
+  // Keep lastTap tracking to avoid regressions for environments where dblclick isn't emitted.
+  const now = Date.now();
+  const targetId = (element && (element.component || element.label)) || null;
+
+  if (now - lastTap < DOUBLE_TAP_THRESHOLD && lastTapTarget === targetId) {
+    onItemDblClick(element);
+    // suppress any following synthetic click
+    suppressedClick = true;
+    if (suppressTimer) window.clearTimeout(suppressTimer);
+    suppressTimer = window.setTimeout(() => { suppressedClick = false; suppressTimer = null; }, 500);
+    lastTap = 0;
+    lastTapTarget = null;
+    return;
+  }
+
   lastTap = now;
+  lastTapTarget = targetId;
 }
 
-// --- Clone / insert logic ---
+
+function handleTouchEnd(element: ElementDrawerFromElement, ev?: TouchEvent) {
+  // Touch-based double-tap detection
+  const now = Date.now();
+  const targetId = (element && (element.component || element.label)) || null;
+
+  if (now - lastTap < DOUBLE_TAP_THRESHOLD && lastTapTarget === targetId) {
+    // double-tap detected
+    if (ev) {
+      // try to prevent the following synthetic click
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+    onItemDblClick(element);
+
+    // set suppression so that the synthetic click (some browsers fire it) is ignored
+    suppressedClick = true;
+    if (suppressTimer) window.clearTimeout(suppressTimer);
+    suppressTimer = window.setTimeout(() => { suppressedClick = false; suppressTimer = null; }, 500);
+
+    lastTap = 0;
+    lastTapTarget = null;
+    return;
+  }
+
+  lastTap = now;
+  lastTapTarget = targetId;
+}
+
 function onItemDblClick(item: ElementDrawerFromElement) {
   const schema = cloneControls(item);
   builder.insertControlAtConfiguredField(schema);
 }
 
-// --- Filter ---
 const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-format-letter-matches", label: "controls.text", component: "text-field"},
   {icon: "mdi-numeric-1-box-outline", label: "controls.number", component: "number-field"},
