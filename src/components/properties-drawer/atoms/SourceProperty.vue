@@ -115,7 +115,7 @@ import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPr
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {onMounted, ref} from "vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
-import SourceUrlConfigurator from "@/components/properties-drawer/atoms/SourceUrlConfigurator.vue";
+import SourceUrlConfigurator from "@/components/properties-drawer/atoms/urlSourceInput/SourceUrlConfigurator.vue";
 
 const modelValue = defineModel<any>({
   default: () => {
