@@ -70,6 +70,21 @@ const cases: Case[] = [
     decoded: `/api/dictionaries?feature-id=test-feature&lm=label&vm=id&customAttributes=symbol,{symbol}&customAttributes=labels,expression:aureaSectionId != null ? "bm-ai-prediction" : ""`,
     encoded: "/api/dictionaries?feature-id=test-feature&lm=label&vm=id&customAttributes=symbol%2C%7Bsymbol%7D%2Clabels%2Cexpression%3AaureaSectionId%20%21%3D%20null%20%3F%20%22bm-ai-prediction%22%20%3A%20%22%22"
   },
+  {
+    name:"Forte user case",
+    decoded: `/api/dictionaries?feature-id=customer-sales-manager-directors&lm=salesDirectorFullName&vm=salesDirector.id&customAttributes=username,{salesDirector.username},firstName,{salesDirector.firstName},lastName,{salesDirector.lastName},email,{salesDirector.emaill}&filter=customer.id=={customer.customerId};id.salesManagerUsername==^{offer.owner.username}`,
+    encoded: `/api/dictionaries?feature-id=customer-sales-manager-directors&lm=salesDirectorFullName&vm=salesDirector.id&customAttributes=username%2C%7BsalesDirector.username%7D%2CfirstName%2C%7BsalesDirector.firstName%7D%2ClastName%2C%7BsalesDirector.lastName%7D%2Cemail%2C%7BsalesDirector.emaill%7D&filter=customer.id%3D%3D{customer.customerId}%3Bid.salesManagerUsername%3D%3D%5E{offer.owner.username}`
+  },
+  {
+    name: "URL with no params",
+    decoded: `/api/workspaces/members`,
+    encoded: `/api/workspaces/members`,
+  },
+  {
+    name: "Unknown params",
+    decoded: `/api/v1/tests&foo=1&bar=test`,
+    encoded: `/api/v1/tests&foo=1&bar=test`,
+  }
 
 ];
 
@@ -77,7 +92,7 @@ describe("AureaURLParser", () => {
   cases.forEach((c) => {
     it(`Case: ${c.name}`, () => {
       const parsed = parseUrlToParams(c.decoded);
-      const result = buildEncodedUrl(parsed);
+      const result = buildEncodedUrl(c.decoded, parsed);
       expect(result).toBe(c.encoded);
     });
   });

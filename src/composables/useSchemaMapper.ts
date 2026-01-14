@@ -258,6 +258,20 @@ export function useSchemaMapper() {
     if (formElement.showLabel != undefined && formElement.showLabel == true) {
       delete formElement.showLabel
     }
+
+    /*if(formElement.source && formElement.layout && formElement.layout.component == 'dictionary'){
+      if(formElement.source.lazy==true){
+        delete formElement.source.lazy
+      }
+      if(formElement.source.multiple==false){
+        delete formElement.source.multiple
+        delete formElement.source.maxSelection
+      }
+      if(formElement.source.maxSelection==0){
+        delete formElement.source.maxSelection
+      }
+
+    }*/
   }
 
   return {mapDraggableToSchema}

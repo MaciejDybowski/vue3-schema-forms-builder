@@ -13,8 +13,7 @@
         <slot name="append-inner"/>
         <v-icon
           v-if="appendInnerIcon"
-          class="ml-2"
-          style="cursor: pointer"
+          style="cursor: pointer; opacity: 1"
           @click.stop="openDialog"
         >
           {{ appendInnerIcon }}
@@ -88,7 +87,7 @@ const dictUrl = computed<string | null>({
   get: () => decodeURIComponent(String(modelValue.value ?? "")),
   set: (newVal) => {
     const parsed = parseUrlToParams(String(newVal ?? ""));
-    modelValue.value = buildEncodedUrl(parsed);
+    modelValue.value = buildEncodedUrl(newVal+"", parsed);
   },
 });
 
@@ -101,4 +100,7 @@ const closeDialog = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" >
+
+
+</style>

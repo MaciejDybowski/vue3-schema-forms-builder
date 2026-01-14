@@ -31,14 +31,17 @@ export function parseUrlToParams(url: string): DictionaryParams {
     "enable-filter": null,
   };
 
-  let query = url.includes("?") ? url.split("?")[1] : url;
+  const [path, ...rest] = url.split("?");
 
-  // obejscie dla customAttributes -> expression: sth != test ? '2' : '1' w custom attributes
-  if (url.split("?") && url.split("?").length == 3) {
-    query += "?" + url.split("?")[2];
+  let query = rest.join("?") || "";
+
+  if (rest.length === 2) {
+    // // obejscie dla customAttributes -> expression: sth != test ? '2' : '1' w custom attributes
+    query = rest[0] + "?" + rest[1];
   }
 
   const params = new URLSearchParams(query || "");
+
 
   dictionary["feature-id"] = params.get("feature-id");
   dictionary.vm = params.get("vm");
@@ -52,6 +55,19 @@ export function parseUrlToParams(url: string): DictionaryParams {
 
   parseCustomAttributesFromBrackets(params, dictionary);
   parseCustomAttributesFromFlat(params, dictionary);
+
+  const knownKeys = new Set(Object.keys(dictionary));
+  const unknownParams: Record<string, string | null> = {};
+
+  params.forEach((value, key) => {
+    if (!knownKeys.has(key)) {
+      unknownParams[key] = value;
+    }
+  });
+
+  if (unknownParams && Object.keys(unknownParams).length > 0) {
+    dictionary['unknownParams'] = unknownParams;
+  }
 
   return dictionary;
 }
@@ -98,8 +114,20 @@ function parseCustomAttributesFromFlat(
 }
 
 // ============ URL BUILDING ============
-export function buildEncodedUrl(params: DictionaryParams): string {
-  let url = `/api/dictionaries?feature-id=${params["feature-id"]}&lm=${params.lm}&vm=${params.vm}`;
+export function buildEncodedUrl(inputValue: string, params: DictionaryParams): string {
+  let url = inputValue.split("?")[0];
+
+  if (params["feature-id"]) {
+    url += `?feature-id=${params["feature-id"]}`;
+  }
+
+  if (params.lm) {
+    url += `&lm=${params.lm}`;
+  }
+
+  if (params.vm) {
+    url += `&vm=${params.vm}`;
+  }
 
   if (params.processId) {
     url += `&processId=${encodeParamWithBracketAsVariable(params.processId)}`;
@@ -130,6 +158,11 @@ export function buildEncodedUrl(params: DictionaryParams): string {
     url += `&enable-filter=${params["enable-filter"]}`;
   }
 
+  if (params['unknownParams']) {
+    for (const [key, value] of Object.entries(params['unknownParams'] as Record<string, string>)) {
+      url += `&${key}=${value}`;
+    }
+  }
   return url;
 }
 

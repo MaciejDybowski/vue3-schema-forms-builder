@@ -150,3 +150,15 @@ defineExpose({
   flex: 1;
 }
 </style>
+
+<style lang="scss">
+.v-textarea textarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.v-textarea textarea {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+</style>
