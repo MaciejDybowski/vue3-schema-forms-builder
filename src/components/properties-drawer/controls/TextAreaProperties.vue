@@ -12,6 +12,7 @@
           {value: 'text-field', title: t('conversion.text')},
           {value: 'text-area', title: t('conversion.textarea')},
           {value: 'text-switch-field', title:t('conversion.textSwitch')},
+          {value: 'data-viewer', title:t('conversion.dataViewer')},
        ]"
         :label="t('conversion.label')"
         :return-object="false"
@@ -88,7 +89,8 @@ const model = computed({
       "label": "Field",
       "text": "Text field",
       "textarea": "Text area",
-      "textSwitch": "Text ➞ input field"
+      "textSwitch": "Text ➞ input field",
+      "dataViewer": "Data viewer"
     },
     "counter": "Counter of letters"
   },
@@ -97,7 +99,8 @@ const model = computed({
       "label": "Pole",
       "text": "Pole tekstowe",
       "textarea": "Obszar tekstowy",
-      "textSwitch": "Pole tekst ➞ input"
+      "textSwitch": "Pole tekst ➞ input",
+      "dataViewer": "Pole odczytu"
     },
     "counter": "Licznik liter"
   }

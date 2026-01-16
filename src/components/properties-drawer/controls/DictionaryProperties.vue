@@ -25,7 +25,8 @@
             value: 'combobox',
             title: t('componentOptions.comboboxTitle'),
             subtitle: t('componentOptions.comboboxSubtitle')
-          }
+          },
+            {value: 'data-viewer', title:t('componentOptions.dataViewer')},
         ]"
           :label="t('componentOptions.label')"
           :return-object="false"
@@ -125,7 +126,8 @@ const source = computed({
       "autocompleteTitle": "Autocomplete",
       "autocompleteSubtitle": "Allows selecting only values returned from the service.",
       "comboboxTitle": "Combobox",
-      "comboboxSubtitle": "Allows the user to enter a value outside of the predefined set."
+      "comboboxSubtitle": "Allows the user to enter a value outside of the predefined set.",
+      "dataViewer": "Data Viewer"
     }
   },
   "pl": {
@@ -134,7 +136,8 @@ const source = computed({
       "autocompleteTitle": "Autocomplete",
       "autocompleteSubtitle": "Pozwala na wybór wartości tylko ze zwracanych danych z usługi.",
       "comboboxTitle": "Combobox",
-      "comboboxSubtitle": "Pozwala na wpisanie wartości spoza dostępnego zbioru przez użytkownika."
+      "comboboxSubtitle": "Pozwala na wpisanie wartości spoza dostępnego zbioru przez użytkownika.",
+      "dataViewer": "Pole odczytu"
     }
   }
 }

@@ -12,6 +12,7 @@
           {value: 'text-field', title: t('conversion.text')},
           {value: 'text-area', title: t('conversion.textarea')},
           {value: 'text-switch-field', title:t('conversion.textSwitch')},
+          {value: 'data-viewer', title:t('conversion.dataViewer')},
        ]"
         :label="t('conversion.label')"
         :return-object="false"
@@ -114,7 +115,8 @@ const {t} = useI18n()
       "label": "Field",
       "text": "Text field",
       "textarea": "Text area",
-      "textSwitch": "Text ➞ input field"
+      "textSwitch": "Text ➞ input field",
+      "dataViewer": "Data viewer"
     },
     "calculation": "Calculation",
     "hint": "Hint",
@@ -136,7 +138,8 @@ const {t} = useI18n()
       "label": "Pole",
       "text": "Pole tekstowe",
       "textarea": "Obszar tekstowy",
-      "textSwitch": "Pole tekst ➞ input"
+      "textSwitch": "Pole tekst ➞ input",
+      "dataViewer": "Pole odczytu"
     },
     "calculation": "Obliczenia",
     "hint": "Podpowiedź",
