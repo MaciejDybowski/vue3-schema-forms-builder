@@ -30,6 +30,7 @@ import ExpansionPanelsProperties from "@/components/properties-drawer/controls/E
 import SchedulerGridProperties from "@/components/properties-drawer/controls/SchedulerGridProperties.vue";
 import YearMonthProperties from "@/components/properties-drawer/controls/YearMonthProperties.vue";
 import CalendarAutocompleteProperties from "@/components/properties-drawer/controls/CalendarAutocompleteProperties.vue";
+import PeselFieldProperties from "@/components/properties-drawer/controls/PeselFieldProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -65,4 +66,5 @@ export const controlsProperties = {
   "scheduler-grid-properties": SchedulerGridProperties,
   "year-month-properties": YearMonthProperties,
   "calendar-autocomplete-properties": CalendarAutocompleteProperties,
+  "pesel-field-properties": PeselFieldProperties
 };

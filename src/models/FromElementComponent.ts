@@ -35,3 +35,4 @@ export type FromElementComponent =
   | "scheduler-grid"
   | "calendar-autocomplete"
   | "year-month"
+  | "pesel-field"

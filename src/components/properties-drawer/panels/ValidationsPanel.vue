@@ -4,12 +4,16 @@
     :title="t('validations.title')"
     value="validations"
   >
+    <slot name="beforeRequired">
+
+    </slot>
     <boolean-checkbox-property-wrapper
       v-model="model.required"
       :label="t('validations.requiredProperty')"
     />
 
     <number-property-wrapper
+      v-if="showCounter"
       v-model="model.layout.props['counter']"
       :label="t('validations.counter')"
     />
