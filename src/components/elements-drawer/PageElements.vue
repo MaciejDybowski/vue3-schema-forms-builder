@@ -44,7 +44,8 @@ const staticContent = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-minus", label: "static.divider", component: "divider"},
   {icon: "mdi-read", label: "static.dataViewer", component: "data-viewer"},
   {icon: "mdi-card-outline", label: "static.button", component: "button"},
-  {icon: "mdi-list-box-outline", label: "static.keyValueList", component: "key-value-list"}
+  {icon: "mdi-list-box-outline", label: "static.keyValueList", component: "key-value-list"},
+  {icon: "mdi-alert-circle-outline", label: "static.validationMessagesViewer", component: "validation-messages-viewer"}
 ]);
 
 const filteredStaticContent = computed(() =>
@@ -129,6 +130,17 @@ function cloneStatic(item: ElementDrawerFromElement) {
         ],
         layout: baseLayout
       };
+
+    case "validation-messages-viewer":
+      return {
+        key:id,
+        layout: {
+          component: item.component,
+          cols: makeCols(12),
+          offset: makeCols(0),
+          props: {}
+        }
+      }
   }
 }
 </script>
@@ -167,7 +179,8 @@ function cloneStatic(item: ElementDrawerFromElement) {
       "button": "Przycisk",
       "keyValueList": "Lista klucz-wartość",
       "key": "Klucz",
-      "value": "Wartość"
+      "value": "Wartość",
+      "validationMessagesViewer": "Komunikaty walidacyjne"
     },
     "common": {
       "changeIt": "Zmień to",
@@ -187,7 +200,8 @@ function cloneStatic(item: ElementDrawerFromElement) {
       "button": "Button",
       "keyValueList": "Key-value list",
       "key": "Key",
-      "value": "Value"
+      "value": "Value",
+      "validationMessagesViewer": "Validation messages"
     },
     "common": {
       "changeIt": "Change it",

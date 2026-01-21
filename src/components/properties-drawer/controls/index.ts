@@ -32,6 +32,8 @@ import YearMonthProperties from "@/components/properties-drawer/controls/YearMon
 import CalendarAutocompleteProperties from "@/components/properties-drawer/controls/CalendarAutocompleteProperties.vue";
 import PeselFieldProperties from "@/components/properties-drawer/controls/PeselFieldProperties.vue";
 import NIPFieldProperties from "@/components/properties-drawer/controls/NIPFieldProperties.vue";
+import ValidationMessagesViewerProperties
+  from "@/components/properties-drawer/controls/ValidationMessagesViewerProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -69,4 +71,5 @@ export const controlsProperties = {
   "calendar-autocomplete-properties": CalendarAutocompleteProperties,
   "pesel-field-properties": PeselFieldProperties,
   "nip-field-properties": NIPFieldProperties,
+  "validation-messages-viewer-properties": ValidationMessagesViewerProperties
 };

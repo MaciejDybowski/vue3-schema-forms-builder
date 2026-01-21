@@ -89,6 +89,14 @@
       </v-expansion-panels>
     </div>
 
+    <div v-if="element.layout.component == 'validation-messages-viewer'">
+      <v-alert
+        v-bind="element.layout.props"
+      >
+        {{ t('validationMessagesText') }}
+      </v-alert>
+    </div>
+
   </div>
 </template>
 
@@ -99,6 +107,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
 import {cloneDeep} from "lodash";
 import {useStyle} from "@/main";
+import {useI18n} from "vue-i18n";
 
 
 const props = defineProps<{
@@ -115,6 +124,8 @@ onMounted(() => {
     activePanels.value = props.element.panels.map((_, i) => i);
   }
 })
+
+const {t} = useI18n()
 
 
 const preparedElement = computed(() => {
@@ -155,6 +166,17 @@ watch(props.element, () => {
 
 
 </script>
+
+<i18n lang="json">
+{
+  "en": {
+    "validationMessagesText": "System alerts will be here."
+  },
+  "pl": {
+    "validationMessagesText": "Alerty systemowe pojawią się w tym miejscu"
+  }
+}
+</i18n>
 
 <style lang="scss">
 .disabled-builder-field {
