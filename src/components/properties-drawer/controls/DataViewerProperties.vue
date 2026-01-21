@@ -12,6 +12,11 @@
     >
       <template #afterKey>
         <label-property v-model="model"/>
+        <boolean-checkbox-property-wrapper
+          :label="t('isCopyEnabled')"
+          v-model="model.isCopyEnabled"
+          />
+
         <default-value-property/>
         <select-general
           v-model="model.type"
@@ -69,6 +74,7 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
+import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const {t} = useI18n()
 const panels = ref<string[]>(["general"])
@@ -122,7 +128,8 @@ const items = ref([
       "date-time": "Datetime",
       "dictionary": "Dictionary",
       "valueMapping": "Value mapping"
-    }
+    },
+    "isCopyEnabled": "Is there a copy to clipboard function?"
   },
   "pl": {
     "typeProperty": "Typ danych",
@@ -134,7 +141,8 @@ const items = ref([
       "date-time": "Data i czas",
       "dictionary": "Wartość słownikowa",
       "valueMapping": "Mapowanie wartości"
-    }
+    },
+    "isCopyEnabled": "Czy funkcję kopiowania do schowka?"
   }
 }
 </i18n>

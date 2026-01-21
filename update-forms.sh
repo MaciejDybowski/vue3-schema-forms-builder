@@ -16,13 +16,14 @@ jq '.dependencies["vue3-schema-forms"] = env.UPDATED_AUREA_FORMS_VERSION' \
 
 npm version patch --no-git-tag-version
 rm -f ./package-lock.json
+rm -rf node_modules
 npm cache clean --force
 npm install --registry=https://nexus3.tecna.pl/repository/npm-private
 
 # Autoryzacja CI_JOB_TOKEN
 # Należy wygenerować token (AccessToken) z odpowiednimi uprawnieniami i dodać go jako zmienną środowiskową GITLAB_TOKEN w ustawieniach CI/CD projektu
 git remote set-url origin "https://oauth2:${GITLAB_TOKEN}@gitlab.tecna.pl/${CI_PROJECT_PATH}.git"
-git add package.json package-lock.json
+git add package.json package-lock.json .npmrc
 
 ## Gitlab CI wie, że jak w commit message jest [skip ci], to nie musi uruchamiać kolejnych pipeline'ów
 git commit -m "Update vue3-schema-forms to $UPDATED_AUREA_FORMS_VERSION [skip ci]"
