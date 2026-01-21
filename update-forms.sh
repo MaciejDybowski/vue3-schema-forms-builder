@@ -15,7 +15,9 @@ jq '.dependencies["vue3-schema-forms"] = env.UPDATED_AUREA_FORMS_VERSION' \
   package.json > tmp.json && mv tmp.json package.json
 
 npm version patch --no-git-tag-version
-npm install --package-lock-only --registry=https://nexus3.tecna.pl/repository/npm-private
+rm -f ./package-lock.json
+npm cache clean --force
+npm install --registry=https://nexus3.tecna.pl/repository/npm-private
 
 # Autoryzacja CI_JOB_TOKEN
 # Należy wygenerować token (AccessToken) z odpowiednimi uprawnieniami i dodać go jako zmienną środowiskową GITLAB_TOKEN w ustawieniach CI/CD projektu
