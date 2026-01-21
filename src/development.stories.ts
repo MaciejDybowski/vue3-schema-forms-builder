@@ -20,6 +20,6 @@ export const Table1: Story = {
   name: "URL słownika automatyczne kodowanie",
   args: {
     workspaceId: "bm",
-    modelValue:{"type":"object","properties":{"peselField155":{"label":"Item-peselField155","layout":{"cols":{"xs":12,"sm":6,"md":6,"lg":4,"xl":4,"xxl":4},"fillRow":true,"component":"pesel-field"},"checkSumValidation":"warning","adultsValidation":"error"}}}
+    modelValue: {"type": "object", "properties": {}}
   }
 }

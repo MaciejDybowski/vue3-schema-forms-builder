@@ -48,23 +48,6 @@
           :label="t('validation.type')"
           :return-object="false"
         />
-
-        <boolean-checkbox-property-wrapper
-          v-model="isAdultValidationEnabled"
-          :label="t('isAdultValidationEnabled')"
-        />
-
-        <select-general
-          v-if="isAdultValidationEnabled"
-          v-model="model.adultsValidation"
-          :clearable="false"
-          :items="[
-          {value: 'warning', title: t('validation.warning')},
-          {value: 'error', title: t('validation.error')},
-       ]"
-          :label="t('validation.type')"
-          :return-object="false"
-        />
       </template>
     </validations-panel>
 
@@ -104,18 +87,15 @@ const model = computed({
 })
 
 const isChecksumEnabled = ref(false)
-const isAdultValidationEnabled = ref(false)
+
 
 const {t} = useI18n()
 
 onMounted(() => {
-  if(model.value.checkSumValidation != undefined) {
+  if (model.value.checkSumValidation != undefined) {
     isChecksumEnabled.value = true
   }
 
-  if(model.value.adultsValidation != undefined){
-    isAdultValidationEnabled.value = true
-  }
 })
 
 </script>

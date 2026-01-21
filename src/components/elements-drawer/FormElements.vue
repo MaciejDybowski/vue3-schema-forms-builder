@@ -129,6 +129,7 @@ const controls = ref<ElementDrawerFromElement[]>([
   {icon: "mdi-calendar-filter", label: "controls.year", component: "year-picker"},
   {icon: "mdi-calendar-outline", label: "controls.yearMonth", component: "year-month"},
   {icon: "mdi-account", label:"controls.peselField", component: "pesel-field"},
+  {icon: "mdi-domain", label:"controls.nipField", component: "nip-field"},
   {icon: "mdi-content-copy", label: "controls.duplicatedSection", component: "duplicated-section"},
   {icon: "mdi-format-list-group", label: "controls.fieldsGroup", subtitle: "controls.fieldsGroupSubtitle", component: "fields-group"},
   {icon: "mdi-phone", label: "controls.phone", component: "phone"},
@@ -187,6 +188,7 @@ function cloneControls(item: ElementDrawerFromElement) {
     case "file-field":
     case "phone":
     case "pesel-field":
+    case "nip-field":
       return schemaElement;
 
     case "text-switch-field":
@@ -460,7 +462,8 @@ function cloneControls(item: ElementDrawerFromElement) {
       "schedulerGrid": "Haromonogram",
       "calendarAutocomplete": "Wybór kalendarza",
       "yearMonth": "Rok i miesiąc",
-      "peselField": "PESEL"
+      "peselField": "PESEL",
+      "nipField": "NIP"
     },
     "tableHeader": "Nagłówek",
     "panelTitle": "Tytuł sekcji"
@@ -501,7 +504,8 @@ function cloneControls(item: ElementDrawerFromElement) {
       "schedulerGrid": "Scheduler",
       "calendarAutocomplete": "Calendar selection",
       "yearMonth": "Year and month",
-      "peselField": "PESEL"
+      "peselField": "PESEL",
+      "nipField": "NIP"
     },
     "tableHeader": "Header",
     "panelTitle": "Panel title"

@@ -36,3 +36,5 @@ export type FromElementComponent =
   | "calendar-autocomplete"
   | "year-month"
   | "pesel-field"
+  | "nip-field"
+  | "validation-messages-viewer"

@@ -31,6 +31,7 @@ import SchedulerGridProperties from "@/components/properties-drawer/controls/Sch
 import YearMonthProperties from "@/components/properties-drawer/controls/YearMonthProperties.vue";
 import CalendarAutocompleteProperties from "@/components/properties-drawer/controls/CalendarAutocompleteProperties.vue";
 import PeselFieldProperties from "@/components/properties-drawer/controls/PeselFieldProperties.vue";
+import NIPFieldProperties from "@/components/properties-drawer/controls/NIPFieldProperties.vue";
 
 export const controlsProperties = {
   "address-properties": AddressProperties,
@@ -66,5 +67,6 @@ export const controlsProperties = {
   "scheduler-grid-properties": SchedulerGridProperties,
   "year-month-properties": YearMonthProperties,
   "calendar-autocomplete-properties": CalendarAutocompleteProperties,
-  "pesel-field-properties": PeselFieldProperties
+  "pesel-field-properties": PeselFieldProperties,
+  "nip-field-properties": NIPFieldProperties,
 };
