@@ -42,6 +42,9 @@
       v-model="model"
       :active="panels.includes('validations')"
     />
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
   </v-expansion-panels>
 </template>
 
@@ -55,6 +58,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import {useI18n} from "vue-i18n";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import TextEditorPropsPanel from "@/components/properties-drawer/panels/TextEditorPropsPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 ;
 

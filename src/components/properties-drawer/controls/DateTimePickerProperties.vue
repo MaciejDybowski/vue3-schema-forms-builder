@@ -46,6 +46,10 @@
       :active="panels.includes('validations')"
     />
 
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
+
   </v-expansion-panels>
 </template>
 
@@ -64,6 +68,7 @@ import ConversionPanel from "@/components/properties-drawer/panels/ConversionPan
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const {t} = useI18n();
 const panels = ref<string[]>(["general"]);
