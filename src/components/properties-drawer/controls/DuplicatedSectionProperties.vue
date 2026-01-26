@@ -34,6 +34,11 @@
       v-model="model"
       :active="panels.includes('fieldProps')"/>
 
+
+    <event-configruation-panel
+      :active="panels.includes('events')"
+    />
+
   </v-expansion-panels>
 
 
@@ -49,6 +54,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import DuplicatedSectionPropertiesPanel
   from "@/components/properties-drawer/panels/DuplicatedSectionPropertiesPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const panels = ref<string[]>(["general", "fieldProps"])
 const useBuilderStateStore = useBuilderState()
