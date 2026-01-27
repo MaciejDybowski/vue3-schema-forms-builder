@@ -349,7 +349,10 @@ function openVariablesDialog() {
 }
 
 function saveVariablesDialog() {
-  variables.value = cloneDeep(tempVariables.value);
+  variables.value = cloneDeep(tempVariables.value).map((item: any) => ({
+    ...item,
+    value: item.value === 'true' ? true : item.value === 'false' ? false : item.value,
+  }));
   variablesDialog.value = false;
 }
 
@@ -433,10 +436,22 @@ watch(bodyAttributes, () => {
 
 watch(variables, () => {
   model.value.onChange = model.value.onChange ?? {};
-  model.value.onChange.variables = cloneDeep(variables.value).map((item: any) => ({
-    ...item,
-    value: item.value === "null" ? null : isNaN(item.value) ? item.value : parseFloat(item.value),
-  }));
+  model.value.onChange.variables = cloneDeep(variables.value).map((item: any) => {
+    let parsedValue = item.value;
+    if (parsedValue === "null") {
+      parsedValue = null;
+    } else if (parsedValue === "true") {
+      parsedValue = true;
+    } else if (parsedValue === "false") {
+      parsedValue = false;
+    } else if (typeof parsedValue === 'string' && parsedValue !== '' && !isNaN(Number(parsedValue))) {
+      parsedValue = parseFloat(parsedValue);
+    }
+    return {
+      ...item,
+      value: parsedValue,
+    };
+  });
 }, {deep: true});
 
 // --- Initialization ---
