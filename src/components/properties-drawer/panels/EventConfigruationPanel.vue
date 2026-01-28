@@ -242,6 +242,14 @@
                 density="compact"
                 v-bind="style.inputStyle.value"
               />
+              <v-text-field
+                v-model="item.if"
+                :hide-details="true"
+                :label="t('events.model.if')"
+                class="pl-2"
+                density="compact"
+                v-bind="style.inputStyle.value"
+              />
               <v-btn
                 class="mx-2"
                 density="compact"
@@ -520,7 +528,8 @@ onMounted(() => {
       },
       "model": {
         "path": "Path",
-        "value": "New value"
+        "value": "New value",
+        "if": "Condition"
       }
     }
   },
@@ -555,7 +564,8 @@ onMounted(() => {
       },
       "model": {
         "path": "Ścieżka",
-        "value": "Nowa wartość"
+        "value": "Nowa wartość",
+        "if": "Warunek"
       }
     }
   }
