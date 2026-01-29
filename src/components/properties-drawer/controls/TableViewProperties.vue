@@ -54,6 +54,14 @@
         v-model="model.source.data"
         label="Data URL"/>
     </expansion-panel>
+
+
+    <event-configruation-panel
+      v-if="!model.layout.component.includes('view')"
+      :active="panels.includes('events')"
+    />
+
+
     <expansion-panel
       :active="panels.includes('headers')"
       title="Headers"
@@ -408,6 +416,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
 import {useI18n} from "vue-i18n";
 import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
+import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const {t} = useI18n()
 const style = useStyle()
