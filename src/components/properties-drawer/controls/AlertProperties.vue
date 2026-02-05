@@ -125,7 +125,7 @@ const style = useStyle()
     "default": "Default",
     "comfortable": "Comfortable",
     "compact": "Compact",
-    "memorableLabel": "Should remember value?"
+    "memorableLabel": "Enable ability to mark as read"
   },
   "pl": {
     "variantLabel": "Wariant",
@@ -144,7 +144,7 @@ const style = useStyle()
     "default": "Domyślny",
     "comfortable": "Wygodny",
     "compact": "Kompaktowy",
-    "memorableLabel": "Czy zachować wartość?"
+    "memorableLabel": "Włącz możliwość odznaczania jako przeczytane"
   }
 }
 </i18n>
