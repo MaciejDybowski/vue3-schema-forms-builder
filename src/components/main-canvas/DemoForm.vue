@@ -2,39 +2,29 @@
   <div class="d-flex align-center">
     <h2>{{ t('titleFormDemo') }}</h2>
     <span v-if="!showForm && schemaContainUrlElements"
-          class="mx-4 v-list-item-subtitle text-decoration-underline"
+          class="mx-2 v-list-item-subtitle text-decoration-underline"
           style="cursor: pointer;"
           v-bind="style.buttonStyle"
           @click="showForm=true"
     >
       {{ t('changeWorkspaceId') }}: {{ workspaceId }}
     </span>
-    <v-spacer/>
-<!--    <v-switch
-      v-if="!showForm"
-      v-model="options.fieldProps.readonly"
-      :hide-details="true"
-      :label="options.fieldProps.readonly? 'Read Only Mode' : 'Editable Mode'"
-      color="primary"
-      density="compact"
-      @change="() => rerenderKey++"
-    ></v-switch>-->
   </div>
-  <v-divider class="mb-4"/>
+  <v-divider class="mb-1"/>
 
-  <v-row v-if="showForm && schemaContainUrlElements" dense>
-    <v-col cols="12">
+  <div v-if="showForm && schemaContainUrlElements">
+    <p class="mb-2">
       <span class="v-list-item-subtitle">{{ t('workspaceDescription') }}</span>
-    </v-col>
-    <v-col cols="4">
+    </p>
+    <div style="width: 300px"  class="mb-4">
       <v-text-field
         v-model="workspaceId"
         :label="t('workspaceId')"
         class="pt-2"
         v-bind="style.inputStyle.value"
       />
-    </v-col>
-    <v-col cols="12">
+    </div>
+    <div  class="mb-4">
       <v-btn
         color="primary"
         rounded
@@ -44,8 +34,8 @@
       >
         {{ t('save') }}
       </v-btn>
-    </v-col>
-  </v-row>
+    </div>
+  </div>
 
   <template
     v-else>
@@ -59,16 +49,13 @@
       :validation-behaviour="'messages'"
     />
 
-    <div class="d-block align-center justify-center mt-4">
+    <div class="d-flex align-center justify-start mt-4">
       <v-btn
-
         color="primary"
-        width="200"
         @click="showModelPayload = !showModelPayload"
       >
         Show payload
       </v-btn>
-
 
       <v-btn
         class="mx-2"
@@ -85,7 +72,7 @@
       v-if="showModelPayload"
       :codemirrorOptions="{}"
       :model-value="JSON.stringify(model, null, 2)"
-      class="mt-4"
+      class="mt-1"
       height="300px"
       language="text"
     />

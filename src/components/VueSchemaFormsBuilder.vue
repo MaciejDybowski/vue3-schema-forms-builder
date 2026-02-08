@@ -7,7 +7,7 @@
         :style="`max-width: ${canvasColumnsMaxWidth}`"
       >
         <v-row dense>
-          <v-col class="main-container ma-2" cols="1">
+          <v-col class="main-container" cols="1">
             <MainCanvasToolboxLeft class="stretch"/>
           </v-col>
           <v-col class="main-container" cols="10">
@@ -23,7 +23,7 @@
               class="stretch"
             />
           </v-col>
-          <v-col class="main-container ma-2" cols="1">
+          <v-col class="main-container" cols="1">
             <MainCanvasToolboxRight class="stretch"/>
           </v-col>
         </v-row>

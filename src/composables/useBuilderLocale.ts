@@ -28,6 +28,8 @@ export function useBuilderLocale() {
         properties: 'Properties',
         titleFormDemo: 'Form Demo',
         jsonRepresentationTitle: 'JSON Representation',
+        workspaceDescription: "Enter the workspace ID from Aurea Platfrom",
+        changeWorkspaceId: "Change Workspace",
 
         // === Common Actions ===
         actions: {
@@ -581,6 +583,8 @@ export function useBuilderLocale() {
         properties: 'Właściwości',
         titleFormDemo: 'Demo formularza',
         jsonRepresentationTitle: 'Reprezentacja JSON',
+        workspaceDescription: "Wprowadź identyfikator obszaru roboczego z Platformy Aurea",
+        changeWorkspaceId: "Zmień workspace",
 
         // === Common Actions ===
         actions: {

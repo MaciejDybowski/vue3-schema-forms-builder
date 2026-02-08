@@ -20,9 +20,9 @@
     >
 
       <v-tab
-        v-for="tab in tabs"
-        :text="tab.text"
-        :value="tab.value"
+        v-for="tabItem in tabs"
+        :text="tabItem.text"
+        :value="tabItem.value"
         class="text-none"
         width="50%"
       ></v-tab>
@@ -55,7 +55,7 @@ import {useBuilderLocale} from "@/composables/useBuilderLocale";
 const {t} = useBuilderLocale()
 const drawers = useDrawers();
 const tab = ref(null)
-const tabs = ref([
+const tabs = computed(() => [
   {
     text: t('fields'),
     value: 'fields',
