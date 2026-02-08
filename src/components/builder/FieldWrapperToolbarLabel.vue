@@ -21,7 +21,7 @@ const btnColor = computed(() => {
   if (theme.isLightTheme.value) {
     return "background-color: rgb(var(--v-theme-primary))"
   } else {
-    return "background-color: #777777"
+    return "background-color: #a5a5a5"
   }
 })
 

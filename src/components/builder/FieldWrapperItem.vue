@@ -78,15 +78,23 @@ function fieldWrapperItemClass(element: any, isHovering: any) {
 }
 
 function getStyleForBuilderField(element: any, hover: any) {
-  const baseStyle = "border-radius: 0 0 6px 6px; transition: all 0.2s ease;"
+  const baseStyle = "border-radius: 0 0 6px 6px;"
 
-  if (fieldIsCurrentConfigured.value(element)) {
-    // Kliknięte - mocniejszy kolor ramki i tła, bez pogrubiania (1px jak hover)
-    return `${baseStyle} outline: 1px solid rgb(var(--v-theme-primary)); background-color: rgba(var(--v-theme-primary), 0.1);`
-  }
-  if (hover) {
-    // Hover - delikatniejsza ramka
-    return `${baseStyle} outline: 1px solid rgba(var(--v-theme-primary), 0.4); background-color: rgba(var(--v-theme-primary), 0.03); cursor: pointer;`
+  if (theme.isLightTheme.value) {
+    if (fieldIsCurrentConfigured.value(element)) {
+      return `${baseStyle} outline: 1px solid rgb(var(--v-theme-primary)); background-color: rgba(var(--v-theme-primary), 0.1);`
+    }
+    if (hover) {
+      return `${baseStyle} outline: 1px solid rgba(var(--v-theme-primary), 0.4); background-color: rgba(var(--v-theme-primary), 0.03); cursor: pointer;`
+    }
+  } else {
+    // Dark mode - użyj #a5a5a5
+    if (fieldIsCurrentConfigured.value(element)) {
+      return `${baseStyle} outline: 1px solid #a5a5a5; background-color: rgba(165, 165, 165, 0.15);`
+    }
+    if (hover) {
+      return `${baseStyle} outline: 1px solid #a5a5a5; background-color: rgba(165, 165, 165, 0.05); cursor: pointer;`
+    }
   }
   return baseStyle
 }
@@ -97,6 +105,7 @@ function getStyleForBuilderField(element: any, hover: any) {
 .field-wrapper {
   position: relative;
   border-radius: 0 0 6px 6px;
-  transition: all 0.2s ease;
 }
+
+/* Usunięto wszelkie transitiony - wszystkie zmiany mają być natychmiastowe */
 </style>
