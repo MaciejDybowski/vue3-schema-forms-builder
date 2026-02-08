@@ -62,12 +62,10 @@ if (props.sectionKey) {
 <style lang="scss" scoped>
 .draggable-area {
   min-height: 100px;
-  padding: 10px;
   position: relative;
   border-radius: 8px;
   transition: border-color 0.2s ease, background-color 0.2s ease;
   box-sizing: border-box;
-  width: 100%;
 }
 
 // Główny obszar (root) - wypełnia wysokość rodzica
@@ -75,6 +73,8 @@ if (props.sectionKey) {
   flex: 1;
   min-height: 100%;
   height: 100%;
+  padding: 8px 0; // minimalny padding góra/dół, boki zarządza parent
+  margin: 0 !important; // reset ujemnych marginesów v-row
 }
 
 // Zagnieżdżony obszar - większy padding aby pomieścić toolbar elementów

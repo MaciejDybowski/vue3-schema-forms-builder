@@ -1,13 +1,13 @@
 <template>
   <!--    style="min-height: calc(100vh - 130px)"-->
   <v-card
-    class="pa-4 px-6 d-flex flex-column fill-height"
+    class="d-flex flex-column fill-height main-canvas-card"
     elevation="2"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
       v-model="controls"
-      class="py-2 flex-grow-1"
+      class="flex-grow-1"
     />
 
     <json-schema-form-representation
@@ -118,6 +118,15 @@ function updateSchema(schema: string) {
 
 <style lang="scss">
 
+.main-canvas-card {
+  padding: 16px 24px;
+  overflow: hidden;
+
+  // Kompensacja ujemnych marginesów v-row w draggable-area
+  > .draggable-area {
+    margin: 0 !important;
+  }
+}
 
 .main-plain {
   flex: 1;
