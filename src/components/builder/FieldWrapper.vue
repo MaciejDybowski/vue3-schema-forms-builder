@@ -1,4 +1,4 @@
-<template>
+Fi<template>
   <v-col
     :class="['px-0', `offset-${offsetSize(element)}`, `pb-0`]"
     :cols="cols"

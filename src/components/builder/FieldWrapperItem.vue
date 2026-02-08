@@ -78,23 +78,16 @@ function fieldWrapperItemClass(element: any, isHovering: any) {
 }
 
 function getStyleForBuilderField(element: any, hover: any) {
-  if (fieldIsCurrentConfigured.value(element)) {
-    // Apply style to the clicked item
-    if (theme.isLightTheme.value) {
-      return "outline: 1px #1b243a solid; background-color:#E1F5FE;"
-    } else {
-      return "outline: 1px #777777 solid;"
-    }
+  // border-radius: tylko dolne rogi zaokrąglone (górne mają toolbar)
+  const baseStyle = "border-radius: 0 0 6px 6px; transition: all 0.2s ease;"
 
+  if (fieldIsCurrentConfigured.value(element)) {
+    return `${baseStyle} outline: 2px solid rgb(var(--v-theme-primary)); background-color: rgba(var(--v-theme-primary), 0.08);`
   }
   if (hover) {
-    if (theme.isLightTheme.value) {
-      return "outline: 1px #1b243a solid; cursor:pointer"
-    } else {
-      return "outline: 1px #777777 solid; cursor:pointer"
-    }
+    return `${baseStyle} outline: 1px solid rgba(var(--v-theme-primary), 0.5); background-color: rgba(var(--v-theme-primary), 0.03); cursor: pointer;`
   }
-  return "" // No style applied for other items
+  return baseStyle
 }
 </script>
 
@@ -102,5 +95,7 @@ function getStyleForBuilderField(element: any, hover: any) {
 <style lang="scss" scoped>
 .field-wrapper {
   position: relative;
+  border-radius: 0 0 6px 6px;
+  transition: all 0.2s ease;
 }
 </style>

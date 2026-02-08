@@ -36,7 +36,6 @@ const btnColor = computed(() => {
   font-size: 0.8rem;
   color: white;
   height: 20px;
-  //background-color: rgb(var(--v-theme-primary));
-  background-color: #777777
+  border-radius: 4px 4px 0 0;
 }
 </style>

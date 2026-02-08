@@ -1,13 +1,13 @@
 <template>
   <!--    style="min-height: calc(100vh - 130px)"-->
   <v-card
-    class="pa-4 px-6"
+    class="pa-4 px-6 d-flex flex-column fill-height"
     elevation="2"
   >
     <draggable-area
       v-if="mainCanvas.mainCanvasMode.value === 'BUILDER'"
       v-model="controls"
-      class="py-2"
+      class="py-2 flex-grow-1"
     />
 
     <json-schema-form-representation

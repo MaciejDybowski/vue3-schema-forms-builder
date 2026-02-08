@@ -9,11 +9,8 @@ export default defineConfig({
   plugins: [
     // ✅ automatycznie oznacza peerDependencies jako external
     peerDepsExternal(),
-
     // ✅ obsługa plików .vue
     vue(),
-
-
     // ✅ generowanie typów
     dts({
       entryRoot: "src",

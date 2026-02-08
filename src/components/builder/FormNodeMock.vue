@@ -19,7 +19,6 @@
         v-model="element.tempItems"
         :empty-insert-threshold="100"
         :section-key="element.key"
-        :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
       />
       <v-divider
         v-if="element.layout.options.showDivider"
@@ -44,7 +43,6 @@
         v-model="element.tempItems"
         :empty-insert-threshold="100"
         :section-key="element.key"
-        :style="element.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
         class="pt-6"
       />
     </div>
@@ -82,7 +80,7 @@
               :key="element.tempItems?.length"
               v-model="panel.tempItems"
               :empty-insert-threshold="100"
-              :style="panel.tempItems?.length === 0 ? duplicatedSectionStyle : undefined"
+              :section-key="element.key"
             />
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -150,13 +148,6 @@ const preparedElement = computed(() => {
 const theme = useVTheme()
 const color = theme.isDarkTheme.value ? "white" : "primary";
 
-const duplicatedSectionStyle = computed(() => {
-  if (theme.isLightTheme.value) {
-    return 'min-height:50px; outline: 1px #1b243a solid; background-color:#E1F5FE; border-bottom: 0px; margin: 0 0'
-  } else {
-    return 'min-height:50px; outline: 1px #777777 solid; background-color:#a5a5a5; border-bottom: 0px; margin: 0 0'
-  }
-})
 
 // Potrzebne do odświezania na żywo podglądu formularza gdy zmienia się propertisy w prawym modelu (szczególne te na podstawie których nic się nie dzieje)
 const renderKey = ref(0)

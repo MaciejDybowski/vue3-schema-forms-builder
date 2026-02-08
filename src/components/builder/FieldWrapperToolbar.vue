@@ -93,4 +93,12 @@ function cloneControl() {
   height: 20px;
 }
 
+// Wszystkie przyciski mają zaokrąglenia tylko na górze
+.delete-field-btn,
+.clone-field-btn,
+.config-field-btn {
+  :deep(.v-btn) {
+    border-radius: 4px 4px 0 0 !important;
+  }
+}
 </style>

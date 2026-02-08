@@ -1,6 +1,7 @@
 <template>
   <v-btn
     :color="btnColor"
+    class="toolbar-btn"
     density="compact"
     height="20px"
     rounded="0"
@@ -42,5 +43,7 @@ const btnColor = computed(() => {
 
 
 <style lang="scss" scoped>
-
+.toolbar-btn {
+  border-radius: 4px 4px 0 0 !important;
+}
 </style>
