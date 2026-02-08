@@ -145,6 +145,8 @@ export function useBuilderLocale() {
         mainCanvas: {
           title: 'Form Preview',
           emptyState: 'Drag and drop elements here to build your form',
+          dragHere: 'Drag and drop elements here to build your form',
+          dropHere: 'Drop elements here',
         },
         toolbox: {
           preview: 'Preview',
@@ -696,6 +698,8 @@ export function useBuilderLocale() {
         mainCanvas: {
           title: 'Podgląd formularza',
           emptyState: 'Przeciągnij i upuść elementy tutaj, aby zbudować formularz',
+          dragHere: 'Przeciągnij i upuść elementy tutaj, aby zbudować formularz',
+          dropHere: 'Upuść elementy tutaj',
         },
         toolbox: {
           preview: 'Podgląd',

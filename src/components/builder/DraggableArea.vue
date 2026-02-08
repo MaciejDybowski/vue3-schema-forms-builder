@@ -14,6 +14,7 @@
         'draggable-area--empty': !modelValue?.length
       }
     ]"
+    :data-empty-text="props.sectionKey ? t('mainCanvas.dropHere') : t('mainCanvas.dragHere')"
     handle=".handle"
     itemKey="key"
     @change="onChange"
@@ -31,6 +32,9 @@ import draggable from "../../vuedraggable/vuedraggable";
 import FieldWrapper from "../builder/FieldWrapper.vue";
 import {watch} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
+
+const {t} = useBuilderLocale();
 
 const {onChange, onDragStart, onDragEnd} = useDragDrop();
 
@@ -86,13 +90,13 @@ if (props.sectionKey) {
 
 // === PUSTE OBSZARY - wizualne wskazówki ===
 
-// Pusty root
+// Pusty root - używa atrybutu data-empty-text przez CSS attr()
 .draggable-area--root.draggable-area--empty {
   border: 2px dashed rgba(var(--v-theme-primary), 0.3);
   background: rgba(var(--v-theme-primary), 0.02);
 
   &::before {
-    content: 'Przeciągnij elementy tutaj';
+    content: attr(data-empty-text);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -118,7 +122,7 @@ if (props.sectionKey) {
   padding: 6px;
 
   &::before {
-    content: 'Upuść element tutaj';
+    content: attr(data-empty-text);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -186,4 +190,3 @@ if (props.sectionKey) {
   display: none !important;
 }
 </style>
-
