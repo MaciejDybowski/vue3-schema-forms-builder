@@ -9,7 +9,7 @@ export type SchemaFormBuilder = {
 };
 
 export type VueSchemaFormBuilderOptions = {
-  themesNames: ThemesNames,
+  themesNames?: ThemesNames,
   useStyle?: () => UseStyleComposable
 }
 
@@ -20,6 +20,7 @@ export const createVueSchemaFromBuilder = (options?: VueSchemaFormBuilderOptions
   if (options?.useStyle) {
     useStyle = options.useStyle;
   }
+
   return {
     install(Vue: App) {
       for (const key in components) {
@@ -28,7 +29,6 @@ export const createVueSchemaFromBuilder = (options?: VueSchemaFormBuilderOptions
     },
   };
 }
-
 
 export type ThemesNames = {
   light: string,
@@ -45,3 +45,7 @@ export type UseStyleComposable = {
   inputStyle: ComputedRef<any>;
   primaryWhite: ComputedRef<"white" | "primary">;
 };
+
+// Re-export the self-contained i18n composable
+export { useBuilderLocale } from "@/composables/useBuilderLocale";
+

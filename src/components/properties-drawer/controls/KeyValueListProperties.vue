@@ -50,13 +50,13 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import KeyValueListHeadersPanel from "@/components/properties-drawer/panels/KeyValueListHeadersPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 
 const panels = ref<string[]>(["general", "logic", "headers"])
 
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 const model = computed({
   get() {

@@ -55,7 +55,7 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import TextEditorPropsPanel from "@/components/properties-drawer/panels/TextEditorPropsPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
@@ -73,7 +73,7 @@ const model = computed({
   }
 })
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 </script>
 
 

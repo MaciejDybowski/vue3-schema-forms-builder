@@ -67,7 +67,7 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import MultipleProperty from "@/components/properties-drawer/atoms/MultipleProperty.vue";
 import UserUrlSource from "@/components/properties-drawer/atoms/UserUrlSource.vue";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
@@ -79,7 +79,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "source", "validations"]);
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

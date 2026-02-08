@@ -16,9 +16,9 @@
 
 <script lang="ts" setup>
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const modelValue = defineModel();
 </script>
 

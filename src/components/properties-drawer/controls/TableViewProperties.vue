@@ -414,11 +414,11 @@ import {useTranslateInput} from "@/composables/useTranslateInput";
 import TranslationInput from "@/components/properties-drawer/atoms/TranslationInput.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'logic', 'headers'])
 const useBuilderStateStore = useBuilderState()

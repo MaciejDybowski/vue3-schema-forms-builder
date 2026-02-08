@@ -61,10 +61,10 @@
 <script lang="ts" setup>
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const {active} = defineProps<{
   active: boolean
 }>();

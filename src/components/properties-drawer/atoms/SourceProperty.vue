@@ -110,7 +110,7 @@
 <script lang="ts" setup>
 
 
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {onMounted, ref} from "vue";
@@ -132,7 +132,7 @@ onMounted(() => {
   }
 })
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 </script>
 

@@ -2,9 +2,8 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import * as path from "path";
 import dts from "vite-plugin-dts";
-import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import { readFile, appendFile } from "fs/promises";
+import { readFile } from "fs/promises";
 
 export default defineConfig({
   plugins: [
@@ -14,18 +13,6 @@ export default defineConfig({
     // ✅ obsługa plików .vue
     vue(),
 
-    // ✅ obsługa i18n (pliki .json, .yaml)
-    // Supports both:
-    // 1. Centralized translations in ./src/locales/**/*.json
-    // 2. Legacy SFC <i18n> blocks (for backward compatibility during migration)
-    VueI18nPlugin({
-      include: [
-        path.resolve(__dirname, "./src/locales/**/*.json"),
-        path.resolve(__dirname, "./src/components/**/*.vue"),
-      ],
-      strictMessage: false,
-      escapeHtml: false,
-    }),
 
     // ✅ generowanie typów
     dts({

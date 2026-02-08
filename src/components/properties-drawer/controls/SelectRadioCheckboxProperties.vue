@@ -72,7 +72,7 @@ import {computed, ComputedRef, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import {FromElementComponent} from "@/models/FromElementComponent";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
@@ -85,7 +85,7 @@ import SourcePanel from "@/components/properties-drawer/panels/SourcePanel.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField

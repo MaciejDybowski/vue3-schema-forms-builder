@@ -292,7 +292,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {computed, onMounted, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {useStyle} from "@/main";
@@ -302,7 +302,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const style = useStyle();
 
 const props = defineProps<{ active: boolean }>();

@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import ColBtnToggle from "@/components/properties-drawer/atoms/cols/ColBtnToggle.vue";
 import {watch} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
@@ -39,7 +39,7 @@ const modelValue = defineModel<{
   default: {}
 })
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 watch(() => modelValue.value, () => {
   calcOffset()

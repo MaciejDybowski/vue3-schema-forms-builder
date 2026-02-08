@@ -31,14 +31,14 @@
 
 <script lang="ts" setup>
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import IfProperty from "@/components/properties-drawer/atoms/IfProperty.vue";
 import ReadOnlyProperty from "@/components/properties-drawer/atoms/ReadOnlyProperty.vue";
 import ReadOnlyExpressionProperty from "@/components/properties-drawer/atoms/ReadOnlyExpressionProperty.vue";
 import HideProperty from "@/components/properties-drawer/atoms/HideProperty.vue";
 import HidePropertyExpression from "@/components/properties-drawer/atoms/HidePropertyExpression.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const props = withDefaults(defineProps<{
   active?: boolean
   showIfControl?: boolean

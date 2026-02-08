@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
@@ -88,7 +88,7 @@ const emit = defineEmits<{
   (e: "update:panels", panels: Panel[]): void;
 }>();
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 
 function addPanel() {

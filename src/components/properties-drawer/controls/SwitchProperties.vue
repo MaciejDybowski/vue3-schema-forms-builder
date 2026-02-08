@@ -55,7 +55,7 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
@@ -65,7 +65,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const useBuilderStateStore = useBuilderState();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const panels = ref<string[]>(["general", "logic", "fieldProps"]);
 const model = computed({
   get() {

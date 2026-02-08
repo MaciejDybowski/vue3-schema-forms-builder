@@ -129,7 +129,7 @@
 <script lang="ts" setup>
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {computed, onMounted, ref} from "vue";
 import {useStyle} from "@/main";
 import {useTranslateInput} from "@/composables/useTranslateInput";
@@ -141,7 +141,7 @@ const model = defineModel<any>();
 
 const style = useStyle();
 const {prefix, toCamelCase} = useTranslateInput();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 const dragOptions = {
   animation: 250,

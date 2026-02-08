@@ -79,14 +79,14 @@ import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultVa
 
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const panels = ref<string[]>(["general", "logic", "source"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({

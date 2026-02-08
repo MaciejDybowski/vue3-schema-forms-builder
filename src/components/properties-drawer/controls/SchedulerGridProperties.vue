@@ -63,7 +63,7 @@
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
@@ -96,7 +96,7 @@ const urlComputed = computed({
   }
 })
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 onMounted(() => {
   if (model.value['showLabel'] == undefined) {

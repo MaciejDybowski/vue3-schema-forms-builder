@@ -28,7 +28,7 @@
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import HintProperty from "@/components/properties-drawer/atoms/HintProperty.vue";
 import PrefixProperty from "@/components/properties-drawer/atoms/PrefixProperty.vue";
 import SuffixProperty from "@/components/properties-drawer/atoms/SuffixProperty.vue";
@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<{
 })
 
 const model = defineModel<any>()
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 function updateExpressionPersistentHint(val: string | boolean) {
   model.value.layout.props['persistent-hint'] = val || false

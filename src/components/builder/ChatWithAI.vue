@@ -109,12 +109,12 @@ import {computed, nextTick, ref, StyleValue, watch} from 'vue'
 import {useDrawers} from '@/composables/useDrawers'
 import {useStyle} from "@/main";
 import axios from "axios";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useVTheme} from "@/composables/useVTheme";
 
 const theme = useVTheme()
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const drawers = useDrawers()
 const isOpen = ref(false)
 const newMessage = ref('')

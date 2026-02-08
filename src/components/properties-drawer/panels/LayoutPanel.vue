@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import OffsetProperty from "@/components/properties-drawer/atoms/offset/OffsetProperty.vue";
 import ColProperty from "@/components/properties-drawer/atoms/cols/ColProperty.vue";
 import FillRowProperty from "@/components/properties-drawer/atoms/FillRowProperty.vue";
@@ -45,7 +45,7 @@ import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms
 import {onMounted, ref} from "vue";
 import CssClassProperty from "@/components/properties-drawer/atoms/CssClassProperty.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const {active} = defineProps<{
   active: boolean;
 }>()

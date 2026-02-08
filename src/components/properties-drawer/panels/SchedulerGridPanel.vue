@@ -89,7 +89,7 @@
 <script lang="ts" setup>
 import {computed} from 'vue'
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 export type LegendItem = {
   statusKey: string
@@ -97,7 +97,7 @@ export type LegendItem = {
   colors: { light: string; dark: string }
 }
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 const props = withDefaults(defineProps<{
   active?: boolean

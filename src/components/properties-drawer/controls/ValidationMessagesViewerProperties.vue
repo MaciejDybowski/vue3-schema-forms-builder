@@ -60,7 +60,7 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import ContentPropery from "@/components/properties-drawer/atoms/ContentPropery.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useStyle} from "@/main";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
@@ -68,7 +68,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const panels = ref<string[]>(["general", "logic"])
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

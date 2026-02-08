@@ -80,7 +80,7 @@
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 import DefaultValueProperty from "@/components/properties-drawer/atoms/DefaultValueProperty.vue";
@@ -106,7 +106,7 @@ const model = computed({
 const isChecksumEnabled = ref(false)
 const isAdultValidationEnabled = ref(false)
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 onMounted(() => {
   if(model.value.checkSumValidation != undefined) {

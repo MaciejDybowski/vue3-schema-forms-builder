@@ -48,7 +48,7 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
@@ -56,7 +56,7 @@ import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 
 const panels = ref<string[]>(["general"])
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

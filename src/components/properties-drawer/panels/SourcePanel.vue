@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import SimpleSourceProperty from "@/components/properties-drawer/atoms/SimpleSourceProperty.vue";
-import { useI18n } from "vue-i18n";
+import { useBuilderLocale } from "@/composables/useBuilderLocale";
 
 const { active } = withDefaults(defineProps<{
   active?: boolean;
@@ -20,7 +20,7 @@ const { active } = withDefaults(defineProps<{
 });
 
 const model = defineModel<any>();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 </script>
 
 <style scoped lang="scss">

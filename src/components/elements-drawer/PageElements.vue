@@ -26,9 +26,9 @@ import {useStyle} from "@/main";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const style = useStyle();
 const {onDragStart, onDragEnd} = useDragDrop();
 

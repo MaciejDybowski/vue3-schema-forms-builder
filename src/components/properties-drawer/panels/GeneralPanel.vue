@@ -12,11 +12,11 @@
 
 <script lang="ts" setup>
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import PathProperty from "@/components/properties-drawer/atoms/PathProperty.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const {active} = defineProps<{
   active: boolean;
 }>()

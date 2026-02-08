@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanSwitchPropertyWrapper from "@/components/properties-drawer/atoms/BooleanSwitchPropertyWrapper.vue";
@@ -38,7 +38,7 @@ import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms
 
 
 const modelValue = defineModel<any>();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const {
   prefix,
   isReference,

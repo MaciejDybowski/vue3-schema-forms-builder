@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const modelValue = defineModel()
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const emit = defineEmits<{
   (e: "update:modelValue", val: any): boolean | string;
 }>();

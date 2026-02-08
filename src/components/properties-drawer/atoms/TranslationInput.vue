@@ -24,10 +24,10 @@
 
 <script lang="ts" setup>
 import {computed, defineEmits, onBeforeMount, useAttrs} from "vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useStyle} from "@/main";
 
-const {t, locale} = useI18n();
+const {t, locale} = useBuilderLocale();
 const style = useStyle();
 const model = defineModel<Record<string, string>>({
   default: {en: {}, pl: {}, de: {}}

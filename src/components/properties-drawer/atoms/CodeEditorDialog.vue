@@ -49,10 +49,10 @@
 
 <script lang="ts" setup>
 import {nextTick, ref, watch} from 'vue'
-import {useI18n} from 'vue-i18n'
+import {useBuilderLocale} from '@/composables/useBuilderLocale'
 import {useStyle} from "@/main";
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const style = useStyle()
 
 const localValue = defineModel()

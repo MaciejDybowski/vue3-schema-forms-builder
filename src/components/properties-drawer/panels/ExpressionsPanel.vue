@@ -20,9 +20,9 @@
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionProperty.vue";
 import CalculationProperty from "@/components/properties-drawer/atoms/CalculationProperty.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 const {active, showExpression, showCalculation} = withDefaults(
   defineProps<{

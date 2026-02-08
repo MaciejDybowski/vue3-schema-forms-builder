@@ -23,11 +23,11 @@ import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField

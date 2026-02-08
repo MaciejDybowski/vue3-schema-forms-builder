@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {computed, onMounted, ref, watch} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {useStyle} from "@/main";
@@ -79,7 +79,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const style = useStyle();
 
 const props = withDefaults(defineProps<{

@@ -27,13 +27,13 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const modelValue = defineModel<any>();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const {prefix, isReference, referenceChanged, getValueForInput} = useTranslateInput();
 
 const duplicatedSectionButton = getValueForInput("addBtnText", modelValue);

@@ -56,7 +56,7 @@
 <script lang="ts" setup>
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
@@ -70,7 +70,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const panels = ref<string[]>(["general"]);
 const useBuilderStateStore = useBuilderState();
 

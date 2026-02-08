@@ -35,11 +35,11 @@ import draggable from "../../vuedraggable/vuedraggable";
 import {ElementDrawerFromElement} from "@/models/ElementDrawerFromElement";
 import {computed, ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useBuilderState} from "@/pinia/useBuilderState";
 
 const props = defineProps<{ query: string }>();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const builder = useBuilderState();
 const { onDragStart, onDragEnd } = useDragDrop();
 

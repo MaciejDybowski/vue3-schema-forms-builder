@@ -98,13 +98,13 @@
 import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {useStyle} from "@/main";
 import {useDrawers} from "@/composables/useDrawers";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import axios from "axios";
 import {toast} from "vue3-toastify";
 
 const showModelPayload = ref(false);
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const model = ref({});
 const props = defineProps<{
   schema: object

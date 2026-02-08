@@ -107,7 +107,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import {useVTheme} from "@/composables/useVTheme";
 import {cloneDeep} from "lodash";
 import {useStyle} from "@/main";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 
 const props = defineProps<{
@@ -125,7 +125,7 @@ onMounted(() => {
   }
 })
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 
 const preparedElement = computed(() => {

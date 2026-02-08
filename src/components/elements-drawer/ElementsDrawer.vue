@@ -50,9 +50,9 @@ import {useDrawers} from "@/composables/useDrawers";
 import {computed, ref} from "vue";
 import FormElements from "@/components/elements-drawer/FormElements.vue";
 import PageElements from "@/components/elements-drawer/PageElements.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const drawers = useDrawers();
 const tab = ref(null)
 const tabs = ref([

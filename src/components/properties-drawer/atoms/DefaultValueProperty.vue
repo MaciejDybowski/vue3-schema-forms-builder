@@ -27,10 +27,10 @@
 <script lang="ts" setup>
 import {computed, onMounted, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {

@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import OffsetBtnToggle from "@/components/properties-drawer/atoms/offset/OffsetBtnToggle.vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {watch} from "vue";
@@ -58,7 +58,7 @@ function calcCols() {
 
 }
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 </script>
 

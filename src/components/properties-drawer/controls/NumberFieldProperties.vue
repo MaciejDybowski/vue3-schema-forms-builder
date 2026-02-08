@@ -82,7 +82,7 @@
 import {computed, ref} from "vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import LabelProperty from "@/components/properties-drawer/atoms/LabelProperty.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
@@ -106,7 +106,7 @@ const model = computed({
   }
 })
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 </script>
 
 <style lang="scss" scoped>

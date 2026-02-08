@@ -6,14 +6,14 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useStyle} from "@/main";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
 const modelValue = defineModel()
 const style = useStyle()
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 </script>
 

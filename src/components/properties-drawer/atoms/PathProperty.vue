@@ -18,13 +18,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from "vue-i18n";
+import { useBuilderLocale } from "@/composables/useBuilderLocale";
 import { useBuilderState } from "@/pinia/useBuilderState";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {toast} from "vue3-toastify";
 
 const useBuilderStateStore = useBuilderState();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 async function copyPath() {
   const path = useBuilderStateStore.getConfiguredFieldPath;

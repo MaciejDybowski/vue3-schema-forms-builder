@@ -26,14 +26,14 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import TrueValueMapping from "@/components/properties-drawer/atoms/TrueValueMapping.vue";
 import FalseValueMapping from "@/components/properties-drawer/atoms/FalseValueMapping.vue";
-import { useI18n } from "vue-i18n";
+import { useBuilderLocale } from "@/composables/useBuilderLocale";
 
 const { active } = defineProps<{
   active: boolean;
 }>();
 
 const model = defineModel<any>();
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 </script>
 
 <style scoped lang="scss"></style>

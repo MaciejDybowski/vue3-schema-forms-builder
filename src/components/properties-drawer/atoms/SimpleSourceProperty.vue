@@ -304,14 +304,14 @@
 <script lang="ts" setup>
 
 import {computed, ref} from "vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {useStyle} from "@/main";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const style = useStyle();
 const {prefix, toCamelCase} = useTranslateInput();
 const advancedConfigDialog = ref(false);

@@ -92,7 +92,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {useStyle} from "@/main";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {ref} from "vue";
 
 withDefaults(defineProps<{
@@ -104,7 +104,7 @@ withDefaults(defineProps<{
 
 const style = useStyle()
 const model = defineModel<any>()
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 
 const bgColorMenu = ref(false);
 const colorMenu = ref(false);

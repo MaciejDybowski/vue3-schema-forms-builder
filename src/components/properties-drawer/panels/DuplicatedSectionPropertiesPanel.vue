@@ -119,9 +119,9 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import DuplicatedSectionButtonProperty from "@/components/properties-drawer/atoms/DuplicatedSectionButtonProperty.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {onMounted, ref} from "vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const model = defineModel<any>();
 const {active} = defineProps<{
   active: boolean;

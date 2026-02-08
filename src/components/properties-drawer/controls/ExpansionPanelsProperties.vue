@@ -25,7 +25,7 @@
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 import {useBuilderState} from "@/pinia/useBuilderState";
 import {computed, ref} from "vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import ExpansionPanels from "@/components/properties-drawer/panels/ExpansionPanels.vue";
 
 const useBuilderStateStore = useBuilderState()
@@ -39,7 +39,7 @@ const model = computed({
 })
 
 const panels = ref<string[]>(["general", "fieldProps"])
-const {t} = useI18n()
+const {t} = useBuilderLocale()
 
 </script>
 

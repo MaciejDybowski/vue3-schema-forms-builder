@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
 import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
@@ -36,7 +36,7 @@ const {
 } = useCodeEditorDialog()
 
 
-const {t} = useI18n({ useScope: 'global' })
+const {t} = useBuilderLocale()
 </script>
 
 <style lang="scss" scoped>

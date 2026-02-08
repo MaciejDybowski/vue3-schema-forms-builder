@@ -27,11 +27,11 @@
 
 <script lang="ts" setup>
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import {onMounted} from "vue";
 
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 
 defineProps<{
   active: boolean;

@@ -41,12 +41,12 @@
 </template>
 
 <script lang="ts" setup>
-import {useI18n} from "vue-i18n";
+import {useBuilderLocale} from "@/composables/useBuilderLocale";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
 
-const {t} = useI18n({ useScope: 'global' });
+const {t} = useBuilderLocale();
 const model = defineModel();
 
 const {
