@@ -78,14 +78,15 @@ function fieldWrapperItemClass(element: any, isHovering: any) {
 }
 
 function getStyleForBuilderField(element: any, hover: any) {
-  // border-radius: tylko dolne rogi zaokrąglone (górne mają toolbar)
   const baseStyle = "border-radius: 0 0 6px 6px; transition: all 0.2s ease;"
 
   if (fieldIsCurrentConfigured.value(element)) {
-    return `${baseStyle} outline: 2px solid rgb(var(--v-theme-primary)); background-color: rgba(var(--v-theme-primary), 0.08);`
+    // Kliknięte - mocniejszy kolor ramki i tła, bez pogrubiania (1px jak hover)
+    return `${baseStyle} outline: 1px solid rgb(var(--v-theme-primary)); background-color: rgba(var(--v-theme-primary), 0.1);`
   }
   if (hover) {
-    return `${baseStyle} outline: 1px solid rgba(var(--v-theme-primary), 0.5); background-color: rgba(var(--v-theme-primary), 0.03); cursor: pointer;`
+    // Hover - delikatniejsza ramka
+    return `${baseStyle} outline: 1px solid rgba(var(--v-theme-primary), 0.4); background-color: rgba(var(--v-theme-primary), 0.03); cursor: pointer;`
   }
   return baseStyle
 }
