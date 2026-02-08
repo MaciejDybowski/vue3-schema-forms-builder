@@ -4,6 +4,7 @@
       v-model="modelValue"
     />
     <PropsViewer
+      v-if="showJson"
       :draggable="useBuilderStateStore.getDraggableModel"
       :json-data="modelValue"
     />
@@ -28,6 +29,7 @@ const modelValue = defineModel<FormSchema>()
 
 const props = defineProps<{
   workspaceId: string,
+  showJson: boolean
 }>();
 
 let loading = ref(true)

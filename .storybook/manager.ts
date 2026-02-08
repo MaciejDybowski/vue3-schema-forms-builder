@@ -1,16 +1,21 @@
-import {addons} from "storybook/manager-api"
-import {create} from "storybook/theming"
+import { addons } from "storybook/manager-api"
+import { create } from "storybook/theming"
 
-export const TecnaLight = create({
-  base: "light",
-  brandTitle: "Aurea Dashboard Storybook",
-  brandUrl: "https://www.tecna.pl",
-  brandImage: "https://static.aurea.software/img/logo-aurea-1624x266.png",
-  brandTarget: "_blank",
-  appBg: "whitesmoke",
-  textColor: "black",
+// Determine base path for GitHub Pages deployment
+const isGitHubPages = window.location.hostname.includes('github.io');
+const basePath = isGitHubPages ? '/vue3-schema-forms-builder' : '';
+
+const customTheme = create({
+  base: 'light',
+  brandTitle: 'Vue3 Schema Forms Builder',
+  brandUrl: 'https://maciejdybowski.github.io/vue3-schema-forms-builder/',
+  brandImage: `${basePath}/st-logo2.png`,
+  brandTarget: '_self',
 })
 
 addons.setConfig({
-  theme: TecnaLight
+  theme: customTheme,
+  sidebar: {
+    showRoots: true,
+  },
 })

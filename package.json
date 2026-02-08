@@ -3,15 +3,30 @@
   "version": "0.5.0",
   "description": "Vue Schema Form Builder",
   "main": "dist/main.umd.js",
-  "publishConfig": {
-    "registry": "https://nexus3.tecna.pl/repository/npm-private-releases/"
-  },
   "module": "dist/main.es.js",
   "types": "dist/components/main.d.ts",
   "type": "module",
   "files": [
     "dist/*"
   ],
+  "keywords": [
+    "vue",
+    "vuetify",
+    "forms",
+    "JSON Schema",
+    "Drag&Drop Builder"
+  ],
+  "author": {
+    "name": "Maciej Dybowski"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaciejDybowski/vue3-schema-forms-builder.git"
+  },
   "scripts": {
     "install-registry": "npm install --registry=https://nexus3.tecna.pl/repository/npm-private",
     "update-tecna-vue-shared": "npm install tecna-vue-shared@next --registry=https://nexus3.tecna.pl/repository/npm-private-releases/ --force",
@@ -32,7 +47,7 @@
     "@google/genai": "^1.13.0",
     "@mdi/font": "7.4.47",
     "@vueuse/core": "^11.1.0",
-    "vue3-schema-forms": "0.4.76"
+    "vue3-schema-forms": "0.4.84"
   },
   "peerDependencies": {
     "axios": "^1.13.2",
@@ -48,8 +63,8 @@
     "vuetify": "^3.11.4"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^9.1.13",
-    "@storybook/vue3-vite": "^9.1.13",
+    "@storybook/addon-docs": "^10.2.7",
+    "@storybook/vue3-vite": "^10.2.7",
     "@types/node": "^20.14.2",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/test-utils": "^2.4.6",
@@ -58,7 +73,7 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "sass-embedded": "^1.89.2",
     "sortablejs": "^1.15.6",
-    "storybook": "^9.1.13",
+    "storybook": "^10.2.7",
     "typescript": "^5.4.5",
     "vite": "6.3.4",
     "vite-plugin-dts": "^3.9.1",

@@ -1,10 +1,40 @@
-### Vue3-schema-forms-builder
+<img src="./public/logo-builder.png" alt="Vue3 Schema Forms Builder" width="320" />
 
-```shell
-npm login --registry=https://nexus3.tecna.pl/repository/npm-private/
-```
+# Vue3 Schema Forms Builder
+
+Extensible visual builder for the [`vue3-schema-forms`](https://github.com/MaciejDybowski/vue3-schema-forms) library.
+
+
+## Key features
+
+- Intuitive form editor (drag & drop)
+- Form schema generation (JSON / JSON Schema)
+- Integration with [`vue3-schema-forms`](https://github.com/MaciejDybowski/vue3-schema-forms)
+- i18n support (composition API `useBuilderLocale`)
+
+---
 
 ## Installation
+
+This repository is an example builder package. If you want to publish it as an npm package, the assumed name is `vue3-schema-forms-builder`.
+
+Install (example):
+
+```bash
+npm install vue3-schema-forms-builder
+```
+
+Required peer-dependencies (example):
+
+```bash
+npm install vue@^3.5 vuetify@^3.8 vue-i18n@^9.0 vuedraggable@^4.1
+```
+
+---
+
+## Quick start
+
+Example of adding the builder to a Vue 3 (TypeScript) application:
 
 ```ts
 import { createApp } from 'vue'
@@ -14,64 +44,80 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-// 1. Install vue-i18n (required for locale reactivity)
 const i18n = createI18n({
-  locale: 'pl',
+  locale: 'en',
   fallbackLocale: 'en',
   legacy: false,
   messages: {
-    en: { /* your app translations */ },
-    pl: { /* your app translations */ },
+    en: {},
+    pl: {}
   }
 })
+
 app.use(i18n)
-
-// 2. Install the builder - NO i18n configuration needed!
-// Builder translations are self-contained via useBuilderLocale composable
 app.use(createVueSchemaFromBuilder())
-
 app.mount('#app')
 ```
 
-## i18n - Zero Configuration
+Using the component in an SFC:
 
-The builder uses a **self-contained i18n composable** (`useBuilderLocale`) that includes all translations inline. This means:
+```vue
+<template>
+  <div>
+    <VueSchemaFormsBuilder v-model="jsonForm"/>
+  </div>
+</template>
 
-- ✅ **No configuration required** in the host application
-- ✅ **No message merging** - builder translations don't pollute your app's i18n messages
-- ✅ **Automatic locale sync** - inherits locale from your app's i18n instance
-- ✅ **Works out of the box** after installing the plugin
+<script setup lang="ts">
+  import {VueSchemaFormsBuilder} from 'vue3-schema-forms-builder'
+  import {ref} from "vue";
 
-### How it works
-
-All builder components use the `useBuilderLocale` composable internally:
-
-```ts
-// Inside builder components
-import { useBuilderLocale } from '@/composables/useBuilderLocale'
-
-const { t, locale } = useBuilderLocale()
-// t('label') -> "Label" (en) or "Etykieta" (pl)
+  const jsonForm = ref({
+    properties: {},
+    i18n: {},
+    options: {},
+  });
+</script>
 ```
 
-The composable uses vue-i18n's `useScope: 'local'` with `inheritLocale: true`, so it:
-1. Has its own isolated message scope (doesn't conflict with your app)
-2. Automatically follows your app's current locale
 
-### Using in your own components
+## i18n and locales
 
-If you need builder translations in your own components:
+The builder is prepared to work with `vue-i18n` and provides:
 
-```ts
-import { useBuilderLocale } from 'vue3-schema-forms-builder'
+- `useBuilderLocale` which inherits the app locale,
+- built-in translations (pl / en),
 
-const { t } = useBuilderLocale()
-console.log(t('label')) // -> "Label" or "Etykieta"
+---
+
+## Tests / Storybook
+
+Run tests and Storybook (if available):
+
+```bash
+npm install
+npm test
+npm run storybook
+npm run vitest-storybook
 ```
 
-## Supported Locales
+---
 
-- English (`en`)
-- Polish (`pl`)
+## Contributing
 
+Thanks for your contribution! A few steps to get started:
 
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/my-feature`
+3. Make commits and push
+4. Open a Pull Request
+
+Please add tests / stories for new features and update the changelog.
+
+---
+
+## Contact
+
+Have questions? Open an Issue or get in touch.
+
+Related runtime: https://github.com/MaciejDybowski/vue3-schema-forms

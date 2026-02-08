@@ -1,0 +1,147 @@
+import {Meta} from '@storybook/addon-docs/blocks';
+
+export const basePath = typeof window !== 'undefined' && window.location.hostname.includes('github.io') ? '/vue3-schema-forms-builder' : '';
+
+<Meta title="Homepage"/>
+
+<div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '3rem',
+    marginBottom: '2rem',
+    flexWrap: 'wrap'
+}}>
+    <picture>
+        <img src={`${basePath}/logo-white.png`} alt="Vue3 Schema Forms Builder" style={{width: '380px'}}/>
+    </picture>
+
+    <div style={{textAlign: 'left', maxWidth: '500px'}}>
+        <h1 style={{fontSize: '2.0rem', marginBottom: '0.5rem', marginTop: 0}}>Vue3 Schema Forms Builder</h1>
+
+        <p style={{lineHeight: '1.6', marginBottom: '1rem'}}>
+            An extensible visual builder for the <a href="https://github.com/MaciejDybowski/vue3-schema-forms">vue3-schema-forms</a> library.
+            Use it to design forms with drag & drop, configure fields, and export schemas for runtime consumption.
+        </p>
+
+        <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}}>
+            <img src={`https://img.shields.io/npm/v/vue3-schema-forms-builder.svg`} alt="npm version"/>
+            <img src={`https://img.shields.io/npm/dm/vue3-schema-forms-builder.svg`} alt="npm downloads"/>
+            <img src="https://img.shields.io/npm/l/vue3-schema-forms-builder.svg" alt="license"/>
+        </div>
+    </div>
+</div>
+
+# What is it?
+
+Vue3 Schema Forms Builder is an extensible visual editor for the `vue3-schema-forms` library. It allows you to design forms using drag & drop, configure fields and export form schemas in JSON / JSON Schema format for runtime consumption.
+
+## Key features
+
+- Intuitive form editor (drag & drop)
+- Form schema generation (JSON / JSON Schema)
+- Integration with `vue3-schema-forms`
+- i18n support (composition `useBuilderLocale`)
+
+---
+
+## Installation
+
+This repository is an example builder package. The assumed name for publishing to npm is `vue3-schema-forms-builder`.
+
+Install (example):
+
+```bash
+npm install vue3-schema-forms-builder
+```
+
+Required peer-dependencies (example):
+
+```bash
+npm install vue@^3.5 vuetify@^3.8 vue-i18n@^9.0 vuedraggable@^4.1
+```
+
+---
+
+## Quick start
+
+Minimal example of registering the builder in a Vue 3 (TypeScript) application:
+
+```vue
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+import { createVueSchemaFromBuilder } from 'vue3-schema-forms-builder'
+import App from './App.vue'
+
+const app = createApp(App)
+
+const i18n = createI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  legacy: false,
+  messages: {
+    en: {},
+    pl: {}
+  }
+})
+
+app.use(i18n)
+app.use(createVueSchemaFromBuilder())
+app.mount('#app')
+```
+
+Using the component in an SFC (example):
+
+```vue
+<template>
+  <div>
+    <VueSchemaFormsBuilder v-model="jsonForm"/>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import {VueSchemaFormsBuilder} from 'vue3-schema-forms-builder'
+  import {ref} from "vue";
+
+  const jsonForm = ref({
+    properties: {},
+    i18n: {},
+    options: {},
+  });
+</script>
+```
+
+---
+
+## i18n and locales
+
+The builder is prepared to work with `vue-i18n` and provides:
+
+- `useBuilderLocale` which inherits the app locale,
+- built-in translations (pl / en).
+
+---
+
+## Tests / Storybook
+
+Run tests and Storybook (if available):
+
+```bash
+npm install
+npm test
+npm run storybook
+npm run vitest-storybook
+```
+
+---
+
+## Contributing
+
+Thanks for your contribution! A few steps to get started:
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/my-feature`
+3. Make commits and push
+4. Open a Pull Request
+
+Please add tests / stories for new features and update the changelog.
