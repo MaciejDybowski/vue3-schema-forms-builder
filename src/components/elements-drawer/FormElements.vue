@@ -39,7 +39,7 @@ import {useI18n} from "vue-i18n";
 import {useBuilderState} from "@/pinia/useBuilderState";
 
 const props = defineProps<{ query: string }>();
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const builder = useBuilderState();
 const { onDragStart, onDragEnd } = useDragDrop();
 
@@ -423,92 +423,3 @@ function cloneControls(item: ElementDrawerFromElement) {
   display: none !important;
 }
 </style>
-
-<i18n lang="json">
-{
-  "pl": {
-    "controls": {
-      "text": "Pole tekstowe",
-      "number": "Pole liczbowe",
-      "textarea": "Obszar tekstowy",
-      "textareaSubtitle": "Textarea",
-      "select": "Pole wyboru",
-      "selectSubtitle": "Select / Radio / Checkbox / Zakładka",
-      "dictionary": "Pole słownikowe",
-      "dictionarySubtitle": "Autocomplete / Combobox",
-      "user": "Użytkownik",
-      "switch": "Przełącznik",
-      "file": "Plik",
-      "date": "Data",
-      "datetime": "Data i czas",
-      "duplicatedSection": "Sekcja powielana",
-      "fieldsGroup": "Grupa pól",
-      "fieldsGroupSubtitle": "Wizualne grupowanie pól",
-      "year": "Rok",
-      "phone": "Telefon",
-      "address": "Pole adresowe",
-      "image": "Zdjęcie",
-      "textSwitch": "Pole tekst ➞ input",
-      "textSwitchSubtitle": "Naciśnij tekst, aby edytować",
-      "table": "Tabela",
-      "tableSubtitle": "Dane zew. API lub modelu",
-      "markdown": "Markdown",
-      "markdownSubtitle": "Pole Markdown",
-      "textEditor": "Edytor tekstu",
-      "textEditorSubtitle": "Zapis w HTML / JSON",
-      "orderedList": "Lista uporządkowana",
-      "multiLang": "Pole wielojęzyczne",
-      "expansionPanels": "Sekcje zwijalne",
-      "schedulerGrid": "Haromonogram",
-      "calendarAutocomplete": "Wybór kalendarza",
-      "yearMonth": "Rok i miesiąc",
-      "peselField": "PESEL",
-      "nipField": "NIP"
-    },
-    "tableHeader": "Nagłówek",
-    "panelTitle": "Tytuł sekcji"
-  },
-  "en": {
-    "controls": {
-      "text": "Text field",
-      "number": "Number field",
-      "textarea": "Text area",
-      "textareaSubtitle": "Textarea",
-      "select": "Select field",
-      "selectSubtitle": "Select / Radio / Checkbox / Bookmark",
-      "dictionary": "Dictionary field",
-      "dictionarySubtitle": "Autocomplete / Combobox",
-      "user": "User",
-      "switch": "Switch",
-      "file": "File",
-      "date": "Date",
-      "datetime": "Date & time",
-      "duplicatedSection": "Duplicated section",
-      "fieldsGroup": "Fields group",
-      "fieldsGroupSubtitle": "Visual field grouping",
-      "year": "Year",
-      "phone": "Phone",
-      "address": "Address field",
-      "image": "Image",
-      "textSwitch": "Text ➞ input field",
-      "textSwitchSubtitle": "Click text to edit",
-      "table": "Table",
-      "tableSubtitle": "External data API or internal model",
-      "markdown": "Markdown",
-      "markdownSubtitle": "Markdown field",
-      "textEditor": "Text editor",
-      "textEditorSubtitle": "Saved as HTML / JSON",
-      "orderedList": "Ordered list",
-      "multiLang": "Multi-language field",
-      "expansionPanels": "Expansion panels",
-      "schedulerGrid": "Scheduler",
-      "calendarAutocomplete": "Calendar selection",
-      "yearMonth": "Year and month",
-      "peselField": "PESEL",
-      "nipField": "NIP"
-    },
-    "tableHeader": "Header",
-    "panelTitle": "Panel title"
-  }
-}
-</i18n>

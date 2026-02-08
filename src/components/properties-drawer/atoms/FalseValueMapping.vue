@@ -13,7 +13,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 
 const modelValue = defineModel()
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const emit = defineEmits<{
   (e: "update:modelValue", val: any): boolean | string;
 }>();
@@ -33,14 +33,3 @@ function parseValue(val: string) {
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "falseValueMapping": "False value"
-  },
-  "pl": {
-    "falseValueMapping": "Wartość dla fałsz"
-  }
-}
-</i18n>

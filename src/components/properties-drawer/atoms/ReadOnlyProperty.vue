@@ -11,20 +11,9 @@ import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms
 
 const modelValue = defineModel()
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 </script>
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "readOnlyProperty": "Read-only property"
-  },
-  "pl": {
-    "readOnlyProperty": "Pole tylko do odczytu"
-  }
-}
-</i18n>

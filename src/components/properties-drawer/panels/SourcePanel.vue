@@ -20,19 +20,8 @@ const { active } = withDefaults(defineProps<{
 });
 
 const model = defineModel<any>();
-const { t } = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 </script>
 
 <style scoped lang="scss">
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "sourceTitle": "Data Source"
-  },
-  "pl": {
-    "sourceTitle": "Źródło danych"
-  }
-}
-</i18n>

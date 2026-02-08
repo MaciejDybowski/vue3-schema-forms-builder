@@ -64,7 +64,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "validations"])
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -81,29 +81,3 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "conversion": {
-      "label": "Field",
-      "text": "Text field",
-      "textarea": "Text area",
-      "textSwitch": "Text ➞ input field",
-      "dataViewer": "Data viewer"
-    },
-    "counter": "Counter of letters"
-  },
-  "pl": {
-    "conversion": {
-      "label": "Pole",
-      "text": "Pole tekstowe",
-      "textarea": "Obszar tekstowy",
-      "textSwitch": "Pole tekst ➞ input",
-      "dataViewer": "Pole odczytu"
-    },
-    "counter": "Licznik liter"
-  }
-}
-</i18n>
-

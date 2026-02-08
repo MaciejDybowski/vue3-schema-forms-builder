@@ -45,7 +45,7 @@ import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms
 import {onMounted, ref} from "vue";
 import CssClassProperty from "@/components/properties-drawer/atoms/CssClassProperty.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const {active} = defineProps<{
   active: boolean;
 }>()
@@ -71,22 +71,3 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "layout": {
-      "title": "Layout properties",
-      "offsetConfiguration": "Offset configuration",
-      "showOffsetInfo": "This option allows you to set the field offset in the layout grid relative to the left edge depending on the screen size."
-    }
-  },
-  "pl": {
-    "layout": {
-      "title": "Układ pola",
-      "offsetConfiguration": "Konfiguracja przesunięcia",
-      "showOffsetInfo": "Opcja ta pozwala na ustawienie przesunięcia pola w siatce układu wzlędem lewej krawędzi w zależności od rozmiaru ekranu."
-    }
-  }
-}
-</i18n>

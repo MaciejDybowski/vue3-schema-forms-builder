@@ -52,7 +52,7 @@ import FormElements from "@/components/elements-drawer/FormElements.vue";
 import PageElements from "@/components/elements-drawer/PageElements.vue";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const drawers = useDrawers();
 const tab = ref(null)
 const tabs = ref([
@@ -76,17 +76,3 @@ const storybook = computed(() => {
 </script>
 
 <style lang="scss" scoped></style>
-<i18n lang="json">
-{
-  "en": {
-    "fields": "Fields",
-    "page": "Page",
-    "search": "Search"
-  },
-  "pl": {
-    "fields": "Pola",
-    "page": "Elementy",
-    "search": "Szukaj"
-  }
-}
-</i18n>

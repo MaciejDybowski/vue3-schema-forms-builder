@@ -42,7 +42,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 const {active} = defineProps<{
   active: boolean;
@@ -66,34 +66,3 @@ function updateTriggers(val) {
   cursor: pointer;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "dependencies": {
-      "title": "Dependencies",
-      "sourcePath": {
-        "label": "Source path (dependencies)",
-        "tooltip": "Path to another field or data source this field depends on."
-      },
-      "updateTriggers": {
-        "label": "Update triggers (syntax string)",
-        "tooltip": "Specify which fields or events should trigger an update. Use syntax: field1,field2,..."
-      }
-    }
-  },
-  "pl": {
-    "dependencies": {
-      "title": "Zależności",
-      "sourcePath": {
-        "label": "Ścieżka źródłowa (zależności)",
-        "tooltip": "Ścieżka do innego pola lub źródła danych, od którego zależy to pole."
-      },
-      "updateTriggers": {
-        "label": "Wyzwalacze aktualizacji (ciąg składniowy)",
-        "tooltip": "Określ pola lub zdarzenia, które mają wywołać aktualizację. Użyj składni: pole1,pole2,..."
-      }
-    }
-  }
-}
-</i18n>

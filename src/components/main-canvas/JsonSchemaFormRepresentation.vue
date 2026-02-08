@@ -67,7 +67,7 @@ defineExpose({
   codeEditorRef
 });
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const style = useStyle();
 
 function contextCopy() {
@@ -123,23 +123,3 @@ onMounted(() => {
 <style lang="scss" scoped>
 
 </style>
-
-
-<i18n lang="json">
-{
-  "en": {
-    "jsonRepresentationTitle": "JSON Schema Form",
-    "copied": "Copied",
-    "edit": "Edit",
-    "editSchema": "Edit schema",
-    "save": "Save"
-  },
-  "pl": {
-    "jsonRepresentationTitle": "JSON Schema Formularza",
-    "copied": "Skopiowano",
-    "edit": "Edytuj",
-    "editSchema": "Edytuj schemat",
-    "save": "Zapisz"
-  }
-}
-</i18n>

@@ -56,7 +56,7 @@ import {useI18n} from "vue-i18n";
 const panels = ref<string[]>(["general", "logic", "headers"])
 
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 const model = computed({
   get() {
@@ -69,17 +69,3 @@ const model = computed({
 
 
 </script>
-
-<i18n lang="json">
-{
-  "en": {
-    "sourcePathLabel": "Source path (dependencies)"
-  },
-  "pl": {
-    "sourcePathLabel": "Ścieżka źródłowa (zależności)"
-  }
-}
-</i18n>
-
-
-

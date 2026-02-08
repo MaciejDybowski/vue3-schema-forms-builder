@@ -22,7 +22,7 @@ import ExpressionProperty from "@/components/properties-drawer/atoms/ExpressionP
 import CalculationProperty from "@/components/properties-drawer/atoms/CalculationProperty.vue";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 const {active, showExpression, showCalculation} = withDefaults(
   defineProps<{
@@ -41,18 +41,3 @@ const model = defineModel<any>();
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "expressions": {
-      "title": "Expressions"
-    }
-  },
-  "pl": {
-    "expressions": {
-      "title": "Wyrażenia"
-    }
-  }
-}
-</i18n>

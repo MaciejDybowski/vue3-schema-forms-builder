@@ -62,7 +62,7 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const panels = ref<string[]>(["general", "layout", "source"])
 
 const useBuilderStateStore = useBuilderState()
@@ -92,22 +92,3 @@ const source = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "hide": "Hide",
-    "visible": "Visible",
-    "combobox": "Combobox",
-    "list": "List",
-    "variant": "Variant"
-  },
-  "pl": {
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "combobox": "Combobox",
-    "list": "Lista",
-    "variant": "Wariant"
-  }
-}
-</i18n>

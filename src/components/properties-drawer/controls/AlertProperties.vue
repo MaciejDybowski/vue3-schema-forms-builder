@@ -86,7 +86,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
 const panels = ref<string[]>(["general", "logic"])
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -105,47 +105,3 @@ const style = useStyle()
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "variantLabel": "Variant",
-    "flat": "Flat",
-    "elevated": "Elevated",
-    "tonal": "Tonal",
-    "outlined": "Outlined",
-    "text": "Text",
-    "plain": "Plain",
-    "typeLabel": "Type",
-    "info": "Info",
-    "success": "Success",
-    "warning": "Warning",
-    "error": "Error",
-    "densityLabel": "Density",
-    "default": "Default",
-    "comfortable": "Comfortable",
-    "compact": "Compact",
-    "memorableLabel": "Enable ability to mark as read"
-  },
-  "pl": {
-    "variantLabel": "Wariant",
-    "flat": "Płaski",
-    "elevated": "Uniesiony",
-    "tonal": "Tonowy",
-    "outlined": "Obramowany",
-    "text": "Tekstowy",
-    "plain": "Prosty",
-    "typeLabel": "Typ",
-    "info": "Informacja",
-    "success": "Sukces",
-    "warning": "Ostrzeżenie",
-    "error": "Błąd",
-    "densityLabel": "Kompaktowość",
-    "default": "Domyślny",
-    "comfortable": "Wygodny",
-    "compact": "Kompaktowy",
-    "memorableLabel": "Włącz możliwość odznaczania jako przeczytane"
-  }
-}
-</i18n>
-

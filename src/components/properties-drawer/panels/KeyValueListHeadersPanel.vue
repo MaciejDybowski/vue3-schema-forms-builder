@@ -141,7 +141,7 @@ const model = defineModel<any>();
 
 const style = useStyle();
 const {prefix, toCamelCase} = useTranslateInput();
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 const dragOptions = {
   animation: 250,
@@ -208,38 +208,3 @@ onMounted(() => {
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "headers": {
-      "title": "Table headers",
-      "titleLabel": "Header title",
-      "titleInfo": "Displayed text of the column header.",
-      "addButton": "Add header",
-      "defaultTitle": "New header",
-      "configTitle": "Configure header",
-      "save": "Save",
-      "useReference": "Use Reference for translation",
-      "useReferenceInfo": "This option allows using the reference mechanism for translating form fields. These translations should be prepared appropriately on the service side that handles the given form.",
-      "valueMapping": "Value mapping",
-      "valueMappingInfo": "Defines how the value maps to the data field."
-    }
-  },
-  "pl": {
-    "headers": {
-      "title": "Nagłówki tabeli",
-      "titleLabel": "Tytuł kolumny",
-      "titleInfo": "Tekst wyświetlany w nagłówku kolumny.",
-      "addButton": "Dodaj nagłówek",
-      "defaultTitle": "Nowy nagłówek",
-      "configTitle": "Konfiguracja nagłówka",
-      "save": "Zapisz",
-      "useReference": "Użyj referencji do tłumaczenia",
-      "useReferenceInfo": "Opcja ta umożliwia na użycie mechanizmu referencji to tłumaczeń pól formularza. Tłumaczenia te powinny zostać przygotowane w odpowiedni sposób po stronie usługi, która obsługuje dany formularz.",
-      "valueMapping": "Mapowanie wartości",
-      "valueMappingInfo": "Określa, jak wartość jest mapowana na dane wiersza."
-    }
-  }
-}
-</i18n>

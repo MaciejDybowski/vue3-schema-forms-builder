@@ -15,8 +15,16 @@ export default defineConfig({
     vue(),
 
     // ✅ obsługa i18n (pliki .json, .yaml)
+    // Supports both:
+    // 1. Centralized translations in ./src/locales/**/*.json
+    // 2. Legacy SFC <i18n> blocks (for backward compatibility during migration)
     VueI18nPlugin({
-      include: path.resolve(__dirname, "./src/locales/**"),
+      include: [
+        path.resolve(__dirname, "./src/locales/**/*.json"),
+        path.resolve(__dirname, "./src/components/**/*.vue"),
+      ],
+      strictMessage: false,
+      escapeHtml: false,
     }),
 
     // ✅ generowanie typów

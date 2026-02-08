@@ -58,18 +58,3 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "thumbnailUrl": "Thumbnail URL",
-    "previewUrl": "Preview URL",
-    "rounded": "Rounded"
-  },
-  "pl": {
-    "thumbnailUrl": "URL miniaturki",
-    "previewUrl": "URL zdjęcia",
-    "rounded": "Zaokrąglenie"
-  }
-}
-</i18n>

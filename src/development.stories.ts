@@ -17,9 +17,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Table1: Story = {
-  name: "URL słownika automatyczne kodowanie",
+  name: "Example 1",
   args: {
     workspaceId: "bm",
-    modelValue: {"type": "object", "properties": {}}
+    modelValue: {
+      "type":"object",
+      properties: {
+
+      }
+    }
   }
 }

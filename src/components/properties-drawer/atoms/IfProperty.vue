@@ -44,7 +44,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
 import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const modelValue = defineModel();
 
 const {
@@ -69,17 +69,3 @@ const {
   cursor: pointer;
 }
 </style>
-
-
-<i18n lang="json">
-{
-  "en": {
-    "ifProperty": "Display condition",
-    "ifPropertyInfo": "You can define a JSONATA condition that controls the visibility (rendering) of this element or open the advanced editor for more complex expressions."
-  },
-  "pl": {
-    "ifProperty": "Warunek wyświetlania",
-    "ifPropertyInfo": "Możesz zdefiniować warunek JSONATA, który kontroluje widoczność (renderowanie) tego elementu lub otwórz zaawansowany edytor dla bardziej złożonych wyrażeń."
-  }
-}
-</i18n>

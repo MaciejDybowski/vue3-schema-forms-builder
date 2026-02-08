@@ -76,7 +76,7 @@ import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import ExpressionsPanel from "@/components/properties-drawer/panels/ExpressionsPanel.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -115,34 +115,3 @@ const items = ref([
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "typeProperty": "Type of data",
-    "typeOptions": {
-      "text": "Text",
-      "number": "Number",
-      "phone": "Phone",
-      "date": "Date",
-      "date-time": "Datetime",
-      "dictionary": "Dictionary",
-      "valueMapping": "Value mapping"
-    },
-    "isCopyEnabled": "Is there a copy to clipboard function?"
-  },
-  "pl": {
-    "typeProperty": "Typ danych",
-    "typeOptions": {
-      "text": "Tekst",
-      "number": "Liczba",
-      "phone": "Telefon",
-      "date": "Data",
-      "date-time": "Data i czas",
-      "dictionary": "Wartość słownikowa",
-      "valueMapping": "Mapowanie wartości"
-    },
-    "isCopyEnabled": "Czy funkcję kopiowania do schowka?"
-  }
-}
-</i18n>

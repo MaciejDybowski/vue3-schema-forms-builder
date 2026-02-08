@@ -114,7 +114,7 @@ import {useVTheme} from "@/composables/useVTheme";
 
 const theme = useVTheme()
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const drawers = useDrawers()
 const isOpen = ref(false)
 const newMessage = ref('')
@@ -228,22 +228,3 @@ const cardStyle = computed((): StyleValue => ({
   transition: 'margin-right 0.3s ease'
 }))
 </script>
-
-<i18n lang="json">
-{
-  "en": {
-    "accept": "Accept",
-    "reject": "Reject",
-    "helloMessage": "Hello! 👋 My name is Aurelius – your assistant in the Aurea system. I am here to help you use Aurea Modeler effectively, answer your questions, suggest features, and streamline your work.",
-    "workInProgress": "💡 I'm already working on it, it may take a few seconds!",
-    "sthWentWrong": "It appears that I have encountered an issue. Please give me a moment and try again."
-  },
-  "pl": {
-    "accept": "Akceptuj",
-    "reject": "Odrzuc",
-    "helloMessage": "Cześć! 👋 Nazywam się Aurelius – Twój asystent w systemie Aurea. Jestem tutaj, aby pomóc Ci efektywnie korzystać z Aurea Modeler, odpowiadać na pytania, podpowiadać funkcje i usprawniać Twoją pracę.",
-    "workInProgress": "💡 Już nad tym pracuję, to może potrwać kilkanaście sekund!",
-    "sthWentWrong": "Wygląda na to, że napotkałem problem. Daj mi chwilkę i spróbuj ponownie."
-  }
-}
-</i18n>

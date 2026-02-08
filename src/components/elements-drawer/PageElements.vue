@@ -28,7 +28,7 @@ import {computed, ref} from "vue";
 import {useDragDrop} from "../../../.storybook/components/useDragDrop";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const style = useStyle();
 const {onDragStart, onDragEnd} = useDragDrop();
 
@@ -163,50 +163,3 @@ function cloneStatic(item: ElementDrawerFromElement) {
   display: none !important;
 }
 </style>
-
-<i18n lang="json">
-{
-  "pl": {
-    "static": {
-      "h1": "Nagłówek 1",
-      "h2": "Nagłówek 2",
-      "h3": "Nagłówek 3",
-      "paragraph": "Paragraf",
-      "text": "Zwykły tekst",
-      "alert": "Alert",
-      "divider": "Rozdzielacz",
-      "dataViewer": "Pole odczytu",
-      "button": "Przycisk",
-      "keyValueList": "Lista klucz-wartość",
-      "key": "Klucz",
-      "value": "Wartość",
-      "validationMessagesViewer": "Komunikaty walidacyjne"
-    },
-    "common": {
-      "changeIt": "Zmień to",
-      "clickMe": "Kliknij mnie"
-    }
-  },
-  "en": {
-    "static": {
-      "h1": "Header 1",
-      "h2": "Header 2",
-      "h3": "Header 3",
-      "paragraph": "Paragraph",
-      "text": "Plain text",
-      "alert": "Alert",
-      "divider": "Divider",
-      "dataViewer": "Read-only field",
-      "button": "Button",
-      "keyValueList": "Key-value list",
-      "key": "Key",
-      "value": "Value",
-      "validationMessagesViewer": "Validation messages"
-    },
-    "common": {
-      "changeIt": "Change it",
-      "clickMe": "Click me"
-    }
-  }
-}
-</i18n>

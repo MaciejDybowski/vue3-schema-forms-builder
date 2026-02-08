@@ -70,7 +70,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const panels = ref<string[]>(["general"]);
 const useBuilderStateStore = useBuilderState();
 
@@ -85,24 +85,3 @@ const model = computed({
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "conversion": {
-      "label": "Form field",
-      "datePicker": "Date picker",
-      "dateTimePicker": "Date & time picker"
-    },
-    "formatInModel": "Format in model"
-  },
-  "pl": {
-    "conversion": {
-      "label": "Pole formularza",
-      "datePicker": "Pole daty",
-      "dateTimePicker": "Pole daty i godziny"
-    },
-    "formatInModel": "Format w modelu"
-  }
-}
-</i18n>

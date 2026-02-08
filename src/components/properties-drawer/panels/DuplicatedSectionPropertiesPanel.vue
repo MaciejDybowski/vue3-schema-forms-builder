@@ -121,7 +121,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import {onMounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const model = defineModel<any>();
 const {active} = defineProps<{
   active: boolean;
@@ -154,56 +154,3 @@ onMounted(() => {
   cursor: pointer;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "fieldProps": {
-      "title": "Field properties"
-    },
-    "editable": "Allow section editing (readonly)",
-    "showElements": "Show contextual elements",
-    "showElementsInfo": "When enabled, elements such as the button, row actions, or item sorting will be visible.",
-    "ordinalNumberInModel": "Add ordinal number",
-    "ordinalNumberInModelInfo": "If enabled, each duplicated section will include its ordinal number in the model. Variable: ordinalNumber",
-    "addBtnMode": "Button mode",
-    "addBtnModeInfo": "Select what happens when the button is clicked: add a new item, copy previous, or trigger an action.",
-    "addClearNode": "Add clear",
-    "copyNode": "Copy above",
-    "actionCall": "Call action",
-    "actionCodeLabel": "Action code",
-    "actionCodeInfo": "Provide the JavaScript code or function name to execute when the action button is pressed.",
-    "showFirstInitRow": "Show empty first line",
-    "showFirstInitRowInfo": "When enabled, the form initializes with one empty section.",
-    "duplicatedSectionShowDivider": "Show divider between sections",
-    "hide": "Hide",
-    "visible": "Visible",
-    "rowVisibilityCondition": "Expression for section visibility",
-    "rowVisibilityConditionHint": "It is recommended to use $boolean(expr)"
-  },
-  "pl": {
-    "fieldProps": {
-      "title": "Właściwości pola"
-    },
-    "editable": "Dozwolona edycja sekcji (readonly)",
-    "showElements": "Pokazuj elementy kontekstowe",
-    "showElementsInfo": "Gdy włączone, elementy takie jak przycisk, akcje wiersza, czy możliwość sortowania elementów będą widoczne.",
-    "ordinalNumberInModel": "Dodaj numer porządkowy (Lp.)",
-    "ordinalNumberInModelInfo": "Jeśli włączone, każda powielona sekcja będzie zawierać swój numer porządkowy w modelu. Zmienna: ordinalNumber",
-    "addBtnMode": "Tryb przycisku",
-    "addBtnModeInfo": "Określ działanie przycisku: dodanie nowego elementu, kopiowanie poprzedniego lub wywołanie akcji.",
-    "addClearNode": "Dodawanie",
-    "copyNode": "Kopiowanie powyższego",
-    "actionCall": "Wywołaj akcję",
-    "actionCodeLabel": "Kod akcji",
-    "actionCodeInfo": "Podaj kod JavaScript lub nazwę funkcji, która ma zostać uruchomiona po kliknięciu przycisku akcji.",
-    "showFirstInitRow": "Pokazuj pusty pierwszy wiersz",
-    "showFirstInitRowInfo": "Gdy włączone, formularz inicjalizuje się z jedną pustą sekcją.",
-    "duplicatedSectionShowDivider": "Pokazuj rozdzielacz między sekcjami",
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "rowVisibilityCondition": "Warunek widoczności sekcji",
-    "rowVisibilityConditionHint": "Rekomendowane użycie $boolean(expr)"
-  }
-}
-</i18n>

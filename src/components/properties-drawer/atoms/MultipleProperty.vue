@@ -18,7 +18,7 @@ import {onMounted} from "vue";
 const modelValue = defineModel()
 const style = useStyle()
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 onMounted(() => {
   if (!modelValue.value) {
@@ -30,14 +30,3 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "multipleProperty": "Multiple values"
-  },
-  "pl": {
-    "multipleProperty": "Dozwolone wiele wartości"
-  }
-}
-</i18n>

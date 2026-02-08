@@ -1,0 +1,12 @@
+{
+  "accept": "Accept",
+  "reject": "Reject",
+  "helloMessage": "Hello! 👋 My name is Aurelius – your assistant in the Aurea system. I am here to help you use Aurea Modeler effectively, answer your questions, suggest features, and streamline your work.",
+  "workInProgress": "💡 I'm already working on it, it may take a few seconds!",
+  "sthWentWrong": "It appears that I have encountered an issue. Please give me a moment and try again.",
+  "validationMessagesText": "System alerts will be here.",
+  "noFieldSelected": "No field selected",
+  "properties": "Properties",
+  "titleFormDemo": "Form Demo",
+  "jsonRepresentationTitle": "JSON Representation"
+}

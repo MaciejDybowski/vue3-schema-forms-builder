@@ -53,7 +53,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue";
 
 const panels = ref<string[]>(["general"]);
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const useBuilderStateStore = useBuilderState();
 
 const model = computed({
@@ -68,24 +68,3 @@ const model = computed({
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "componentLabel": "Component",
-    "header1": "Header 1",
-    "header2": "Header 2",
-    "header3": "Header 3",
-    "paragraph": "Paragraph",
-    "span": "Span"
-  },
-  "pl": {
-    "componentLabel": "Komponent",
-    "header1": "Nagłówek 1",
-    "header2": "Nagłówek 2",
-    "header3": "Nagłówek 3",
-    "paragraph": "Akapit",
-    "span": "Span"
-  }
-}
-</i18n>

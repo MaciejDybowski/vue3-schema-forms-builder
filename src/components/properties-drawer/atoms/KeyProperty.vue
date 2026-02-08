@@ -13,20 +13,9 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 const modelValue = defineModel()
 const style = useStyle()
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 </script>
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "modelKey": "Model reference"
-  },
-  "pl": {
-    "modelKey": "Klucz w modelu"
-  }
-}
-</i18n>

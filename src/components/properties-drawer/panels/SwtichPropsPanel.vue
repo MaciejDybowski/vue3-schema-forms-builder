@@ -33,24 +33,7 @@ const { active } = defineProps<{
 }>();
 
 const model = defineModel<any>();
-const { t } = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 </script>
 
 <style scoped lang="scss"></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "properties": "Properties",
-    "color": "Color",
-    "trueValueMapping": "True value mapping",
-    "falseValueMapping": "False value mapping"
-  },
-  "pl": {
-    "properties": "Właściwości",
-    "color": "Kolor",
-    "trueValueMapping": "Mapowanie wartości 'true'",
-    "falseValueMapping": "Mapowanie wartości 'false'"
-  }
-}
-</i18n>

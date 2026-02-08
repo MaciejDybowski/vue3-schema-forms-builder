@@ -24,7 +24,7 @@
 import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const {active} = defineProps<{
   active: boolean;
 }>()
@@ -42,20 +42,3 @@ const {active} = defineProps<{
   }
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "conversion": {
-      "title": "Conversion",
-      "info": "This option allows you to change the component dynamically without re-dragging or configuring the field. Some incompatible options may become hidden after the change."
-    }
-  },
-  "pl": {
-    "conversion": {
-      "title": "Konwersja",
-      "info": "Opcja ta pozwala na dynamiczną zmianę komponentu bez konieczności przeciągania i ponownej konfiguracji pola. Niektóre niekompatybilne opcje mogą po zmianie być niewidoczne."
-    }
-  }
-}
-</i18n>

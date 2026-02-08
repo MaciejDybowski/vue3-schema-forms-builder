@@ -114,7 +114,7 @@ const model = computed({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 function updateExpressionPersistentHint(val: string) {
   const regex = /^if\(([^,]+),([^,]+),([^)]+)\)$/;
@@ -131,48 +131,3 @@ function updateExpressionPersistentHint(val: string) {
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "conversion": {
-      "label": "Field",
-      "text": "Text field",
-      "textarea": "Text area",
-      "textSwitch": "Text ➞ input field"
-    },
-    "calculation": "Calculation",
-    "hint": "Hint",
-    "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression",
-    "hide": "Hide",
-    "visible": "Visible",
-    "expression": "Expression",
-    "validations": "Validations",
-    "counter": "Counter of letters",
-    "eventType": "Event type",
-    "events": "Events",
-    "onChangeLabel": "On value change"
-  },
-  "pl": {
-    "conversion": {
-      "label": "Pole",
-      "text": "Pole tekstowe",
-      "textarea": "Obszar tekstowy",
-      "textSwitch": "Pole tekst ➞ input"
-    },
-    "calculation": "Obliczenia",
-    "hint": "Podpowiedź",
-    "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek",
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "expression": "Wyrażenie",
-    "validations": "Walidacje",
-    "counter": "Licznik liter",
-    "eventType": "Rodzaj zdarzenia",
-    "events": "Zdarzenia",
-    "onChangeLabel": "Zmiana wartości"
-  }
-}
-</i18n>

@@ -18,24 +18,9 @@
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const modelValue = defineModel();
 </script>
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "hide": "Field hidden",
-    "visible": "Field visible",
-    "hideInfo": "If checked, the form field will be hidden (not visible to the user) but expressions, calculations, or other auxiliary operations will still be executed."
-  },
-  "pl": {
-    "hide": "Pole ukryte",
-    "visible": "Pole widoczne",
-    "hideInfo": "Jeśli zaznaczone, pole formularza będzie ukryte (niewidoczne dla użytkownika) ale wykonają się wyrażenia, kalkulacje lub inne pomocnicze operacje."
-  }
-}
-</i18n>

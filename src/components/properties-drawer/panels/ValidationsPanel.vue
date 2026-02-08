@@ -79,7 +79,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 import NumberPropertyWrapper from "@/components/properties-drawer/atoms/NumberPropertyWrapper.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const style = useStyle();
 
 const props = withDefaults(defineProps<{
@@ -149,34 +149,3 @@ function removeValidation(index: number) {
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "validations": {
-      "title": "Validations",
-      "requiredProperty": "Required field",
-      "counter": "Character counter",
-      "customFunctions": "Custom validation functions",
-      "name": "Validation name",
-      "function": "Validation function (JSONata)",
-      "message": "Validation message",
-      "add": "Add validation",
-      "remove": "Remove validation"
-    }
-  },
-  "pl": {
-    "validations": {
-      "title": "Walidacje",
-      "requiredProperty": "Pole wymagane",
-      "counter": "Licznik znaków",
-      "customFunctions": "Funkcje walidacyjne",
-      "name": "Nazwa walidacji",
-      "function": "Funkcja walidacyjna (JSONata)",
-      "message": "Komunikat walidacyjny",
-      "add": "Dodaj walidację",
-      "remove": "Usuń walidację"
-    }
-  }
-}
-</i18n>

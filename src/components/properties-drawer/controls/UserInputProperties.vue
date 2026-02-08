@@ -79,7 +79,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const panels = ref<string[]>(["general", "logic", "source", "validations"]);
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -121,18 +121,3 @@ const source = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "customsTitle": "Specials",
-    "customEndpoint": "Not default endpoint",
-    "maxSelection": "Max selections"
-  },
-  "pl": {
-    "customsTitle": "Filtry",
-    "customEndpoint": "Endpoint danych",
-    "maxSelection": "Dozwolonych wartości"
-  }
-}
-</i18n>

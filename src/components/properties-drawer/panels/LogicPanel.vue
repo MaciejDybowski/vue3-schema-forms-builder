@@ -38,7 +38,7 @@ import ReadOnlyExpressionProperty from "@/components/properties-drawer/atoms/Rea
 import HideProperty from "@/components/properties-drawer/atoms/HideProperty.vue";
 import HidePropertyExpression from "@/components/properties-drawer/atoms/HidePropertyExpression.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const props = withDefaults(defineProps<{
   active?: boolean
   showIfControl?: boolean
@@ -74,18 +74,3 @@ function updateExpressionHide(val: string) {
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "logic": {
-      "title": "Logic"
-    }
-  },
-  "pl": {
-    "logic": {
-      "title": "Logika"
-    }
-  }
-}
-</i18n>

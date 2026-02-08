@@ -21,7 +21,7 @@ const modelValue = defineModel<any>({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 
 </script>
@@ -29,20 +29,3 @@ const {t} = useI18n()
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "groupFilterProperty": "Group",
-    "filterHint": "Group names separated by coma",
-    "urlKey": "URL",
-    "singleOptionAutoSelect": "Auto select when single"
-  },
-  "pl": {
-    "groupFilterProperty": "Grupa",
-    "filterHint": "Nazwa grupy oddzielana przecinkami",
-    "urlKey": "Specjalny URL",
-    "singleOptionAutoSelect": "Auto wybieranie, gdy pojedyncza wartość"
-  }
-}
-</i18n>

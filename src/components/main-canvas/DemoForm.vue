@@ -104,7 +104,7 @@ import axios from "axios";
 import {toast} from "vue3-toastify";
 
 const showModelPayload = ref(false);
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const model = ref({});
 const props = defineProps<{
   schema: object
@@ -170,22 +170,3 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "titleFormDemo": "Live demo",
-    "workspaceId": "Workspace Id",
-    "workspaceDescription": "Enter the workspace ID from the Aurea environment for the correct operation of the form demo.",
-    "save": "Save",
-    "changeWorkspaceId": "Change workspace"
-  },
-  "pl": {
-    "titleFormDemo": "Live demo",
-    "workspaceId": "Workspace Id",
-    "workspaceDescription": "Wprowadź identyfikator obszaru roboczego ze środowiska Aurea w celu poprawnego działania demo formularza.",
-    "save": "Zapisz",
-    "changeWorkspaceId": "Zmień obszar roboczy"
-  }
-}
-</i18n>

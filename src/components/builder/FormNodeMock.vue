@@ -125,7 +125,7 @@ onMounted(() => {
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 
 const preparedElement = computed(() => {
@@ -166,17 +166,6 @@ watch(props.element, () => {
 
 
 </script>
-
-<i18n lang="json">
-{
-  "en": {
-    "validationMessagesText": "System alerts will be here."
-  },
-  "pl": {
-    "validationMessagesText": "Alerty systemowe pojawią się w tym miejscu"
-  }
-}
-</i18n>
 
 <style lang="scss">
 .disabled-builder-field {

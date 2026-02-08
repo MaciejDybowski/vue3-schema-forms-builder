@@ -16,7 +16,7 @@ import {useI18n} from "vue-i18n";
 import KeyProperty from "@/components/properties-drawer/atoms/KeyProperty.vue";
 import PathProperty from "@/components/properties-drawer/atoms/PathProperty.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const {active} = defineProps<{
   active: boolean;
 }>()
@@ -25,18 +25,3 @@ const model = defineModel<any>()
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "general": {
-      "title": "General properties"
-    }
-  },
-  "pl": {
-    "general": {
-      "title": "Ogólne właściwości"
-    }
-  }
-}
-</i18n>

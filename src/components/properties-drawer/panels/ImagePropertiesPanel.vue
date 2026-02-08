@@ -64,7 +64,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import {useI18n} from "vue-i18n";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const {active} = defineProps<{
   active: boolean
 }>();
@@ -72,34 +72,3 @@ const model = defineModel<any>();
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "fieldProps": {
-      "title": "Field properties",
-      "src": "Source path",
-      "srcInfo": "Path to the image source compliant with the system and proxy requirements",
-      "aspectRatio": "Aspect ratio",
-      "aspectRatioInfo": "Define the aspect ratio for the element (width/height).",
-      "width": "Width",
-      "height": "Height",
-      "cover": "Cover",
-      "coverInfo": "If enabled, the element will cover its container while maintaining aspect ratio."
-    }
-  },
-  "pl": {
-    "fieldProps": {
-      "title": "Właściwości pola",
-      "src": "Ścieżka źródła",
-      "srcInfo": "Ścieżka do źródła obrazu zgodna ze wymaganiami systemu i usługi proxy",
-      "aspectRatio": "Proporcje",
-      "aspectRatioInfo": "Zdefiniuj proporcje elementu (szerokość/wysokość).",
-      "width": "Szerokość",
-      "height": "Wysokość",
-      "cover": "Dopasowanie",
-      "coverInfo": "Jeśli włączone, element wypełni kontener, zachowując proporcje."
-    }
-  }
-}
-</i18n>

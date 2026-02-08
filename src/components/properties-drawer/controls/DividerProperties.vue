@@ -56,7 +56,7 @@ import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 
 const panels = ref<string[]>(["general"])
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const useBuilderStateStore = useBuilderState()
 const model = computed({
   get() {
@@ -71,18 +71,3 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "thickness": "Thickness",
-    "color": "Color",
-    "opacity": "Opacity"
-  },
-  "pl": {
-    "thickness": "Szerokość",
-    "color": "Kolor",
-    "opacity": "Przeźroczystość"
-  }
-}
-</i18n>

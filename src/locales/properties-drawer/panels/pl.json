@@ -1,0 +1,217 @@
+{
+  "general": {
+    "title": "Ogólne właściwości"
+  },
+  "layout": {
+    "title": "Układ pola",
+    "offsetConfiguration": "Konfiguracja przesunięcia",
+    "showOffsetInfo": "Opcja ta pozwala na ustawienie przesunięcia pola w siatce układu względem lewej krawędzi w zależności od rozmiaru ekranu."
+  },
+  "logic": {
+    "title": "Logika"
+  },
+  "expressions": {
+    "title": "Wyrażenia"
+  },
+  "validations": {
+    "title": "Walidacje",
+    "requiredProperty": "Pole wymagane",
+    "counter": "Licznik znaków",
+    "customFunctions": "Funkcje walidacyjne",
+    "name": "Nazwa walidacji",
+    "function": "Funkcja walidacyjna (JSONata)",
+    "message": "Komunikat walidacyjny",
+    "add": "Dodaj walidację",
+    "remove": "Usuń walidację"
+  },
+  "conversion": {
+    "title": "Konwersja",
+    "conversionProperty": "Wyrażenie konwersji",
+    "conversionInfo": "Zdefiniuj wyrażenie JSONata do konwersji wartości pola."
+  },
+  "dependencies": {
+    "title": "Zależności",
+    "add": "Dodaj zależność",
+    "remove": "Usuń zależność",
+    "actionLabel": "Akcja",
+    "requestLabel": "Przy zmianie wartości, wywołaj żądanie",
+    "variable": "Zmienne",
+    "addVariable": "Konfiguruj zmienną"
+  },
+  "source": {
+    "title": "Konfiguracja źródła"
+  },
+  "events": {
+    "title": "Zdarzenia",
+    "variable": "Zmienne",
+    "typeLabel": "Typ zdarzenia",
+    "modeLabel": "Tryb",
+    "onChangeLabel": "Przy zmianie wartości",
+    "actionLabel": "Akcja",
+    "changeModelLabel": "Zmiana modelu",
+    "emitEventLabel": "Emituj zdarzenie",
+    "actionCode": "Kod akcji",
+    "actionCodeHint": "Wykonana zostanie akcja zdefiniowana w Aurea Dashboard System Feature",
+    "signalLabel": "Nazwa sygnału",
+    "signalHint": "Nazwa emitowanego zdarzenia np. refresh-attachments",
+    "paramsLabel": "Parametry akcji/żądania",
+    "addParam": "Konfiguruj parametr",
+    "bodyLabel": "Body akcji/żądania",
+    "addBodyItem": "Konfiguruj atrybut body",
+    "addVariable": "Konfiguruj zmienną",
+    "params": {
+      "title": "Nazwa",
+      "value": "Wartość"
+    },
+    "body": {
+      "title": "Nazwa",
+      "value": "Wartość"
+    },
+    "model": {
+      "path": "Ścieżka w modelu",
+      "value": "Wartość",
+      "if": "Warunek (if)"
+    }
+  },
+  "vuetifyInput": {
+    "title": "Właściwości Vuetify input",
+    "variantLabel": "Wariant pola",
+    "densityLabel": "Gęstość input",
+    "prependIcon": "Ikona przed",
+    "appendIcon": "Ikona po",
+    "clearable": "Możliwość wyczyszczenia",
+    "color": "Kolor"
+  },
+  "switchProps": {
+    "title": "Właściwości przełącznika",
+    "inset": "Wstawka",
+    "color": "Kolor"
+  },
+  "textEditorProps": {
+    "title": "Właściwości edytora tekstu",
+    "outputFormatLabel": "Format wyjściowy",
+    "htmlFormat": "HTML",
+    "jsonFormat": "JSON",
+    "toolbarLabel": "Opcje paska narzędzi",
+    "headings": "Nagłówki",
+    "bold": "Pogrubienie",
+    "italic": "Kursywa",
+    "underline": "Podkreślenie",
+    "strike": "Przekreślenie",
+    "subscript": "Indeks dolny",
+    "superscript": "Indeks górny",
+    "bulletList": "Lista punktowana",
+    "orderedList": "Lista numerowana",
+    "blockquote": "Cytat blokowy",
+    "codeBlock": "Blok kodu",
+    "horizontalRule": "Linia pozioma",
+    "link": "Link",
+    "image": "Obraz",
+    "clearFormat": "Wyczyść format",
+    "undo": "Cofnij",
+    "redo": "Ponów"
+  },
+  "selectRadioCheckbox": {
+    "fieldProperties": "Właściwości pola",
+    "horizontalLayout": "Układ poziomy",
+    "multipleProps": "Dozwolone wiele wyborów",
+    "bookmarkBgColor": "Kolor tła zakładki",
+    "bookmarkColor": "Kolor wybranej zakładki",
+    "layoutDirection": "Kierunek układu",
+    "verticalLayout": "Pionowy",
+    "horizontalLayoutAlt": "Poziomy"
+  },
+  "image": {
+    "title": "Właściwości pola",
+    "src": "Ścieżka źródła",
+    "srcInfo": "Ścieżka do źródła obrazu zgodna ze wymaganiami systemu i usługi proxy",
+    "aspectRatio": "Proporcje",
+    "aspectRatioInfo": "Zdefiniuj proporcje elementu (szerokość/wysokość).",
+    "width": "Szerokość",
+    "height": "Wysokość",
+    "cover": "Dopasowanie",
+    "coverInfo": "Jeśli włączone, element wypełni kontener, zachowując proporcje."
+  },
+  "expansionPanels": {
+    "title": "Ustawienia sekcji",
+    "section": {
+      "title": "Tytuł sekcji",
+      "icon": "Ikona sekcji",
+      "iconSize": "Rozmiar ikony",
+      "add": "Dodaj sekcję",
+      "newTitle": "Nowa sekcja"
+    },
+    "componentLabel": "Nagłówek",
+    "header1": "Nagłówek 1",
+    "header2": "Nagłówek 2",
+    "header3": "Nagłówek 3",
+    "header4": "Nagłówek 4",
+    "header5": "Nagłówek 5",
+    "header6": "Nagłówek 6"
+  },
+  "headers": {
+    "title": "Nagłówki tabeli",
+    "titleLabel": "Tytuł kolumny",
+    "titleInfo": "Tekst wyświetlany w nagłówku kolumny.",
+    "addButton": "Dodaj nagłówek",
+    "defaultTitle": "Nowy nagłówek",
+    "configTitle": "Konfiguracja nagłówka",
+    "save": "Zapisz",
+    "useReference": "Użyj referencji do tłumaczenia",
+    "useReferenceInfo": "Opcja ta umożliwia na użycie mechanizmu referencji do tłumaczeń pól formularza.",
+    "valueMapping": "Mapowanie wartości",
+    "valueMappingInfo": "Określa, jak wartość jest mapowana na dane wiersza."
+  },
+  "duplicatedSection": {
+    "title": "Właściwości pola",
+    "editable": "Dozwolona edycja sekcji (readonly)",
+    "showElements": "Pokaż elementy kontekstowe",
+    "showElementsInfo": "Po włączeniu, elementy takie jak przycisk, akcje wiersza lub sortowanie będą widoczne.",
+    "ordinalNumberInModel": "Dodaj numer porządkowy",
+    "ordinalNumberInModelInfo": "Jeśli włączone, każda powielona sekcja będzie zawierała swój numer porządkowy w modelu.",
+    "addBtnMode": "Tryb przycisku",
+    "addBtnModeInfo": "Wybierz, co dzieje się po kliknięciu przycisku.",
+    "addClearNode": "Dodaj pusty",
+    "copyNode": "Kopiuj powyższy",
+    "actionCall": "Wywołaj akcję",
+    "actionCodeLabel": "Kod akcji",
+    "actionCodeInfo": "Podaj kod JavaScript lub nazwę funkcji do wykonania.",
+    "showFirstInitRow": "Pokaż pustą pierwszą linię",
+    "showFirstInitRowInfo": "Po włączeniu formularz inicjalizuje się z jedną pustą sekcją.",
+    "duplicatedSectionShowDivider": "Pokaż separator między sekcjami",
+    "hide": "Ukryj",
+    "visible": "Widoczny",
+    "rowVisibilityCondition": "Wyrażenie widoczności sekcji",
+    "rowVisibilityConditionHint": "Zaleca się używanie $boolean(expr)"
+  },
+  "schedulerGrid": {
+    "title": "Legenda"
+  },
+  "cancel": "Anuluj",
+  "save": "Zapisz",
+  "title": "Ustawienia sekcji",
+  "componentLabel": "Nagłówek",
+  "header1": "Nagłówek 1",
+  "header2": "Nagłówek 2",
+  "header3": "Nagłówek 3",
+  "header4": "Nagłówek 4",
+  "section": {
+    "title": "Tytuł sekcji",
+    "icon": "Ikona sekcji",
+    "iconSize": "Rozmiar ikony",
+    "add": "Dodaj sekcję",
+    "newTitle": "Nowa sekcja"
+  },
+  "fieldProps": {
+    "title": "Właściwości pola",
+    "src": "Ścieżka źródła",
+    "srcInfo": "Ścieżka do źródła obrazu zgodna ze wymaganiami systemu i usługi proxy",
+    "aspectRatio": "Proporcje",
+    "aspectRatioInfo": "Zdefiniuj proporcje elementu (szerokość/wysokość).",
+    "width": "Szerokość",
+    "height": "Wysokość",
+    "cover": "Dopasowanie",
+    "coverInfo": "Jeśli włączone, element wypełni kontener, zachowując proporcje."
+  }
+}
+

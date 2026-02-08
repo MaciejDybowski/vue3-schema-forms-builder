@@ -73,25 +73,10 @@ const model = computed({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 </script>
 
 
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "contentType": "Content saved type",
-    "htmlType": "HTML",
-    "jsonType": "JSON"
-  },
-  "pl": {
-    "contentType": "Typ zapisywanej treści",
-    "htmlType": "HTML",
-    "jsonType": "JSON"
-  }
-}
-</i18n>

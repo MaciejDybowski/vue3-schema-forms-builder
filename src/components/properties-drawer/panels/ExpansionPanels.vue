@@ -88,7 +88,7 @@ const emit = defineEmits<{
   (e: "update:panels", panels: Panel[]): void;
 }>();
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 
 function addPanel() {
@@ -138,41 +138,3 @@ function removePanel(index: number) {
 
 
 </style>
-<i18n lang="json">
-{
-  "pl": {
-    "title": "Ustawienia sekcji",
-    "section": {
-      "title": "Tytuł sekcji",
-      "icon": "Ikona sekcji",
-      "iconSize": "Rozmiar ikony",
-      "add": "Dodaj sekcję",
-      "newTitle": "Nowa sekcja"
-    },
-    "componentLabel": "Nagłówek",
-    "header1": "Nagłówek 1",
-    "header2": "Nagłówek 2",
-    "header3": "Nagłówek 3",
-    "header4": "Nagłówek 4",
-    "header5": "Nagłówek 5",
-    "header6": "Nagłówek 6"
-  },
-  "en": {
-    "title": "Section properties",
-    "section": {
-      "title": "Section title",
-      "icon": "Section icon",
-      "iconSize": "Icon size",
-      "add": "Add section",
-      "newTitle": "New section"
-    },
-    "componentLabel": "Header",
-    "header1": "Header 1",
-    "header2": "Header 2",
-    "header3": "Header 3",
-    "header4": "Header 4",
-    "header5": "Header 5",
-    "header6": "Header 6"
-  }
-}
-</i18n>

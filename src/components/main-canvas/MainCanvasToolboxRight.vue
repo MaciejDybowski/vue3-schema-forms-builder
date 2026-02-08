@@ -35,9 +35,3 @@ const useBuilderStateStore = useBuilderState()
 </script>
 
 <style lang="scss" scoped></style>
-<i18n lang="json">
-{
-  "en": {},
-  "pl": {}
-}
-</i18n>

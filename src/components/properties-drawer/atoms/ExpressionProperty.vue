@@ -25,7 +25,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
 import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 
 const model = defineModel<any>();
@@ -49,18 +49,3 @@ const {
   border-radius: 0.3em;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "advancedConfiguration": "Advanced configuration",
-    "expression": "Expression",
-    "save": "Save"
-  },
-  "pl": {
-    "advancedConfiguration": "Konfiguracja zaawansowana",
-    "expression": "Wyrażenie",
-    "save": "Zapisz"
-  }
-}
-</i18n>

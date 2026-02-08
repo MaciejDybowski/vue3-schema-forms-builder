@@ -96,7 +96,7 @@ const urlComputed = computed({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 onMounted(() => {
   if (model.value['showLabel'] == undefined) {
@@ -114,20 +114,3 @@ onMounted(() => {
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "showLabel": "Show field label",
-    "showUserColumn": "Show user column",
-    "source": "Data source",
-    "sourceUrl": "URL for external data"
-  },
-  "pl": {
-    "showLabel": "Pokazuj etykietę pola",
-    "showUserColumn": "Pokazuj kolumnę użytkownika",
-    "source": "Źródło danych",
-    "sourceUrl": "URL dla zew. danych"
-  }
-}
-</i18n>

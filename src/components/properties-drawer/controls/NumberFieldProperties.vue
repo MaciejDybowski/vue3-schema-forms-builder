@@ -106,53 +106,8 @@ const model = computed({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 </script>
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "int": "Integer",
-    "float": "Float",
-    "precision": "Precision",
-    "precisionMin": "Precision (min)",
-    "calculation": "Calculation",
-    "hint": "Hint",
-    "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression",
-    "hide": "Hide",
-    "visible": "Visible",
-    "expression": "Expression",
-    "readonlyIfExpression": "Readonly expression",
-    "roundLabel": "Round option",
-    "ceilOptionLabel": "Ceil option",
-    "floorOptionLabel": "Float option",
-    "roundOptionLabel": "Round option",
-    "suffix": "Suffix",
-    "prefix": "Prefix"
-  },
-  "pl": {
-    "int": "Całkowita",
-    "float": "Zmiennoprzecinkowa",
-    "precision": "Precyzja zaokrągleń",
-    "precisionMin": "Precyzja zaokrągleń (min)",
-    "calculation": "Obliczenia",
-    "hint": "Podpowiedź",
-    "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek",
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "expression": "Wyrażenie",
-    "readonlyIfExpression": "Readonly wyrażenie",
-    "roundLabel": "Opcje zaokrąglania",
-    "ceilOptionLabel": "Ceil",
-    "floorOptionLabel": "Floor",
-    "roundOptionLabel": "Round",
-    "suffix": "Suffix",
-    "prefix": "Prefix"
-  }
-}
-</i18n>

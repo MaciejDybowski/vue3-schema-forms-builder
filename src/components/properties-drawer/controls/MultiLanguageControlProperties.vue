@@ -64,7 +64,7 @@ const model = computed({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 </script>
 
 <style lang="scss" scoped>
@@ -72,28 +72,3 @@ const {t} = useI18n()
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "calculation": "Calculation",
-    "hint": "Hint",
-    "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression",
-    "hide": "Hide",
-    "visible": "Visible",
-    "validations": "Validations",
-    "counter": "Counter of letters"
-  },
-  "pl": {
-    "calculation": "Obliczenia",
-    "hint": "Podpowiedź",
-    "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek",
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "validations": "Walidacje",
-    "counter": "Licznik liter"
-  }
-}
-</i18n>

@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<{
 })
 
 const model = defineModel<any>()
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 function updateExpressionPersistentHint(val: string | boolean) {
   model.value.layout.props['persistent-hint'] = val || false
@@ -49,34 +49,3 @@ function updateExpressionPersistentHint(val: string | boolean) {
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "fieldProperties": "Field properties",
-    "hint": "Hint text",
-    "hintDescription": "A short helper text displayed below the field.",
-    "prefix": "Prefix",
-    "prefixDescription": "Text or icon displayed before the field value.",
-    "suffix": "Suffix",
-    "suffixDescription": "Text or icon displayed after the field value.",
-    "persistentHintIfExpression": "Persistent hint (expression)",
-    "persistentHintIfExpressionDescription": "JSONata expression that determines whether the hint remains visible permanently.",
-    "persistentHint": "Persistent hint",
-    "persistentHintDescription": "When enabled, the hint remains visible at all times."
-  },
-  "pl": {
-    "fieldProperties": "Właściwości pola",
-    "hint": "Podpowiedź",
-    "hintDescription": "Krótki tekst pomocniczy wyświetlany pod polem.",
-    "prefix": "Prefiks",
-    "prefixDescription": "Tekst lub ikona wyświetlana przed wartością pola.",
-    "suffix": "Sufiks",
-    "suffixDescription": "Tekst lub ikona wyświetlana po wartości pola.",
-    "persistentHintIfExpression": "Stała podpowiedź (wyrażenie)",
-    "persistentHintIfExpressionDescription": "Wyrażenie JSONata określające, czy podpowiedź ma być stale widoczna.",
-    "persistentHint": "Stała podpowiedź",
-    "persistentHintDescription": "Gdy włączone, podpowiedź jest widoczna cały czas."
-  }
-}
-</i18n>

@@ -311,7 +311,7 @@ import {useTranslateInput} from "@/composables/useTranslateInput";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const style = useStyle();
 const {prefix, toCamelCase} = useTranslateInput();
 const advancedConfigDialog = ref(false);
@@ -554,59 +554,3 @@ const mdiIcons = ref([
 }
 
 </style>
-
-
-<i18n lang="json">
-{
-  "en": {
-    "save": "Save",
-    "delete": "Delete",
-    "moveUp": "Move up",
-    "moveDown": "Move down",
-    "close": "Close",
-    "simpleSource": {
-      "openOptionEditor": "Open option editor",
-      "showAdvanced": "Show advanced configuration",
-      "advancedConfigTitle": "Advanced configuration",
-      "option": "Option",
-      "title": "Option configuration",
-      "value": "Value",
-      "label": "Label",
-      "icon": "Icon",
-      "addButton": "Add option",
-      "returnObject": "Save object",
-      "returnObjectTooltip": "If enabled, the entire object containing, for example, the identifier and label will be saved in the form model. If disabled, only the valueMapping defined in the dictionary URL will be saved in the model.",
-      "useReference": "Use reference",
-      "disabledCondition": "Disabled condition",
-      "addDisabledCondition": "Click to define a disabled condition",
-      "useReferenceInfo": "This option allows you to use the reference mechanism for translating form fields. These translations should be properly prepared on the service side that handles the given form.",
-      "multiple": "Allow values"
-    }
-  },
-  "pl": {
-    "save": "Zapisz",
-    "delete": "Usuń",
-    "moveUp": "Przesuń w górę",
-    "moveDown": "Przesuń w dół",
-    "close": "Zamknij",
-    "simpleSource": {
-      "openOptionEditor": "Otwórz edytor opcji",
-      "showAdvanced": "Pokaż konfigurację zaawansowaną",
-      "advancedConfigTitle": "Konfiguracja zaawansowana",
-      "option": "Opcja",
-      "title": "Konfiguracja opcji",
-      "value": "Wartość",
-      "label": "Etykieta",
-      "icon": "Ikona",
-      "addButton": "Dodaj opcję",
-      "returnObject": "Zwracaj obiekt",
-      "returnObjectTooltip": "Jeżeli opcja jest włączona, w modelu formularza zapisywany będzie cały obiekt, zawierający na przykład identyfikator oraz etykietę. Gdy opcja jest wyłączona, w modelu zapisywane będzie wyłącznie valueMapping zdefiniowane w adresie URL słownika",
-      "useReference": "Użyj referencji",
-      "disabledCondition": "Warunek wyłączenia",
-      "addDisabledCondition": "Kliknij, aby zdefiniować warunek wyłączenia",
-      "useReferenceInfo": "Opcja ta umożliwia na użycie mechanizmu referencji to tłumaczeń pól formularza. Tłumaczenia te powinny zostać przygotowane w odpowiedni sposób po stronie usługi, która obsługuje dany formularz.",
-      "multiple": "Dozwolone wiele wartości"
-    }
-  }
-}
-</i18n>

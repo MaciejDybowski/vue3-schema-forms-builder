@@ -302,7 +302,7 @@ import ExpansionPanel from "@/components/properties-drawer/ExpansionPanel.vue";
 import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vue";
 import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextPropertyWrapper.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const style = useStyle();
 
 const props = defineProps<{ active: boolean }>();
@@ -494,80 +494,3 @@ onMounted(() => {
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "cancel": "Cancel",
-    "save": "Save",
-    "events": {
-      "variable": "Variables",
-      "title": "Events",
-      "typeLabel": "Event type",
-      "modeLabel": "Mode",
-      "onChangeLabel": "On value change",
-      "actionLabel": "Action",
-      "changeModelLabel": "Model change",
-      "emitEventLabel": "Emit event",
-      "actionCode": "Action code",
-      "actionCodeHint": "The action defined in Aurea Dashboard System Feature will be executed",
-      "signalLabel": "Signal name",
-      "signalHint": "Name of the emitted event e.g. refresh-attachments",
-      "paramsLabel": "Action/Request parameters",
-      "addParam": "Config parameter",
-      "bodyLabel": "Action/Request body",
-      "addBodyItem": "Config body attribute",
-      "addVariable": "Config variable",
-      "params": {
-        "title": "Name",
-        "value": "Value"
-      },
-      "body": {
-        "title": "Name",
-        "value": "Value"
-      },
-      "model": {
-        "path": "Path",
-        "value": "New value",
-        "if": "Condition"
-      }
-    }
-  },
-  "pl": {
-    "cancel": "Anuluj",
-    "save": "Zapisz",
-    "events": {
-      "variable": "Zmienne",
-      "title": "Zdarzenia",
-      "typeLabel": "Rodzaj zdarzenia",
-      "modeLabel": "Tryb",
-      "onChangeLabel": "Przy zmianie wartości",
-      "actionLabel": "Akcja",
-      "changeModelLabel": "Zmiana modelu",
-      "emitEventLabel": "Emituj zdarzenie",
-      "actionCode": "Kod akcji",
-      "actionCodeHint": "Wykonana zostanie akcja z definicji Feature systemu Aurea Dashboard",
-      "signalLabel": "Nazwa sygnału",
-      "signalHint": "Nazwa emitowanego zdarzenia np. refresh-attachments",
-      "paramsLabel": "Parametry akcji/żądania HTTP",
-      "addParam": "Konfiguruj parametry",
-      "bodyLabel": "Body akcji/żądania HTTP",
-      "addBodyItem": "Konfiguruj atrybut body",
-      "addVariable": "Skonfiguruj zmienne",
-      "params": {
-        "title": "Nazwa",
-        "value": "Wartość"
-      },
-      "body": {
-        "title": "Nazwa",
-        "value": "Wartość"
-      },
-      "model": {
-        "path": "Ścieżka",
-        "value": "Nowa wartość",
-        "if": "Warunek"
-      }
-    }
-  }
-}
-</i18n>

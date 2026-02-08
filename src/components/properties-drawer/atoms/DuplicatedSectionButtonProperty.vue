@@ -33,7 +33,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms/BooleanCheckboxPropertyWrapper.vue";
 
 const modelValue = defineModel<any>();
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const {prefix, isReference, referenceChanged, getValueForInput} = useTranslateInput();
 
 const duplicatedSectionButton = getValueForInput("addBtnText", modelValue);
@@ -44,18 +44,3 @@ function referenceChangedTrigger() {
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "duplicatedSectionButtonText": "Button text",
-    "useReference": "Use Reference for translation",
-    "useReferenceInfo": "This option allows you to use the reference mechanism for translating form fields. These translations should be properly handled by the backend service responsible for the form."
-  },
-  "pl": {
-    "duplicatedSectionButtonText": "Tekst przycisku",
-    "useReference": "Użyj referencji do tłumaczenia",
-    "useReferenceInfo": "Opcja ta umożliwia użycie mechanizmu referencji do tłumaczenia pól formularza. Tłumaczenia te powinny zostać przygotowane po stronie usługi obsługującej dany formularz."
-  }
-}
-</i18n>

@@ -85,7 +85,7 @@ import SourcePanel from "@/components/properties-drawer/panels/SourcePanel.vue";
 
 const panels = ref<string[]>(["general", "source"])
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -117,31 +117,3 @@ const component: ComputedRef<FromElementComponent> = computed(() => {
 <style lang="scss" scoped>
 
 </style>
-
-
-<i18n lang="json">
-{
-  "en": {
-    "componentType": "Component",
-    "horizontalLayout": "Set horizontal",
-    "multipleProps": "Multiple values",
-    "componentOptions": {
-      "radio-button": "Radio Button",
-      "checkbox": "Checkbox",
-      "select": "Select",
-      "bookmark": "Bookmarks"
-    }
-  },
-  "pl": {
-    "componentType": "Typ pola",
-    "horizontalLayout": "Ułóż horyzontalnie",
-    "multipleProps": "Dozwolone wiele wartości",
-    "componentOptions": {
-      "radio-button": "Przycisk radio",
-      "checkbox": "Pole wyboru",
-      "select": "Lista rozwijana",
-      "bookmark": "Zakładki"
-    }
-  }
-}
-</i18n>

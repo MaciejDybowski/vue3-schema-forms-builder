@@ -97,7 +97,7 @@ export type LegendItem = {
   colors: { light: string; dark: string }
 }
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 const props = withDefaults(defineProps<{
   active?: boolean
@@ -139,18 +139,3 @@ const removeItem = (index: number) => legend.value.splice(index, 1)
   padding: 0;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "schedulerGrid": {
-      "title": "Legend"
-    }
-  },
-  "pl": {
-    "schedulerGrid": {
-      "title": "Legenda"
-    }
-  }
-}
-</i18n>

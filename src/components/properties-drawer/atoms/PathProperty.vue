@@ -24,7 +24,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import {toast} from "vue3-toastify";
 
 const useBuilderStateStore = useBuilderState();
-const { t } = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 async function copyPath() {
   const path = useBuilderStateStore.getConfiguredFieldPath;
@@ -42,18 +42,3 @@ async function copyPath() {
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "pathProperty": "Field path",
-    "copied": "Copied to clipboard!",
-    "copyFailed": "Failed to copy."
-  },
-  "pl": {
-    "pathProperty": "Ścieżka do pola",
-    "copied": "Skopiowano do schowka!",
-    "copyFailed": "Nie udało się skopiować."
-  }
-}
-</i18n>

@@ -61,7 +61,7 @@ import ValidationsPanel from "@/components/properties-drawer/panels/ValidationsP
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -74,20 +74,3 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "pl": {
-    "fileLabel": "Etykieta pliku",
-    "fileAvailableExtensions": "Dostępne rozszerzenie",
-    "fileAvailableExtensionsHint": "Rozszerzenia rodzielone przecinkiem",
-    "fileMaxSize": "Max. rozmiar w MB"
-  },
-  "en": {
-    "fileLabel": "File label",
-    "fileAvailableExtensions": "Available extension",
-    "fileAvailableExtensionsHint": "Extensions separated by comma",
-    "fileMaxSize": "Max. size in MB"
-  }
-}
-</i18n>

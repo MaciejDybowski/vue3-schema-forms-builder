@@ -86,7 +86,7 @@ import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const panels = ref<string[]>(["general", "logic", "source"])
 const useBuilderStateStore = useBuilderState()
 const model = computed({
@@ -117,28 +117,3 @@ const source = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "componentOptions": {
-      "label": "Component type",
-      "autocompleteTitle": "Autocomplete",
-      "autocompleteSubtitle": "Allows selecting only values returned from the service.",
-      "comboboxTitle": "Combobox",
-      "comboboxSubtitle": "Allows the user to enter a value outside of the predefined set.",
-      "dataViewer": "Data Viewer"
-    }
-  },
-  "pl": {
-    "componentOptions": {
-      "label": "Typ komponentu",
-      "autocompleteTitle": "Autocomplete",
-      "autocompleteSubtitle": "Pozwala na wybór wartości tylko ze zwracanych danych z usługi.",
-      "comboboxTitle": "Combobox",
-      "comboboxSubtitle": "Pozwala na wpisanie wartości spoza dostępnego zbioru przez użytkownika.",
-      "dataViewer": "Pole odczytu"
-    }
-  }
-}
-</i18n>

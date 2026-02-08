@@ -52,7 +52,7 @@ import {nextTick, ref, watch} from 'vue'
 import {useI18n} from 'vue-i18n'
 import {useStyle} from "@/main";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const style = useStyle()
 
 const localValue = defineModel()
@@ -142,18 +142,3 @@ async function toggleFullscreen() {
   overflow: hidden !important;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "advancedConfiguration": "Advanced configuration",
-    "cancel": "Cancel",
-    "save": "Save"
-  },
-  "pl": {
-    "advancedConfiguration": "Konfiguracja zaawansowana",
-    "cancel": "Anuluj",
-    "save": "Zapisz"
-  }
-}
-</i18n>

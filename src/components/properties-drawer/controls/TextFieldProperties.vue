@@ -98,7 +98,7 @@ const model = computed({
   }
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 </script>
 
@@ -107,54 +107,3 @@ const {t} = useI18n()
   padding: 8px 2px;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "conversion": {
-      "label": "Field",
-      "text": "Text field",
-      "textarea": "Text area",
-      "textSwitch": "Text ➞ input field",
-      "dataViewer": "Data viewer"
-    },
-    "calculation": "Calculation",
-    "hint": "Hint",
-    "persistentHint": "Is the hint always visible?",
-    "persistentHintIfExpression": "Hint expression",
-    "hide": "Hide",
-    "visible": "Visible",
-    "expression": "Use JSONata functionality or use built-in expressions.",
-    "validations": "Validations",
-    "counter": "Counter of letters",
-    "eventType": "Event type",
-    "events": "Events",
-    "onChangeLabel": "On value change",
-    "suffix": "Suffix",
-    "prefix": "Prefix"
-  },
-  "pl": {
-    "conversion": {
-      "label": "Pole",
-      "text": "Pole tekstowe",
-      "textarea": "Obszar tekstowy",
-      "textSwitch": "Pole tekst ➞ input",
-      "dataViewer": "Pole odczytu"
-    },
-    "calculation": "Obliczenia",
-    "hint": "Podpowiedź",
-    "persistentHint": "Czy hint zawsze widoczny?",
-    "persistentHintIfExpression": "Podpowiedź warunek",
-    "hide": "Ukryte",
-    "visible": "Widoczne",
-    "expression": "Korzystaj z funkcji JSONata lub wbodowanych wyrażeń.",
-    "validations": "Walidacje",
-    "counter": "Licznik liter",
-    "eventType": "Rodzaj zdarzenia",
-    "events": "Zdarzenia",
-    "onChangeLabel": "Zmiana wartości",
-    "suffix": "Suffix",
-    "prefix": "Prefix"
-  }
-}
-</i18n>

@@ -418,7 +418,7 @@ import {useI18n} from "vue-i18n";
 import ConversionPanel from "@/components/properties-drawer/panels/ConversionPanel.vue";
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const style = useStyle()
 const panels = ref<string[]>(["general", 'source', 'logic', 'headers'])
 const useBuilderStateStore = useBuilderState()
@@ -641,84 +641,3 @@ function referenceChangedButtonLabel() {
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "conversion": {
-      "tableView": "Table: source API",
-      "tableInternal": "Table: source model"
-    },
-    "dialogHeader": "Table header to configure: {val}",
-    "dialogHeaderAction": "Table action to configure: {val}",
-    "general": "General",
-    "layout": "Layout",
-    "logic": "Logic",
-    "source": "Source",
-    "headers": "Headers",
-    "buttons": "Buttons",
-    "actions": "Actions",
-    "save": "Save",
-    "add": "Add",
-    "title": "Title",
-    "key": "Key",
-    "valueMapping": "Value mapping",
-    "footerMapping": "Footer mapping",
-    "color": "Color",
-    "fieldType": "Field type",
-    "editable": "Editable",
-    "collectionItemsDefinition": "Collection items definition",
-    "headerProperties": "Header properties",
-    "headerActions": "Header actions",
-    "label": "Label",
-    "mode": "Mode",
-    "buttonConfiguration": "Button configuration",
-    "buttonPropertiesVuetify": "Button properties (Vuetify)",
-    "jsonObjectWithActions": "JSON Object with actions",
-    "dataURL": "Data URL",
-    "useReference": "Use Reference",
-    "deleteAction": "Delete action",
-    "addAction": "Add action",
-    "action": "Action",
-    "internal": "Internal"
-  },
-  "pl": {
-    "conversion": {
-      "tableView": "Tabela: źródło API",
-      "tableInternal": "Tabela: źródło model"
-    },
-    "dialogHeader": "Nagłówek tabeli do konfiguracji: {val}",
-    "dialogHeaderAction": "Akcja tabeli do konfiguracji: {val}",
-    "general": "Ogólne",
-    "layout": "Układ",
-    "logic": "Logika",
-    "source": "Źródło",
-    "headers": "Nagłówki",
-    "buttons": "Przyciski",
-    "actions": "Akcje",
-    "save": "Zapisz",
-    "add": "Dodaj",
-    "title": "Tytuł",
-    "key": "Klucz",
-    "valueMapping": "Mapowanie wartości",
-    "footerMapping": "Mapowanie stopki",
-    "color": "Kolor",
-    "fieldType": "Typ pola",
-    "editable": "Edycyjne",
-    "collectionItemsDefinition": "Definicja elementów kolekcji",
-    "headerProperties": "Właściwości nagłówka",
-    "headerActions": "Akcje nagłówka",
-    "label": "Etykieta",
-    "mode": "Tryb",
-    "buttonConfiguration": "Konfiguracja przycisku",
-    "buttonPropertiesVuetify": "Właściwości przycisku (Vuetify)",
-    "jsonObjectWithActions": "Obiekt JSON z akcjami",
-    "dataURL": "URL danych",
-    "useReference": "Użyj referencji",
-    "deleteAction": "Usuń akcję",
-    "addAction": "Dodaj akcję",
-    "action": "Akcja",
-    "internal": "Wew. działanie"
-  }
-}
-</i18n>

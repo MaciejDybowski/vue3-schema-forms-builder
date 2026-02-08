@@ -26,7 +26,11 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "i18n:extract": "node scripts/extract-i18n.js",
+    "i18n:extract:dry": "node scripts/extract-i18n.js --dry-run",
+    "i18n:migrate": "node scripts/migrate-i18n.js",
+    "i18n:migrate:dry": "node scripts/migrate-i18n.js --dry-run"
   },
   "dependencies": {
     "@google/genai": "^1.13.0",

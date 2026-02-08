@@ -58,29 +58,10 @@ function calcCols() {
 
 }
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 </script>
 
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "offset": {
-      "desktop": "Offset on desktop and laptops",
-      "tablet": "Offset on tablets",
-      "mobile": "Offset on mobile phones"
-    }
-  },
-  "pl": {
-    "offset": {
-      "desktop": "Przesunięcie pola - ekran typu monitor",
-      "tablet": "Przesunięcie pola - ekran typu tablet",
-      "mobile": "Przesunięcie pola - ekran typu smartfon"
-    }
-  }
-}
-</i18n>

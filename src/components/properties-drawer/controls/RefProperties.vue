@@ -27,7 +27,7 @@ import {useI18n} from "vue-i18n";
 
 const panels = ref<string[]>(["general"])
 const useBuilderStateStore = useBuilderState()
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 const model = computed({
   get() {
     return useBuilderStateStore.getConfiguredField
@@ -43,15 +43,3 @@ const model = computed({
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "reference": "Reference"
-  },
-  "pl": {
-    "reference": "Odwołanie"
-  }
-}
-</i18n>
-

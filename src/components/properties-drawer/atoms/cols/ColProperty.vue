@@ -39,7 +39,7 @@ const modelValue = defineModel<{
   default: {}
 })
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 watch(() => modelValue.value, () => {
   calcOffset()
@@ -64,22 +64,3 @@ function calcOffset() {
 <style lang="scss" scoped>
 
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "size": {
-      "desktop": "Size on desktop and laptops",
-      "tablet": "Size on tablets",
-      "mobile": "Size on mobile phones"
-    }
-  },
-  "pl": {
-    "size": {
-      "desktop": "Szerokość pola - ekran typu monitor",
-      "tablet": "Szerokość pola - ekran typu tablet",
-      "mobile": "Szerokość pola - ekran typu smartfon"
-    }
-  }
-}
-</i18n>

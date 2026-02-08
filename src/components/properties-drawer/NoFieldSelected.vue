@@ -34,7 +34,7 @@
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 </script>
 
 <style scoped>
@@ -48,14 +48,3 @@ svg rect[stroke-dasharray] {
   }
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "noFieldSelected": "No field selected in the form"
-  },
-  "pl": {
-    "noFieldSelected": "Brak wybranego elementu na formularzu"
-  }
-}
-</i18n>

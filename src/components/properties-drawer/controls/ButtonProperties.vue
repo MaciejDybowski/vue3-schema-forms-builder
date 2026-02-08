@@ -110,7 +110,7 @@ import GeneralPanel from "@/components/properties-drawer/panels/GeneralPanel.vue
 import LayoutPanel from "@/components/properties-drawer/panels/LayoutPanel.vue";
 import LogicPanel from "@/components/properties-drawer/panels/LogicPanel.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 
 const panels = ref<string[]>(["general"]);
 const useBuilderStateStore = useBuilderState();
@@ -149,32 +149,3 @@ function tryParseAsButtonSchema(value: string) {
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "buttonMode": "Button mode",
-    "modeAction": "Action",
-    "modeCopy": "Copy",
-    "modeFormAndAction": "Form and action",
-    "modeApiCall": "API Call",
-    "configuration": "Advanced configuration",
-    "buttonConfiguration": "Button configuration",
-    "dialogSchema": "Dialog schema",
-    "internalJsonSchema": "Internal JSON Schema",
-    "save": "Save"
-  },
-  "pl": {
-    "buttonMode": "Tryb przycisku",
-    "modeAction": "Akcja",
-    "modeCopy": "Kopiuj",
-    "modeFormAndAction": "Formularz i akcja",
-    "modeApiCall": "Wywołanie API",
-    "configuration": "Konfiguracja zaawansowana",
-    "buttonConfiguration": "Konfiguracja przycisku",
-    "dialogSchema": "Schemat okna dialogowego",
-    "internalJsonSchema": "Wewnętrzny schemat JSON",
-    "save": "Zapisz"
-  }
-}
-</i18n>

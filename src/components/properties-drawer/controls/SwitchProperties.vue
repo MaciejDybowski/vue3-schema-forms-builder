@@ -65,7 +65,7 @@ import SelectGeneral from "@/components/properties-drawer/atoms/SelectGeneral.vu
 import EventConfigruationPanel from "@/components/properties-drawer/panels/EventConfigruationPanel.vue";
 
 const useBuilderStateStore = useBuilderState();
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const panels = ref<string[]>(["general", "logic", "fieldProps"]);
 const model = computed({
   get() {
@@ -78,18 +78,3 @@ const model = computed({
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "en": {
-    "switchMode": "Switch mode",
-    "visibility": "Visibility",
-    "visibilityInfo": "Value of switch is internal"
-  },
-  "pl": {
-    "switchMode": "Tryb przełącznika",
-    "visibility": "Widoczność",
-    "visibilityInfo": "Wartość przełącznika jest wewnętrzna (nie zapisuje się w modelu formularza)"
-  }
-}
-</i18n>

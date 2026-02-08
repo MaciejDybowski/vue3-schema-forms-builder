@@ -26,21 +26,8 @@ import BooleanCheckboxPropertyWrapper from "@/components/properties-drawer/atoms
 
 const modelValue = defineModel()
 
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 </script>
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "fillRowProperty": "Fill entire row",
-    "fillRowInfo": "If checked, the element will fill the entire available space in the row. The next element will be moved to a new row."
-  },
-  "pl": {
-    "fillRowProperty": "Wypełnij cały wiersz",
-    "fillRowInfo": "Jeśli zaznaczone, element wypełni całą dostępną przestrzeń w wierszu. Kolejny element zostanie przeniesiony do nowego wiersza."
-  }
-}
-</i18n>

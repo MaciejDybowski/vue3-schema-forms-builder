@@ -46,7 +46,7 @@ import TextPropertyWrapper from "@/components/properties-drawer/atoms/TextProper
 import {useCodeEditorDialog} from "@/composables/useCodeEditorDialog";
 import CodeEditorDialog from "@/components/properties-drawer/atoms/CodeEditorDialog.vue";
 
-const {t} = useI18n();
+const {t} = useI18n({ useScope: 'global' });
 const model = defineModel();
 
 const {
@@ -71,16 +71,3 @@ const {
   cursor: pointer;
 }
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "readonlyExpression": "Readonly field (expression)",
-    "readonlyExpressionInfo": "You can define a JSONATA expression for the readonly property that controls whether this field is editable. Open the advanced editor for more complex expressions."
-  },
-  "pl": {
-    "readonlyExpression": "Pole tylko do odczytu (wyrażenie)",
-    "readonlyExpressionInfo": "Możesz zdefiniować wyrażenie JSONATA dla właściwości readonly, które kontroluje, czy to pole jest edytowalne. Otwórz zaawansowany edytor dla bardziej złożonych wyrażeń."
-  }
-}
-</i18n>

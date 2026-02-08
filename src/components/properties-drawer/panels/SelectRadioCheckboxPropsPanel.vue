@@ -104,7 +104,7 @@ withDefaults(defineProps<{
 
 const style = useStyle()
 const model = defineModel<any>()
-const {t} = useI18n()
+const {t} = useI18n({ useScope: 'global' })
 
 const bgColorMenu = ref(false);
 const colorMenu = ref(false);
@@ -113,28 +113,3 @@ const colorMenu = ref(false);
 
 <style lang="scss" scoped>
 </style>
-
-<i18n lang="json">
-{
-  "en": {
-    "fieldProperties": "Field properties",
-    "horizontalLayout": "Horizontal layout",
-    "multipleProps": "Allow multiple selections",
-    "bookmarkBgColor": "Bookmark background color",
-    "bookmarkColor": "Selected bookmark color",
-    "layoutDirection": "Layout direction",
-    "verticalLayout": "Vertical",
-    "horizontalLayoutAlt": "Horizontal"
-  },
-  "pl": {
-    "fieldProperties": "Właściwości pola",
-    "horizontalLayout": "Układ poziomy",
-    "multipleProps": "Zezwól na wiele zaznaczeń",
-    "bookmarkBgColor": "Kolor tła zakładki",
-    "bookmarkColor": "Kolor zaznaczonej zakładki",
-    "layoutDirection": "Kierunek układu",
-    "verticalLayout": "Pionowy",
-    "horizontalLayoutAlt": "Poziomy"
-  }
-}
-</i18n>

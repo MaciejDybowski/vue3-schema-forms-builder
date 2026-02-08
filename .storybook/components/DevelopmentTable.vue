@@ -33,7 +33,7 @@ const props = defineProps<{
 let loading = ref(true)
 
 onBeforeMount(async () => {
-  await fetchToken(props.workspaceId)
+  //await fetchToken(props.workspaceId)
   loading.value = false
 })
 

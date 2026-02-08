@@ -68,20 +68,3 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss" scoped></style>
-
-<i18n lang="json">
-{
-  "pl": {
-    "selectLang": "Język",
-    "translation": "Tłumaczenie"
-  },
-  "en": {
-    "selectLang": "Language",
-    "translation": "Translation"
-  },
-  "ru": {
-    "selectLang": "Язык",
-    "translation": "Translation"
-  }
-}
-</i18n>

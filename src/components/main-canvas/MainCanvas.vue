@@ -125,9 +125,3 @@ function updateSchema(schema: string) {
 
 
 </style>
-<i18n lang="json">
-{
-  "en": {},
-  "pl": {}
-}
-</i18n>
